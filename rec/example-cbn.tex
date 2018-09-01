@@ -1,0 +1,118 @@
+\def\defaultHypSeparation{\hskip .6cm}
+
+\begin{landscape}
+
+\begin{figure}[h!]
+  \begin{framed}
+    \begin{prooftree}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{3} \to^P_N 3$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{2} \to^P_N 2$}
+      \LeftLabel{\scriptsize{$(2_{\vv{==}})$}}
+      \BinaryInfC{$\vv{3 == 2} \to^P_N 0$}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{1} \to^P_N 1$}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{3} \to^P_N 3$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{2+1} \to^P_N 3$}
+      \LeftLabel{\scriptsize{($2_{\vv{==}}$)}}
+      \BinaryInfC{$\vv{3 == 2 + 1} \to^P_N 1$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{0} \to^P_N 0$}
+      \RightLabel{\scriptsize{$(2_\true)$}}
+      \BinaryInfC{$\ifelse{\vv{3 == 2+1}}{\vv{0}}{\vv{1+f(3,2+1+1)}} \to^P_N 0$}
+      \RightLabel{\scriptsize{(4)}}
+      \UnaryInfC{$\vv{f(3,2+1)} \to^P_N 0$}
+      \RightLabel{\scriptsize{$(2_{\vv{+}})$}}
+      \BinaryInfC{$\vv{1 + f(3,2+1)} \to^P_N 1$}
+      \RightLabel{\scriptsize{$(2_{\false})$}}
+      \BinaryInfC{$\ifelse{\vv{3 == 2}}{\vv{0}}{\vv{1 + f(3,2+1)}} \to^P_N 1$ }
+      \RightLabel{\scriptsize{(4)}}
+      \UnaryInfC{$\vv{f(3,2)} \to^P_N 1$}
+    \end{prooftree}
+  \end{framed}
+  \caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,2)}$}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{framed}
+    \begin{prooftree}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{2} \to^P_N 2$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\bot \to^P_N \bot$}
+      \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
+      \BinaryInfC{$\vv{3 == }\bot \to^P_N \bot$}
+      \RightLabel{\scriptsize{$(2_{\bot})$}} 
+      \UnaryInfC{$\ifelse{\vv{3 == }\bot}{\vv{0}}{\vv{1 + f(3,}\bot\vv{+1)}} \to^P_N \bot$ }
+      \RightLabel{\scriptsize{(4)}}
+      \UnaryInfC{$\vv{f(3,}\bot\vv{)} \to^P_N \bot$}
+    \end{prooftree}
+\end{framed}
+\caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,}\bot\vv{)}$}
+\end{figure}
+
+
+\def\defaultHypSeparation{\hskip .4cm}
+
+\begin{figure}[h!]
+  \begin{framed}
+    \begin{prooftree}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{2} \to^P_N 2$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{3} \to^P_N 3$}
+      \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
+      \BinaryInfC{$\vv{2 == 3} \to^P_N 0$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{1} \to^P_N 1$}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{2} \to^P_N 2$}
+      \AxiomC{}
+      \LeftLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{3} \to^P_N 3$}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{1} \to^P_N 1$}
+      \RightLabel{\scriptsize{$(2_{\vv{+}})$}}
+      \BinaryInfC{$\vv{3+1} \to^P_N 4$}
+      \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
+      \BinaryInfC{$\vv{2 == 3+1} \to^P_N 0$}
+      \AxiomC{$\vdots$}
+      \UnaryInfC{$\vv{1 + f(2,3+1+1)} \to^P_N \square$}
+      \RightLabel{\scriptsize{$(2_{\false})$}}
+      \BinaryInfC{$\ifelse{\vv{2 == 3+1}}{\vv{0}}{\vv{1 + f(2,3+1+1)}} \to^P_N \square$}
+      \RightLabel{\scriptsize{(4)}}
+      \UnaryInfC{$\vv{f(2,3+1)} \to^P_N \square$}
+      \RightLabel{\scriptsize{$(2_{\vv{+}})$}}
+      \BinaryInfC{$\vv{1+f(2,3+1)} \to^P_N \square$}
+      \RightLabel{\scriptsize{$(2_{\false})$}} 
+      \BinaryInfC{$\ifelse{\vv{2 == 3}}{\vv{0}}{\vv{1 + f(2,3+1)}} \to^P_N \square$ }
+      \RightLabel{\scriptsize{(4)}}
+      \UnaryInfC{$\vv{f(2,3)} \to^P_N \square$}
+    \end{prooftree}
+\end{framed}
+\caption{Част от безкрайното дърво на извод започващо от функционалния терм $\vv{f(2,3)}$}
+\end{figure}
+
+
+\end{landscape}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

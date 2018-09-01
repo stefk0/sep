@@ -1,0 +1,624 @@
+\section{Задачи}  
+
+Тук с $\A$, $\B$ и $\C$ ще означаваме области на Скот.
+
+\marginpar{Много от задачите са от \cite[стр. 31]{abramsky94}}
+
+\begin{problem}
+  Да разгледаме операторите \[\Gamma,\Delta \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}}.\]
+  Знаем, че операторът $\Gamma \circ \Delta$ е непрекъснат, където
+  \[(\Gamma\circ\Delta)(f) \dff \Gamma(\Delta(f)).\]
+  Вярно ли е, че
+  \[\lfp(\Gamma \circ \Delta) \sqsubseteq \lfp(\Gamma) \circ \lfp(\Delta)?\]
+  Обосновете се!
+\end{problem}
+\ifhints
+\begin{hint}
+  Нека $\A = \Nat_\bot$.
+  Нека например да разгледаме
+  \begin{align*}
+    & \Delta(f)(x) \dff f(x+1)\\
+    & \Gamma(f)(x) \dff
+      \begin{cases}
+        0, & x \neq \bot\\
+        \bot, & x = \bot.
+      \end{cases}
+  \end{align*}
+  Да положим $f_\Gamma \dff \lfp(\Gamma)$ и $f_\Delta \dff \lfp(\Delta)$.
+  Ясно е, че 
+  \begin{align*}
+    & f_\Delta(x) = \bot\\
+    & f_\Gamma(x) =
+    \begin{cases}
+      0, & x \neq \bot\\
+      \bot, & x = \bot.
+    \end{cases}  
+  \end{align*}
+  Тогава за произволно $x \in \Nat_\bot$,
+  \[(f_\Gamma\circ f_\Delta)(x) = f_\Gamma(f_\Delta(x)) = f_\Gamma(\bot)  = \bot.\]
+  От друга страна, понеже $(\Gamma \circ \Delta)(f) = \Gamma(\Delta(f))$, то 
+  \begin{align*}
+    & (\Gamma \circ \Delta)(f)(x) = \Gamma(\Delta(f))(x) = 
+      \begin{cases}
+        0, & x \neq \bot\\
+        \bot, & x = \bot.
+      \end{cases}
+  \end{align*}
+  Лесно се съобразява, че 
+  \[\lfp(\Gamma \circ \Delta)(x) =
+  \begin{cases}
+    0, & x \neq \bot\\
+    \bot, & x = \bot.
+  \end{cases}\]
+  Заключаваме, че 
+  \[\lfp(\Gamma \circ \Delta) \sqsupset \lfp(\Gamma) \circ \lfp(\Delta).\]
+\end{hint}
+\fi
+
+\begin{problem}
+  Да разгледаме операторите \[\Gamma,\Delta \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}}.\]
+  Знаем, че операторът $\Gamma \circ \Delta$ е непрекъснат, където
+  \[(\Gamma\circ\Delta)(f) \dff \Gamma(\Delta(f)).\]
+  Вярно ли е, че
+  \[\lfp(\Gamma \circ \Delta) \sqsupseteq \lfp(\Gamma) \circ \lfp(\Delta)?\]
+  Обосновете се!
+\end{problem}
+\ifhints
+\begin{hint}
+  Нека $\A = \Nat_\bot$.
+  Нека например да разгледаме
+  \begin{align*}
+    & \Delta(f)(x) \dff 0\\
+    & \Gamma(f)(x) \dff
+      \begin{cases}
+        0, & x = 0\\
+        \bot, & \text{ иначе}.
+      \end{cases}
+  \end{align*}
+  Да положим $f_\Gamma \dff \lfp(\Gamma)$ и $f_\Delta \dff \lfp(\Delta)$.
+  Ясно е, че 
+  \begin{align*}
+    & f_\Delta(x) = 0\\
+    & f_\Gamma(x) =
+    \begin{cases}
+      0, & x = 0\\
+      \bot, & \text{ иначе}.
+    \end{cases}  
+  \end{align*}
+  Тогава за произволно $x \in \Nat_\bot$,
+  \[(f_\Gamma\circ f_\Delta)(x) = f_\Gamma(f_\Delta(x)) = f_\Gamma(0)  = 0.\]
+  От друга страна, понеже $(\Gamma \circ \Delta)(f) = \Gamma(\Delta(f))$, то 
+  \begin{align*}
+    & (\Gamma \circ \Delta)(f)(x) = \Gamma(\Delta(f))(x) = 
+      \begin{cases}
+        0, & x = 0\\
+        \bot, & \text{ иначе}.
+      \end{cases}
+  \end{align*}
+  Лесно се съобразява, че 
+  \[\lfp(\Gamma \circ \Delta)(x) =
+  \begin{cases}
+    0, & x = 0\\
+    \bot, & \text{ иначе}.
+  \end{cases}\]
+  Заключаваме, че 
+  \[\lfp(\Gamma \circ \Delta) \sqsubset \lfp(\Gamma) \circ \lfp(\Delta).\]
+\end{hint}
+\fi
+
+\begin{problem}
+  Нека $f_0 \sqsubseteq f_1 \sqsubseteq f_2 \sqsubseteq \cdots$
+  е верига от елементи на $\Cont{\A}{\A}$.
+  Да положим $h = \bigsqcup_n f_n$.
+  Вярно ли е, че 
+  \[h \circ h = \bigsqcup_n (f\circ f)?\]
+  Обосновете се!
+\end{problem}
+
+\begin{problem}
+  Да разгледаме едно изображение $f: \A \times \B \to \C$.
+  За произволно $a \in \A$, дефинираме изображението $g_a: \B \to \C$, където
+  \[g_a(b) \dff f(a,b).\]
+  Аналогично, за произволно $b \in \B$, дефинираме изображението $h_b: \A \to \C$, където
+  \[h_b(a) \dff f(a,b).\]
+  Докажете, че следните твърдения са еквивалентни:
+  \begin{enumerate}[1)]
+  \item 
+    $f$ е непрекъснато изображение;
+  \item
+    $g_a$ и $h_b$ са непрекъснати изображения, за всяко $a \in \A$ и $b \in \B$.
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  Да разгледаме $f \in \Cont{\A \times \B}{\C}$.
+  За произволно $a \in \A$, дефинираме изображението $g_a: \B \to \C$, където
+  \[g_a(b) \dff f(a,b).\]
+  Вече знаем, че $g_a \in \Cont{\B}{\C}$, за всяко $a \in \A$.
+  Да разгледаме изображението $h:\A \to \Cont{\B}{\C}$, където
+  \[h(a) \dff g_a.\]
+  Докажете, че $h$ е непрекъснато изображение.
+\end{problem}
+
+\begin{problem}
+  \marginpar{\cite[стр. 129]{nikolova-soskova}}
+  Да разгледаме $f \in \Cont{\A \times \B}{\B}$.
+  За произволно $a \in \A$, дефинираме изображението $g_a: \B \to \B$, където
+  \[g_a(b) \dff f(a,b).\]
+  Вече знаем, че $g_a \in \Cont{\B}{\B}$, за всяко $a \in \A$,
+  следователно $\lfp(g_a)$ съществува.
+  Да разгледаме изображението $h:\A \to \B$, където
+  \[h(a) \dff \lfp(g_a).\]
+  Докажете, че $h$ е непрекъснато изображение.
+\end{problem}
+
+
+\begin{problem}
+  Да разгледаме $f \in \Cont{\A}{\Cont{\B}{\C}}$.
+  За произволно $a \in \A$, дефинираме изображението $g_a \in \Cont{\B}{\C}$, където
+  \[g_a(b) \dff f(a).\]
+  Да разгледаме изображението $h:\A\times \B \to \C$, където
+  \[h(a,b) \dff g_a(b).\]
+  Докажете, че $h$ е непрекъснато изображение.
+\end{problem}
+
+\begin{problem}
+  Нека са дадени областите на Скот $\D$ и $\E$ и изображението 
+  \[\texttt{eval}: \Cont{\D}{\E} \times \D \to \E,\]
+  където 
+  \[\texttt{eval}(f,d) \dff f(d).\]
+  Докажете, че $\texttt{eval}$ е непрекъснато изображение.
+\end{problem}
+\ifhints
+\begin{hint}
+  Понеже $\bigsqcup_n(f_n,d_n) = (\bigsqcup_m f_m,\bigsqcup_n d_n)$, 
+  ще докажем, че \[\texttt{eval}(\bigsqcup_m f_m, \bigsqcup_n d_n) = \bigsqcup_n \texttt{eval}(f_n,d_n).\]
+  Знаем, че
+  \begin{align*}
+    \texttt{eval}(\bigsqcup_m f_m, \bigsqcup_n d_n) & = (\bigsqcup_m f_m)(\bigsqcup_n d_n) & (\mbox{от опр. на }\texttt{eval})\\
+    & = \bigsqcup_m (f_m(\bigsqcup_n d_n)) & (\mbox{от опр. на }\bigsqcup_mf_m)\\
+    & = \bigsqcup_m (\bigsqcup_n (f_m(d_n)) & (\mbox{всяка }f_m\mbox{ е непр.} )\\
+  \end{align*}
+  Нека да положим $e_{m,n} = f_m(d_n)$.
+  Лесно се съобразява, че
+  \[m \leq m^\prime\ \&\ n \leq n^\prime\ \Rightarrow\ e_{m,n} \sqsubseteq^\E e_{m^\prime,n^\prime}.\]
+  Така получаваме, че 
+  \begin{align*}
+    \texttt{eval}(\bigsqcup_m f_m, \bigsqcup_n d_n) & = \bigsqcup_m (\bigsqcup_n (f_m(d_n)) & (\mbox{от по-горе})\\
+    & = \bigsqcup_{m,n} e_{m,n} = \bigsqcup_{n} e_{n,n} & (\mbox{от \Th{double-chain}})\\
+    & = \bigsqcup_{n} f_n(d_n) & (\text{ от опр. на }e_{m,n})\\
+    & = \bigsqcup_n \texttt{eval}(f_n,d_n).
+  \end{align*}
+\end{hint}
+\fi
+
+
+% \begin{problem}
+%   Нека фиксираме $f \in \Cont{\A}{\B}$.
+%   Да образуваме изображението 
+%   \[\Gamma: \Cont{\B}{\C} \to \Cont{\A}{\C},\]
+%   където
+%   \[\Gamma(g) \dff g \circ f.\]
+%   Докажете, че $\Gamma$ е непрекъснато изображение.
+% \end{problem}
+
+\begin{problem}
+  Нека изображението \[\texttt{comp}:(\Cont{\B}{\C} \times \Cont{\A}{\B}) \to \Cont{\A}{\C}\]
+  е определено като 
+  \[\texttt{comp}(g,f) \dff g\circ f.\]
+  \marginpar{$(g \circ f)(a) = g(f(a))$}
+  Докажете, че $\texttt{comp}$ е непрекъснато изображение.
+\end{problem}
+\ifhints
+\begin{hint}
+  \marginpar{\cite[стр. 124]{reynolds}}
+  Трябва да докажем, че за всяка монотонно растяща редица $\{(g_n,f_n)\}_{n\in\Nat}$,
+  \[\Gamma(\bigsqcup_n(g_n,f_n))(a) = \bigsqcup_n\Gamma(g_n,f_n)(a),\]
+  за произволно $a \in A$.
+  Да фиксираме едно $a\in A$ и да положим $g_n(f_k(a)) = e_{n,k}$.
+  Лесно се вижда, че 
+  \[n\leq n^\prime\ \&\ k \leq k^\prime\ \Rightarrow\ e_{n,k} \sqsubseteq e_{n^\prime,k^\prime}.\]
+  Тогава:
+  \begin{align*}
+    \Gamma(\bigsqcup_n(g_n,f_n))(a) & = \Gamma(\bigsqcup_n g_n, \bigsqcup_k f_k)(a) & \\
+    & = (\bigsqcup_n g_n)(\bigsqcup_k f_k(a)) & (\text{ по деф. на }\Gamma )\\
+    & = (\bigsqcup_n g_n)(\bigsqcup_k b_k) & (\text{ полагаме }b_k = f_k(a))\\
+    & = \bigsqcup_k (\bigsqcup_n g_n)(b_k) & (\bigsqcup_n g_n\text{ е непр.})\\
+    & = \bigsqcup_k(\bigsqcup_n g_n(b_k)) & (\text{ по деф. на }\bigsqcup_n g_n)\\
+    & = \bigsqcup_k (\bigsqcup_n g_n(f_k(a))) & (\text{ полагаме }e_{n,k} = g_n(f_k(a)))\\
+    & = \bigsqcup_k\bigsqcup_n e_{n,k} = \bigsqcup_n e_{n,n} & (\text{ от \Th{double-chain}})\\
+    & = \bigsqcup_n g_n(f_n(a)) = \bigsqcup_n \Gamma(g_n, f_n)(a).
+  \end{align*}
+\end{hint}
+\fi
+
+\begin{remark}
+  \marginpar{Когато пишем $(.)$ означава, че операцията е инфиксна}
+  В хаскел има операция композиция на функции.
+  \begin{haskellcode}
+ghci> :t (.)
+(.) :: (b -> c) -> (a -> b) -> a -> c
+  \end{haskellcode}
+\end{remark}
+
+\begin{problem}
+  \marginpar{\cite[стр. 131]{nikolova-soskova}}
+  Нека $f \in \Cont{\A}{\B}$ и $g \in \Cont{\B}{\A}$.
+  Докажете, че 
+  \begin{itemize}
+  \item 
+    $\lfp(g \circ f) \sqsubseteq g(\lfp(f \circ g))$;
+  \item
+    $f(\lfp(g \circ f)) \sqsubseteq \lfp(f \circ g)$.
+  \end{itemize}
+  Оттук заключете, че 
+  \[\lfp(g \circ f) = g(\lfp(f \circ g)) \text{ и }f(\lfp(g \circ f)) = \lfp(f \circ g).\]
+\end{problem}
+
+
+% \begin{problem}[Кантор-Шрьодер-Бернщайн]
+%   \marginpar{\cite[стр. 639]{hanbook-cs}}
+%   Нека имаме две инективни функции $f:A \to B$ и $g:B \to A$.
+%   Тогава съществува биективна функция $h: A \to B$.  
+% \end{problem}
+% \begin{hint}
+%   За множеството $B$, да дефинираме областта на Скот 
+%   \[\D_B = (\Ps(B),\subseteq,\emptyset).\]
+%   \begin{enumerate}[a)]
+%   \item 
+%     За дадените от условието инективни функции $f$ и $g$,
+%     да разгледаме изображението $\Gamma:\D_B \to \D_B$ зададено като
+%     \marginpar{Озн. $h(X) = \{h(x) \mid x\in X\}$, $h^{-1}(X) = \{z \mid h(z) \in X\}$}
+%     \[\Gamma(X) = B\setminus f(A)\cup f(g(X)).\]
+%     Докажете, че $F$ е непрекъснато изображение.
+%   \item
+%     \Stefan{Използвам, че $X_0$ е неподвижна точка, но не виждам къде използвам, че е най-малката.}
+%     Нека $X_0 = \lfp(\Gamma)$. Тогава $X_0 = B\setminus f(A) \cup f(g(X_0))$.
+%     Докажете, че 
+%     \[B \setminus X_0 = f(A \setminus g(X_0)).\]
+%   \item
+%     Дефинираме функцията $h:A \to B$ по следния начин:
+%     \begin{align*}
+%       h(a) = 
+%       \begin{cases}
+%         g^{-1}(a), & a \in g(X_0)\\
+%         f(a), & a \in A \setminus g(X_0).
+%       \end{cases}
+%     \end{align*}
+%     Докажете, че $h$ е биекция.
+%   \end{enumerate}
+% \end{hint}
+
+\begin{problem}% Gunter textbook
+  Нека $f \in \Cont{\A}{\A}$.
+  Да разгледаме множеството 
+  \[B = \{a \in \A \mid f(a) = a\}.\]
+  Вярно ли е, че 
+  \[\B = (B, \sqsubseteq^\A, \lfp(f))\] е област на Скот?
+  Обосновете се!
+\end{problem}
+
+\begin{problem}% Gunter textbook
+  Нека $f \in \Cont{\A}{\A}$.
+  Да разгледаме множеството 
+  \[B = \{a \in \A \mid f(a) \sqsubseteq a\}.\]
+  Вярно ли е, че 
+  \[\B = (B, \sqsubseteq^\A, \lfp(f))\] е област на Скот?
+  Обосновете се!
+\end{problem}
+
+
+\begin{problem} % Gunter textbook
+  Да разгледаме множеството
+  \[B = \{f \in \Mon{\A}{\A} \mid f\circ f = f\}.\]
+  Вярно ли е, че 
+  \[\B = (B,\ \sqsubseteq,\ \lambda x.\bot^\A)\] е област на Скот,
+  където 
+  \[f \sqsubseteq g \dfff (\forall a\in\A)[f(a) \sqsubseteq^\A g(a)] ?\]
+  Обосновете се!
+\end{problem}
+
+% \begin{problem} % Gunter textbook
+%   Да разгледаме множеството
+%   \[B = \{f \in \Strict{\A}{\A} \mid f\circ f = f\}.\]
+%   Вярно ли е, че 
+%   \[\B = (B,\ \sqsubseteq,\ \lambda x.\bot^\A)\] е област на Скот,
+%   където 
+%   \[f \sqsubseteq g \dfff (\forall a\in\A)[f(a) \sqsubseteq^\A g(a)] ?\]
+%   Обосновете се!
+% \end{problem}
+
+\begin{problem} % Gunter textbook
+  Да разгледаме множеството
+  \[B = \{f \in \Strict{\Nat_\bot}{\Nat_\bot} \mid f\circ f = f\}.\]
+  Вярно ли е, че 
+  \[\B = (B,\ \sqsubseteq,\ \lambda x.\bot)\] е област на Скот,
+  където 
+  \[f \sqsubseteq g \dfff (\forall a\in\Nat_\bot)[f(a) \sqsubseteq g(a)] ?\]
+  Обосновете се!
+\end{problem}
+
+\begin{problem}
+  % \marginpar{\cite[стр. 124]{reynolds}}
+  Нека $f \in \Mon{\A}{\B}$ и $g \in \Mon{\B}{\A}$ имат свойствата:
+  \begin{itemize}
+  \item 
+    $f\circ g = id_\B$;
+  \item
+    $g \circ f = id_\A$.
+  \end{itemize}
+  Докажете, че $f$ и $g$ са точни и непрекъснати.
+\end{problem}
+
+
+\begin{problem}
+  % \marginpar{задачата е \href{http://www.cl.cam.ac.uk/teaching/exams/pastpapers/y2008p8q14.pdf}{оттук} и \href{http://www.cl.cam.ac.uk/teaching/exams/pastpapers/y1998p9q10.pdf}{оттук}}
+  Да разгледаме областта на Скот 
+  \[\O = (\{\bot,\top\},\sqsubseteq, \bot),\]
+  където $\bot \sqsubseteq \top$.
+  За произволна област на Скот $\A$ и елемент $a \in \A$, $a \neq \bot$, дефинираме изображенията:
+  \begin{enumerate}[a)]
+  \item
+    $f_a:\A \to \O$, където
+    \[f_a(x) \dff
+    \begin{cases}
+      \top, & a \sqsubseteq x\\
+      \bot, & a \not\sqsubseteq x.
+    \end{cases}\]
+    Вярно ли е, че $f_a$ е точно непрекъснато изображение? Обосновете се!
+  \item
+    $\hat{f}_a:\A \to \O$, където
+    \[\hat{f}_a(x) \dff
+    \begin{cases}
+      \bot, & a \sqsubseteq x\\
+      \top, & a \not\sqsubseteq x.
+    \end{cases}\]
+    Вярно ли е, че $\hat{f}_a$ е точно непрекъснато изображение? Обосновете се!
+  \item 
+    $g_a:\A \to \O$, където
+    \[g_a(x) \dff
+    \begin{cases}
+      \bot, & x \sqsubseteq a\\
+      \top, & x \not\sqsubseteq a.
+    \end{cases}\]
+    Вярно ли е, че $g_a$ е точно непрекъснато изображение? Обосновете се!
+  \item 
+    $\hat{g}_a:\A \to \O$, където
+    \[\hat{g}_a(x) \dff
+    \begin{cases}
+      \top, & x \sqsubseteq a\\
+      \bot, & x \not\sqsubseteq a.
+    \end{cases}\]
+    Вярно ли е, че $\hat{g}_a$ е точно непрекъснато изображение? Обосновете се!
+  \item
+    Докажете, че 
+    \[f \in \Cont{\D}{\A} \iff (\forall a \in \A)[g_a \circ f \in \Cont{\D}{\O}].\]
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  Да разгледаме изображението
+  \[\Gamma: \Cont{\A}{\B} \times \Cont{\A}{\C} \to \Cont{\A}{\B\times\C},\]
+  където $\Gamma(f,g)(a) \dff \pair{f(a),g(b)}$.
+  \begin{itemize}
+  \item
+    Докажете, че $\Gamma$ е добре дефинирано изображение, т.е. за всеки непрекъснати $f$ и $g$,
+    $\Gamma(f,g)$ е непрекъснато изображение.
+  \item 
+    Докажете, че $\Gamma$ е непрекъснато изображение.
+  \end{itemize}
+\end{problem}
+
+\begin{problem}
+  \marginpar{задачата е \href{http://www.cl.cam.ac.uk/teaching/exams/pastpapers/y2005p9q15.pdf}{оттук}}
+  Докажете, че изображението
+  \[\texttt{uncurry}:\Cont{\A}{\Cont{\B}{\C}} \to \Cont{\A\times \B}{\C},\]
+  дефинирано като
+  \[\texttt{uncurry}(f)(a,b) \dff f(a)(b),\]
+  е непрекъснато.
+\end{problem}
+
+\begin{problem}
+  Докажете, че изображението
+  \[\texttt{curry}:\Cont{\A\times \B}{\C} \to \Cont{\A}{\Cont{\B}{\C}},\]
+  дефинирано като
+  \[\texttt{curry}(f)(a)(b) \dff f(a,b),\]
+  е непрекъснато.
+\end{problem}
+
+\newpage
+\subsection{Регулярни езици}
+
+Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_k\}$.
+Да дефинираме полиномите над $\Sigma$ като
+\[\tau ::= \emptyset\ |\ \varepsilon\ |\ a_i \cdot X_j\ |\ \tau_1 + \tau_2.\]
+където $i = 1, \dots,k$, а $X$ е променлива.
+За всеки полином $\tau[X_1,\dots,X_n]$ дефинираме оператора 
+\[\val{\tau}: \mathcal{P}(\Sigma^\star)^n \to \mathcal{P}(\Sigma^\star)\]
+ по следния начин:
+\begin{itemize}
+\item
+    $\val{\emptyset}(L_1,\dots,L_n) = \emptyset$.
+\item 
+  $\val{\varepsilon}(L_1,\dots,L_n) = \varepsilon$.
+\item 
+  $\val{a_i \cdot X_j}(L_1,\dots,L_n) = \{a_i\} \cdot L_j$.
+\item
+  $\val{\tau_1 + \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cup \val{\tau_2}(L_1,\dots,L_n)$.
+\end{itemize}
+
+\begin{problem}
+  Докажете, че за всеки полином $\tau$ имаме, че $\val{\tau}$ е непрекъснато изображение в областта на Скот
+  $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
+\end{problem}
+
+
+\begin{example}
+  Да разгледаме системата 
+  \marginpar{$\tau_1[X_1,X_2] \equiv b \cdot X_1 + a \cdot X_2$}
+  \marginpar{$\tau_2[X_1,X_2] \equiv \varepsilon$}
+  \begin{align*}
+    & X_1 = b \cdot X_1 + a\cdot X_2\\
+    & X_2 = \varepsilon.
+  \end{align*}
+
+  % Понеже $\val{\tau}$ е непрекъснат оператор, то той има най-малка неподвижна точка.
+  Дефинираме непрекъснатия оператор 
+  \[\Gamma:\mathcal{P}(\Sigma^\star)^2 \to \mathcal{P}(\Sigma^\star)^2,\]
+  където:
+  \[\Gamma(L_1,L_2) = (\val{\tau_1}(L_1,L_2), \val{\tau_2}(L_1,L_2)).\]
+
+  От Теоремата на Клини ние знам как можем да намерим най-малката неподвижна точка на $\Gamma$,
+  която ще бъде и най-малкото решение на горната система.
+
+  \begin{itemize}
+  \item 
+    $(L_0,M_0) \df (\emptyset,\emptyset)$;
+  \item
+    $(L_1,M_1) \df \Gamma(L_0,M_0) = (\val{\tau_1}(L_0,M_0), \val{\tau_2}(L_0,M_0)) = (\emptyset, \varepsilon)$;
+  \item
+    $(L_2,M_2) \df \Gamma(L_1,M_1) = (\val{\tau_1}(L_1,M_1), \val{\tau_2}(L_1,M_1)) = (\{a\},\varepsilon)$;
+  \item
+    $(L_3,M_3) \df \Gamma(L_2,M_2) = (\val{\tau_1}(L_2,M_2), \val{\tau_2}(L_2,M_2)) = (\{ba,a\},\varepsilon)$;
+  \item
+    $(L_4,M_4) \df \Gamma(L_3,M_3) =(\val{\tau_1}(L_3,M_3), \val{\tau_2}(L_3,M_3)) = (\{bba, ba,a\},\varepsilon)$;
+  \item
+    $(L_5,M_5) \df \Gamma(L_4,M_4) = ( \val{\tau_1}(L_4,M_4), \val{\tau_2}(L_4,M_4)) = (\{bba, bba, ba,a\},\varepsilon)$.
+  \end{itemize}
+  Лесно се съобразява, че $L_n = \{ b^ka \mid k < n\}$.
+  Тогава
+  \[\lfp( \Gamma ) = (\bigcup_n L_n, \{\varepsilon\}) = (b^\star a, \{\varepsilon\} ).\]
+\end{example}
+
+
+\begin{problem}
+  Докажете, че най-малкото решение на системата 
+  \begin{align*}
+    & X_1 = a \cdot X_1 + b \cdot X_2 + \varepsilon\\
+    & X_2 = b \cdot X_2 + \varepsilon
+  \end{align*}
+  е двойката $(a^\star b^\star, b^\star)$.
+\end{problem}
+
+\begin{problem}
+  Да разгледаме системата от оператори
+  \begin{align*}
+    & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
+    & \ \ \vdots\\
+    & \val{\tau_n}(L_1,\dots,L_n) = L_n.
+  \end{align*}
+  Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
+  Докажете, че всеки от езиците $\hat{L}_i$ е регулярен.
+
+  Докажете, че всеки регулярен език е елемент от най-малкото решение 
+  на някоя система от оператори от горния вид.
+\end{problem}
+
+
+% \begin{problem}
+%   Докажете, че всеки регулярен език е елемент на най-малкото решение на някоя система от $n$
+%   полинома с $n$ променливи за някое $n$.
+% \end{problem}
+
+% \begin{problem}
+%   Докажете, че всяко най-малко решение на система от $n$ полинома с $n$ променливи представлява $n$-орка от 
+%   регулярни езици.
+% \end{problem}
+
+% \begin{problem}
+%   Опишете алгоритъм, по който може от система от $n$ полинома с $n$ променливи да се построи 
+%   краен автомат с $n$ състояния.
+% \end{problem}
+
+% \begin{problem}
+%   Опишете алгоритъм, по който може от краен автомат с $n$ състояния може да се построи 
+% \end{problem}
+
+
+
+\subsection{Безконтекстни езици}
+
+Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_n\}$.
+Да дефинираме термове от тип 1 като
+\[\tau ::= X_i\ |\ a_j\ |\ \varepsilon\ |\ \emptyset\ |\ \tau_1 \cdot \tau_2\ |\ (\tau_1 + \tau_2),\]
+където $j = 1, \dots,n$, а $X_i$ са изброимо безкрайна редица от променливи.
+За всеки терм $\tau[X_1,\dots,X_n]$ дефинираме оператора 
+\[\val{\tau}: (\mathcal{P}(\Sigma^\star))^n \to \mathcal{P}(\Sigma^\star)\]
+ по следния начин:
+\begin{itemize}
+\item 
+  $\val{X_i}(L_1,\dots,L_n) = L_i$.
+\item 
+  $\val{a_j}(L_1,\dots,L_n) = \{a_j\}$.
+\item 
+  $\val{\varepsilon}(L_1,\dots,L_n) = \varepsilon$.
+\item 
+  $\val{\emptyset}(L_1,\dots,L_n) = \emptyset$.
+\item 
+  $\val{\tau_1 \cdot \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cdot \val{\tau_2}(L_1,\dots,L_n)$.
+\item
+  $\val{\tau_1 + \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cup \val{\tau_2}(L_1,\dots,L_n)$.
+\end{itemize}
+
+\begin{problem}
+  Докажете, че за всеки терм $\tau$, $\val{\tau}$ е непрекъснато изображение в областта на Скот
+  $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
+\end{problem}
+
+\begin{problem}
+  Докажете, че $\{a^nb^n \mid n\in \Nat\} = \lfp(\val{\tau})$, където 
+  \[\tau[X] \equiv \varepsilon + a \cdot X \cdot b.\]
+  С други думи, $\{a^nb^n \mid n \in \Nat\}$ е най-малкото решение на уравнението
+  \[X = a \cdot X \cdot b + \varepsilon.\]
+\end{problem}
+
+Нека сега да разгледаме термовете $\tau_1[X_1,\dots,X_n], \dots, \tau_n[X_1,\dots,X_n]$.
+
+\begin{problem}
+  Да разгледаме системата от оператори
+  \begin{align*}
+    & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
+    & \ \ \vdots\\
+    & \val{\tau_n}(L_1,\dots,L_n) = L_n.
+  \end{align*}
+  Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
+  Докажете, че всеки от езиците $\hat{L}_i$ е безконтекстен.
+
+  Докажете, че всеки безконтекстен език е елемент от най-малкото решение 
+  на някоя система от оператори от горния вид.
+\end{problem}
+
+\begin{problem}
+  \marginpar{Това е аналог на нормалната форма на Чомски}
+  Да дефинираме термове от тип 2 като
+  \[\tau ::= a_j\ |\ \varepsilon\ |\ \emptyset\ |\ X_i \cdot X_k\ |\ (\tau_1 + \tau_2),\]
+  където $j = 1, \dots,n$, а $X_i$ са изброимо безкрайна редица от променливи.
+  Докажете горното твърдение, като замените термовете от тип 1 с тези от тип 2.
+\end{problem}
+
+\begin{example}
+  Да разгледаме системата
+  \begin{align*}
+    & X_1 = X_3 \cdot X_2 + \varepsilon\\
+    & X_2 = X_1 \cdot X_4\\
+    & X_3 = a\\
+    & X_4 = b.
+  \end{align*}
+
+
+  % \begin{align*}
+  %   & \val{\varepsilon + X_3 \cdot X_2}(L_1, L_2, L_3, L_4) = L_1\\
+  %   & \val{X_1 \cdot X_4}(L_1, L_2, L_3, L_4) = L_2\\
+  %   & \val{a}(L_1, L_2, L_3, L_4) = L_3\\
+  %   & \val{b}(L_1, L_2, L_3, L_4) = L_4\\
+  % \end{align*}
+  Нека $(\hat{L}_1, \hat{L}_2, \hat{L}_3, \hat{L}_4)$ е най-малкото решение на системата.
+  Докажете, че $\hat{L}_1 = \{a^nb^n\mid n \in \Nat\}$ $\hat{L}_2 = \{a^nb^{n+1}\mid n \in \Nat\}$,
+  $\hat{L}_3 = \{a\}$ и $\hat{L}_4 = \{b\}$.
+\end{example}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

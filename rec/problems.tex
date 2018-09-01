@@ -1,0 +1,854 @@
+\section{Задачи}
+
+\begin{problem}
+  % \label{pr:op-name-monotone}
+  \Stefan{Да се премести при задачите}
+  Нека с всеки терм $\tau$ да асоциираме изображението $f_\tau:\Nat^n_\bot \to \Nat_\bot$,
+  където 
+  \[f_\tau(\ov{a}) \dff \evaln{\tau[\varsx/\ov{\vv{a}}]}.\]
+  Докажете, че:
+  \begin{itemize}
+  \item 
+    $f_\tau$ е функция;
+  \item
+    $f_\tau \in \Mon{\Nat^n_\bot}{\Nat_\bot}$;
+  \item
+    $f_\tau \in \Cont{\Nat^n_\bot}{\Nat_\bot}$.
+  \end{itemize}
+
+\end{problem}
+% \begin{hint}
+%   \marginpar{\writedown Домашно!}
+%   От \Cor{monotone-is-continuous} достатъчно е да проверим, че $\evaln\tau \in \Mon{\Nat^n_\bot}{\Nat_\bot}$.
+%   Трябва да проверим дали за всяко $\bar{a},\bar{b} \in \Nat^n_\bot$,
+%   \[\bar{a} \sqsubseteq \bar{b} \implies \evaln\tau(\bar{a}) \sqsubseteq \evaln\tau(\bar{b}).\]
+%   Индукция по дължината на извода.
+% \end{hint}
+
+\begin{problem}
+  \marginpar{Лема за симулацията \cite[стр. 177]{ditchev-soskov}}
+  \Stefan{Да се премести при задачи}
+  Да разгледаме една рекурсивна програма $\vv{P}[\vv{x}_1,\dots,\vv{x}_n,\varsf]$.
+  Нека $\vv{y}_1,\dots,\vv{y}_k$ са обектови променливи, различни от тези в $\vv{P}$.
+  Нека $\rho[\vv{y}_1,\dots,\vv{y}_k, \varsf]$ е произволен терм.
+  Докажете, че
+  \marginpar{Когато слагаме $\vdots$ означаваме, че не знаем колко дълъг е извода. Една линия означава, че имаме директен извод. 
+    Възможно е някои $c_j = \bot$}
+  \label{pr:simulation}
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^P_N c_1$}
+      \AxiomC{$\cdots$}
+      \AxiomC{$\mu_{k}\to^P_N c_{k}$}
+      \AxiomC{$\rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] \to^P_N b$}
+      \QuaternaryInfC{$\vdots$}
+      \UnaryInfC{$\rho[\vv{y}_1/\mu_1,\dots,\vv{y}_{m_i}/\mu_{m_i}] \to^P_N b$}
+    \end{prooftree}
+  \end{figure}
+  
+  Оттук заключете, че 
+  \[\O_V\val{\vv{P}} \sqsubseteq \O_N\val{\vv{P}}.\]
+\end{problem}
+% \begin{proof}
+%   Индукция по дължината на извода на \[\rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] \to^P_N b.\]
+%   Да приемем, че твърдението е вярно за дължини на извода $< l$.
+%   Ще докажем, че то е вярно за дължина на извода $l$.
+%   За целта ще разгледаме вида на терма $\rho$.
+%   \begin{itemize}
+%   \item
+%     Нека $\rho \equiv \vv{c}$. Единствената възможност тук е $c = b$.
+%   \item
+%     Нека $\rho \equiv \vv{y}_i$. Този случай е ясен, защото 
+%     $\rho[\bar{\vv{y}}/\bar{\mu}] \equiv \mu_i$ и е очевидно, че
+%     \begin{prooftree}
+%       \AxiomC{$\mu_i \to^P_N c_i$}
+%       \UnaryInfC{$\rho[\bar{\vv{y}}/\bar{\mu}] \to^P_N c_i$}
+%     \end{prooftree}
+%     Тук също имаме, че $c_i = b$.
+%   \item
+%     Нека $\rho \equiv \rho_1\ \op\ \rho_2$. Тогава ако $\rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] \to^P_N b$ е извод с дължина $l$, то той е получен по правилото:
+%     \begin{prooftree}
+%       \AxiomC{$\vdots$}
+%       \LeftLabel{\scriptsize{(извод с дълж. $l_1$)}}
+%       \UnaryInfC{$\rho_1[\bar{\vv{y}}/\bar{\vv{c}}]\to^P_N b_1$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{(извод с дълж. $l_2$)}}
+%       \UnaryInfC{$\rho_2[\bar{\vv{y}}/\bar{\vv{c}}] \to^P_N b_2$}
+%       \RightLabel{$(2_\op)$}
+%       \BinaryInfC{$\rho[\bar{\vv{y}}/\bar{\vv{c}}] \to^P_N b$}
+%     \end{prooftree}
+%     Тук имаме, че $l = l_1 + l_2 + 1$ и и $b = b_1 op^\star b_2$. Следователно можем да приложим индукционното предположение.
+%     Получаваме, че:
+
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{k}\to^P_N c_{k}$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{(дълж. $< l$)}}
+%       \UnaryInfC{$\rho_1[\bar{\vv{y}}/\bar{\vv{c}}]\to^P_N b_1$}
+%       % \doubleLine
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize{(\bf{И.П.})}}
+%       \UnaryInfC{$\rho_1[\bar{\vv{y}}/\bar{\mu}] \to^P_N b_1$}
+%     \end{prooftree}
+%     Аналогично получаваме, че:
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{k}\to^P_N c_{k}$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{(дълж. $< l$)}}
+%       \UnaryInfC{$\rho_2[\bar{\vv{y}}/\bar{\vv{c}}]\to^P_N b_2$}
+%       % \doubleLine
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize{(\bf{И.П.})}}
+%       \UnaryInfC{$\rho_2[\bar{\vv{y}}/\bar{\mu}] \to^P_N b_2$}
+%     \end{prooftree}
+    
+%     Накрая прилагаме правило $(2_\op)$ и завършваме:
+
+%     \begin{prooftree}
+%       \AxiomC{$\rho_1[\bar{\vv{y}}/\bar{\mu}]\to^P_N b_1$}
+%       \AxiomC{$\rho_2[\bar{\vv{y}}/\bar{\mu}]\to^P_N b_2$}
+%       \RightLabel{$(2_\op)$}
+%       \BinaryInfC{$\underbrace{\rho_1[\bar{\vv{y}}/\bar{\mu}]\ \op^\star\ \rho_2[\bar{\vv{y}}/\bar{\mu}]}_{\rho[\bar{\vv{y}}/\bar{\mu}]} \to^P_N b$}
+%     \end{prooftree}
+    
+%   \item
+%     Нека $\rho \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$. Тогава ако $\rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] \to^P_N b$ е извод с дължина $l$, то той е получен по правилото:
+%     \begin{prooftree}
+%       \AxiomC{$\vdots$}
+%       \LeftLabel{\scriptsize{(извод с дълж. $l_0$)}}
+%       \UnaryInfC{$\tau_0[\bar{\vv{y}}/\bar{\vv{c}}]\to^P_N 0$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{(извод с дълж. $l_2$)}}
+%       \UnaryInfC{$\tau_2[\bar{\vv{y}}/\bar{\vv{c}}] \to^P_N b$}
+%       \RightLabel{$(3_\false)$}
+%       \BinaryInfC{$\rho[\bar{\vv{y}}/\bar{\vv{c}}] \to^P_N b$}
+%     \end{prooftree}
+%     Тук имаме, че $l = l_0 + l_2 + 1$ и следователно можем да приложим индукционното предположение. 
+%     Така получаваме, че:
+    
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{k}\to^P_N c_{k}$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{(дълж. $< l$)}}
+%       \UnaryInfC{$\tau_0[\bar{\vv{y}}/\bar{\vv{c}}]\to^P_N 0$}
+%       % \doubleLine
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize{(\bf{И.П.})}}
+%       \UnaryInfC{$\tau_0[\bar{\vv{y}}/\bar{\mu}] \to^P_N 0$}
+%     \end{prooftree}
+
+%     Аналогично получаваме, че:
+
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{k}\to^P_N c_{k}$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{(дълж. $< l$)}}
+%       \UnaryInfC{$\tau_2[\bar{\vv{y}}/\bar{\vv{c}}]\to^P_N b$}
+%       % \doubleLine
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize{(\bf{И.П.})}}
+%       \UnaryInfC{$\tau_2[\bar{\vv{y}}/\bar{\mu}] \to^P_N b$}
+%     \end{prooftree}
+
+%     Накрая прилагаме правило $(3_\false)$ и завършваме:
+
+%     \begin{prooftree}
+%       \AxiomC{$\tau_0[\bar{\vv{y}}/\bar{\mu}]\to^P_N 0$}
+%       \AxiomC{$\tau_2[\bar{\vv{y}}/\bar{\mu}]\to^P_N b$}
+%       \RightLabel{$(3_\false)$}
+%       \BinaryInfC{$\underbrace{\ifelse{\tau_0[\bar{\vv{y}}/\bar{\mu}]}{\tau_1[\bar{\vv{y}}/\bar{\mu}]}{\tau_2[\bar{\vv{y}}/\bar{\mu}]}}_{\rho[\bar{\vv{y}}/\bar{\mu}]} \to^P_N b$}
+%       % \BinaryInfC{$\rho[\bar{\vv{y}}/\bar{\mu}] \to^P_N b$}
+%     \end{prooftree}
+    
+%     Случаят, когато $\rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] \to^P_N b$ е получен по правилото $(3_\true)$ е аналогичен.
+%   \item 
+%     Нека $\rho \equiv \vv{f}_i(\rho_1,\dots,\rho_{m_i})$.
+%     Да отбележим най-напред, че 
+%     \begin{align*}
+%       \rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] & \equiv \vv{f}_i(\rho_1,\dots,\rho_{m_i})[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}]\\
+%       & \equiv \vv{f}_i(\rho_1[\bar{\vv{y}}/\bar{\vv{c}}],\dots,\rho_{m_i}[\bar{\vv{y}}/\bar{\vv{c}}]).
+%     \end{align*}
+
+%     Щом $\rho[\vv{y}_1/\vv{c}_1,\dots,\vv{y}_{k}/\vv{c}_{k}] \to^P_N b$ е извод с дължина $l$, то
+%     от правилата на операционна семантика с предаване на параметрите по има имаме, че     
+%     \begin{prooftree}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{Извод с дълж. $(l-1)$}}
+%       \UnaryInfC{$\tau_i[\vv{x}_1/\rho_1[\bar{\vv{y}}/\bar{\vv{c}}],\dots,\vv{x}_{m_i}/\rho_{m_i}[\bar{\vv{y}}/\bar{\vv{c}}]] \to^P_N b$}
+%       \RightLabel{\scriptsize($4'$)}
+%       \UnaryInfC{$\underbrace{\vv{f}_i(\rho_1[\bar{\vv{y}}/\bar{\vv{c}}],\dots,\rho_{m_i}[\bar{\vv{y}}/\bar{\vv{c}}])}_{\rho[\bar{\vv{y}}/\bar{\vv{c}}]} \to^P_N b$}
+%     \end{prooftree}
+
+%     Да отбележим, че имаме тъждествата:
+%     \begin{align*}
+%       \tau_i[\vv{x}_1/\rho_1,\dots,\vv{x}_{m_i}/\rho_{m_i}][\bar{\vv{y}}/\bar{\vv{c}}] & \equiv \tau_i[\vv{x}_1/\rho_1[\bar{\vv{y}}/\bar{\vv{c}}],\dots,\vv{x}_{m_i}/\rho_{m_i}[\bar{\vv{y}}/\bar{\vv{c}}]]\\
+%       \tau_i[\vv{x}_1/\rho_1,\dots,\vv{x}_{m_i}/\rho_{m_i}][\bar{\vv{y}}/\bar{\mu}] & \equiv \tau_i[\vv{x}_1/\rho_1[\bar{\vv{y}}/\bar{\mu}],\dots,\vv{x}_{m_i}/\rho_{m_i}[\bar{\vv{y}}/\bar{\mu}]].
+%     \end{align*}
+
+%     Получаваме, че
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{k}\to^P_N c_{k}$}
+%       \AxiomC{$\vdots$}
+%       \RightLabel{\scriptsize{Извод с дълж. $(l-1)$}}
+%       \UnaryInfC{$\tau_i[\vv{x}_1/\rho_1,\dots,\vv{x}_{m_i}/\rho_{m_i}][\bar{\vv{y}}/\bar{\vv{c}}] \to^P_N b$}
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize{({\bf И.П.})}}
+%       % \doubleLine
+%       \UnaryInfC{$\tau_i[\vv{x}_1/\rho_1[\bar{\vv{y}}/\bar{\mu}],\dots,\vv{x}_{m_i}/\rho_{m_i}[\bar{\vv{y}}/\bar{\mu}]] \to^P_N b$}
+%       \RightLabel{\scriptsize{$(4')$}}
+%       \UnaryInfC{$\underbrace{\vv{f}_i(\rho_1[\bar{\vv{y}}/\bar{\mu}],\dots,\rho_{m_i}[\bar{\vv{y}}/\bar{\mu}])}_{\rho[\bar{\vv{y}}/\bar{\mu}]} \to^P_N b$}
+%     \end{prooftree}
+%   \end{itemize}
+% \end{proof}
+
+% \begin{prop}
+%   \label{pr:op-name-function}
+%   За произволна декларация $P$ и {\em функционален} терм $\tau$,
+%   \[\tau \to^P_N n_1\ \&\ \tau \to^P_N n_2\ \implies\ n_1 = n_2.\]
+% \end{prop}
+% \begin{hint}
+%   \marginpar{\writedown Домашно!}
+%   Доказателство с индукция по извода.
+% \end{hint}
+
+
+% \begin{prop}
+%   \label{pr:op-name-inclusion2}
+%   Нека разгледаме една декларация \vv{P} в езика $\REC$ и произволен {\em функционален} терм $\mu[\vv{f}_1\dots,\vv{f}_k]$.
+%   Тогава 
+%   \[\val{\mu}(\evaln{\tau_1},\dots,\evaln{\tau_k}) \sqsubseteq \evaln{\mu}.\]
+% \end{prop}
+% \begin{proof}
+%   Нека за улеснение да положим $\psi_i \dff \evaln{\tau_i}$.
+%   Ще докажем с индукция по построението на функционалния терм $\mu$, че за всяко $b \in \Nat$,
+%   \marginpar{Ако $b = \bot$, то е тривиално}
+%   \[\val{\mu}(\psi_1,\dots,\psi_k) = b \implies \evalv{\mu} = b.\]
+%   \begin{itemize}
+%   \item
+%     Нека $\mu \equiv \vv{b}$.
+%     Тогава $\val{\vv{b}}(\bar{\psi}) = b$.
+%     От правилата на операционната семантика имаме, че:
+%     \begin{prooftree}
+%       \AxiomC{$$}
+%       \RightLabel{$(1)$}
+%       \UnaryInfC{$\vv{b} \to^P_N b$}
+%     \end{prooftree}
+%     Според нашите означения това означава, че $\evaln{\mu} = b$.
+%   \item
+%     Нека $\mu \equiv \mu_1\ \op\ \mu_2$. Тогава
+    
+%     \[\val{\mu}(\bar{\psi}) = \underbrace{\val{\mu_1}(\bar{\psi})}_{b_1\neq \bot}\ op^\star\ \underbrace{\val{\mu_2}(\bar{\psi})}_{b_2\neq\bot} = b\neq \bot.\]
+%     Понеже $op^\star$ е точно изображение и $b \in \Nat$, то $b_1,b_2 \in \Nat$.
+%     Тогава от {\bf И.П.}, $\evaln{\mu_1} = b_1$ и $\evaln{\mu_2} = b_2$, и
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N b_1$}
+%       \AxiomC{$\mu_2\to^P_N b_2$}
+%       \AxiomC{$b = b_1\ op^\star\ b_2$}
+%       \RightLabel{$(2_\op)$}
+%       \TrinaryInfC{$\mu_1\ \op\ \mu_2 \to^P_N b$}
+%     \end{prooftree}
+%     Заключаваме, че в този случай, \[\evalv{\mu} = b.\]
+%   \item
+%     Случаят, когато $\mu \equiv \ifelse{\mu_0}{\mu_1}{\mu_2}$, не крие изненади 
+%     и е трудно да не го пропуснем.
+%   \item
+%     Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и да приемем, че $\val{\mu}(\bar{\psi}) = b \neq \bot$.
+%     Ще докажем, че $\evaln{\mu} = b$. Имаме, че 
+%     \begin{align*}
+%       \val{\mu}(\bar{\psi}) & = \psi_i(\underbrace{\val{\mu_1}(\bar{\psi})}_{c_1},\dots,\underbrace{\val{\mu_{m_i}}(\bar{\psi})}_{c_{m_i}}) & (\text{стойност на терм })\\
+%       & = \psi(c_1,\dots,c_{m_i}) & (\text{може някои }c_j = \bot)\\
+%       & = \evaln{\tau_i}(c_1,\dots,c_{m_i}) & (\text{от деф. на }\psi_i)\\
+%       & = b \neq \bot,
+%     \end{align*}
+%     откъдето следва, че 
+%     \[\tau_i[\varsx/\bar{\vv{c}}] \to^P_V b.\]
+
+%     Сега от {\bf И.П.} имаме, че за всяко $j = 1,\dots,m_i$
+%     \[c_j \dff \val{\mu_j}(\bar{\psi}) \sqsubseteq \evaln{\mu_j} \dff d_j.\]
+%     Ясно е, че $\bar{c} \sqsubseteq \bar{d}$.
+%     От \Prop{op-name-monotone} имаме, че $\evaln{\tau_i}$ е монотонно изображение, откъдето следва, че
+%     \[\bot \neq b = \evaln{\tau_i}(\bar{c}) \sqsubseteq \evaln{\tau_i}(\bar{d}) = b.\]
+
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N d_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{m_i}\to^P_N d_{m_i}$}
+%       \AxiomC{$\tau_i[\varsx/\bar{\vv{d}}] \to^P_N b$}
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize(\Prop{simulation})}
+%       % \doubleLine
+%       \UnaryInfC{$\tau_i[\varsx/\bar{\mu}] \to^P_N b$}
+%       \RightLabel{\scriptsize{$(4')$}}
+%       \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N b$}
+%     \end{prooftree}
+    
+%     Заключаваме, че $\evaln{\mu} = b$.
+%     \end{itemize}
+% \end{proof}
+
+% \begin{cor}
+%   \label{cr:prefixed-point-name}
+%   Нека е дадена една декларация $\vv{P}$ в езика $\REC$
+%   и $\bar{\gamma} = \lfp(\Gamma)$, където $\Gamma = \Gamma_{\tau_1}\times\cdots\times \Gamma_{\tau_n}$
+%   е операторът, който съответства на декларацията $\vv{P}$.
+%   Тогава за всяко $i = 1,\dots,n$,
+%   \[\gamma_i \sqsubseteq \evaln{\tau_i}.\]
+% \end{cor}
+% \begin{proof}
+%   Нека отново за улеснение да означим $\psi_i \dff \evaln{\tau_i}$.
+%   Да видим първо, че $\Gamma_{\tau_i}(\bar{\psi}) \sqsubseteq \psi_i$.
+%   \begin{align*}
+%     \Gamma_{\tau_i}(\bar{\psi})(\bar{a}) & = \val{\tau_i}(\bar{a},\bar{\psi}) & (\text{от деф. на }\Gamma_{\tau_i})\\
+%     & = \val{\tau_i[\bar{x}/\bar{\vv{a}}]}(\bar{\psi}) & (\text{от \hyperref[lem:rec:substitution]{Лема за замяната}})\\
+%     & \sqsubseteq \evaln{\tau_i[\bar{x}/\bar{\vv{a}}]} & (\text{от \Prop{op-name-inclusion2}})\\
+%     & = \psi_i(\bar{a}) & (\text{от деф. на }\psi_i).
+%   \end{align*}
+%   Така получихме, че $\Gamma(\bar{\psi}) \sqsubseteq \bar{\psi}$, 
+%   т.е. $\bar\psi \in \texttt{Pref}(\Gamma)$.
+%   Понеже $\bar{\gamma} = \lfp(\Gamma)$, то от \Prop{prefix-point}
+%   следва, че $\bar{\gamma} \sqsubseteq \bar{\psi}$.
+% \end{proof}
+
+\begin{problem}
+  % \label{pr:op-name-inclusion2}
+  Нека разгледаме една декларация \vv{P} в езика $\REC$ и произволен {\em функционален} терм $\mu[\vv{f}_1\dots,\vv{f}_k]$.
+  Докажете, че
+  \[\val{\mu}(\evaln{\tau_1},\dots,\evaln{\tau_k}) \sqsubseteq \evaln{\mu}.\]
+\end{problem}
+% \begin{proof}
+%   Нека за улеснение да положим $\psi_i \dff \evaln{\tau_i}$.
+%   Ще докажем с индукция по построението на функционалния терм $\mu$, че за всяко $b \in \Nat$,
+%   \marginpar{Ако $b = \bot$, то е тривиално}
+%   \[\val{\mu}(\psi_1,\dots,\psi_k) = b \implies \evalv{\mu} = b.\]
+%   \begin{itemize}
+%   \item
+%     Нека $\mu \equiv \vv{b}$.
+%     Тогава $\val{\vv{b}}(\bar{\psi}) = b$.
+%     От правилата на операционната семантика имаме, че:
+%     \begin{prooftree}
+%       \AxiomC{$$}
+%       \RightLabel{$(1)$}
+%       \UnaryInfC{$\vv{b} \to^P_N b$}
+%     \end{prooftree}
+%     Според нашите означения това означава, че $\evaln{\mu} = b$.
+%   \item
+%     Нека $\mu \equiv \mu_1\ \op\ \mu_2$. Тогава
+    
+%     \[\val{\mu}(\bar{\psi}) = \underbrace{\val{\mu_1}(\bar{\psi})}_{b_1\neq \bot}\ op^\star\ \underbrace{\val{\mu_2}(\bar{\psi})}_{b_2\neq\bot} = b\neq \bot.\]
+%     Понеже $op^\star$ е точно изображение и $b \in \Nat$, то $b_1,b_2 \in \Nat$.
+%     Тогава от {\bf И.П.}, $\evaln{\mu_1} = b_1$ и $\evaln{\mu_2} = b_2$, и
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N b_1$}
+%       \AxiomC{$\mu_2\to^P_N b_2$}
+%       \AxiomC{$b = b_1\ op^\star\ b_2$}
+%       \RightLabel{$(2_\op)$}
+%       \TrinaryInfC{$\mu_1\ \op\ \mu_2 \to^P_N b$}
+%     \end{prooftree}
+%     Заключаваме, че в този случай, \[\evalv{\mu} = b.\]
+%   \item
+%     Случаят, когато $\mu \equiv \ifelse{\mu_0}{\mu_1}{\mu_2}$, не крие изненади 
+%     и е трудно да не го пропуснем.
+%   \item
+%     Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и да приемем, че $\val{\mu}(\bar{\psi}) = b \neq \bot$.
+%     Ще докажем, че $\evaln{\mu} = b$. Имаме, че 
+%     \begin{align*}
+%       \val{\mu}(\bar{\psi}) & = \psi_i(\underbrace{\val{\mu_1}(\bar{\psi})}_{c_1},\dots,\underbrace{\val{\mu_{m_i}}(\bar{\psi})}_{c_{m_i}}) & (\text{стойност на терм })\\
+%       & = \psi(c_1,\dots,c_{m_i}) & (\text{може някои }c_j = \bot)\\
+%       & = \evaln{\tau_i}(c_1,\dots,c_{m_i}) & (\text{от деф. на }\psi_i)\\
+%       & = b \neq \bot,
+%     \end{align*}
+%     откъдето следва, че 
+%     \[\tau_i[\varsx/\bar{\vv{c}}] \to^P_V b.\]
+
+%     Сега от {\bf И.П.} имаме, че за всяко $j = 1,\dots,m_i$
+%     \[c_j \dff \val{\mu_j}(\bar{\psi}) \sqsubseteq \evaln{\mu_j} \dff d_j.\]
+%     Ясно е, че $\bar{c} \sqsubseteq \bar{d}$.
+%     От \Prop{op-name-monotone} имаме, че $\evaln{\tau_i}$ е монотонно изображение, откъдето следва, че
+%     \[\bot \neq b = \evaln{\tau_i}(\bar{c}) \sqsubseteq \evaln{\tau_i}(\bar{d}) = b.\]
+
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_N d_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{m_i}\to^P_N d_{m_i}$}
+%       \AxiomC{$\tau_i[\varsx/\bar{\vv{d}}] \to^P_N b$}
+%       \QuaternaryInfC{$\vdots$}
+%       \RightLabel{\scriptsize(\Prop{simulation})}
+%       % \doubleLine
+%       \UnaryInfC{$\tau_i[\varsx/\bar{\mu}] \to^P_N b$}
+%       \RightLabel{\scriptsize{$(4')$}}
+%       \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N b$}
+%     \end{prooftree}
+    
+%     Заключаваме, че $\evaln{\mu} = b$.
+%     \end{itemize}
+% \end{proof}
+
+% \begin{cor}
+%   \label{cr:prefixed-point-name}
+%   Нека е дадена една декларация $\vv{P}$ в езика $\REC$
+%   и $\bar{\gamma} = \lfp(\Gamma)$, където $\Gamma = \Gamma_{\tau_1}\times\cdots\times \Gamma_{\tau_n}$
+%   е операторът, който съответства на декларацията $\vv{P}$.
+%   Тогава за всяко $i = 1,\dots,n$,
+%   \[\gamma_i \sqsubseteq \evaln{\tau_i}.\]
+% \end{cor}
+% \begin{proof}
+%   Нека отново за улеснение да означим $\psi_i \dff \evaln{\tau_i}$.
+%   Да видим първо, че $\Gamma_{\tau_i}(\bar{\psi}) \sqsubseteq \psi_i$.
+%   \begin{align*}
+%     \Gamma_{\tau_i}(\bar{\psi})(\bar{a}) & = \val{\tau_i}(\bar{a},\bar{\psi}) & (\text{от деф. на }\Gamma_{\tau_i})\\
+%     & = \val{\tau_i[\bar{x}/\bar{\vv{a}}]}(\bar{\psi}) & (\text{от \hyperref[lem:rec:substitution]{Лема за замяната}})\\
+%     & \sqsubseteq \evaln{\tau_i[\bar{x}/\bar{\vv{a}}]} & (\text{от \Prop{op-name-inclusion2}})\\
+%     & = \psi_i(\bar{a}) & (\text{от деф. на }\psi_i).
+%   \end{align*}
+%   Така получихме, че $\Gamma(\bar{\psi}) \sqsubseteq \bar{\psi}$, 
+%   т.е. $\bar\psi \in \texttt{Pref}(\Gamma)$.
+%   Понеже $\bar{\gamma} = \lfp(\Gamma)$, то от \Prop{prefix-point}
+%   следва, че $\bar{\gamma} \sqsubseteq \bar{\psi}$.
+% \end{proof}
+
+
+
+\begin{problem}
+  За произволна декларация $P$ и {\em функционален} терм $\tau$,
+  \[\tau \to^P_V n_1\ \&\ \tau \to^P_V n_2 \implies n_1 = n_2.\]
+\end{problem}
+\begin{hint}
+  \marginpar{\writedown Домашно!}
+  Индукция по дължината на извода.
+\end{hint}
+
+\begin{problem}
+  \label{pr:equiv-value1}
+  Нека разгледаме една деклрация \vv{P} в езика $\REC$ и произволен {\em функционален} терм $\mu[\vv{f}_0,\dots,\vv{f}_k]$.
+  Докажете, че 
+  \marginpar{\cite[стр. 151]{winskel}, \cite[стр. 183]{ditchev-soskov}}
+  \marginpar{Тук има леки разлики}
+  \[\val{\mu}(\evalv{\vv{f}_0(\vv{x}_1,\dots,\vv{x}_{m_0})},\dots,\evalv{\vv{f}_k(\vv{x}_1,\dots,\vv{x}_{m_k})}, \ov{\delta}) \sqsubseteq \evalv{\mu}.\]
+\end{problem}
+% \begin{proof}
+%   Нека за улеснение да положим 
+%   \[\psi_i \dff \evalv{\vv{f}_i(\vv{x}_1,\dots,\vv{x}_{m_i})}.\]
+%   Ще докажем с индукция по построението на функционалния терм $\mu$, че за всяко $b \in \Nat$,
+%   \marginpar{Ако $b = \bot$, то е тривиално}
+%   \[\val{\mu}(\psi_1,\dots,\psi_k) = b \implies \evalv{\mu} = b.\]
+%   \begin{itemize}
+%   \item
+%     Нека $\mu \equiv \vv{b}$.
+%     Тогава $\val{\vv{b}}(\bar{\psi}) = b$.
+%     От правилата на операционната семантика имаме, че:
+%     \begin{prooftree}
+%       \AxiomC{$$}
+%       \RightLabel{$(1)$}
+%       \UnaryInfC{$\vv{b} \to^P_V b$}
+%     \end{prooftree}
+%     Според нашите означения това означава, че $\evalv{\mu} = b$.
+%   \item
+%     Нека $\mu \equiv \mu_1\ \op\ \mu_2$. Тогава
+    
+%     \[\val{\mu_1\ \op\ \mu_2}(\bar{\psi}) = \underbrace{\val{\mu_1}(\bar{\psi})}_{b_1\neq \bot}\ op^\star\ \underbrace{\val{\mu_2}(\bar{\psi})}_{b_2\neq\bot} = b\neq \bot.\]
+%     Понеже $op^\star$ е точно изображение и $b \in \Nat$, то $b_1,b_2 \in \Nat$.
+%     Тогава от {\bf И.П.}, $\evalv{\mu_1} = b_1$ и $\evalv{\mu_2} = b_2$, и
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_V b_1$}
+%       \AxiomC{$\mu_2\to^P_V b_2$}
+%       \AxiomC{$b = b_1\ op^\star\ b_2$}
+%       \RightLabel{$(2_\op)$}
+%       \TrinaryInfC{$\mu_1\ \op\ \mu_2 \to^P_V b$}
+%     \end{prooftree}
+%     Заключаваме, че в този случай, \[\evalv{\mu} = b.\]
+%   \item
+%     Случаят, когато $\mu \equiv \ifelse{\pi}{\mu_1}{\mu_2}$, не крие изненади 
+%     и е трудно да не го пропуснем.
+%   \item
+%     Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и да приемем, че $\val{\mu}(\bar{\psi}) = b \neq \bot$.
+%     % защото ако $\val{\mu}(\bar{\psi}) = \bot$, то е очевидно, че 
+%     % $\val{\mu}(\bar{\psi}) \sqsubseteq \evalv{\mu}$.
+%     Ще докажем, че $\evalv{\mu} = b$. Имаме, че 
+%     \begin{align*}
+%       \val{\mu}(\ov{\psi}) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\bar{\psi})\\
+%                            & = \psi_i(\underbrace{\val{\mu_1}(\bar{\psi})}_{c_1},\dots,\underbrace{\val{\mu_{m_i}}(\bar{\psi})}_{c_{m_i}}) & (\text{стойност на терм})\\
+%                            & = \psi_i(c_1,\dots,c_{m_i}) \\
+%                            & = \evalv{\vv{f}_i(\vv{x}_1,\dots,\vv{x}_{m_i})}(c_1,\dots,c_{m_i}) & (\text{от деф. на }\psi_i)\\
+%                            & = \evalv{\vv{f}_i(\vv{c}_1,\dots,\vv{c}_{m_i})} \\
+%                            & = b \neq \bot.
+%     \end{align*}
+%     Получихме, че $\vv{f}_i(\vv{c}_1,\dots,\vv{c}_{m_i}) \to^P_V b$.
+
+%     Единственото правило, по което можем да стигнем до този извод е правилото $(4_\Nat)$, т.е.
+%     \marginpar{Константите $\vv{c}_j$ са едни много хубави термове}
+%     \begin{prooftree}
+%       \AxiomC{$\vv{c}_1\to^P_V c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\vv{c}_{m_i}\to^P_V c_{m_i}$}
+%       \AxiomC{$\tau_i[\varsx/\bar{\vv{c}}] \to^P_V b$}
+%       \RightLabel{\scriptsize($4_\Nat$)}
+%       \QuaternaryInfC{$\vv{f}_i(\vv{c}_1,\dots,\vv{c}_{m_i}) \to^P_V b$}
+%     \end{prooftree}
+%     Това е така, защото $b \neq \bot$.
+%     Оттук следва, че $\bot \not\in \{c_1,\dots,c_{m_i}\}$.
+
+%     Сега от {\bf И.П.} имаме, че
+%     \[\bot \neq c_i = \val{\mu_i}(\bar{\psi}_i) \sqsubseteq \evalv{\mu_i} = c_i,\]
+%     и тогава от правилата за извод в операционната семантика, получаваме:
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\to^P_V c_1$}
+%       \AxiomC{$\cdots$}
+%       \AxiomC{$\mu_{m_i}\to^P_V c_{m_i}$}
+%       \AxiomC{$\tau_i[\varsx/\bar{\vv{c}}] \to^P_V b$}
+%       \RightLabel{\scriptsize($4_\Nat$)}
+%       \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V b$}
+%     \end{prooftree}
+    
+%     Заключаваме, че $\evalv{\mu} = b$.
+%     \end{itemize}
+% \end{proof}
+
+\begin{problem}
+  % \label{cr:prefixed-point-value}
+  \marginpar{\cite[стр. 151]{winskel}}
+  Нека е дадена една декларация $\vv{P}$ в езика $\REC$
+  и $\bar{\delta} = \lfp(\Delta)$, където $\Delta = \Delta_{\tau_1}\times\cdots\times \Delta_{\tau_n}$.
+  Тогава за всяко $i = 1,\dots,n$,
+  \[\delta_i \sqsubseteq \evalv{\vv{f}_i(\vv{x}_1,\dots,\vv{x}_{m_i})}\]
+\end{problem}
+% \begin{proof}
+%   Нека отново за улеснение да положим
+%   \[\psi_i \dff \evalv{\vv{f}_i(\vv{x}_1,\dots,\vv{x}_{m_i})}.\]
+%   Ще докажем, че $\Delta_{\tau_i}(\bar{\psi}) \sqsubseteq \psi_i$.
+%   Нека приемем, че $\bar{a} \in \Nat^{m_i}$.
+%   \begin{align*}
+%     \Delta_{\tau_i}(\bar{\psi})(\bar{a}) & = \Sigma_\star(\Gamma_{\tau_i})(\bar{\psi})(\bar{a}) & (\text{деф. на }\Delta_{\tau_i}) \\
+%                                          & = \Gamma_{\tau_i}(\bar{\psi})(\bar{a}) & (\bar{a} \in \Nat^{m_i})\\
+%                                          & = \val{\tau_i}(\bar{a},\bar{\psi}) & (\text{от деф.})\\
+%                                          & = \val{\tau_i[\bar{x}/\bar{\vv{a}}]}(\bar{\psi}) & (\text{от \hyperref[lem:subst2]{Лема за замяната}})\\
+%                                          & \sqsubseteq \evalv{\tau_i[\bar{x}/\bar{\vv{a}}]} & (\text{от \Prop{equiv-value1}})\\
+%                                          & = \evalv{\tau_i}(\bar{a}) & (\text{от деф. на }\evalv{\tau_i})\\
+%                                          & = \psi_i(\bar{a}) & (\text{защото }\bot\not\in\{a_1,\dots,a_{m_i}\}).
+%   \end{align*}
+%   Така получихме, че $\Delta(\bar{\psi}) \sqsubseteq \bar{\psi}$,
+%   т.е. $\bar\psi \in \texttt{Pref}(\Delta)$. Тогава, понеже $\bar{\delta} = \lfp(\Delta)$, то от
+%   \Prop{prefix-point} следва, че $\bar{\delta} \sqsubseteq \bar{\psi}$.
+% \end{proof}
+
+
+
+\begin{problem}
+  Да разгледаме следната програма на хаскел:
+
+  \begin{haskellcode}
+    {-# LANGUAGE BangPatterns #-}
+
+    f :: (Int, Int) -> Int
+    f(!x, !y) = if x `rem` 4 == 0 then 0 
+                  else f(x + 2, f(x, y + 2)) + 2
+
+    g :: (Int, Int) -> Int
+    g(x, !y) = if x `rem` 4 == 0 then 0 
+                 else g(x + 2, g(x, y + 2)) + 2
+
+    h :: (Int, Int) -> Int
+    h(!x, y) = if x `rem` 4 == 0 then 0 
+                 else h(x + 2, h(x, y + 2)) + 2
+  \end{haskellcode}
+  Обяснете каква е разликата между \vv{f}, \vv{g} и \vv{h}.
+\end{problem}
+
+
+\begin{problem}
+  Да разгледаме следната програма на езика \REC:
+  \begin{haskellcode}
+  h(x) = f(g(x)) where 
+    f(x) = 42 
+    g(x) = if x == 0 then 0 else g(f(x))
+  \end{haskellcode}
+  Намерете $\D_V\val{\vv{h}}$ и $\D_N\val{\vv{h}}$.
+\end{problem}
+
+
+% \Stefan{Тази задача е за правило на Скот?}
+% \begin{problem}
+%   \marginpar{\cite[стр. 159]{nikolova-soskova}}
+%   Да разгледаме следната програма:
+%   \begin{haskellcode}
+%   g(x) = f(x, 0, x) where 
+%     f(x, y, z) = if x == 0 then y 
+%                  else f(x - 1, y + z, z)
+
+%   g'(x) = f'(x, 0) where
+%     f'(x,y) = if x == y then y 
+%                 else f'(x - 1, 2 * x + y - 1)
+%   \end{haskellcode}
+%   Докажете, че $\D_V\val{\vv{g}} = \D_V\val{\vv{g'}}$.
+% \end{problem}
+
+
+\begin{problem}
+  Да разгледаме следната програма на езика \REC:
+  \begin{haskellcode}
+    h(x) = f(x, x) where 
+      f(x, y) = if x `rem` 3 == 0 then x `div` 3 
+                 else f(x - 1, f(2*x - 2, y))
+  \end{haskellcode}
+  Намерете $\D_V\val{\vv{h}}$ и $\D_N\val{\vv{h}}$
+  за да покажете, че $\D_V\val{\vv{h}} \neq \D_N\val{\vv{h}}$.
+\end{problem}
+\begin{solution}
+  Нека първо да разгледаме термалния оператор $\Gamma:\C_2 \to \C_2$, който съответства на терма 
+  задаващ дефиницията на функционалния символ \vv{f}:
+  \begin{align*}
+    \Gamma(\varphi)(a,b) & =
+    \begin{cases}
+      \val{\vv{x/3}}(a,b,\varphi), & \text{ ако } \val{x \vv{ div } 3}(a,b,\varphi) = 0\\
+      \val{\vv{f(x-1,f(2x - 2, y))}}(a,b,\varphi), & \text{ ако }\val{x \vv{ div } 3}(a,b,\varphi) \neq 0\\
+      \bot, & \text{ ако } \val{x \vv{ div } 3}(a,b,\varphi) = \bot\\
+    \end{cases}
+    \\
+    & = \begin{cases}
+      a/3, & \text{ ако } x\equiv 0\ (\bmod\ 3)\ \&\ x\in\Nat\\
+      \varphi(a-1, \varphi(2a-2, b)), & \text{ ако } x \not\equiv 0\ (\bmod\ 3)\ \&\ x\in\Nat\\
+      \bot, & \text{ ако } a = \bot.
+    \end{cases}
+  \end{align*}
+  
+  За да намерим денотационната семантика по стойност, 
+  дефинираме оператора $\Delta:\S_2 \to \S_2$ 
+  като $\Delta \dff \Sigma_\star \circ \Gamma$.
+  Това означава, че :
+  \begin{align*}
+    \Delta(\varphi)(a,b) =
+    \begin{cases}
+      a/3, & \text{ако } a\equiv 0\ (\bmod\ 3)\ \&\ a\in\Nat\\
+      \varphi(a-1, \varphi(2a-2, b)), & \text{ако } a \not\equiv 0\ (\bmod\ 3)\ \&\ a\in\Nat\\
+      \bot, & \text{ако } a = \bot \text{ или } b = \bot.
+    \end{cases}
+  \end{align*}
+  
+  \marginpar{Обърнете внимание, че $\Gamma(\Omega^{(2)})(3,\bot) = 1$,
+  докато $\Delta(\Omega^{(2)})(3,\bot) = \bot$}
+  
+  Семантиката по стойност на нашата програма \vv{h} на практика 
+  представлява следната програма \vv{h'} на хаскел:
+  \begin{haskellcode}
+    h'(x) = f(x, x) where 
+      f(!x, !y) = if x `rem` 3 == 0 then x `div` 3 
+                    else f(x - 1, f(2*x - 2, y))
+  \end{haskellcode}
+
+  Семантиката по стойност на програмата се дефинира с помощта на $\lfp(\Delta)$.
+  От \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем, че 
+  $\lfp(\Delta) = \bigsqcup_i \delta_i$, където веригата $(\delta_i)_{i\in\Nat}$ е дефинирана като
+  $\delta_0 = \Omega^{(2)}$ и $\delta_{i+1} = \Delta(\delta_i)$.
+  Да пресметнем първите няколко члена на тази редица.
+  \begin{align*}
+    \delta_0(x,y) & = \bot \text{, за всяко }x,y\in\Nat_\bot\\
+    \\
+    \delta_1(x,y) & = \Delta(\delta_0)(x,y)\\
+    & =
+    \begin{cases}
+      x/3,  & x \equiv 0\ (\bmod\ 3)\ \&\ x\in\Nat\\
+      \bot, & x \not\equiv 0\ (\bmod\ 3)\ \&\ x\in\Nat\\
+      \bot, & x = \bot \text{ или } y = \bot
+    \end{cases}\\
+    \\
+    \delta_2(x,y) & = \Delta(\delta_1)(x,y)\\
+    & =
+    \begin{cases}
+      k, & x = 3k\text{ за някое }k \in \Nat\\
+      \delta_1(3k,\delta_1(6k,y)), &  x = 3k+1\text{ за някое }k \in \Nat \\
+      \delta_1(3k+1,\delta_1(6k+2,y)),&   x = 3k+2\text{ за някое }k \in \Nat \\
+      \bot, & x = \bot \text{ или } y = \bot
+    \end{cases}\\
+    & = 
+    \begin{cases}
+      k, & \ x = 3k\text{ или }x = 3k+1\text{ за някое }k \in \Nat\\
+      \bot, & x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot \text{ или } y = \bot
+    \end{cases}
+  \end{align*}
+  \begin{align*}
+    \delta_3(x,y) & = \Delta(\delta_2)(x,y)\\
+    & =
+    \begin{cases}
+      k, & \ x = 3k\text{ за някое }k \in \Nat\\
+      \delta_2(3k,\delta_2(6k,y)), &\ x = 3k+1\text{ за някое }k \in \Nat\\
+      \delta_2(3k+1,\delta_2(6k+2,y)), &\ x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot \text{ или } y = \bot
+    \end{cases}\\
+    & = 
+    \begin{cases}
+      k, & \ x = 3k\text{ за някое }k \in \Nat\\
+      \delta_2(3k,2k), &\ x = 3k+1\text{ за някое }k \in \Nat\\
+      \delta_2(3k+1,\bot), &\ x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot \text{ или } y = \bot
+    \end{cases}\\
+    & =
+    \begin{cases}
+      k, & \ x = 3k\text{ или }x = 3k+1\text{ за някое }k \in \Nat\\
+      \bot, &\ x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot \text{ или } y = \bot
+    \end{cases}
+    \end{align*}
+    Получаваме, че $\delta_2 = \delta_3$ и следователно $\delta_2 = \bigsqcup_n \delta_n$ и 
+  \[\D_V\val{\vv{h}}(x) = \delta_2(x,x).\]
+  Тогава за всяко $x \in \Nat_\bot$, 
+  \begin{align*}
+    \D_V\val{\vv{h}}(x) \simeq 
+    \begin{cases}
+      \lfloor{x/3}\rfloor, & \text{ ако } x\equiv 0\ (\bmod\ 3)\text{ или } x\equiv 1\ (\bmod\ 3)\\
+      \bot, & \text{ ако } x\equiv 2\ (\bmod\ 3) \text{ или }x = \bot.
+    \end{cases}
+  \end{align*}
+
+  Преминаваме към намирането на денотационната семантика по име на програмата \vv{h},
+  която се определя с помощта на $\lfp(\Gamma)$.
+  Започваме да търсим елементите на веригата $(\gamma_i)^{\infty}_{i=0}$,
+  където $\gamma_0 = \Omega^{(2)}$ и $\gamma_{i+1} = \Gamma(\gamma_i)$.
+  Да пресметнем първите няколко члена на тази верига.
+  \begin{align*}
+    \gamma_0(x,y) & = \bot \text{ за всяко }x,y\in\Nat_\bot\\
+    \\
+    \gamma_1(x,y) & = \Gamma(\gamma_0)(x,y) = 
+    \begin{cases}
+      x/3, & \quad x \equiv 0\ (\bmod\ 3)\\
+      \bot, & \quad \text{иначе}
+    \end{cases}\\
+    \\
+    \gamma_2(x,y) & = \Gamma(\gamma_1)(x,y)\\
+    & = 
+    \begin{cases}
+      k, & x = 3k\text{ за някое }k \in \Nat\\
+      \gamma_1(3k,\gamma_1(6k,y)), & x = 3k+1\text{ за някое }k \in \Nat\\
+      \gamma_1(3k+1,\gamma_1(6k+2,y)), & x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot
+    \end{cases}\\
+    & = 
+    \begin{cases}
+      k, & \quad x = 3k\text{ или }x=3k+1\text{ за някое }k \in \Nat\\
+      \bot, & \quad x=\bot\text{ или } x = 3k+2\text{ за някое }k \in \Nat
+    \end{cases}
+  \end{align*}
+  \begin{align*}
+    \gamma_3(x,y) & = \Gamma(\gamma_2)(x,y) \\
+    & = 
+    \begin{cases}
+      k, & x = 3k\text{ за някое }k \in \Nat\\
+      \gamma_2(3k, \gamma_2(6k,y)), & x = 3k+1\text{ за някое }k  \in \Nat\\
+      \gamma_2(3k+1, \gamma_2(6k+2,y)), & x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot
+    \end{cases}\\
+    & = 
+    \begin{cases}
+      k, & x = 3k\text{ за някое }k \in \Nat\\
+      \gamma_2(3k, 2k), & x = 3k+1\text{ за някое }k \in \Nat\\
+      \gamma_2(3k+1, \bot), & x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot
+    \end{cases}\\
+    & = 
+    \begin{cases}
+      k, & x = 3k\text{ за някое }k \in \Nat\\
+      k, & x = 3k+1\text{ за някое }k \in \Nat\\
+      k, & x = 3k+2\text{ за някое }k \in \Nat\\
+      \bot, & x = \bot
+    \end{cases}\\
+    & = 
+    \begin{cases}
+      \lfloor{x/3}\rfloor, & \quad x\in\Nat\\
+      \bot, & \quad x = \bot\\
+    \end{cases}
+  \end{align*}
+  
+  Знаем, че $\gamma_3 \sqsubseteq \gamma_4$.
+  Следователно, $\gamma_4(x,y) = \lfloor{x/3}\rfloor$ за всяко $x\in\Nat,y\in\Nat_\bot$.
+  Освен това,  $\gamma_4(\bot,y) = \Gamma(\gamma_3)(\bot,y) = \bot$ и следователно $\gamma_3 = \gamma_4$.
+  Тогава $\gamma_3 = \bigsqcup_i \gamma_i$.
+  Получаваме, че:
+  \begin{align*}
+    \D_N\val{\vv{h}}(x) & = 
+    \begin{cases}
+      \gamma_3(x,x), & \text{ако }\gamma_3(x,x) \neq \bot\\
+      \bot, & \text{ако }\gamma_3(x,x) = \bot
+    \end{cases}\\
+    & =
+    \begin{cases}
+      \lfloor{x/3}\rfloor, & \text{ако } x \in \Nat\\
+      \bot, & \text{ако } x = \bot.
+    \end{cases}
+  \end{align*}
+
+  Получихме, че двете семантики се различават.
+\end{solution}
+
+\begin{problem}
+  \marginpar{\cite[стр. 158]{winskel}}
+  % . Доказателството на Лема 8.3.3 на \cite[стр. 192]{ditchev-soskov} е сходно, но има недостатъка, че използва лема за симулацията на \cite[стр. 177]{ditchev-soskov}}
+  Нека разгледаме една деклрация \vv{P} в езика $\REC$, произволен терм $\tau$ и {\em функционални} термове $\mu_1,\dots,\mu_{k}$.
+  Нека $\bar{\gamma} = \lfp(\Gamma)$, където $\Gamma$ е операторът, който съответства на декларацията \vv{P}.
+  Тогава
+  \marginpar{Понеже $\mu_i$ е функционален терм, то $\evaln{\mu_i} \in \Nat_\bot$}
+  \[\val{\tau}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bar{\gamma}) \sqsubseteq \evaln{\tau[\vv{x}_1/\mu_1\dots,\vv{x}_k/\mu_k]}.\]
+  
+  Използвайте това твърдение за да докажете, че за всяка програма $\vv{h}$ на езика {\bf REC} е изпълнено,
+  че \[\D_N\val{\vv{h}} \sqsubseteq \O_N\val{\vv{h}}.\]
+\end{problem}
+% \begin{hint}
+%   Да напомним, че $\bar{\gamma} = \bigsqcup_r \bar{\gamma}_r$,
+%   където $\bar{\gamma}_r = (\gamma^1_r,\dots,\gamma^n_r)$ и 
+%   \begin{align*}
+%     & \gamma^i_0 = \Omega^{(m_i)}\\
+%     & \gamma^i_{r+1} = \Gamma_{\tau_i}(\bar{\gamma}_r).
+%   \end{align*}
+
+%   Ще докажем с индукция по $r$, че за всяко $r$, произволен терм $\tau$ и произволни функционални термове $\mu_1,\dots,\mu_k$,
+%   \[\val{\tau}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bar{\gamma}_r) \sqsubseteq \evaln{\tau[\vv{x}_1/\mu_1\dots,\vv{x}_k/\mu_k]}.\]
+%   Нека $r = 0$ не крие изненади.
+
+%   Да приемем, че твърдението е вярно за $r$. Ще докажем, че то е вярно и за $r+1$.
+%   Сега правим вътрешна индукция по построението на терма $\tau$. Ще разгледаме само най-интересния случай.
+%   \begin{itemize}
+%   \item 
+%     Нека $\tau = f_i(\tau_1,\dots,\tau_{m_i})$.
+%     Да означим за $j = 1,\dots,m_i$,
+%     \begin{align*}
+%       b_j & \dff \val{\tau_j}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bar{\gamma}_{r+1}),\\
+%       c_j & \dff \evaln{\tau_j[x_1/\mu_1,\dots,x_k/\mu_k]}.
+%     \end{align*}
+%     Тогава
+%     \begin{align*}
+%       \val{\tau}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bar{\gamma}_{r+1}) & = \gamma^i_{r+1}(b_1,\dots,b_{m_i}) & (\text{стойност на терм})\\
+%       & \sqsubseteq \gamma^i_{r+1}(c_1,\dots,c_{m_i}) & (\text{мон. на } \gamma^i_{r+1})\\
+%       & = \Gamma_{\tau_i}(\bar{\gamma}_r)(c_1,\dots,c_{m_i}) & (\gamma^i_{r+1} = \Gamma_{\tau_i}(\bar{\gamma}))\\
+%       & = \val{\tau_i}(c_1,\dots,c_{m_i},\bar{\gamma}_r) & (\text{деф. на }\Gamma_{\tau_i})\\
+%       & \sqsubseteq \evaln{\tau_i[\varsx/\bar{\mu}]} & (\text{{\bf И.П.} за }r).
+%     \end{align*}
+%     Сега вече можем да приложим правилото $(4')$ и да получим
+
+%      \begin{prooftree}
+%        \AxiomC{$\tau_i[\varsx/\bar{\mu}] \to^P_V a$}
+%        \RightLabel{\scriptsize($4'$)}
+%        \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N a$}
+%      \end{prooftree}
+%    \end{itemize}
+%    Завършваме доказателството като отбележим, че
+%    \begin{align*}
+%      \val{\tau}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bar{\gamma}) & = \val{\tau}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bigsqcup_r\bar{\gamma}_r)\\
+%      & = \bigsqcup_r \val{\tau}(\evaln{\mu_1},\dots,\evaln{\mu_k},\bar{\gamma}_r)\\
+%      & \sqsubseteq \evaln{\tau[\vv{x}_1/\mu_1\dots,\vv{x}_k/\mu_k]}.
+%    \end{align*}
+% \end{hint}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

@@ -1,0 +1,476 @@
+\chapter{Свойства на областите на Скот}
+
+\input{domains-extra/continuous}
+
+ \input{domains-extra/lfp-operator}
+
+\input{domains-extra/isomorphic}
+
+\input{domains-extra/problems}
+
+
+
+% \subsection{Правило на Скот}
+
+% \begin{itemize}
+% \item 
+%   Нека приемем, че имаме една програма, която работи върху списъци.
+%   Ако искаме да докажем, че дадено свойство е вярно за тази програма, когато аргументите са {\em крайни} списъци,
+%   то можем да подходим с обикновена индукция по структурата на списъците.
+% \item
+%   Трябва да сме по-внимателни, ако искаме да докажем, че дадено свойство е вярно за програмата, когато
+%   допускаме като аргументи прозволни списъци, т.е. позволяваме частични и безкрайни списъци.
+%   Понеже един безкраен списък $l = \bigsqcup_n l_n$, където $l_n $
+% \item
+%   Да разгледаме едно {\em непрекъснато свойство} $P \subseteq \PartL \cup \InfL$.
+%   Тогава имаме правилото:
+%   \begin{prooftree}
+%     \AxiomC{$P(\bot)$}
+%     \AxiomC{$(\forall a\in\Nat)(\forall l \in \PartL)[P(l) \implies P(\pair{a,l})]$}
+%     \BinaryInfC{$(\forall l \in \PartL \cup \InfL)[P(l)]$}
+%   \end{prooftree}
+  
+%   Да видим защо това правило е изпълнено.
+%   Да разгледаме един произволен безкраен списък $l$.
+%   Знаем, че $l = \bigsqcup_n (l\upharpoonright n)$.
+%   Знаем, че $P(l \upharpoonright 0)$ и с индукция по естествените числа имаме, че за всяко $n$,
+%   $P(l \upharpoonright n)$.
+%   Тогава, понеже $P$ е непрекъснато свойство, следва 
+%   \[P(\bigsqcup_n (l \upharpoonright n)).\]
+% \end{itemize}
+
+% \begin{problem}
+%   % Нека е дадена програмата на
+  
+%   % \begin{haskellcode}
+%   %   rev :: [a] -> [a]
+%   %   rev x = f(x, []) where 
+%   %     f([], y) = y
+%   %     f(x:xs, y) = f(xs, x:y)
+%   % \end{haskellcode}
+
+%   Да разгледаме оператора:
+
+%   \[
+%   \Gamma(f)(l_1,l_2) = 
+%   \begin{cases}
+%     \bot, & l_1 = \bot\\
+%     l_2, & l_1 = \nil\\
+%     f(l'_1, \pair{a,l_2}), & l_1 = \pair{a,l'_1}.
+%   \end{cases}
+%   \]
+
+%   Докажете, че $\Gamma$ е непрекъснат оператор.
+%   Да положим 
+%   \[\texttt{rev}(l) = \lfp(\Gamma)(l,\nil).\]
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     $(\forall l \in L)[\texttt{rev}(l) \neq \bot \iff l \in \FinL]$.
+%   \item
+%     $(\forall l \in \FinL)[\texttt{rev}(\texttt{rev}(l)) = l]$.
+%   \item
+%     $(\forall l \in \FinL)[\texttt{rev}(l) = l^R]$.
+%   \item
+%     $(\forall l \in \PartL \cup \InfL)[rev(l) = \bot]$.
+%   \end{enumerate}
+% \end{problem}
+% \begin{hint}
+%   % Ще използваме следното правило:
+%   % \begin{prooftree}
+%   %   \AxiomC{$P(\nil)$}
+%   %   \AxiomC{$(\forall x \in \Sigma^\star)[x\neq\nil\ \&\ P(cdr(x)) \to P(x)]$}
+%   %   \RightLabel{\scriptsize(1)}
+%   %   \BinaryInfC{$(\forall x\in\Sigma^\star)[P(x)]$}
+%   % \end{prooftree}
+%   % % \item
+%   %   Докажете валидността на правилото $(1)$. % е еквивалентно на структурна индукция върху фундираната наредба
+%     % $(\Sigma^\star,\prec)$, където $x \prec y \iff (\exists z\in\Sigma^\star)[z\cdot x = y]$, т.е.
+%     % $x$ е суфикс на $y$.
+%   % Да разгледаме фундираната наредба $L = (\Sigma^\star, \prec)$, където
+%   % $x \prec y \iff \abs{x} < \abs{y}$.
+%   \begin{enumerate}[a)]
+%   \item
+%     Докажете, че $P$ е непрекъснато свойство, където
+%     $P(f) \dfff (\forall l \in L)[f(l) \neq \bot \iff l \in \FinL]$.
+    
+%     % Да разгледаме свойството 
+%     % \[P(x) \equiv (\forall y\in \Sigma^\star)[f(x,y)\text{ е дефинирана}].\]
+%     % Докажете със структурна индукция по $L$, че $(\forall x\in\Sigma^\star)[P(x)]$.
+%   \item
+%     Да разгледаме свойството 
+%     \[P(x) \equiv (\forall y\in \FinL)[\texttt{rev}(f(x,y)) = f(y,x)].\]
+%     Докажете със структурна индукция по $L$, че $(\forall x\in\Sigma^\star)[P(x)]$.
+%     Тогава в частния случай $y = \nil$, 
+%     \[\texttt{rev}(\texttt{rev}(x)) = \texttt{rev}(f(x,\nil)) = f(\nil,x) = x.\]
+%   \item
+%     Разгледайте свойството
+%     \[P(x) \equiv (\forall y\in L)[f(x,y) = x^R \cdot y].\]
+%   \end{enumerate}
+% \end{hint}
+
+% \begin{problem}
+%   Нека е дадена програмата на езика хаскел:
+
+%   \begin{haskellcode}
+% conc :: [Int] -> [Int] -> [Int]
+% conc [] y = y
+% conc (x:xs) y = x:conc xs y
+%   \end{haskellcode}
+
+% Да видим няколко примера:
+
+% \begin{haskellcode}
+% ghci> conc([1..10],undefined)  -- $ == \pair{1,2,3,4,5,6,7,8,9,10,\bot}$
+% [1,2,3,4,5,6,7,8,9,10*** Exception: Prelude.undefined
+% ghci> conc(undefined, [1..10]) -- $== \bot$
+% *** Exception: Prelude.undefined
+% \end{haskellcode}
+
+%   На нея съответсва оператора
+
+%   \[\Gamma(f)(x,y) = 
+%   \begin{cases}
+%     \bot, & x = \bot\\
+%     y, & x = \nil\\
+%     \pair{a, f(x',y)}, & x = \pair{a,x'}.
+%   \end{cases}\]
+  
+%   Да положим $\texttt{conc}(x,y) \dff \lfp(\Gamma)(x,y)$.
+  
+%   \noindent Проверете дали са изпълнени свойствата:
+%   \begin{enumerate}[a)]
+%   \item
+%     $(\forall x\in \FinL)(\forall y \in L)[\texttt{conc}(x, y) = x \cdot y]$;
+%   \item
+%     $(\forall x\in \PartL \cup \InfL)(\forall y \in L)[\texttt{conc}(x, y) = x]$;
+%   \item 
+%     $(\forall x,y,z\in L)[\texttt{conc}(\texttt{conc}(x, y), z) = \texttt{conc}(x, \texttt{conc}(y, z))]$;
+%   \item
+%     $(\forall x,y \in L)[\texttt{rev}(\texttt{conc}(x, y)) = \texttt{conc}(\texttt{rev}(y), \texttt{rev}(x))]$;
+%   \end{enumerate}
+% \end{problem}
+% \begin{hint}
+%   \begin{enumerate}[a)]
+%   \item
+%     Да разгледаме фундираната наредба $(\FinL, \prec)$, където
+%     $x \prec y \iff \abs{x} < \abs{y}$.
+%     Разгледайте свойството
+%     \[P(x) \equiv (\forall y\in L)[\texttt{conc}(x, y) = x \cdot y].\]
+%   \item
+%     Разгледайте свойствотото:
+%     \[P(x) \equiv (\forall y \in L)[\texttt{conc}(x, y) = x].\]
+%     Съобразете, че това е непрекъснато свойство.
+%     Докажете, че $P(\bot)$ и че $(\forall a \in \Nat)(\forall l \in \PartL \cup \InfL)[P(l) \implies P(\pair{a,l})]$.
+%     Оттук, по правилото на Скот следва, че $P(l)$ за всяко $l \in \PartL \cup \InfL$.
+%   \end{enumerate}
+% \end{hint}
+
+% \begin{problem}
+%   На следната програмата на хаскел:
+%   \begin{haskellcode}
+% merge :: [Int] -> [Int] -> [Int]
+% merge []     y       = y
+% merge x      []      = x
+% merge (x:xs) (y:ys)  = if x <= y then x:merge xs (y:ys)
+%                          else y:merge (x:xs) ys
+%   \end{haskellcode}
+% отговаря операторът
+% \[
+% \Gamma(f)(x,y) =
+% \begin{cases}
+%   \bot, & x = \bot\ \vee\ y = \bot\\
+%   y, & x = \nil \\
+%   x, & y = \nil \\
+%   \pair{a,f(x',y)}, & x = \pair{a,x'}\ \&\ y = \pair{b,y'}\ \&\ a \leq b\\
+%   \pair{b,f(x,y')}, & x = \pair{a,x'}\ \&\ y = \pair{b,y'}\ \&\ a > b
+% \end{cases}
+% \]
+
+% \begin{enumerate}[a)]
+% \item 
+%   Вярно ли е, че
+%   \[(\forall x,y,z \in L)[\texttt{merge}(x,\texttt{merge}(y,z)) = \texttt{merge}(\texttt{merge}(x,y),z)]?\]
+% \end{enumerate}
+% \end{problem}
+
+
+% \begin{problem}
+%   Да разгледаме следната програма:
+  
+%   \begin{haskellcode}
+% map :: (Int -> Int) -> [Int] -> [Int]
+% map f []     = []
+% map f (x:xs) = (f x):map f xs
+%   \end{haskellcode}
+
+%   Да разгледаме оператора
+%   \[\Gamma(g)(f,l) = 
+%   \begin{cases}
+%     \bot, & l = \bot\\
+%     \nil, & l = \nil\\
+%     \pair{f(a),g(f,l')}, & l = \pair{a,l'}.
+%   \end{cases}\]
+%   Лесно се вижда, че този оператор е непрекъснат.
+%   Нека $\texttt{map} \dff \lfp(\Gamma)$.
+
+%   \begin{enumerate}[a)]
+%   \item 
+%     $\texttt{map}(f,\texttt{map}(g, l)) = \texttt{map}(f \circ g, l)$.
+%   \end{enumerate}
+% \end{problem}
+
+% \begin{problem}
+%   Да разгледаме следната програма:
+  
+%   \begin{haskellcode}
+% foldr :: (Int -> Int -> Int) -> Int -> [Int] -> [Int]
+% foldr f e []     = e
+% foldr f e (x:xs) = f x (foldr f e xs)
+%   \end{haskellcode}
+
+%   Да разгледаме оператора
+%   \[\Gamma(g)(f,z,l) = 
+%   \begin{cases}
+%     \bot, & l = \bot\\
+%     z, & l = \nil\\
+%     f(x, g(f,z,l')), & l = \pair{a,l'}.
+%   \end{cases}\]
+%   Лесно се вижда, че този оператор е непрекъснат.
+%   Нека $\texttt{foldr} \dff \lfp(\Gamma)$.
+
+%   \begin{enumerate}[a)]
+%   \item 
+%     Нека имаме свойствата 
+%     \begin{itemize}
+%     \item 
+%       $f(\bot) = \bot$
+%     \item
+%       $f(g(x,y)) = h(x, f(y))$      
+%     \end{itemize}
+%     Тогава
+%     $f(\texttt{foldr}(g, a, l)) = \texttt{foldr}(h, f(a), l)$
+%   \end{enumerate}
+% \end{problem}
+
+
+% \begin{problem}
+%   Да разгледаме следната програма:
+  
+%   \begin{haskellcode}
+% foldl :: (Int -> Int -> Int) -> Int -> [Int] -> [Int]
+% foldl f e []     = e
+% foldl f e (x:xs) = foldl (f e x) xs
+%   \end{haskellcode}
+
+%   Да разгледаме оператора
+%   \[\Gamma(g)(f,e,l) = 
+%   \begin{cases}
+%     \bot, & l = \bot\\
+%     \nil, & l = \nil\\
+%     g(f, f(e,a), l'), & l = \pair{a,l'}.
+%   \end{cases}\]
+%   Лесно се вижда, че този оператор е непрекъснат.
+%   Нека $\texttt{foldl} \dff \lfp(\Gamma)$.
+% \end{problem}
+
+% \begin{problem}
+%   Вярно ли е, че следните две програмите $\texttt{evens}$ и $\texttt{evens'}$ дефинират една и съща функция ?
+%   \begin{haskellcode}
+%     evens []       = []
+%     evens [x]      = []
+%     evens (_:x:xs) = x:evens xs
+    
+%     evens' xs = f xs [] where
+%     f [] ys       = ys
+%     f [x] ys      = ys
+%     f (_:x:xs) ys = f xs (x:ys)  
+%   \end{haskellcode}
+% \end{problem}
+
+
+% \subsection{Точни и неточни изображения}
+
+% Една функция $f(x,y)$ е точна, ако $f(x,\bot) = \bot$ и $f(\bot,y) = \bot$,
+% за произволни $x$ и $y$.
+
+% \begin{haskellcode}
+% -- Да видим, че стандартната операцията дизюнкция в хаскел е почти неточна
+% ghci> :t (||)
+% (||) :: Bool -> Bool -> Bool
+% ghci> True || undefined
+% True
+% ghci> False || undefined
+% *** Exception: Prelude.undefined
+% ghci> undefined || True
+% *** Exception: Prelude.undefined
+% ghci> foldr (||) False [False, True, undefined, True]
+% True
+% ghci> foldr (||) False [False, undefined, True]
+% *** Exception: Prelude.undefined
+% ghci> :set +s
+% ghci> foldr (||) False (map (>0) [-999999..])
+% True
+% (0.18 secs, 188,851,600 bytes)
+% \end{haskellcode}
+
+% Да разгледаме следната програма:
+% \begin{haskellcode}
+% mult x y = if x == 0 then 0
+%           else mult (x-1) y + y
+% \end{haskellcode}
+
+% На тази програма съответства операторът:
+% \begin{align*}
+%   \Gamma(f)(x,y) = 
+%   \begin{cases}
+%     0, & x = 0\ \&\ y \in \Nat_\bot\\
+%     f(x-1,y)+y, & x > 0\ \&\ y \in \Nat_\bot\\
+%     \bot, & x = \bot\ \&\ y \in \Nat_\bot.
+%   \end{cases}
+% \end{align*}
+
+% \marginpar{Тук използваме, че $\bot + x = x + \bot = \bot$}
+
+% Тогава най-малката неподвижна точка на $\Gamma$, или еквивалентно, 
+% семантиката на програмата $\texttt{mult}$ е функцията $f_\Gamma$, където
+% \[f_\Gamma(x,y) =
+% \begin{cases}
+%   0, & x = 0\ \&\ y = \bot\\
+%   x \cdot y, & x \in \Nat\ \& \ y \in \Nat\\
+%   \bot, & \text{иначе}
+% \end{cases}\]
+% \marginpar{Това не е напълно коректно, защото на хаскел няма тип на естествените числа, а само на целите}
+% Това означава, че $f_\Gamma$ е точна по първия си аргумент и неточна по втория си аргумент.
+
+% \begin{haskellcode}
+% ghci> mult 0 undefined
+% 0
+% ghci> mult undefined 0
+% *** Exception: Prelude.undefined
+% ghci> :set +s
+% ghci> foldr mult 1 [0..]
+% 0
+% (0.02 secs, 8,959,824 bytes)
+% ghci> foldr (*) 1 [0..]
+% Interrupted. -- забива
+% ghci> foldr mult 1 [1000,999..] -- [1000,999..] == [1000,999,998,997,..]
+% 0
+% (0.65 secs, 230,882,664 bytes)
+% \end{haskellcode}
+
+% Нека сега да разгледаме точен вариант на дизюнкцията.
+
+% \begin{haskellcode}
+% or' :: Bool -> Bool -> Bool
+% or' !x !y = if x then x
+%             else if y then y
+%                  else False
+% \end{haskellcode}
+
+% Да разгледаме сега пак примера отгоре.
+% \begin{haskellcode}
+% ghci> True `or'` undefined
+% undefined
+% ghci> False `or'` undefined
+% *** Exception: Prelude.undefined
+% ghci> undefined `or'` True
+% *** Exception: Prelude.undefined
+% ghci> foldr or' False [False, True, undefined, True]
+% *** Exception: Prelude.undefined
+% ghci> foldr or' False [False, undefined, True]
+% *** Exception: Prelude.undefined
+% ghci> foldr or' False (map (>0) [-9999..])
+% C-c C-cInterrupted.
+% \end{haskellcode}
+
+% \begin{example}
+%   Защо не можем да използваме операция $+$, за която $x + \bot = x$?
+%   Да разгледаме изображението $g:\Nat^2_\bot \to \Nat_\bot$, където
+%   \[g(x,y) = 
+%   \begin{cases}
+%     x, & x \in \Nat_\bot\ \&\ y = \bot\\
+%     x + y, & x\in \Nat\ \&\ y \in \Nat\\
+%     \bot, & x = \bot\ \&\ y \in \Nat.
+%   \end{cases}\]
+%   Лесно се вижда, че $g$ не е монотонно, откъдето следва, че $g$ не е непрекъснато.
+%   Например, $\pair{1,\bot} \sqsubseteq \pair{1,1}$, 
+%   но $g(1,\bot) = 1 \not\sqsubseteq 2 = g(1,1)$.
+%   Това означава, че е безсмислено да разглеждаме тази версия събирането, защото
+%   ние се интересуваме само от непрекъснати изображения.
+% \end{example}
+
+
+% \section*{Бележки}
+
+% \begin{itemize}
+% \item
+%   Много от теоретичните задачи мога да се намерят в \cite[Глава 2]{domains-book}.
+% \item
+%   На \cite[стр. 64]{bird-haskell} са дефинирани крайни, частични и безкрайни списъци в хаскел.
+% \item
+%   \cite[Глава 9]{bird-haskell} е посветена на безкрайни списъци.
+% \item
+%   Срещаната в литературата дефиниция на алгебрична област на Скот е по-обща от тази,
+%   която ние разглеждаме. Тук се ограничаваме само до точни горни граници на вериги, а по-общата дефиниция е да се 
+%   разглеждат точни горни граници на насочени множества.
+% \item 
+%   Ние се интересуваме основно само от алгебрични области на Скот.
+% \item
+%   Ситуацията с ленивите списъци в хаскел е малко по-сложна, защото примерно можем да 
+%   разглеждаме списъци от вида $\pair{\bot,\bot,\bot,\nil}$.
+
+%   \begin{haskellcode}
+% ghci> length [undefined,undefined,undefined]
+% 3
+%   \end{haskellcode}
+% \end{itemize}
+
+% \begin{haskellcode}
+% data LazyList a = Nil | Cons a (LazyList a) deriving (Show)
+
+% data EagerList a = Nil' | Cons' !a !(EagerList a) deriving (Show)
+
+% -- Еквиваленти на функцията take от Prelude
+
+% grab 0 _ = Nil
+% grab n Nil = Nil
+% grab n (Cons x y) = Cons x (grab (n-1) y)
+
+% grab' 0 _ = Nil'
+% grab' n Nil' = Nil'
+% grab' n (Cons' x y) = Cons' x (grab' (n-1) y)
+
+% -- Безкрайни списъци започващи от x
+
+% inf x = Cons x (inf (x+1))
+
+% inf' x = Cons' x (inf' (x+1))
+
+% h n = grab n (inf 0)
+
+% h' n = grab' n (inf' 0)
+
+% -- Какъв резултата от h inf ?
+% -- Какъв резултата от h' inf' ?
+
+% len Nil = 0
+% len (Cons _ tail) = 1 + (len tail)
+
+% len' Nil' = 0
+% len' (Cons' _ tail) = 1 + (len' tail)
+
+% x = Cons undefined (Cons undefined (Cons undefined Nil))
+% x' = Cons' undefined (Cons' undefined (Cons' undefined Nil'))
+
+% -- Какъв е резултата от len x ?
+% -- Какъв е резултата от len' x' ?
+
+% \end{haskellcode}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

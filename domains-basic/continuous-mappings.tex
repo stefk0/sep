@@ -1,0 +1,155 @@
+\subsection{Непрекъснати изображения}
+\index{изображение!непрекъснато}
+
+\marginpar{На англ. {\em continuous}}
+Едно изображение $f:\A_1\to \A_2$ се нарича {\bf непрекъснато}, ако
+при всеки избор на верига $\chain{a}{n}$ в $\A_1$, то имаме равенството
+\marginpar{Понеже $\A_1$ е област на Скот знаем, че $\bigsqcup_i a_i \in \A_1$}
+\marginpar{$\bigsqcup_if(a_i) \dff \bigsqcup\{f(a_i) \mid i \in \Nat\}$}
+\[f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i).\]
+С други думи, 
+$f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на множеството 
+\[\{f(a_n) \mid n \in \Nat\}.\]
+Да означим
+\[\Cont{\A_1}{\A_2} \dff \{f: \A_1 \to \A_2 \mid f\text{ е непр. изобр.}\}.\]
+
+
+\begin{framed}
+  \begin{prop}
+    \label{pr:continuous-is-monotone}
+    За произволни области на Скот $\A_1$ и $\A_2$, всяко непрекъснато изображение $f:\A_1 \to \A_2$ е монотонно, т.е.
+    \[\Cont{\A_1}{\A_2}\ \subseteq\ \Mon{\A_1}{\A_2}.\]
+  \end{prop}
+\end{framed}
+\begin{proof}
+  Нека $f \in \Cont{\A_1}{\A_2}$.
+  Да вземем два произволни елемента в $\A_1$, за които $a \sqsubseteq_1 b$.
+  Ще докажем, че $f(a) \sqsubseteq_2 f(b)$.
+  
+  Да разгледаме веригата $\chain{a}{i}$ в $\A_1$, където:
+  \[\underbrace{a_0}_{a} \sqsubseteq \underbrace{a_1}_{b} = \underbrace{a_2}_{b} = \underbrace{a_3}_{b} = \cdots\]
+
+  Ясно е, че 
+  \[\bigsqcup_i\{a_i \mid i \in \Nat\} = \bigsqcup\{a,b\} = b.\]
+  Тогава от непрекъснатостта на $f$ имаме, че
+  \begin{align*}
+    f(a) & = f(a_0) & \comment{\text{защото }a_0 \dff a}\\
+    & \sqsubseteq_2 \bigsqcup\{f(a_i) \mid i \in \Nat\} & \comment{\text{защото }f(a_0) \in \{f(a_i) \mid i\in\Nat\}}\\
+    & = f(\bigsqcup_i a_i) & \comment{\text{защото $f$ е непр.}}\\
+    & = f(\bigsqcup\{a,b,b,b,\dots\}) & \comment{\text{от избора на веригата }\chain{a}{i}}\\
+    & = f(b) & \comment{\text{защото }a \sqsubseteq_1 b}.
+  \end{align*}
+  Така получихме, че за произволни $a,b\in\A_1$, 
+  \[a \sqsubseteq_1 b \implies f(a) \sqsubseteq_2 f(b).\]
+\end{proof}
+
+% \begin{cor}
+%   \label{cr:continuous-is-monotone}
+%   $\Cont{\Nat^n_\bot}{\Nat_\bot} \subseteq \Mon{\Nat^n_\bot}{\Nat_\bot}$.
+% \end{cor}
+
+\begin{prop}
+  Съществува област на Скот $\A$, за която
+  \[\Cont{\A}{\A} \subsetneqq \Mon{\A}{\A}.\]
+\end{prop}
+\begin{hint}
+  Нека $A = \{a_n \mid n \in \Nat\} \cup \{a_\omega, b_0\}$.
+  Да разгледаме областта на Скот $\A = (A, \sqsubseteq, a_0)$, където 
+  наредбата между елементите е следната:
+  \[a_0 \sqsubseteq a_1 \sqsubseteq \cdots \sqsubseteq a_n \sqsubseteq \cdots \sqsubseteq a_\omega \sqsubseteq b_0. \]
+  Нека $f(a_n) = a_{n+1}$ и $f(a_{\omega}) = b_0$.
+  Очевидно е, че $f$ е монотонно изображение.
+  Лесно се вижда, че $f$ не е непрекъснато изображение, 
+  защото $f(\bigsqcup_n a_n) = f(a_\omega) = b_0$,
+  но 
+  \[\bigsqcup_n f(a_n) = \bigsqcup_n a_{n+1} = a_\omega.\]
+\end{hint}
+
+Сега да видим един важен за нас случай, при който имаме и обратното включване.
+
+\begin{framed}
+  \begin{prop}
+    \label{pr:stab-continuous}
+    Ако всяка верига в $\A_1$ се {\em стабилизира}, то
+    \[\Mon{\A_1}{\A_2} \subseteq \Cont{\A_1}{\A_2}.\]
+  \end{prop}  
+\end{framed}
+\begin{hint}
+  Да разгледаме една верига $\chain{a}{i}$ и $f \in \Mon{\A_1}{\A_2}$.
+  Ще докажем, че \[f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i).\]
+
+  \begin{enumerate}[(1)]
+  \item 
+    Ясно е, че за всяко монотонно изображение $f$,
+    понеже $a_i \sqsubseteq \bigsqcup_i a_i$, то $f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+    Това означава, че $f(\bigsqcup_i a_i)$ е горна граница на веригата $(f(a_i))^\infty_{i=0}$
+    и следователно $\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+  \item
+    За другата посока ще използваме свойството, че веригата $\chain{a}{i}$ се стабилизира.
+    Нека $n_0$ е индекс, такъв че $(\forall k \geq n_0)[a_k = a_{n_0}]$.
+    Това означава, че $\bigsqcup_i a_i = a_{n_0}$.
+    Тогава $f(\bigsqcup_i a_i) = f(a_{n_0}) \sqsubseteq \bigsqcup_i f(a_i)$.    
+  \end{enumerate}
+  
+  От $(1)$ и $(2)$ следва, че $f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i)$.
+\end{hint}
+
+Понеже всяка верига в $\Nat^n_\bot$ се {\em стабилизира}, то
+получаваме следното важно следствие.
+\begin{framed}
+\begin{cor}
+  \label{cr:monotone-is-continuous}
+  $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$.
+\end{cor}  
+\end{framed}
+
+От доказателството на (1) за \Prop{stab-continuous} можем да извлечем следното свойство,
+което ще ни бъде полезно по-нататък.
+\begin{prop}
+  \label{pr:monotone-chain}
+  За всяко изображение $f \in \Mon{\A}{\B}$ и всяка верига $\chain{a}{i}$, е изпълнено, че
+  \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
+\end{prop}
+
+Понеже от \Cor{flat-monotone-is-domain} имаме, че монотонните изображения образуват област на Скот, 
+то директно получаваме следната важна теорема.
+
+\begin{framed}
+\begin{thm}
+  \label{th:continuous-is-domain}
+  $(\Cont{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq,\ \Omega^{(n)})$ е област на Скот.
+\end{thm}  
+\end{framed}
+% \begin{proof}
+%   От \Cor{monotone-is-continuous} имаме, че 
+%   \[\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}.\]
+%   От \Cor{flat-monotone-is-domain} имаме, че 
+%   \[(\Mon{\Nat^n_\bot}{\Nat_\bot}, \sqsubseteq, \Omega^{(n)})\]
+%   е област на Скот. 
+%   Оттук директно получаваме, че 
+%   \[(\Cont{\Nat^n_\bot}{\Nat_\bot}, \sqsubseteq, \Omega^{(n)})\] е област на Скот.
+% \end{proof}
+
+
+% \begin{prop}
+%   \label{pr:composition}
+%   \index{изображения!композиция}
+%   Ако $f \in \Cont{\A}{B}$ и $g \in \Cont{\B}{\C}$, то $g \circ f \in \Cont{\A}{\C}$,
+%   където \[(g\circ f)(a) \dff g(f(a)).\]
+% \end{prop}
+% \begin{hint}
+%   Нека $\chain{a}{i}$ е верига в $\A$.
+%   Да обърнем внимание, че понеже $f \in \Cont{\A}{\B}$,
+%   то $f$ е монотонно изображение и тогава $(f(a_i))^\infty_{i=0}$ е верига в $\B$.
+%   Тогава:
+%   \begin{align*}
+%     (g \circ f)(\bigsqcup_i a_i) & = g(f(\bigsqcup_i a_i)) & \comment{\text{от деф.}}\\
+%     & = g(\bigsqcup_i f(a_i)) & \comment{f \text{ е непр.}}\\
+%     & = \bigsqcup_i g(f(a_i)) & \comment{g \text{ е непр.}}
+%   \end{align*}
+% \end{hint}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

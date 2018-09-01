@@ -1,0 +1,228 @@
+\section{Задачи}
+
+\begin{problem}
+  \label{prob:sup-f}
+  \marginpar{Достатъчно е всяка верига в $\B$ да се стабилизира}
+  Нека $(f_i)^\infty_{i=0}$ е верига от елементи на $\Mapping{\A}{\B}$,
+  където $\B$ е {\em плоска} област на Скот. Тогава:
+  \begin{itemize}
+  \item 
+    $(\bigsqcup_i f_i)(a) = \bot \implies (\forall i)[\ f_{i}(a) = b\ ]$;
+  \item 
+    $(\bigsqcup_i f_i)(a) = b \neq \bot \implies (\exists i_0)(\forall i\geq i_0)[\ f_{i}(a) = b\ ]$.
+  \end{itemize}
+\end{problem}
+% \begin{hint}
+%   Първо да отбележем, че доказателството на \Th{all-mappings-is-domain} знаем, че
+%   \[(\bigsqcup_i f_i)(\bar{a}) = \bigsqcup_i \{f_i(\bar{a})\}.\]
+%   За посоката $(\Leftarrow)$, нека $f_{i_0}(\bar{a}) = b$, за някой индекс $i_0$.
+%   Имаме, че
+%   \begin{align*}
+%     b = f_{i_0}(\bar{a}) & \sqsubseteq \bigsqcup_i \{f_i(\bar{a})\} \\
+%                          & = (\bigsqcup_i f_i)(\bar{a}) & \comment{\text{от \Th{all-mappings-is-domain}}}.
+%   \end{align*}
+  
+%   Получихме, че $b \sqsubseteq (\bigsqcup_i f_i)(\bar{a})$,
+%   но понеже $\bot \neq b$, то $b = (\bigsqcup_i f_i)(\bar{a})$.
+
+%   За посоката $(\Rightarrow)$, нека $(\bigsqcup_i f_i)(\bar{a}) = b \neq \bot$.
+%   Отново използваме \Th{all-mappings-is-domain} и получаваме, че
+%   $\bigsqcup_i\{f_i(\bar{a})\} = b$.
+%   Очевидно е, че не е възможно $f_i(\bar{a}) = \bot$ за всяко $i$, защото тогава $\bigsqcup_i\{f_i(\bar{a})\} = \bot$.
+%   Нека $i_0$ е първия индекс, за който $f_{i_0}(\bar{a}) = c\neq \bot$.
+%   Понеже разглеждаме плоската наредба, ясно е, че $(\forall i \geq i_0)[f_i(\bar{a}) = c]$.
+%   Тогава $\bigsqcup_i\{f_i(\bar{a})\} = c$, откъдето получаваме, че $c = b$.
+% \end{hint}
+
+\begin{problem}
+  \label{prob:stab-continuous-finite}
+  % Нека $\A_1$ е област на Скот, в която всяка верига се {\em стабилизира},
+  % а $\A_2$ е {\em плоска} област на Скот.
+  \marginpar{Достатъчно е всяка верига в $\B$ да се стабилизира}
+  Нека $f \in \Mon{\A}{\B}$, където $\B$ е {\em плоска} област на Скот.
+  Тогава за всяка верига $\chain{a}{i}$ в $\A$ е изпълнено, че:
+  \begin{itemize}
+  \item 
+    $f(\bigsqcup_i a_i) = \bot \implies (\forall i)[\ f(a_i) = \bot\ ]$;
+  \item
+    $f(\bigsqcup_i a_i) = b \neq \bot \implies (\exists i_0)(\forall i\geq i_0)[\ f(a_i) = b\ ]$.
+  \end{itemize}
+\end{problem}
+% \begin{hint}
+%   За посоката $(\Leftarrow)$, от \Prop{continuous-is-monotone} знаем, че $f$ е монотонно изображение.
+%   Нека $f(a_{i_0}) = b \neq \bot$.
+%   Тогава, понеже $f$ е монотонна и $a_{i_0} \sqsubseteq_1 \bigsqcup_i a_i$,
+%   имаме, че $f(a_{i_0}) = b \sqsubseteq_2 f(\bigsqcup_i a_i)$.
+%   Щом $\sqsubseteq_2$ е плоската наредба и $b \neq \bot$, то получаваме, че $b = f(\bigsqcup_i a_i)$.
+
+%   За посоката $(\Rightarrow)$, нека $f(\bigsqcup_i a_i) = b$.
+%   Ако веригата $\chain{a}{i}$ се стабилизира от $a_{i_0}$ нататък, то $\bigsqcup_i a_i = a_{i_0}$.
+%   Тогава $f(\bigsqcup_i a_i) = f(a_{i_0}) = b$.
+% \end{hint}
+
+% \begin{cor}
+%   Нека $f \in \Cont{\Nat^n_\bot}{\Nat_\bot}$.
+%   Тогава за всяка верига $\chain{\bar{a}}{i}$ в $\Nat^n_\bot$, и всяко $b \neq \bot$,
+%   \[f(\bigsqcup_i \bar{a}_i) = b \iff (\exists i_0)[f(\bar{a}_{i_0}) = b].\]
+% \end{cor}
+
+
+\begin{problem}
+  \label{pr:composition}
+  \index{изображения!композиция}
+  Ако $f \in \Cont{\A}{B}$ и $g \in \Cont{\B}{\C}$, то $g \circ f \in \Cont{\A}{\C}$,
+  където \[(g\circ f)(a) \dff g(f(a)).\]
+\end{problem}
+
+\begin{problem}
+  Докажете, че ако $\A$ и $\B$ са алгебрични области на Скот, то
+  $\A \times \B$ също е алгебрична област на Скот.
+\end{problem}
+
+\begin{problem}
+  Нека е даден следния оператор $\Gamma:\F^\bot_1\to\F^\bot_1$:
+  \begin{align*}
+    \Gamma(f)(x) =
+    \begin{cases}
+      \bot, & |Dom(f)| < \infty\\
+      1, & |Dom(f)| = \infty.
+    \end{cases}
+  \end{align*}
+  Проверете дали:
+  \begin{enumerate}[a)]
+  \item 
+    $\Gamma$ е монотонен оператор;
+  \item
+    $\Gamma$ е компактен оператор.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  \begin{enumerate}[a)]
+  \item 
+    Трябва да проверим дали:
+    \[(\forall f,g\in\F^\bot_1)[f \sqsubseteq g \implies \Gamma(f) \sqsubseteq \Gamma(g)].\]
+    Нека $f \sqsubseteq g$ са произволни елементи от $\F^\bot_1$.
+    Ще разгледаме два случая.
+    \begin{itemize}
+    \item 
+      $f$ е крайна функция. Тогава $\Gamma(f) = \lambda x.\bot$ и е очевидно, че 
+      \[\Gamma(f) \sqsubseteq \Gamma(g).\]
+    \item
+      $f$ не е крайна функция. Щом $f \sqsubseteq g$, то $g$ също не е крайна функция.
+      Тогава 
+      \[(\forall x \in \Nat_\bot)[\Gamma(f)(x) = 1 = \Gamma(g)(x)],\]
+      от което следва, че 
+      \[\Gamma(f) \sqsubseteq \Gamma(g).\]
+    \end{itemize}
+    Разгледахме всички възможни случаи за $f$ и във всеки от тях получихме, че $\Gamma(f) \sqsubseteq \Gamma(g)$.
+    Следователно, $\Gamma$ е монотонен оператор.
+  \item
+    Според \Prop{operator-compact}, достатъчно е да докажем, че за произволни елементи $f \in \F^\bot_1$, $x, y \in \Nat_\bot$, 
+    \begin{equation}
+      \label{eq:compact}
+      \Gamma(f)(x) = y\ \implies\ (\exists \theta \sqsubseteq f)[\theta\text{ е крайна }\&\ \Gamma(\theta)(x) = y]].
+    \end{equation}
+    Нека $f$ е не е крайна функция.
+    Тогава е ясно, че за всяко $x \in \Nat_\bot$, $\Gamma(f)(x) = 1$.
+    От друга страна, понеже $\theta$ е крайна, $\Gamma(\theta)(x) = \bot$ за всяко $x \in \Nat_\bot$.
+    Така видяхме, че ако $f$ не е крайна, то за произволна $\theta \sqsubseteq f$ и произволно $x \in \Nat_\bot$,
+    $\Gamma(\theta)(x) \neq 1$.
+    От това следва, че Формула (\ref{eq:compact}) не е изпълнена и тогава $\Gamma$ не е компактен оператор.  
+  \end{enumerate}
+\end{solution}
+
+
+\begin{problem}
+  Нека е даден следния оператор $\Gamma:\F^\bot_2\to\F^\bot_2$:
+  \begin{align*}
+    \Gamma(f)(x,y) = &
+    \begin{cases}
+      y, & x = 0\\
+      f(x, f(x-1,y)), & x > 0\\
+      \bot, & x = \bot.
+    \end{cases}
+  \end{align*}
+  \begin{enumerate}[a)]
+  \item 
+    Докажете, че $\Gamma$ е компактен оператор.
+  \item
+    Намерете $\lfp(\Gamma)$.
+  \item
+    Има ли $\Gamma$ други неподвижни точки ?
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  Монотонен ли е операторът $\Gamma:\Strict{\Nat_\bot}{\Nat_\bot} \to \Nat_\bot$, където:
+  \begin{align*}
+    \Gamma(f) =
+    \begin{cases}
+      n, & |Dom(f)| = n\\
+      \bot, & |Dom(f)| = \infty\\
+    \end{cases}
+  \end{align*}
+\end{problem}
+
+\begin{problem}
+  Какви свойства има оператора $\Gamma:\F^\bot_1\times\F^\bot_1 \to \F^\bot_1$, където:
+  \begin{align*}
+    \Gamma(f,g)(x) =
+    \begin{cases}
+      g(x), & f \sqsubseteq g\\
+      f(x), & g \sqsubseteq f\ \&\ f \not\sqsubseteq g\\
+      \bot, & \text{иначе}.
+    \end{cases}
+  \end{align*}
+\end{problem}
+
+\begin{problem}
+  \marginpar{\cite[стр. 122]{nikolova-soskova}}
+  Нека разгледаме $f \in \Mon{\Nat_\bot}{\Nat_\bot}$.
+  Съобразете, че $\lfp(f) = f(\bot)$.
+\end{problem}
+
+
+\begin{problem}
+  Знаем, че всяко изображение $f \in \Cont{\A}{\A}$ притежава най-малка неподвижна точка.
+  \begin{itemize}
+  \item 
+    Вярно ли е, че съществуват изображения от вида $f:\A\to\A$, които са монотонни, {\em не} са непрекъснати, но въпреки това притежават 
+    най-малка неподвижна точка?
+  \item
+    \marginpar{\cite[стр. 131]{nikolova-soskova}}
+    Вярно ли е, че съществуват изображения от вида $f:\A\to\A$, които са не са монотонни, но въпреки това притежават най-малка неподвижна точка?
+  \end{itemize}
+  Дайте примери за такава области на Скот $\A$ и изображения $f:\A \to \A$.
+  Обосновете заключенията си.
+\end{problem}
+
+\begin{problem}
+  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, за което $\bigsqcup_n f^n(\bot^\A)$ не е най-малката неподвижна точка на $f$.
+\end{problem}
+\ifhints
+\begin{hint}
+  Да разгледаме $\A = (A, \sqsubseteq, a_0)$, където елементите на $A$ са подредени по следния начин:
+
+  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset b_0 \sqsubset b_1 \sqsubset \cdots \sqsubset b_n \sqsubset \cdots \sqsubset c\},\]
+  т.е. $A$ е съставена от веригата $(a_n)^\infty_{n=0}$ веднага следвана от веригата $(b_n)^\infty_{n=0}$ и имаме най-голям елемент $c$.
+  Да обърнем внимание, че $\bigsqcup_n a_n = b_0$ и $\bigsqcup_n b_n = c$.
+
+  Да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
+  \begin{align*}
+    & f(a_n) = a_{n+1}\\
+    & f(b_n) = b_{n+1}\\
+    & f(c) = c.
+  \end{align*}
+  Лесно се вижда, че това изображение е монотонно.
+  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = b_0$, и тогава:
+  \[f(\bigsqcup_n a_n) = f(b_0) = b_1 \neq b_0 = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
+  Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $c$.
+  Това означава, че $c$ е също и най-малката неподвижна точка.
+  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка.
+\end{hint}
+\fi
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

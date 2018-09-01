@@ -1,0 +1,167 @@
+\subsection{Стойност на терм}
+
+Нека първо да дефинираме следните {\em изображения}
+\begin{align*}
+  & \texttt{plus} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
+  & \texttt{plus}(a,b) =
+    \begin{cases}
+      a+b, & \text{ако }a,b \in \Nat\\
+      \bot, & \text{ако }\bot \in \{a,b\}
+    \end{cases}\\
+  & \texttt{eq} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
+  & \texttt{eq}(a,b) =
+    \begin{cases}
+      1, & \text{ако }a = b\ \&\ a,b \in \Nat\\
+      0, & \text{ако }a \neq b\ \&\ a,b \in \Nat\\
+      \bot, & \text{ако }\bot \in \{a,b\}
+    \end{cases}\\
+  & \texttt{if}:\Nat^3_\bot \to \Nat_\bot\text{, където}\\
+  & \texttt{if}(a,b,c) =
+    \begin{cases}
+      b, & \text{ако } a \in \Nat^+\\
+      c, & \text{ако } a = 0\\
+      \bot, & \text{ако } a = \bot.
+  \end{cases}
+\end{align*}
+
+\marginpar{Спестяваме си труда от въвеждането на булевия тип променливи}
+\marginpar{Озн. $\Nat^+ \dff \Nat \setminus \{0\}$}
+
+\begin{problem}
+  \label{prob:rec:if:continuous}
+  Докажете, че изображенията $\texttt{plus}$, $\texttt{eq}$, $\texttt{if}$ са непрекъснати.
+\end{problem}
+
+\index{денотационна семантика!по име}
+\marginpar{\cite[стр. 155]{winskel}}
+\index{терм!стойност}
+За всеки терм $\tau[\vv{x}_1,\dots,\vv{x}_{n},\vv{f}_1,\dots,\vv{f}_k]$,
+ще разгледаме изображението със сигнатура
+\[\val{\tau}:\Mapping{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Mapping{\Nat^{m_k}_\bot}{\Nat_\bot} \to \Mapping{\Nat^{n}_\bot}{\Nat_\bot},\]
+което ще дефинираме с индукция по построението на термовете.
+
+\begin{itemize}
+\item
+  ако $\tau \equiv \vv{c}$, за някоя константа, то 
+  \[\val{\vv{c}}(\ov{\varphi})(\ov{a}) \dff c.\]
+\item
+  ако $\tau \equiv \vv{x}_i$, за някоя обектова променлива, то 
+  \[\val{\vv{x}_i}(\ov{\varphi})(\ov{a}) \dff a_i.\]
+\item
+  ако $\tau \equiv \tau_1 + \tau_2$, то
+  \[\val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+\item
+  \marginpar{Знаем, че изображенията $\texttt{plus}$ и $\texttt{eq}$ са непрекъснати}
+  ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
+  \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{eq}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+\item
+  ако $\tau \equiv\ \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
+  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \dff \texttt{if}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
+\item
+  ако $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$, то
+  \marginpar{Термовете $\tau_j$ може да имат различен брой променливи. Ако се наложи, разширяваме ги с фиктивни променливи}
+  \[\val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a}) \dff \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{a})).\]
+\end{itemize}
+
+\begin{example}
+  Да разгледаме следния терм:
+  \[\tau[\vv{x},\vv{y},\vv{z}] \dfff \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
+  Да видим каква е негова стойност при произволни стойности $a,b,c \in \Nat_\bot$:
+  \begin{align*}
+    \val{\tau}(a,b,c) & =
+                        \begin{cases}
+                          \val{\vv{y}}(a,b,c), & \text{ако }\val{x \ \vv{==}\ 5}(a,b,c) \in \Nat^+\\
+                          \val{\vv{z}}(a,b,c), & \text{ако }\val{x \ \vv{==}\  5}(a,b,c) = 0\\
+                          \bot,                & \text{ако }\val{x\ \vv{==}\ 5}(a,b,c) = \bot
+                        \end{cases}\\
+                      & =
+                        \begin{cases}
+                          b,    & \text{ако }a = 5\\
+                          c,    & \text{ако }a \in \Nat\ \&\ a \neq 5\\
+                          \bot, & \text{ако }a = \bot.
+                        \end{cases}
+  \end{align*}
+\end{example}
+
+\begin{framed}
+  \begin{lemma}[Лема за замяната]
+    \label{lem:rec:substitution}
+    Да разгледаме терма $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_{k}]$ и {\em функционалните} термове 
+    $\mu_1[\vv{f}_1,\dots,\vv{f}_k],\dots, \mu_n[\vv{f}_1,\dots,\vv{f}_k]$.
+    Тогава % за произволни $\varphi_1,\dots,\varphi_k$,
+    \[\val{\tau[\bar{\vv{x}}/\bar{\mu}]}(\bar{\varphi}) = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\bar{\varphi}))\]
+    за произволни $\varphi_i \in \Mapping{\Nat^{m_i}_\bot}{\Nat_\bot}$, за $i = 1, \dots, k$.
+  \end{lemma}
+\end{framed}
+\begin{proof}
+  Доказателството се провежда с {\em индукция по построението на терма $\tau$.}
+  \marginpar{Важно е, че нямаме обектови променливи в $\mu_1,\dots,\mu_n$}
+  \marginpar{Substitution Lemma, \cite[стр. 149]{winskel}}
+  \marginpar{Това твърдение е без д-во в \cite[стр. 188]{ditchev-soskov}}
+  \begin{itemize}
+  \item
+    \marginpar{$\vv{c}$ е константа, докато $c \in \Nat_\bot$}
+    Нека да започнем с най-лесния случай.
+    Нека $\tau \equiv \vv{c}$, за някоя константа.
+    Тогава $\tau[\ov{\vv{x}}/\ov{\mu}] \equiv \vv{c}$.
+    Това означава, че 
+    \[\val{\tau[\ov{\vv{x}}/\ov{\mu}]}(\ov{\varphi}) = \val{\vv{c}}(\ov{\varphi}) \dff c.\]
+    От друга страна, имаме също, че 
+    \[\val{\vv{c}}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) \dff c.\]
+  \item
+    Нека $\tau \equiv \vv{x}_i$. Тогава $\vv{x}_i[\varsx/\bar{\mu}] \equiv \mu_i$
+    и следователно 
+    \[\val{\vv{x}_i[\varsx/\bar{\mu}]}(\bar{\varphi}) = \val{\mu_i}(\bar{\varphi}).\]
+    От друга страна, по дефиниция на стойност на терм, 
+    \[\val{\vv{x}_i}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\bar{\varphi})) = \val{\mu_i}(\bar{\varphi}).\]
+  \item
+    Нека $\tau \equiv \tau_1 + \tau_2$.
+    От {\bf И.П.} имаме, че за $j = 1,2$
+    \[\val{\tau_j[\varsx/\ov{\mu}]}(\ov{\varphi}) = \val{\tau_j}(\underbrace{\val{\mu_1}(\ov{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_n}(\ov{\varphi})}_{b_n},\ov{\varphi}).\]
+    Тогава
+    \begin{align*}
+      \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\tau_1[\varsx/\ov{\mu}] + \tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})\\
+                                                & \dff \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
+                                                & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
+                                                & \dff \val{\tau}(\ov{\varphi})(b_1,\dots,b_n)\\
+                                                & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \dff \val{\mu_j}(\ov{\varphi})}
+    \end{align*}
+  \item
+    \marginpar{\writedown Докажете сами останалите два случая. Те не крият изненади.}
+    Нека $\tau \equiv \tau_1\ \vv{==}\  \tau_2$.
+  \item
+    Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.
+  \item 
+    Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$.
+    Имаме, че 
+    \begin{equation}
+      \label{eq:1}
+      \tau[\varsx/\bar{\mu}] \equiv \vv{f}_i(\tau_1[\varsx/\bar{\mu}],\dots,\tau_{m_i}[\varsx/\bar{\mu}]).
+    \end{equation}
+    Нека за улеснение да означим $b_i \dff \val{\mu_i}(\bar{\varphi})$, за $i = 1,\dots,n$.
+    Прилагаме {\bf И.П.} за термовете $\tau_1,\dots,\tau_{m_i}$ и получаваме за $j = 1, \dots, m_i$,
+    \begin{align*}
+      \val{\tau_j[\varsx /\bar{\mu}]}(\bar{\varphi}) & = \val{\tau_j}(\ov{\varphi})(\underbrace{\val{\mu_1}(\bar{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_{n}}(\bar{\varphi})}_{b_{n}}) & \comment{\text{от {\bf И.П.}}}\\
+      & = \val{\tau_j}(\ov{\varphi})(b_1,\dots,b_{n}) & \comment{b_i \dff \val{\mu_i}(\bar{\varphi})}.
+    \end{align*}
+    Следователно,
+    \begin{align*}
+      \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\vv{f}_i(\tau_1[\varsx/\ov{\mu}],\dots,\tau_{m_i}[\varsx/\ov{\mu}])}(\ov{\varphi}) & \comment{\text{от (\ref{eq:1})}}\\
+                                                & \dff \varphi_i(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}),\dots,\val{\tau_{m_i}[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
+                                                & = \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от {\bf И.П.}}} \\
+                                                & \dff \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{b})\\
+                                                & = \val{\tau}(\ov{\varphi})(\ov{b}) & \comment{\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})}\\
+      & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) & \comment{b_i \dff \val{\mu_i}(\ov{\varphi})}.
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+\begin{remark}
+  В частния случай, когато функционалните термове $\mu_1,\dots, \mu_n$ са константите $\vv{c}_1, \dots, \vv{c}_n$, получаваме, че 
+  \[\val{\tau[\ov{\vv{x}}/\ov{\vv{c}}]}(\ov{\varphi}) = \val{\tau}(\ov{\varphi})(\ov{c}).\]  
+\end{remark}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

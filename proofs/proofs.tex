@@ -1,0 +1,831 @@
+\chapter{Доказване на свойства на програми}
+
+След като вече имаме точна дефиниция на семантиката на една рекурсивна програма, можем да видим как можем да доказваме
+формално свойства на рекурсивни програми.
+
+\input{proofs/properties}
+
+% \newpage
+% \setcounter{problem}{0}
+
+% \begin{problem}
+%   Нека е даден следния оператор $\Gamma:\F_1\to\F_1$:
+%   \begin{align*}
+%     \Gamma(f)(x) \simeq 
+%     \begin{cases}
+%       0, & f\text{ е крайна функция}\\
+%       1, & \text{ иначе }.
+%     \end{cases}
+%   \end{align*}
+%   Проверете дали:
+%   \begin{enumerate}[a)]
+%   \item 
+%     $\Gamma$ е монотонен оператор;
+%   \item
+%     $\Gamma$ е компактен оператор.
+%   \end{enumerate}
+% \end{problem}
+% \begin{proof}
+%   \begin{enumerate}[a)]
+%   \item 
+%     Трябва да проверим дали:
+%     \[(\forall f,g\in\F_1)[f \subseteq g\ \Rightarrow \Gamma(f) \subseteq \Gamma(g)].\]
+%     Да изберем $f \subseteq g$ да бъдат такива функции, че $f$ е крайна функция, но $g$ не е крайна функция.
+%     Тогава $(\forall x \in \Nat)[\Gamma(f)(x) \simeq 0\ \&\ \Gamma(g)(x) \simeq 1]$.
+%     Очевидно е, че за така избраните $f$ и $g$, $\Gamma(f) \not\subseteq \Gamma(g)$.
+%   \item
+%     Знаем, че всеки компактен оператор е монотонен.
+%     Щом $\Gamma$ не е монотонен, то със сигурност $\Gamma$ не е компактен.
+%   \end{enumerate}
+% \end{proof}
+
+% \begin{problem}
+%   Нека е даден следния оператор $\Gamma:\F_1\to\F_1$:
+%   \begin{align*}
+%     \Gamma(f)(x) \simeq 
+%     \begin{cases}
+%       \neg !, & f\text{ е крайна функция}\\
+%       1, & \text{ иначе }.
+%     \end{cases}
+%   \end{align*}
+%   Проверете дали:
+%   \begin{enumerate}[a)]
+%   \item 
+%     $\Gamma$ е монотонен оператор;
+%   \item
+%     $\Gamma$ е компактен оператор.
+%   \end{enumerate}
+% \end{problem}
+% \begin{proof}
+%   \begin{enumerate}[a)]
+%   \item 
+%     Трябва да проверим дали:
+%     \[(\forall f,g\in\F_1)[f \subseteq g\ \Rightarrow \Gamma(f) \subseteq \Gamma(g)].\]
+%     Нека $f \subseteq g$ са произволни функции от $\F_1$.
+%     Ще разгледаме два случая.
+%     \begin{itemize}
+%     \item 
+%       $f$ е крайна функция. Тогава $\Gamma(f) = \emptyset^{(1)}$ и е очевидно, че 
+%       \[\Gamma(f) = \emptyset^{(1)} \subseteq \Gamma(g).\]
+%     \item
+%       $f$ не е крайна функция. Щом $f \subseteq g$, то $g$ също не е крайна функция.
+%       Тогава 
+%       \[(\forall x \in \Nat)[\Gamma(f)(x) \simeq 1 \simeq \Gamma(g)(x)],\]
+%       от което следва, че 
+%       \[\Gamma(f) \subseteq \Gamma(g).\]
+%     \end{itemize}
+%     Разгледахме всички възможни случаи за $f$ и във всеки от тях получихме, че $\Gamma(f) \subseteq \Gamma(g)$.
+%     Следователно, $\Gamma$ е монотонен оператор.
+%   \item
+%     Сега ще проверим дали е изпълнено, че:
+%     \begin{equation}
+%       \label{eq:compact}
+%       (\forall f \in \F_1)(\forall x,y\in\Nat)[\Gamma(f)(x)\simeq y\ \Rightarrow\ (\exists \theta \subseteq f)[\Gamma(\theta)(x) \simeq y]].
+%     \end{equation}
+%     Тук с $\theta$ означаваме крайна функция.
+%     Нека $f$ е не е крайна функция.% , например, $f(x) = x^2$ за всяко $x \in \Nat$.
+%     Тогава е ясно, че за всяко $x \in \Nat$, $\Gamma(f)(x) \simeq 1$.
+%     От друга страна, понеже $\theta$ е крайна, $\neg ! \Gamma(\theta)(x)$ за всяко $x \in \Nat$.
+    
+%     Така видяхме, че ако $f$ не е крайна, то за произволно $x$, $\Gamma(f)(x) \simeq 1$,
+%     но не съществува крайна $\theta \subseteq f$, за която $\Gamma(\theta)(x) \simeq 1$.
+%     От това следва, че Формула (\ref{eq:compact}) не е изпълнена.
+%     Следователно, $\Gamma$ не е компактен оператор.
+%   \end{enumerate}
+% \end{proof}
+
+
+% \begin{problem}
+%   Нека е даден следния оператор $\Gamma:\F_2\to\F_2$:
+%   \begin{align*}
+%     \Gamma(f)(x,y) \simeq &
+%     \begin{cases}
+%       y, & x = 0\\
+%       f(x, f(x-1,y)), & x > 0.
+%     \end{cases}
+%   \end{align*}
+%   \begin{enumerate}[a)]
+%   \item 
+%     Докажете, че $\Gamma$ е компактен оператор.
+%   \item
+%     Коя е най-малката неподвижна точка на $\Gamma$?
+%   \item
+%     Има ли $\Gamma$ други неподвижни точки ?
+%   \end{enumerate}
+% \end{problem}
+
+
+% \begin{problem}
+%   Нека е даден следния оператор $\Gamma:\F_1\to\F_1$:
+%   \begin{align*}
+%     \Gamma(f)(x) \simeq &
+%     \begin{cases}
+%       0, & x = 0\\
+%       f(f(x-1)+1)), & x > 0.
+%     \end{cases}
+%   \end{align*}
+%   \begin{enumerate}[a)]
+%   \item 
+%     Докажете, че $\Gamma$ е компактен оператор.
+%   \item
+%     Коя е най-малката неподвижна точка на $\Gamma$?
+%   \item
+%     Има ли $\Gamma$ други неподвижни точки ?
+%   \end{enumerate}
+% \end{problem}
+
+% \section{Структурна индукция}
+
+% % \Stefan{Да се махне оттук.}
+% \begin{problem}
+%   Да разгледаме програмите $\texttt{fib}$ и $\texttt{fib'}$:
+  
+%   \begin{haskellcode}
+% fib(n) = f(n) where
+%   f(n) = if n == 0 then 0
+%            else if n == 1 then 1
+%              else f(n-1) + f(n-2)
+
+% fib'(n) = g(0,1,n) where
+%   g(a,b,n) = if n == 0 then a
+%                else g(b, a+b, n-1)
+%   \end{haskellcode}
+  
+%   Докажете, че $\D_V\val{\texttt{fib}} = \D_V\val{\texttt{fib'}}$.
+% \end{problem}
+% \begin{hint}
+%   Да разгледаме операторите:
+%   \begin{align*}
+%     \Gamma(f)(x) =
+%     \begin{cases}
+%       0, & x = 0\\
+%       1, & x = 1\\
+%       f(x-1) + f(x-2), & x \geq 2\\
+%       \bot, & x = \bot.
+%     \end{cases}
+%   \end{align*}
+
+%   \begin{align*}
+%     \Delta(g)(x,y,z) =
+%     \begin{cases}
+%       x, & z = 0\\
+%       g(y,x+y,z-1), & z \geq 1\\
+%       \bot, & z = \bot.
+%     \end{cases}
+%   \end{align*}
+%   \Stefan{Малко е объркващо, че от една страна работим с $\Nat_\bot$, където имаме плоска наредба, а 
+%   от друга правим индукция по наредбата на естествените числа}
+
+%   Очевидно е, че тези оператори са непрекъснати.
+%   Нека $\gamma$ е най-малката неподвижна точка на $\Gamma$ и
+%   $\delta$ е най-малката неподвижна точка на $\Delta$.
+
+%   Докажете, че с индукция по $n \in \Nat$, че 
+%   \[(\forall i \in \Nat)[\delta(\gamma(i), \gamma(i+1), n) = \gamma(n+i)].\]
+% \end{hint}
+
+\input{proofs/scott-rule}
+
+
+% \begin{problem}
+%   Операторът $\Gamma:\mathcal{F}_2\rightarrow \mathcal{F}_2$ действа по правилото:
+%   \begin{equation*}
+%     \Gamma(f)(x,y)\simeq 
+%     \begin{cases} 
+%       1, & \text{ ако } x + y \text{ е просто},\\
+%       f(x+y,y)+1, & \text{ иначе.}
+%     \end{cases}
+%   \end{equation*}
+%   Да се докаже, че:
+%   \begin{enumerate}[a)]
+%   \item
+%     операторът $\Gamma$ е компактен.
+%   \item 
+%     ако $f_{\Gamma}$ е най-малката неподвижна точка на $\Gamma$, то:
+%     \begin{equation*}
+%       (\forall x,y \in \Nat)[!f_{\Gamma}(x,y) \Rightarrow x + y.f_\Gamma(x,y) \text{ е просто}].
+%     \end{equation*}
+%   \end{enumerate}
+% \end{problem}
+% \begin{solution}
+%   \begin{enumerate}[a)]
+%   \item
+%     Да се убедим, че $\Gamma$ е компактен.
+%     \begin{itemize}
+%     \item 
+%       Първо да видим, че $\Gamma$ е монотонен.
+%       Нека $f \subseteq g$. Ще докажем, че $\Gamma(f) \subseteq \Gamma(g)$, т.е.
+%       \[(\forall x,y,z\in\Nat)[\Gamma(f)(x,y) \simeq z\ \rightarrow\ \Gamma(g)(x,y) \simeq z].\]
+%       И така, нека $\Gamma(f)(x,y) \simeq z$. Гледайки дефиницията на $\Gamma$, трябва да разгледаме два случая:
+%       \begin{itemize}
+%       \item 
+%         ако $x+y$ е просто число, то по дефиницията на $\Gamma$,
+%         \[\Gamma(f)(x,y) \simeq 1 \simeq \Gamma(g)(x,y).\]
+%       \item
+%         ако $x+y$ не е просто число, то 
+%         \[\Gamma(f)(x,y) \simeq f(x+y,y)+1 \simeq z.\]
+%         Това означава, че съществува число $u$, такова че $f(x+y,y) \simeq u$ и $z = u+1$.
+%         Понеже $f \subseteq g$, то $g(x+y,y) \simeq u$.
+%         Тогава 
+%         \begin{align*}
+%           \Gamma(g)(x,y) & \simeq g(x+y,y) + 1 & (\text{от деф. на }\Gamma)\\
+%           & \simeq u+1 & (\text{защото }f \subseteq g)\\
+%           & \simeq z.
+%         \end{align*}
+%       \end{itemize}
+%       За всички възможни двойки $x$, $y$ доказахме, че ако $!\Gamma(f)(x,y)\simeq z$, то
+%       $\Gamma(g)(x,y) \simeq z$.
+%       Следователно, $\Gamma$ е монотонен.
+%     \item
+%       За втората част, нека $\Gamma(f)(x,y) \simeq z$, за някои $f \in \F_2$ и $x,y,z \in \Nat$.
+%       Ще докажем, че съществува крайна функция $\theta \subseteq f$, за която $\Gamma(\theta)(x,y) \simeq z$.
+%       За целта ще разгледаме два случая за $x$ и $y$.
+%       \begin{itemize}
+%       \item 
+%         $x+y$ е просто число. Тогава $\Gamma(f)(x,y) \simeq 1$. 
+%         Да вземем крайната функция $\theta = \emptyset^{(2)}$.
+%         Очевидно е, че $\Gamma(\emptyset^{(2)})(x,y) \simeq 1$.
+%       \item
+%         $x+y$ не е просто число. Тогава 
+%         \[\Gamma(f)(x,y) \simeq f(x+y,y)+1 \simeq z.\]
+%         Да положим $u \simeq f(x+y,y)$. Тогава $z = u+1$.
+%         В този случай, избираме крайната функция $\theta \subseteq f$ да бъде такава, че
+%         \begin{align*}
+%           \theta(a,b) \simeq 
+%           \begin{cases}
+%             u, & a = x+y\ \&\ b = y\\
+%             \neg!, & \text{ иначе}.
+%           \end{cases}
+%         \end{align*}
+%         Тогава 
+%         \begin{align*}
+%           \Gamma(\theta)(x,y) & \simeq \theta(x+y,y) + 1 & (\text{от деф. на }\theta)\\
+%           & \simeq u + 1 & (\text{от деф. на }\theta)\\
+%           & \simeq z.
+%         \end{align*}
+%       \end{itemize}
+%       Така видяхме, че във всички случаи за $x$ и $y$  съществува крайна $\theta \subseteq f$, 
+%       за която $\Gamma(\theta)(x,y) \simeq z$.
+%     \end{itemize}
+%     От всичко по-горе следва, че операторът $\Gamma$ е компактен.
+%   \item
+%     Да дефинираме свойството $P$ като
+%     \[P(f)\ \iff\ (\forall x,y \in \Nat)[!f(x,y) \Rightarrow x + y.f(x,y) \text{ е просто}].\]
+%     Това е свойство от тип частична коректност, защото ако положим
+%     \begin{align*}
+%       I(x,y) & \equiv\ x,y\in\Nat,\\
+%       O(x,y,r) & \equiv\ x + yr\text{ е просто число},
+%     \end{align*}
+%     то можем да представим $P$ като
+%     \[P(f)\ \equiv\ (\forall x,y)[I(x,y)\ \&\ !f(x,y)\ \Rightarrow\ O(x,y,f(x,y))].\]
+%     Щом $P$ е от тип частична коректност, то $P$ е непрекъснато свойство.
+%     Понеже $\Gamma$ е компактен оператор, а $P$ е непрекъснато, можем да приложим индукционното
+%     правило на Скот. Така ще докажем, че $P(f_\Gamma)$.
+%     \begin{itemize}
+%     \item 
+%       \marginpar{няма $x,y$, за които $!\emptyset^{(2)}(x,y)$}
+%       $P(\emptyset^{(2)})$ е изпълнено, защото лява страна на импликацията в дефиницията на $P$
+%       винаги е неистина и следователно импликацията винаги е истина.
+%     \item
+%       Нека приемем, че за някое $f \in \F_2$ е изпълнено $P(f)$.
+%       Ще докажем, че $P(\Gamma(f))$, т.е.
+%       \[(\forall x,y \in \Nat)[!\Gamma(f)(x,y) \Rightarrow x + y.\Gamma(f)(x,y) \text{ е просто}]\]
+%       Нека $!\Gamma(f)(x,y)$. Отново ще разгледаме два случая за $x$ и $y$.
+%       \begin{itemize}
+%       \item 
+%         $x+y$ е просто число. Тогава от дефиницията на $\Gamma$ имаме, че $\Gamma(f)(x,y) \simeq 1$
+%         и е ясно, че \[x + y.\Gamma(f)(x,y) \simeq x+y.1 = x+y\] е просто число.
+%       \item
+%         $x+y$ не е просто число. Тогава $\Gamma(f)(x,y) \simeq f(x+y,y)+1$.
+%         Да положим $u \simeq f(x+y,y)$. Получаваме, че:
+%         \begin{align*}
+%           x + y.\Gamma(f)(x,y) & \simeq x+y.(f(x+y,y)+1) & (\text{от деф. на }\Gamma)\\
+%           & \simeq x+y.(u+1) \\
+%           & \simeq (x+y) + y.u
+%         \end{align*}
+       
+%         Сега използваме, че $P(f)$ е изпълнено. Тогава:
+%         \[!f(x+y,y) \simeq u\ \Rightarrow\ (x+y) + y.u+ \text{ е просто число}. \]
+%         Заключаваме, че 
+%         \[x + y.\Gamma(f)(x,y) \simeq (x+y) + y.u\]
+%         е просто число.
+%       \end{itemize}      
+%     \end{itemize}
+%     Разгледахме всички случаи за $x$ и $y$, и следователно, $P(\Gamma(f))$ е изпълнено.    
+%     От индукционното правило на Скот получаваме, че $P(f_\Gamma)$, което ни дава точно това, което 
+%     трябваше да докажем.
+%   \end{enumerate}
+% \end{solution}
+
+% \begin{problem}
+%   Да рагледаме оператора $\Gamma:\F_3 \to \F_3$, където:
+%   \begin{align*}
+%     \Gamma(f)(x,y,z) \simeq 
+%     \begin{cases}
+%       y, & x = 0\\
+%       f(x-1, y+2z, y), & x > 0.
+%     \end{cases}
+%   \end{align*}
+%   Докажете, че 
+%   \[(\forall x,u\in\Nat)[u\geq 1\ \&\ !f_\Gamma(x,2^u,2^{u-1})\ \Rightarrow\ f_\Gamma(x,2^u,2^{u-1}) \simeq 2^{x+u}].\]
+% \end{problem}
+% \begin{hint}
+%   Лесно се съобразява, че $\Gamma$ е компактен (непрекъснат) оператор.
+%   Целта ни е да дефинираме непрекъснато свойство $P$, за което да докажем с индукционното
+%   правило на Скот, че $P(f_\Gamma)$.
+%   Разгледайте правилото:
+%   \begin{align*}
+%     P(f)\ \equiv\ (\forall x,y,z\in\Nat)[& (\exists u \geq 1)[y = 2^u\ \&\ z = 2^{u-1}]\ \&\ !f(x,y,z) \Rightarrow\ \\
+%     & (\exists u \geq 1)[y = 2^u\ \&\ z = 2^{u-1}\ \&\ f(x,y,z) \simeq 2^{x+u}]].
+%   \end{align*}
+%   $P$ е свойство от тип частична коректност, защото използвайки предикатите:
+%   \begin{align*}
+%     I(x,y,z) & \equiv x,y,z\in\Nat\ \&\ (\exists u \geq 1)[y = 2^u\ \&\ z = 2^{u-1}],\\
+%     O(x,y,z,r) & \equiv (\exists u \geq 1)[y = 2^u\ \&\ z = 2^{u-1}\ \&\ r = 2^{x+u}],
+%   \end{align*}
+%   можем да представим свойството $P$ по следния начин:
+%   \[P(f) \equiv  (\forall x,y,z)[I(x,y,z)\ \&\ !f(x,y,z) \Rightarrow\ O(x,y,z,f(x,y,z))].\]
+  
+%   \marginpar{Очевидно е, че $P(\emptyset^{(3)})$}
+%   Да приемем, че имаме $P(f)$. Ще докажем $P(\Gamma(f))$.
+%   Нека $x,y,z\in\Nat$ са такива, че $!\Gamma(f)(x,y,z)$ и да фиксираме $u \geq 1$, за което $y = 2^u$, $z = 2^{u-1}$.
+%   Ще докажем, че $\Gamma(f)(x,y,z) \simeq 2^{x+u}$.
+%   Според дефиницията на $\Gamma$, трябва да разгледаме два случая.
+%   \begin{itemize}
+%   \item 
+%     $x = 0$. Тогава $\Gamma(x,y,z) \simeq y = 2^{u+0}$.
+%   \item
+%     $x > 0$. Тогава $\Gamma(x,y,z) \simeq f(x-1,y+2z,y)$.
+%     Понеже $y = 2^u$ и $z = 2^{u-1}$, $y+2z = 2^u+2.2^{u-1} = 2^{u+1}$.
+%     Имаме, че $I(x-1,y+2z,y)$ е истина и $!f(x-1,y+2z,y)$.
+%     От $P(f)$ следва, че $O(x-1,y+2z,y,f(x-1,y+2z,y)$, т.е. 
+%     \[y+2z = 2^{u+1}\ \&\ y = 2^{(u+1)-1}\ \&\ f(x-1,y+2z,y) \simeq 2^{(x-1)+(u+1)}.\]
+%     Като обединим всичко, което знаем до момента, получаваме:
+%     \begin{align*}
+%       \Gamma(f)(x,y,z) & \simeq f(x-1,y+2z,y) & (\text{от деф. на }\Gamma)\\
+%       & \simeq f(x-1,2^{u+1},2^{u}) & (y+2z = 2^{u+1},y=2^{(u+1)-1})\\
+%       & \simeq 2^{(x-1)+(u+1)} & (\text{от }P(f))\\
+%       & = 2^{x+u}
+%     \end{align*}
+%     Заключаваме, че $O(x,y,z,\Gamma(f)(x,y,z))$, откъдето следва, че $P(\Gamma(f))$.
+%   \end{itemize}
+%   От правилото на Скот следва, че $P(f_\Gamma)$.
+% \end{hint}
+
+
+
+
+% \begin{problem}
+%   Операторът $\Gamma:\F_1 \to \F_1$ е зададен с равенството:
+%   \begin{align*}
+%     \Gamma(f)(x) \simeq
+%     \begin{cases}
+%       \sqrt{x}, & \text{ ако } x \text{ е точен квадрат}\\
+%       f(f(x(x+5))), & \text{ иначе}.
+%     \end{cases}
+%   \end{align*}
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     операторът $\Gamma$ е компактен;
+%   \item
+%     $(\forall x\in\Nat)[!f_\Gamma(x)\ \&\ x\text{ не е точен квадрат}\ \Rightarrow\ f_\Gamma(x) > \sqrt{x}]$.
+%   \end{enumerate}
+% \end{problem}
+
+% \begin{problem}
+%   Нека $g:\Nat \to \Nat$ е тотална функция, за която $(\forall x\in\Nat)[g(x) \leq x]$.
+%   Операторът $\Gamma:\F_2 \to \F_2$ е зададен с равенството:
+%   \begin{align*}
+%     \Gamma(f)(x,y) = 
+%     \begin{cases}
+%       g(y), & \text{ ако } x = 0\\
+%       f(f(x-1,g(y-1)), y-1)+ 1, & \text{ иначе}.
+%     \end{cases}
+%   \end{align*}
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     операторът $\Gamma$ е компактен;
+%   \item
+%     $(\forall x,y\in\Nat)[!f_\Gamma(x,y)\ \Rightarrow\ f_\Gamma(x,y) \leq \max(x,y)]$.
+%   \end{enumerate}
+% \end{problem}
+
+% \begin{problem}
+%   Нека $g:\Nat \to \Nat$ е тотална функция, за която $(\forall x\in\Nat)[g(x) \leq x]$.
+%   Операторът $\Gamma:\F_2 \to \F_2$ е зададен с равенството:
+%   \begin{align*}
+%     \Gamma(f)(x,y) = 
+%     \begin{cases}
+%       g(y), & \text{ ако } x = 0\\
+%       f(x-1, f(x-1, g(y-1))) + 1, & \text{ иначе}.
+%     \end{cases}
+%   \end{align*}
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     операторът $\Gamma$ е компактен;
+%   \item
+%     $(\forall x,y\in\Nat)[!f_\Gamma(x,y)\ \Rightarrow\ f_\Gamma(x,y) > \max(x,y)]$.
+%   \end{enumerate}
+% \end{problem}
+
+\begin{problem}
+  Операторът $\Gamma:\F_2 \to \F_2$ е зададен с равенството:
+  \begin{align*}
+    \Gamma(f)(x,y) = 
+    \begin{cases}
+      y, & \text{ ако } y\vert x\\
+      f(f(x,y+1)), x), & \text{ иначе}.
+    \end{cases}
+  \end{align*}
+  Докажете, че:
+  \begin{enumerate}[a)]
+  \item 
+    операторът $\Gamma$ е компактен;
+  \item
+    $(\forall x,y\in\Nat)[!f_\Gamma(x,y)\ \&\ y\not| x\ \Rightarrow\ f_\Gamma(x,y)\ \vert\ x]$.
+  \end{enumerate}  
+\end{problem}
+
+\begin{problem}
+  Операторът $\Gamma:\F_1 \to \F_1$ е зададен с равенството:
+  \begin{align*}
+    \Gamma(f)(x) = 
+    \begin{cases}
+      1, & \text{ ако } x \leq 1\\
+      x/2, & \text{ ако } 2\vert x\ \&\ x > 1\\
+      f(f(3\lfloor{x/2}\rfloor+2)), & \text{ иначе}.
+    \end{cases}
+  \end{align*}
+  Докажете, че:
+  \begin{enumerate}[a)]
+  \item 
+    операторът $\Gamma$ е компактен;
+  \item
+    $(\forall x\in\Nat)[!f_\Gamma(x)\ \&\ x > 1\ \Rightarrow\ f_\Gamma(x)\ \leq x/2]$.
+  \end{enumerate}  
+\end{problem}
+
+% \begin{problem}
+%   Операторът $\Gamma:\F_2 \to \F_2$ е зададен с равенството:
+%   \begin{align*}
+%     \Gamma(f)(x,y) \simeq
+%     \begin{cases}
+%       y, & x = 0\\
+%       f(x-1,2) + y, & x \equiv 1\ (\bmod\ 2)\\
+%       f(\frac{x}{2},f(\frac{x}{2},y)), & \text{ иначе}.
+%     \end{cases}
+%   \end{align*}
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     операторът $\Gamma$ е компактен;
+%   \item
+%     $(\forall x\in\Nat)[!f_\Gamma(x,0)\ \Rightarrow\ f_\Gamma(x,0) \simeq 2x]$.
+%   \end{enumerate}  
+% \end{problem}
+% \begin{hint}
+%   Разгледайте свойството
+%   \[P(f) \equiv (\forall x,y\in\Nat)[!f(x,y)\ \Rightarrow\ f(x,y) \simeq 2x+y].\]
+% \end{hint}
+
+% \begin{problem}
+%   Да разгледаме оператора $\Gamma:\mathcal{F}_1\to \mathcal{F}_1$, където:
+%   \begin{align*}
+%     \Gamma(f)(x) \simeq 
+%     \begin{cases}
+%       x/3, & \text{ ако }x \equiv 0\ (\bmod\ 3)\\
+%       f(3f(x+1)\dotminus 1), & \text{ ако }x \equiv 1\ (\bmod\ 3)\\
+%       f(3f(2x-1)+1), & \text{ ако }x \equiv 2\ (\bmod\ 3),
+%     \end{cases}
+%   \end{align*}
+%   където $x\dotminus y = 0$, ако $x < y$, и $x \dotminus y = x-y$, ако $x \geq y$.
+%   \begin{enumerate}[a)]
+%   \item 
+%     Докажете, че операторът $\Gamma$ е компактен.
+%   \item
+%     Докажете, че
+%     $(\forall x\in\Nat)[!f_\Gamma(x) \implies f_\Gamma(x) \leq x/3]$,
+%     където с $f_\Gamma$ означаваме най-малката неподвижна точка на оператора $\Gamma$.
+%   \end{enumerate}
+% \end{problem}
+% \begin{hint}
+%   \begin{enumerate}[1)]
+%   \item 
+%     Най-лесно се решава задачата като намерете явния вид на $f_\Gamma$ с теоремата на Кнастер-Тарски.
+%     Оказва се, че 
+%     \begin{align*}
+%       f_\Gamma(x) \simeq 
+%       \begin{cases}
+%         x/3, & x \equiv 0\ (\bmod\ 3)\\
+%         \neg!, & \text{ иначе}.
+%       \end{cases}
+%     \end{align*}
+    
+%     Знаем, че $f_0 = \emptyset^{(1)}$, $f_{i+1} = \Gamma(f_i)$ и $f_\Gamma = \bigcup_i f_i$.
+%     \begin{align*}
+%       f_1(x) \simeq \Gamma(f_0)(x) \simeq\ & \Gamma(\emptyset^{(1)})(x) \simeq 
+%       \begin{cases}
+%         x/3, & x \equiv 0\ (\bmod\ 3)\\
+%         \neg!, & \text{иначе}\\
+%       \end{cases}\\
+%       f_2(x) \simeq \Gamma(f_1)(x) \simeq &
+%       \begin{cases}
+%         x/3, & x \equiv 0\ (\bmod\ 3)\\
+%         f_1(3f_1(x+1)\dotminus 1), & x \equiv 1\ (\bmod\ 3)\\
+%         f_1(3f_1(2x-1) + 1), & x \equiv 2\ (\bmod\ 3)\\
+%       \end{cases}\\
+%       \simeq &
+%       \begin{cases}
+%         x/3, & x \equiv 0\ (\bmod\ 3)\\
+%         \neg!, & x \equiv 1\ (\bmod\ 3)\\
+%         f_1(3\frac{2x-1}{3} + 1), & x \equiv 2\ (\bmod\ 3)\\
+%       \end{cases}\\
+%       \simeq &
+%       \begin{cases}
+%         x/3, & x \equiv 0\ (\bmod\ 3)\\
+%         \neg!, & x \equiv 1\ (\bmod\ 3)\\
+%         f_1(2x), & x \equiv 2\ (\bmod\ 3)\\
+%       \end{cases}\\
+%       \simeq &
+%       \begin{cases}
+%         x/3, & x \equiv 0\ (\bmod\ 3)\\
+%         \neg!, & \text{иначе}.
+%       \end{cases}
+%     \end{align*}
+%     Виждаме, че $f_1 = f_2$. 
+%     Заключаваме, че за всяко $k \geq 1$, $f_k = f_1$.
+%     Тогава $f_\Gamma = f_1$.
+%   \item
+%     Ако искате да използвате правилото на Скот, възможно е да разгледате непрекъснатото свойство
+%     \begin{align*}
+%       P(f) \equiv\ & (\forall x\in\Nat)[x \equiv 0\ (\bmod\ 3)\ \&\ !f(x) \implies f(x) \simeq x/3]\ \&\ \\
+%       & (\forall x\in\Nat)[x \equiv 1\ (\bmod\ 3)\ \&\ !f(x) \implies f(x) \leq x/12]\ \&\ \\
+%       & (\forall x\in\Nat)[x \equiv 2\ (\bmod\ 3)\ \&\ !f(x) \implies f(x) \leq x/6].
+%     \end{align*}    
+%   \end{enumerate}
+% \end{hint}
+
+% \begin{problem}
+%   Нека предварително имаме дадена частичната функция $h \in \F_2$.
+%   Операторът $\Gamma:\F_2 \to \F_2$ е зададен с равенството:
+%   \begin{align*}
+%     \Gamma(f)(x,y) \simeq
+%     \begin{cases}
+%       0, & h(x,y) \simeq 0\\
+%       f(x, y+1) + 1, & h(x,y) > 0\\
+%       \neg !, & \neg ! h(x,y)
+%     \end{cases}
+%   \end{align*}  
+%   Докажете, че 
+%   \[(\forall x,y,z\in\Nat)[!f_\Gamma(x,y) \simeq z \implies h(x, y+z) \simeq 0\ \&\ (\forall t < z)[h(x,y+t) > 0]]\]
+% \end{problem}
+
+% \newpage
+
+\section{Задачи}
+
+\begin{problem}
+  Да фиксираме $a_0 \in \A$ и да разгледаме $P \subseteq \Cont{\A}{\A}$, където
+  \[P(f) \dfff \lfp(f) = a_0.\]
+  Проверете дали $P$ е непрекъснато свойство.
+\end{problem}
+
+
+\begin{problem}
+  Даден е следния оператор $\Gamma:\F_1 \to \F_1$:
+  \begin{align*}
+    \Gamma(f)(x,y) \simeq
+    \begin{cases}
+      3.f(\sqrt{x},y) + 2, & \text{ ако $x$ е точен квадрат}\\
+      y, & \text{ ако $x$ не е точен квадрат}\\
+    \end{cases}
+  \end{align*}
+  Да се докаже, че:
+  \begin{enumerate}[a)]
+  \item
+    операторът $\Gamma$ е компактен.
+  \item 
+    ако $f_{\Gamma} = \lfp(\Gamma)$, то:
+    \begin{equation*}
+      (\forall x,y \in \Nat)[3.f_\Gamma(x,y) + 2 \simeq f_\Gamma(x,3y+2)].
+    \end{equation*}
+  \end{enumerate}
+\end{problem}
+\ifhints
+\begin{hint}
+  Подточка а) е стандартна.
+  \begin{itemize}
+  \item 
+    Нека първо да разгледаме операторите $\Gamma_1$ и $\Gamma_2$, където
+    \begin{align*}
+      & \Delta_1(f) \dff 3f(x,y)+2\\
+      & \Delta_2(f) \dff f(x,3y+2).
+    \end{align*}
+    Съобразете, че те са непрекъснати.
+  \item
+    От \Prop{continuous-property} следва, че свойството 
+    \[P(f) \dfff \Delta_1(f) = \Delta_2(f)\]
+    е непрекъснато.
+  \item
+    Използвайте правилото на Скот върху $P$ 
+    за да докажете, че $P(f_\Gamma)$.
+    Това означава, че $3f_\Gamma(x,y) + 2 \simeq f_\Gamma(x,3y+2)$ за всяко $x,y \in \Nat$.
+  \end{itemize}  
+\end{hint}
+\fi
+
+\begin{problem}
+  Даден е следния оператор $\Gamma:\F_1 \to \F_1$:
+  \begin{align*}
+    \Gamma(f)(x,y) \simeq
+    \begin{cases}
+      (f(\sqrt{x},y))^2, & \text{ ако $x$ е точен квадрат}\\
+      y, & \text{ иначе }
+    \end{cases}
+  \end{align*}
+  Да се докаже, че:
+  \begin{enumerate}[a)]
+  \item
+    операторът $\Gamma$ е компактен.
+  \item 
+    ако $f_{\Gamma}$ е най-малката неподвижна точка на $\Gamma$, то:
+    \begin{equation*}
+      (\forall x,y \in \Nat)[(f_\Gamma(x,y))^2 \simeq f_\Gamma(x,y^2)].
+    \end{equation*}
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  Нека $p_0,p_1,p_2\dots\ $ е редицата от всички прости числа в нарастващ ред.
+  Операторът $\Gamma: \F_3\to\F_3$ действа по правилото:
+  \begin{align*}
+    \Gamma(f)(x,y,z) \simeq
+    \begin{cases}
+      x^xy, & \text{ ако }p_z = x\ \&\ x,y,z\in\Nat\\
+      f(x+x,y,z+2), & \text{ ако }p_z = x\ \&\ x,y,z\in\Nat.
+    \end{cases}
+  \end{align*}
+  Да се докаже, че:
+  \begin{enumerate}[a)]
+  \item
+    операторът $\Gamma$ е компактен.
+  \item 
+    ако $f_{\Gamma} = \lfp(\Gamma)$, то:
+    \begin{equation*}
+      (\forall x,y,z \in \Nat)[!f_{\Gamma}(x,y,z) \implies (\exists\text{ просто число }p)[p \geq x\ \&\ p^py\ |\ f_\Gamma(x,y,z)].
+    \end{equation*}
+  \end{enumerate}
+\end{problem}
+
+\begin{problem}
+  Операторът $\Gamma:\F_3 \to \F_3$ е зададен с равенството:
+  \begin{align*}
+    \Gamma(f)(x,y,z) =
+    \begin{cases}
+      z, & y = 0\ \&\ x,z\in\Nat\\
+      f(x,y-1, xy+z), & y > 0\ \&\ x,z \in \Nat.
+    \end{cases}
+  \end{align*}
+  \begin{enumerate}[a)]
+  \item 
+    Докажете, че $\Gamma$ е компактен;
+  \item
+    Докажете, че ако $f_\Gamma = \lfp(\Gamma)$, то
+    \[(\forall x,y\in\Nat)[f_\Gamma(x,y,0) = \frac{xy(y+1)}{2}].\]
+  \end{enumerate}
+\end{problem}
+\begin{hint}
+  Да разгледаме свойството над ествествените числа
+  \[P(y) \dfff (\forall x,z\in\Nat)[f_\Gamma(x,y,z) = \frac{xy(y+1)}{2} + z].\]
+  Докажете с математическа индукция по $y \in \Nat$, че $(\forall y\in\Nat)[P(y)]$.
+  % \begin{itemize}
+  % \item 
+  %   Нека $y = 0$. Тогава за произволни $x$ и $z$,
+  %   \begin{align*}
+  %     f_\Gamma(x,0,z) & = \Gamma(f_\Gamma)(x,0,z) \\
+  %     & = z.
+  %   \end{align*}
+  % \item
+  %   Нека $y > 0$. Тогава 
+  %   \begin{align*}
+  %     f_\Gamma(x,y,z) & = \Gamma(f_\Gamma)(x,y,z)\\
+  %                     & = f_\Gamma(x,y-1,xy+z) & (\text{от деф. на }\Gamma)\\
+  %                     & = \frac{x(y-1)(y-1+1)}{2} + xy + z & (\text{от И.П. за }y-1)\\
+  %                     & = \frac{xy(y-1)+2xy}{2} + z \\
+  %                     & = \frac{xy(y+1)}{2} + z.
+  %   \end{align*}
+  % \end{itemize}
+\end{hint}
+
+% \begin{hint}
+%   \marginpar{Ясно е, че $\Gamma$ е компактен}
+%   Да разгледаме свойството
+%   \[P(f)\ \dfff\ (\forall x,y,z\in\Nat_\bot)[f(x,y,z) \neq \bot\ \to\ f(x,y,z) = \frac{xy(y+1)}{2}+z].\]
+%   Лесно се вижда, че това е свойство от тип частична коректност, защото ако положим
+%   \begin{align*}
+%     I(x,y,z) & \dfff\ \texttt{True},\\
+%     O(x,y,z,r) & \dfff\ r = \frac{xy(y+1)}{2},
+%   \end{align*}
+%   то можем да представим $P$ във вида:
+%   \[P(f)\ \equiv\ (\forall x,y,z\in\Nat_\bot)[I(x,y,z)\ \&\ f(x,y,z) \neq \bot\ \to\ O(x,y,z,f(x,y,z))].\]
+  
+%   Да приложим правилото на Скот.
+%   \marginpar{Очевидно е, че $P(\Omega^{(3)})$}
+%   Нека е изпълнено $P(f)$. Ще докажем, че $P(\Gamma(f))$.
+%   И така, нека да разгледаме елементи $x,y,z \in \Nat_\bot$, за които $\Gamma(f)(x,y,z) \neq \bot$. 
+%   Ясно е от дефиницията на оператора $\Gamma$, че $\bot \not\in \{x,y,z\}$.
+%   Ще разгледаме два случая.
+%   \begin{itemize}
+%   \item 
+%     Нека $y = 0$. Тогава $\Gamma(f)(x,y,z) = z = \frac{xy(y+1)}{2} + z$.
+%   \item
+%     Нека $y > 0$. Тогава 
+%     \begin{align*}
+%       \Gamma(f)(x,y,z) & = f(x,y-1,xy+z) & (\text{от деф. на }\Gamma)\\
+%       & = \frac{x(y-1)(y-1+1)}{2} + xy + z & (\text{от }P(f))\\
+%       & = \frac{xy(y-1)+2xy}{2} + z \\
+%       & = \frac{xy(y+1)}{2} + z.
+%     \end{align*}
+%   \end{itemize}
+%   Заключаваме, че $P(\Gamma(f))$, откъдето следва, по правилото на Скот, че $P(\lfp(\Gamma))$.
+  
+%   Накрая, за произволни $x,y\in\Nat$ и $z = 0$, получаваме, че 
+%   \[f_\Gamma(x,y,0) = \frac{xy(y+1)}{2}.\]
+% \end{hint}
+
+\begin{remark}
+Да разгледаме програмата на езика \REC:
+
+\begin{haskellcode}
+h(x,y) = f(x,y,0) where
+  f(x,y,z) = if y == 0 then z
+               else f(x, y-1, x*y + z)
+\end{haskellcode}
+
+Съобразете, че ние горе на практика доказахме, че
+\[(\forall x,y \in \Nat)[\D_V\val{\vv{h}}(x,y) = \frac{xy(y+1)}{2}].\]
+\end{remark}
+
+
+% \begin{problem}
+%   Нека е дадена програмата на езика хаскел:
+
+%   \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2]{haskell}
+%     rev :: [a] -> [a]
+%     rev x = f(x, []) where 
+%       f([], y) = y
+%       f(x:xs, y) = f(xs, x:y)
+%   \end{minted}
+
+%   \noindent 
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     $rev:\Sigma^\star \to \Sigma^\star$ е тотална.
+%   \item
+%     $(\forall x \in \Sigma^\star)[rev(rev(x)) = x]$.
+%   \item
+%     $(\forall x \in \Sigma^\star)[rev(x) = x^R]$.
+%   \end{enumerate}
+% \end{problem}
+% \begin{hint}
+%   % Ще използваме следното правило:
+%   % \begin{prooftree}
+%   %   \AxiomC{$P(\varepsilon)$}
+%   %   \AxiomC{$(\forall x \in \Sigma^\star)[x\neq\varepsilon\ \&\ P(cdr(x)) \to P(x)]$}
+%   %   \RightLabel{\scriptsize(1)}
+%   %   \BinaryInfC{$(\forall x\in\Sigma^\star)[P(x)]$}
+%   % \end{prooftree}
+%   % % \item
+%   %   Докажете валидността на правилото $(1)$. % е еквивалентно на структурна индукция върху фундираната наредба
+%     % $(\Sigma^\star,\prec)$, където $x \prec y \iff (\exists z\in\Sigma^\star)[z\cdot x = y]$, т.е.
+%     % $x$ е суфикс на $y$.
+%   Да разгледаме фундираната наредба $L = (\Sigma^\star, \prec)$, където
+%   $x \prec y \iff \abs{x} < \abs{y}$.
+%   \begin{enumerate}[a)]
+%   \item 
+%     Да разгледаме свойството 
+%     \[P(x) \equiv (\forall y\in \Sigma^\star)[f(x,y)\text{ е дефинирана}].\]
+%     Докажете със структурна индукция по $L$, че $(\forall x\in\Sigma^\star)[P(x)]$.
+%   \item
+%     Да разгледаме свойството 
+%     \[P(x) \equiv (\forall y\in \Sigma^\star)[rev(f(x,y)) = f(y,x)].\]
+%     Докажете със структурна индукция по $L$, че $(\forall x\in\Sigma^\star)[P(x)]$.
+%     Тогава в частния случай $y = \varepsilon$, 
+%     \[rev(rev(x)) = rev(f(x,\varepsilon)) = f(\varepsilon,x) = x.\]
+%   \item
+%     Разгледайте свойството
+%     \[P(x) \equiv (\forall y\in\Sigma^\star)[f(x,y) = x^R \cdot y].\]
+%   \end{enumerate}
+% \end{hint}
+
+\input{proofs/partial-correctness}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

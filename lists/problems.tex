@@ -1,0 +1,101 @@
+
+\section{Задачи}
+
+\Stefan{Дали да дефинираме изображение cons, което да докажа, че е непрекъснато?}
+
+\begin{problem}
+  Да се даде пример за $f \in \Mon{L}{L}$, но $f \not\in \Cont{L}{L}$.
+\end{problem}
+
+\begin{problem}
+  Да се даде пример за $f \in \Strict{L}{L}$, но $f \not\in \Mon{L}{L}$.
+\end{problem}
+
+\begin{problem}
+  Да разгледаме изображението $f \in \Cont{L}{L}$, където
+  \[f(l) \dff (0:l).\]
+  Намерете $\lfp(f)$.
+\end{problem}
+\begin{solution}
+  Прилагаме \Th{knaster-tarski}.
+  \begin{itemize}
+  \item 
+    $l_0 = \bot$;
+  \item
+    $l_1 = f(\bot) = (0:\bot)$;
+  \item
+    $l_2 = f(l) = (0:0:\bot)$;
+  \end{itemize}
+  Така получаваме, че
+  \[l_n = \pair{\underbrace{0,0,\dots,0}_{n},\bot} \in \PartL.\]
+  Тогава 
+  \[\lfp(f) = \bigsqcup_n l_n = \pair{0,0,\dots}.\]
+
+
+
+\begin{haskellcode}
+ghci> let f(l) = (0:l)
+ghci> let approx = undefined : [f(x) | x <- approx]
+ghci> approx !! 10
+[0,0,0,0,0,0,0,0,0,0*** Exception: Prelude.undefined  
+\end{haskellcode}
+
+\end{solution}
+
+\begin{problem}
+  Да разгледаме изображението 
+  \[\Gamma \in \Cont{\Cont{\Nat_\bot\times L}{L}}{\Cont{\Nat_\bot\times L}{L}},\] където
+  \[\Gamma(f)(n,l) =
+  \begin{cases}
+    \bot, & n = \bot\\
+    \nil, & n = 0\\
+    \nil, & n > 0\ \&\ l = \nil\\
+    \bot, & n > 0\ \&\ l = \bot\\
+    a : f(l'), & n > 0\ \&\ l = (a:l')\\
+  \end{cases}\]
+  Намерете $\lfp(\Gamma)$.
+\end{problem}
+
+
+\begin{haskellcode}
+ghci> let l = (0:l)
+ghci> take 10 l
+[0,0,0,0,0,0,0,0,0,0]
+ghci> take 10 [1,2,3]
+[1,2,3]
+ghci> take 0 undefined
+[]
+ghci> take 2 [1,2,undefined]
+[1,2]
+ghci> take 3 [1,2,undefined]
+[1,2,*** Exception: Prelude.undefined
+ghci> take undefined []
+*** Exception: Prelude.undefined
+\end{haskellcode}
+
+
+\Stefan{Да се разгледа функцията drop n l}
+
+% \begin{problem}
+%   Да разгледаме оператора $\Gamma:[\Nat\to L] \to [\Nat \to L]$, където
+%   \[\Gamma(f)(a,b) = \pair{a, f(b,a+b)}.\]
+%   Намерете безкрайния списък $\lfp(\Gamma)(1,1)$.
+% \end{problem}
+
+\begin{problem}
+  Да разгледаме оператора $\Gamma:[L\times L \to L] \to [L\times L \to L]$, където
+  \[\Gamma(f)(l_1,l_2) = 
+  \begin{cases}
+    \bot, & \text{ ако }l_1 = \bot \\
+    l_2, & \text{ ако }l_1 = \nil\\
+    a:f(l'_1,l_2) & \text{ ако } l_1 = a:l'_1.
+  \end{cases}\]
+  Да означим $\texttt{conc} \dff \lfp(\Gamma)$.
+  Докажете, че
+  \[(\forall l_1 \in \FinL)(\forall l_2,l_3 \in L)[\texttt{conc}(l_1, \texttt{conc}(l_2,l_3)) = \texttt{conc}(\texttt{conc}(l_1, l_2), l_3))]\]
+\end{problem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

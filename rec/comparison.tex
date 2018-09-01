@@ -1,0 +1,203 @@
+\subsection{Сравнение между двете семантики}
+
+
+\begin{example}
+  Да разгледаме програмата $\vv{P}$ на езика $\REC$:
+  \begin{haskellcode}
+f(x) = g(f(x)) where
+  g(x) = 0  
+  \end{haskellcode}
+
+Да проверим, че
+$\D_V\val{\vv{P}} \neq \D_N\val{\vv{P}}$.
+Имаме, че
+\begin{align*}
+  \tau_1[\vv{x},\vv{f},\vv{g}] & \equiv \vv{g}(\vv{f}(\vv{x}))\\
+  \tau_2[\vv{x},\vv{f},\vv{g}] & \equiv \vv{0}.
+\end{align*}
+За $i = 1,2$ дефинираме операторите 
+\[\Delta_{\tau_i} \in \Cont{\Strict{\Nat_\bot}{\Nat_\bot} \times \Strict{\Nat_\bot}{\Nat_\bot}}{\Strict{\Nat_\bot}{\Nat_\bot}},\]
+  които имат следните дефиниции:  
+  \begin{align*}
+    \Delta_{\tau_1}(\varphi,\psi)(x) & \dff
+    \begin{cases}
+      \psi(\varphi(x)), & \text{ако }x \neq \bot\\
+      \bot, & \text{ако }x = \bot\\
+    \end{cases}\\
+    \Delta_{\tau_2}(\varphi,\psi)(x) & \dff
+    \begin{cases}
+      0, & \text{ако }x \neq \bot,\\
+      \bot, & \text{ако }x = \bot.
+    \end{cases}
+  \end{align*}
+  Нека $\Delta \dff \Delta_{\tau_1} \times \Delta_{\tau_2}$. За да намерим най-малкото
+  решение на системата, трябва да намерим най-малката неподвижна точка на $\Delta$.
+  Ще получим това най-малко решение като точна горна граница на редица от двойки функции $(\varphi_i, \psi_i)$.
+  Имаме, че $\varphi_0(x) \dff \lambda x.\bot$ и $\psi_0(x) \dff \lambda x.\bot$.
+  \begin{align*}
+    \varphi_1(x) & \dff \Delta_{\tau_1}(\varphi_0,\psi_0)(x)\\
+                 & =
+                   \begin{cases}
+                     \psi_0(\varphi_0(x)), & \text{ако } x \neq \bot\\
+                     \bot, & \text{ако }x = \bot
+                   \end{cases}\\
+                 & = \bot\\
+    \psi_1(x) & \dff \Delta_{\tau_2}(\varphi_0,\psi_0)(x)\\
+                 & = 
+                   \begin{cases}
+                     0, & \text{ако }x \neq \bot\\
+                     \bot, & \text{ако }x = \bot\\
+                   \end{cases}
+  \end{align*}
+  Това означава, че $\Delta(\varphi_0,\psi_0) = (\varphi_1,\psi_1)$.
+  При следващата итерация получаваме следното:
+  \begin{align*}
+    \varphi_2(x) & \dff \Delta_{\tau_1}(\varphi_1,\psi_1)(x)\\
+                 & =
+                   \begin{cases}
+                     \psi_1(\varphi_1(x)) & \text{ако } x \neq \bot\\
+                     \bot, & \text{ако } x = \bot\\
+                   \end{cases}\\
+                 & = 
+                   \begin{cases}
+                     \psi_1(\bot) & \text{ако } x \neq \bot\\
+                     \bot, & \text{ако } x = \bot\\
+                   \end{cases}\\
+                 & = \bot\\
+    \psi_2(x) & \dff \Delta_{\tau_2}(\varphi_1,\psi_1)(x)\\
+                 & = \begin{cases}
+                   0, & \text{ако }x \neq \bot\\
+                   \bot, & \text{ако }x = \bot\\
+                 \end{cases}\\
+                 & = \psi_1(x).
+  \end{align*}
+  Получихме, че $\Delta(\varphi_1,\psi_1) = (\varphi_1,\psi_1)$ и
+  следователно $\lfp(\Delta) = (\varphi_1,\psi_1)$.
+  Тогава за всяко $a \in \Nat_\bot$,
+  \[\D_V\val{\vv{P}}(a) = \varphi_1(a) = \bot.\]
+
+  Сега да намерим семантика по име на горната програма.
+За $i = 1,2$ дефинираме операторите 
+  \[\Gamma_{\tau_i} \in \Cont{\Cont{\Nat_\bot}{\Nat_\bot} \times \Cont{\Nat_\bot}{\Nat_\bot}}{\Cont{\Nat_\bot}{\Nat_\bot}},\]
+  които имат следните дефиниции
+  \begin{align*}
+    \Gamma_{\tau_1}(\varphi,\psi)(x) & \dff \psi(\varphi(x))\\
+    \Gamma_{\tau_2}(\varphi,\psi)(x) & \dff 0.
+  \end{align*}
+  Търсим най-малката неподвижна точна на оператора 
+  \[\Gamma(\varphi,\psi) \dff (\Gamma_{\tau_0}(\varphi, \psi), \Gamma_{\tau_1}(\varphi,\psi)).\]
+  \marginpar{т.е. това са функциите, които винаги връщат $\bot$}
+  Имаме, че $\varphi_0(x) \dff \lambda x.\bot$ и $\psi_0(x) \dff \lambda x.\bot$.
+  Сега, за произволно $x \in \Nat_\bot$, получаваме:
+  \begin{align*}
+    \varphi_1(x) & \dff \Gamma_{\tau_1}(\varphi_0,\psi_0)(x) = \psi_0(\varphi_0(x)) = \bot\\
+    \psi_1(x) & \dff \Gamma_{\tau_2}(\varphi_0,\psi_0)(x) = 0.
+  \end{align*}
+  Това означава, че $\Gamma(\varphi_0,\psi_0) = (\varphi_1,\psi_1)$.
+  Итерираме процеса още веднъж, и получаваме:
+  \marginpar{Единствената разлика е, че тук не разглеждаме отделен случай дали $x = \bot$}
+  \begin{align*}
+    \varphi_2(x) & \dff \Gamma_{\tau_1}(\varphi_1,\psi_1)(x) = \psi_1(\varphi_1(x)) = 0\\
+    \psi_2(x) & \dff \Gamma_{\tau_2}(\varphi_1,\psi_1)(x) = 0.
+  \end{align*}
+  Това означава, че $\Gamma(\varphi_1,\psi_1) = (\varphi_2,\psi_2)$.
+  Отново итерираме процеса:
+    \begin{align*}
+      \varphi_3(x) & \dff \Gamma_{\tau_1}(\varphi_2,\psi_2)(x) = \psi_2(\varphi_2(x)) = 0 = \varphi_2(x)\\
+      \psi_3(x) & \dff \Gamma_{\tau_2}(\varphi_2,\psi_2)(x) = 0 = \psi_2(x).
+  \end{align*}
+  Получихме, че $\Gamma(\varphi_2,\psi_2) = (\varphi_2,\psi_2)$ и
+  следователно $\lfp(\Gamma) = (\varphi_2,\psi_2)$. 
+  Тогава, за всяко $a \in \Nat_\bot$,
+  \[\D_N\val{\vv{P}}(a) = \varphi_2(a) = 0.\]
+  Това означава, че денотационната семантика по име на програмата $\vv{P}$ е константната функция, която винаги връща $0$.
+  Обърнете внимание, че също $\D_N\val{\vv{P}}(\bot) = 0$.
+\end{example}
+
+Можем да проверим нашите изчисления за най-малките неподвижни точки на операторите $\Gamma$ и $\Delta$
+от горния пример като преведем техните дефиниции на \texttt{хаскел}.
+
+\begin{haskellcode}
+ghci> let gamma1(f,g)(x) = g(f(x))
+ghci> let gamma2(f,g)(x) = 0
+ghci> let gamma(f,g) = (gamma1(f,g), gamma2(f,g))
+ghci> let omega = \x -> undefined
+ghci> let approxCBN = (omega, omega) : [gamma(f,g) | (f,g) <- approxCBN ]
+ghci> let (f3, g3) = approxCBN !! 3
+ghci> f3(undefined)
+0
+ghci> f3(55)
+0
+ghci> :set -XBangPatterns
+ghci> let delta1(f,g)(!x) = g(f(x))
+ghci> let delta2(f,g)(!x) = 0
+ghci> let delta(f,g) = (delta1(f,g), delta2(f,g))
+ghci> let approxCBV = (omega, omega) : [delta(f,g) | (f,g) <- approxCBV ]
+ghci> let (f3', g3') = approxCBV !! 3
+ghci> f3'(undefined)
+undefined
+ghci> f3'(0)
+undefined
+ghci> f3'(55)
+undefined
+\end{haskellcode}
+
+
+
+  Горният пример показва, че съществуват програми $\vv{P}$, 
+  за които двете денотационни семантики са различни, но все пак $\D_V\val{\vv{P}} \sqsubseteq \D_N\val{\vv{P}}$.
+  Ще видим, че това свойство е вярно за всяка програма $\vv{P}$ на езика \REC.
+
+
+  \begin{prop}
+    \label{pr:delta-in-gamma}
+    Да разгледаме произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$.
+    Тогава всеки 
+    \[\bar{\varphi} \in \Mapping{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Mapping{\Nat^{m_k}_\bot}{\Nat_\bot}\]
+    е изпълнено, че
+    \[\Delta_\tau(\bar{\varphi}) \sqsubseteq \Gamma_\tau(\bar{\varphi}).\]
+  \end{prop}
+  \begin{hint}
+    \marginpar{Обърнете внимание, че ако $\varphi$ е точна функция, то $\Gamma_\tau(\varphi)$ е непрекъсната, но може да не е точна.}
+    Понеже за всяка $\varphi \in \Mapping{\Nat^n_\bot}{\Nat_\bot}$,
+    \[\Sigma_n(\varphi) \sqsubseteq \varphi,\]
+    по получаваме, че
+    \[\Delta_\tau(\bar{\varphi}) \dff \Sigma_n(\Gamma_\tau(\bar{\varphi})) \sqsubseteq \Gamma_\tau(\bar{\varphi}).\]
+\end{hint}
+
+\begin{framed}
+  \begin{thm}
+    За всяка рекурсивна програма \vv{P} е изпълнено, че
+    \[\D_V\val{\vv{P}} \sqsubseteq \D_N\val{\vv{P}}.\]
+  \end{thm}
+\end{framed}
+\begin{proof}
+  Първо с индукция по $k$ ще докажем, че
+  \[(\forall k)[\ \bar{\delta}_k \sqsubseteq \bar{\gamma}_k\ ].\]
+  За $k = 0$ е ясно, защото $\delta^i_0 = \Omega^{(m_i)} = \gamma^i_0$.
+  \marginpar{Озн. $\ov{\delta}_k = (\delta^1_k,\dots,\delta^n_k)$}
+  \begin{align*}
+    \delta^i_{k+1} & \dff \Delta_{\tau_i}(\bar{\delta}_k)\\
+                   & \sqsubseteq \Gamma_{\tau_i}(\bar{\delta}_k) & \comment{\text{\Prop{delta-in-gamma}}}\\
+                   & \sqsubseteq \Gamma_{\tau_i}(\bar{\gamma}_k) & \comment{\text{$\Gamma_{\tau_i}$ е мон. и от {\bf И.П.} имаме, че } \ov{\delta}_k \sqsubseteq \ov{\gamma}_k}\\
+                   & \dff \gamma^i_{k+1}.
+  \end{align*}
+  Оттук следва, че 
+  \begin{equation}
+    \label{eq:12}
+    \bar{\delta} = \bigsqcup_i\bar{\delta}_i \sqsubseteq \bigsqcup_i\bar{\gamma}_i = \bar{\gamma}.
+  \end{equation}
+  Сега, за произволни елементи $\ov{a}$,
+  \begin{align*}
+    \D_V\val{\vv{h}}(\bar{a}) & \dff \delta_1(\ov{a})\\
+                              & \sqsubseteq \gamma_1(\ov{a})  & \comment{\text{от (\ref{eq:12}) имаме, че }\bar{\delta}\sqsubseteq\bar{\gamma}}\\
+                              & \dff \D_N\val{\vv{h}}(\ov{a}).
+  \end{align*}
+\end{proof}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

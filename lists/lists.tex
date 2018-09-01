@@ -1,0 +1,442 @@
+\chapter{Лениви спъсъци}
+\marginpar{До известна степен следваме \cite[Глава 6]{bird-haskell}}
+
+\Stefan{Дали не е по-добре вместо $[x,y,z]$ е съкратен запис за $x:y:z:[]$ ?}
+
+\section{Основни понятия}
+\begin{itemize}
+\item
+  Нека с $\nil$ да означаваме празния спъсък, т.е. единствения краен списък с дължина $0$.
+\item
+  {\bf Краен спъсък} с елементи естествените числа $a_0,\dots,a_{k-1}$
+  ще записваме като $\pair{a_0,\dots,a_{k-1},\nil}$, т.е. това е елемент придандлежащ на множеството  
+  \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\nil\}.\]
+  Дефинираме множеството от всички крайни списъци като
+  \[\FinL \dff \bigcup_{k\geq 0} \Nat^k \times \{\nil\}.\]
+\end{itemize}
+
+Нека $P(l)$ е свойство на крайните списъци.
+\begin{prooftree}
+  \AxiomC{$P(\nil)$}
+  \AxiomC{$(\forall a\in\Nat)(\forall l\in\FinL)[P(l) \implies P(\pair{a,l})]$}
+  \BinaryInfC{$(\forall l\in \FinL)[P(l)]$}
+\end{prooftree}
+
+% \subsection{Частични списъци}
+
+\marginpar{Това на практика са недовършени списъци}
+{\bf Частичен списък} с елементи естествените числа $a_0,\dots,a_{k-1}$
+ще записваме като $\pair{a_0,a_1,a_2,\dots,a_{k-1},\bot}$, т.е. това е елемент придандлежащ на множеството  
+\[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\bot\}.\]
+Дефинираме множеството от всички частични списъци като
+\[\PartL \dff \bigcup_{k\geq 0} \Nat^k \times \{\bot\}.\]
+Тогава $\bot$ може да се интерпретира като единствения частичен списък с дължина $0$.
+Да видим какво ще стане ако изпълним следния ред:
+
+\begin{haskellcode}
+ghci> filter (<4) [1..]
+[1,2,3                      -- == $(1:2:3:\bot)$
+\end{haskellcode}
+  
+Програмата работи безкрайно дълго време след като вече е отпечатала първите три числа,
+защото хаскел не знае, че след $3$ в безкрайния списък няма други числа по-малки от $4$.
+Това означава, че резултатът от изпълнението на тази програма е частичния списък $\pair{1,2,3,\bot}$,
+
+Нека $P(l)$ е свойство на частичните списъци.
+\begin{prooftree}
+  \AxiomC{$P(\bot)$}
+  \AxiomC{$(\forall a\in\Nat)(\forall l\in\PartL)[P(l) \implies P( \pair{a,l} ) ]$}
+  \BinaryInfC{$(\forall l\in \PartL)[P(l)]$}
+\end{prooftree}
+
+
+% \subsection*{Безкрайни списъци}
+
+{\bf Безкраен списък} с елементи естествените числа $a_0,a_1,\dots$
+ще записваме като $\pair{a_0,a_1,\dots}$, т.е. това е елемент придандлежащ на множеството  
+\[\InfL \dff \Nat^\Nat = \{f:\Nat \to \Nat \mid f \text{ е тотална}\}.\]
+Както вече знаем, на хаскел е много лесно да работим с безкрайни списъци.
+\begin{haskellcode}
+ghci> take 10 [1,3..]                 -- $a_n = 1 + (3-1)*n$
+[1,3,5,7,9,11,13,15,17,19]
+ghci> take 10 [x*x | x <- [0..]]      -- $a_n = n^2$
+[0,1,4,9,16,25,36,49,64,81]
+\end{haskellcode}
+
+\marginpar{chain-complete property \cite[стр. 218]{bird-haskell}}
+Нека $P(l)$ е {\em непрекъснато свойство} на частичните и безкрайни списъци, ако 
+за всяка верига от частични списъци $(l_n)^\infty_{n=0}$ имаме, че $(\forall n)[P(l_n)]$,
+то тогава имаме, че $P(\bigsqcup_n l_n)$.
+
+\begin{prooftree}
+  \AxiomC{$P(\bot)$}
+  \AxiomC{$(\forall a\in\Nat)(\forall l\in\PartL)[P(l) \implies P(\pair{a,l})]$}
+  \BinaryInfC{$(\forall l\in \PartL)[P(l)]$}
+\end{prooftree}
+
+
+
+% \begin{itemize}
+% \item 
+%   Нека с $\nil$ да означаваме празния спъсък, т.е. единствения краен списък с дължина $0$.
+% \item
+%   {\bf Краен спъсък} с елементи естествените числа $a_0,\dots,a_{k-1}$
+%   ще записваме като $\pair{a_0,\dots,a_{k-1},\nil}$, т.е. това е елемент придандлежащ на множеството  
+%   \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\nil\}.\]
+%   Дефинираме множеството от всички крайни списъци като
+%   \[\FinL \dff \bigcup_{k\geq 0} \Nat^k \times \{\nil\}.\]
+% \item
+%   \marginpar{Това на практика са недовършени списъци}
+%   {\bf Частичен списък} с елементи естествените числа $a_0,\dots,a_{k-1}$
+%   ще записваме като $\pair{a_0,\dots,a_{k-1},\bot}$, т.е. това е елемент придандлежащ на множеството  
+%   \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\bot\}.\]
+%   Дефинираме множеството от всички частични списъци като
+%   \[\PartL \dff \bigcup_{k\geq 0} \Nat^k \times \{\bot\}.\]
+%   Тогава $\bot$ може да се интерпретира като единствения частичен списък с дължина $0$.
+%   Да видим какво ще стане ако изпълним следния ред:
+  
+%   \begin{haskellcode}
+% ghci> filter (<4) [1..]
+% [1,2,3
+%   \end{haskellcode}
+  
+% Програмата работи безкрайно дълго време след като вече е отпечатала първите три числа,
+% защото хаскел не знае, че след $3$ в безкрайния списък няма други числа по-малки от $4$.
+% Това означава, че резултатът от изпълнението на тази програма е частичния списък $\pair{1,2,3,\bot}$,
+% \item
+%   {\bf Безкраен списък} с елементи естествените числа $a_0,a_1,\dots$
+%   ще записваме като $\pair{a_0,a_1,\dots}$, т.е. това е елемент придандлежащ на множеството  
+%   \[\InfL \dff \Nat^\Nat = \{f:\Nat \to \Nat \mid f \text{ е тотална}\}.\]
+%   Както вече знаем, на хаскел е много лесно да работим с безкрайни списъци.
+%   \begin{haskellcode}
+% ghci> take 10 [1,3..]
+% [1,3,5,7,9,11,13,15,17,19]
+% ghci> take 10 [x*x | x <- [1..]]
+% [1,4,9,16,25,36,49,64,81,100]
+%   \end{haskellcode}
+% \end{itemize}
+
+
+
+\section{Област на Скот от списъци}
+
+
+Дефинираме областта на Скот $L = (L,\sqsubseteq, \bot)$, където
+\[L = \FinL \cup \PartL \cup \InfL,\]
+а частичната наредба $\sqsubseteq$ е дефинирана следвайки правилата:
+\begin{itemize}
+\item
+  $(a_0 : a_1 : \dots: a_{n-1} : \bot) \sqsubseteq (a_0 : a_1 : \dots : a_{n-1} : b_0 : \dots : b_{k-1} : \bot)$;
+\item
+  $(a_0 : a_1 : \dots : a_{n-1} : \bot) \sqsubseteq (a_0 : \dots : a_{n-1} : b_0 : \dots : b_{k-1} : \nil)$;
+\item
+  $(a_0 : \dots : a_{n-1} : \bot) \sqsubseteq (a_0 : \dots : a_{n-1} : b_0 : b_1 : \cdots)$.
+\end{itemize}
+
+% \begin{haskellcode}
+% data LazyList = Nil | Cons Int LazyList deriving (Show)
+% \end{haskellcode}
+
+Според правилата, когато $n = 0$, получаваме, че $\bot$ е най-малкият елемент на $L$.
+Обърнете внимание, че
+\[(\forall \alpha_1,\alpha_2 \in \FinL \cup \InfL)[\alpha_1 \sqsubseteq \alpha_2 \iff \alpha_1 = \alpha_2].\]
+Това означава, че например,
+\begin{itemize}
+% \item 
+%   $\pair{0,1,2,\bot} \sqsubseteq \pair{0,1,2,\nil}$;
+\item
+  $(0:1:\nil) \not\sqsubseteq (0:1:2:\nil)$;
+\item
+  $\bot \sqsubseteq (0:\bot) \sqsubseteq (0:1:\bot) \sqsubseteq \cdots \sqsubseteq [0,1,\dots]$.
+\end{itemize}
+
+\begin{framed}
+  \begin{figure}[H]
+    \label{fig:lazy-list}
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,->]
+      \tikzstyle{vertex}=[circle,minimum size=17pt,inner sep=0pt]
+      
+      \node[vertex] (bot) at (3,0) {$\bot$};
+      \node[vertex] (0) at (2,1) {$\nil$};
+      \node[vertex] (1) at (4,1) {$(0:\bot)$};
+
+      \node[vertex] (11) at (3,2.5) {$(0:\nil)$};
+      \node[vertex] (12) at (5,2.5) {$(0:1:\bot)$};
+
+      \node[vertex] (122) at (3.5,4.3) {$(0:1:\nil)$};
+      \node[vertex] (123) at (7,4) {$(0:1:2:\bot)$};
+      
+      \node[vertex] (1233) at (4.6,6) {$(0:1:2:\nil)$};
+      \node[vertex] (dots) at (9,5.5) {};
+
+      \draw (bot) -- node[below left]{$\scriptstyle{\sqsupseteq}$} (0);
+      \draw (bot) -- node[below right]{$\scriptstyle{\sqsubseteq}$} (1);
+      \draw (1) -- node[below left]{$\scriptstyle{\sqsupseteq}$} (11);
+      \draw (1) -- node[below right]{$\scriptstyle{\sqsubseteq}$} (12);
+      \draw (12) -- node[below left]{$\scriptstyle{\sqsupseteq}$} (122);
+      \draw (12) -- node[below right]{$\scriptstyle{\sqsubseteq}$} (123);
+      \draw (123) -- node[below left]{$\scriptstyle{\sqsupseteq}$} (1233);
+      \draw[dashed] (123) -- node[below right]{$\scriptstyle{\sqsubseteq}$} (dots);
+    \end{tikzpicture}    
+    \caption{Графично представяне на $\sqsubseteq$ върху част от $L$}
+  \end{figure}
+\end{framed}
+
+\subsection*{Канонични апроксимации}
+
+\marginpar{Тук следваме \cite[стр. 218]{bird-haskell}}
+\index{канонична апроксимация}
+За всеки елемент $l \in L$, дефинираме неговата {\bf $n$-та канонична апроксимация} $l\upharpoonright{n}$, където:
+\begin{align*}
+  & l \upharpoonright{0} \dff \bot\\
+  & \nil \upharpoonright{(n+1)} \dff \nil\\
+  % & l \upharpoonright{(n+1)} \dff \texttt{cons}(\texttt{car}(l), l\upharpoonright{n}).
+  & (a:l) \upharpoonright{(n+1)} \dff a:(l\upharpoonright{n}).
+\end{align*}
+Имаме свойството, че за всеки списък $l \in L$, 
+\[n \leq n' \implies l\upharpoonright n \sqsubseteq l\upharpoonright n'.\]
+Това означава, че $(l\upharpoonright n)^{\infty}_{n=0}$ е верига.
+Лесно се съобразява, че 
+\[l = \bigsqcup_n (l \upharpoonright n).\]
+Друго важно свойство, което имаме е, че 
+\[l_1 \sqsubseteq l_2 \implies l_1 \upharpoonright n \sqsubseteq l_2 \upharpoonright n.\]
+\begin{itemize}
+\item 
+  Да обърнем внимание на апроксимациите на крайни списъци.
+  Нека $l = \pair{a_0,a_1,\dots,a_{n-1},\nil}$. Тогава според дефиницията:
+  \begin{align*}
+    & l \upharpoonright {0} = \bot,\\
+    & l \upharpoonright k = \pair{a_0,\dots,a_{k-1},\bot} \text{, за }k = 1,\dots, n,\\
+    & l \upharpoonright k = l \text{, за }k\geq n+1.
+  \end{align*}
+
+\item
+  Да разгледаме няколко примера.
+  \begin{itemize}
+  \item 
+    Нека $l = (0:1:\nil) \in \FinL$. Тогава 
+    \[\underbrace{\bot}_{l\upharpoonright 0} \sqsubseteq \underbrace{(0:\bot)}_{l\upharpoonright 1} \sqsubseteq \underbrace{(0:1:\bot)}_{l\upharpoonright 2} \sqsubseteq \underbrace{(0:1:\nil)}_{l\upharpoonright 3} = \underbrace{(0:1:\nil)}_{l\upharpoonright 4} = \cdots\]
+  \item
+    Нека $l = (0:1:\bot) \in \PartL$. Тогава
+    \[\underbrace{\bot}_{l\upharpoonright 0} \sqsubseteq \underbrace{(0:\bot)}_{l\upharpoonright 1} \sqsubseteq \underbrace{(0:1:\bot)}_{l\upharpoonright 2} = \underbrace{(0:1:\bot)}_{l\upharpoonright 3} = \underbrace{(0:1:\bot)}_{l\upharpoonright 4} = \cdots\]
+  \item
+    Нека $l = (0:1:2:\cdots) \in \InfL$. Тогава
+    \[\underbrace{\bot}_{l\upharpoonright 0} \sqsubseteq \underbrace{(0:\bot)}_{l\upharpoonright 1} \sqsubseteq \underbrace{(0:1:\bot)}_{l\upharpoonright 2} \sqsubseteq \underbrace{(0:1:2:\bot)}_{l\upharpoonright 3} \sqsubseteq \underbrace{(0:1:2:3:\bot)}_{l\upharpoonright 4} \sqsubseteq \cdots\]
+  \end{itemize}
+\end{itemize}
+
+
+Можем да дефинираме апроксимацията на списъци по следния начин на хаскел:
+\begin{haskellcode}
+approx _      0         = undefined         -- $l \upharpoonright 0 = \bot$
+approx []     n | n > 0 = []                -- $\nil \upharpoonright (n+1) = \nil$
+approx (x:xs) n | n > 0 = x:approx xs (n-1) -- $(a:l) \upharpoonright (n+1) = (a: (l\upharpoonright n))$
+\end{haskellcode}
+
+\begin{problem}
+  \label{prob:approx}
+  Да дефинираме изображението 
+  \[\texttt{approx}_n(l) \dff l \upharpoonright n.\]
+  Докажете, че $\texttt{approx}_n \in \Cont{L}{L}$.
+\end{problem}
+
+\begin{haskellcode}
+ghci> approx [1..10] 0    --  == $\bot$
+*** Exception: Prelude.undefined
+ghci> approx [1..10] 10   --  == (1:2:3:4:5:6:7:8:9:10:$\bot$)
+[1,2,3,4,5,6,7,8,9,10*** Exception: Prelude.undefined  
+ghci> approx [1..10] 11   --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
+[1,2,3,4,5,6,7,8,9,10]
+ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
+[1,2,3,4,5,6,7,8,9,10]
+\end{haskellcode}
+
+\Stefan{Да се обасни каква е разликата между take и approx}
+
+\begin{prop}
+  Областта на Скот $L$ е алгебрична като крайните елементи $K(L) = \FinL$ и $\PartL$.
+\end{prop}
+% \begin{hint}
+%   Банално.
+% \end{hint}
+
+\section{Алгебричност на непрекъснатите изображения}
+
+Целта ни тук ще бъде да докажем, че $\Cont{L}{L}$ е алгебрична област на Скот.
+За да направим това трябва да намерим {\em крайните елементи} на $\Cont{L}{L}$.
+Понеже крайните елементи на $L$ са $\FinL$ и $\PartL$, то е логично да предположим,
+че крайните елементи на $\Cont{L}{L}$ са дефинирани чрез крайно много елементи на $K(L)$.
+
+\begin{problem}
+  Докажете, че за всяко $f \in \Cont{L}{L}$ е изпълнено, че:
+  \[f(l) = \bigsqcup_n \{f(l \upharpoonright n)\upharpoonright n\}.\]
+\end{problem}
+\begin{hint}
+  Използвайте \Th{double-chain}.
+\end{hint}
+
+\begin{problem}
+  За произволно изображение $f \in \Cont{L}{L}$ и число $n$, да ознчим с $f \upharpoonright n$ изображението, където
+  \[(f\upharpoonright n)(l) \dff f(l\upharpoonright n)\upharpoonright n.\]
+  Докажете, че $f\upharpoonright n \in \Cont{L}{L}$.
+\end{problem}
+\begin{hint}
+  Използвайте \Problem{approx}.
+\end{hint}
+
+\Stefan{Това не е ясно!}
+Можем да считаме изображенията $f\upharpoonright n$ като апроксимации на $f$.
+Обаче те не са крайни апроксимации, защото за да дефинираме $f \upharpoonright n$
+се нуждаем от безкрайна информация. Това е така, защото има безкрайно много списъци с дължина $\leq n$.
+Оттук следва, че изображенията $f \upharpoonright n$ не са крайните елементи на $\Cont{L}{L}$.
+
+\begin{problem}
+  Нека $a \in K(\A)$ и $b \in K(\B)$.
+  Да дефинираме изображението
+  \[\theta(x) \dff
+  \begin{cases}
+    b, & \text{ ако } a \sqsubseteq x\\
+    \bot, & \text{ иначе}.
+  \end{cases}\]
+  Докажете, че:
+  \begin{enumerate}[1)]
+  \item 
+    $\theta \in \Cont{\A}{\B}$.
+  \item
+    ако $f \in \Cont{\A}{\B}$, то $\theta \sqsubseteq f \iff b \sqsubseteq f(a)$.
+  \end{enumerate}
+\end{problem}
+\begin{hint}
+  
+\end{hint}
+
+Сега трябва да видим кога и по какъв начин можем да правим крайни обединения на такива изображения.
+Това не е толкова просто, защото искаме полученото изображение също да бъде непрекъснато.
+
+Две редици от елементи на $K(L)$
+\begin{align*}
+  \bar{a} & = (a_0,\dots,a_{n-1}),\\
+  \bar{b} & = (b_0,\dots,b_{n-1})
+\end{align*}
+се наричат {\bf съвместими}, ако е изпълнено свойството:
+\begin{equation}
+  \label{eq:mon}
+  (\forall i,j < n)[a_i \sqsubseteq a_j \implies b_i \sqsubseteq b_j].
+\end{equation}
+
+\begin{example}
+  Редиците от крайни елементи
+  \begin{align*}
+    \bar{a} & = (\ (0:\bot),\ (1:\bot),\ (0:1:\nil)\ ),\\
+    \bar{b} & = (\ (1:2:\nil),\ \bot,\ (1:2:3:\nil)\ ),
+  \end{align*}
+  не са съвместими, защото
+  \[(0:\bot) \sqsubseteq (0:1:\nil)\text{, но } (1:2:\nil) \not\sqsubseteq (1:2:3:\nil).\]
+\end{example}
+
+Възможно е някои от елементите на $\bar{a}$ да са несравними помежду си, но обърнете внимание, че за произволен елемент $x$, 
+всички елементи на множеството 
+\[A \dff \{a_i \mid i < n\ \&\ a_i \sqsubseteq x\}\]
+са сравними помежду си.
+Това означава, че 
+\[A = \{a_{i_0} \sqsubseteq a_{i_1} \sqsubseteq \cdots \sqsubseteq a_{i_k}\},\] за някое $k$,
+и следователно, $A$ притежава точна горна граница.
+Естествено, множеството $A$ може и да е празно. Тогава точната горна граница на $A$ ще бъде $\bot$,
+защото по дефиниция $\bigsqcup\emptyset = \bot$.
+
+Да разгледаме изображението 
+\begin{align*}
+  \theta_{\bar{a},\bar{b}}(x) & \dff \bigsqcup_{i<n}\{b_i \mid a_i \sqsubseteq x\}\\
+  & = \begin{cases}
+    b_0, & \text{ ако } a_0 = \bigsqcup_{i<n}\{a_i \mid a_i \sqsubseteq x\}\\
+    \vdots & \\
+    b_{n-1}, & \text{ ако } a_{n-1} = \bigsqcup_{i<n}\{a_i \mid a_i \sqsubseteq x\}\\
+    \bot, & \text{ иначе}.
+  \end{cases}
+\end{align*}
+
+\Stefan{На картинка нещата не изглеждат толкова сложни.}
+
+\begin{prop}
+  Ако $\bar{a}$ и $\bar{b}$ са съвместими редици от крайни елементи на $L$, то имаме свойствата:
+  \begin{enumerate}[1)]
+  \item 
+    $\theta_{\bar{a},\bar{b}} \in \Cont{L}{L}$;
+  \item
+    За всяко $f \in \Cont{L}{L}$, 
+    \[\theta_{\bar{a},\bar{b}} \sqsubseteq f\ \iff\ (\forall i < n)[b_i \sqsubseteq f(a_i)];\]
+  \item
+    $\theta_{\bar{a},\bar{b}}$ е компактен елемент в $\Cont{L}{L}$.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  \begin{enumerate}[1)]
+  \item 
+    Лесно. Използва се, че $\bar{a}$ са крайни елементи.
+  \item
+    Използва се само монотонността на $f$.
+  \item
+    Тук съществено се използва, че $\bar{b}$ са крайни елементи.
+
+    Нека $(f_r)^\infty_{r=0}$ е верига в $\Cont{L}{L}$ и 
+    $\theta_{\bar{a},\bar{b}} \sqsubseteq \bigsqcup_r f_r$.
+    От $2)$, това означава, че за $i < n$,
+    \[b_i \sqsubseteq (\bigsqcup_r f_r)(a_i) = \bigsqcup_r \{f_r(a_i)\}.\]
+    Понеже $b_i$ е краен елемент, то съществува индекс $r_i$, за който
+    \[b_i \sqsubseteq f_{r_i}(a_i).\]
+    Накрая взимаме $r = \max\{r_1,\dots,r_n\}$.
+    Получаваме, че за $i < n$,
+    \[b_i \sqsubseteq f_{r}(a_i).\]
+    Тогава отново от 2) следва, че $\theta_{\bar{a},\bar{b}} \sqsubseteq f_r$.
+  \end{enumerate}
+\end{proof}
+
+\begin{framed}
+\begin{prop}
+  Областта на Скот $\Cont{L}{L}$ е алгебрична.
+\end{prop}
+\end{framed}
+\begin{proof}
+  Да разгледаме произволен елемент $f \in \Cont{L}{L}$.
+  Ще покажем, че съществува верига от крайни елементи $(\theta_n)^\infty_{n=0}$, за която $f = \bigsqcup_n \theta_n$.
+  Нека подредим елементите на $K(L)$ в една редица $a_0,a_1,\dots$,
+  което можем да направим, защото те са изброимо много.
+  Да означим 
+  \begin{align*}
+    \bar{a}_n & = (a_0,a_1,\dots,a_{n})\\
+    \bar{b}_n & = (f(a_0)\upharpoonright n, \dots, f(a_{n})\upharpoonright n).
+  \end{align*}
+  Нека да положим
+  \[\theta_n \dff \theta_{\bar{a}_n,\bar{b}_n}.\]
+
+  Лесно се проверява, че $(\theta_n)^\infty_{n=0}$ е верига, защото $f$ е монотонно изображение.
+  
+  Трябва да проверим, че $f = \bigsqcup_n \theta_n$. 
+  От дефиницията на $\theta_n$ е ясно, че $\theta_n \sqsubseteq f$ за всяко $n$.
+  Следователно, $\bigsqcup_n \theta_n \sqsubseteq f$.
+  За другата посока, нека разгледаме произволен елемент $l \in L$.
+  Ще докажем, че $f(l) \sqsubseteq (\bigsqcup_n \theta_n)(l)$.
+  Да разгледаме верига от елементи на $K(L)$, $(a_{i_n})^\infty_{n=0}$, за която $i_0 < i_1 < \cdots$
+  и $\bigsqcup_n a_{i_n} = l$. Знаем, че такава съществува, защото $L$ е алгебрична област на Скот.
+  \Stefan{Трябва някъде да сложа твърдение, че ако $\bigsqcup_n a_n = b$, то за произволна подредица
+  $\bigsqcup_n a_{i_n} = b$.}
+  Тогава 
+  \begin{align*}
+    f(l) & = \bigsqcup_n \{f(a_{i_n}) \upharpoonright n\}\\
+         & \sqsubseteq \bigsqcup_n \{f(a_{i_n}) \upharpoonright i_n \} & (i_n \geq n)\\
+         & = \bigsqcup_n \{\theta_{i_n}(a_{i_n})\} & (\text{от деф. на }\theta_{i_n})\\
+         & = \bigsqcup_n\{ \bigsqcup_m \{\theta_{i_n}(a_{i_m})\}\} & (\text{\Th{double-chain}})\\
+         & = \bigsqcup_n \{\theta_{i_n}(\bigsqcup_m a_{i_m})\} & (\theta_{i_n} \in \Cont{L}{L})\\
+         & = \bigsqcup_n \{\theta_{i_n}(l)\} & (l = \bigsqcup_m a_{i_m})\\
+         & = (\bigsqcup_n \theta_{i_n})(l) \\
+         & \sqsubseteq (\bigsqcup_n \theta_n)(l).
+  \end{align*}
+\end{proof}
+
+\input{lists/problems}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

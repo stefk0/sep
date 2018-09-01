@@ -1,0 +1,247 @@
+\documentclass[a4paper,11pt,oneside]{book}
+
+% \renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[bulgarian]{babel}
+
+\usepackage{amssymb, amsmath, amsthm, mathrsfs}
+\usepackage{stmaryrd}
+\usepackage{latexsym}
+\usepackage{makeidx}
+
+\usepackage{stackrel}
+\usepackage{paralist}
+\usepackage{pifont}
+\usepackage[shortlabels]{enumitem}
+\setlist{leftmargin=*}
+\usepackage{algorithm}
+\floatname{algorithm}{Алгоритъм}
+\usepackage[noend]{algpseudocode}
+\usepackage{framed}
+
+\usepackage{bussproofs}
+\def\defaultHypSeparation{\hskip .2cm}
+
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{minted}
+\usepackage{pdflscape}
+
+\usemintedstyle{friendly}
+\definecolor{bg}{rgb}{0.9, 0.9, 0.9}
+\newminted{haskell}{mathescape,fontsize=\footnotesize,baselinestretch=1.2,frame=single,framesep=5pt} %,bgcolor=bg}
+%\usepackage{microtype} ??????
+
+\usepackage{color, soulutf8}
+\newcommand{\newauthor}[2]{
+  \definecolor{#1}{rgb}{#2}
+  \expandafter\newcommand\csname #1\endcsname[1]{{\sethlcolor{#1}\hl{#1: ,,##1''}}}}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% \newauthor{Stefan}{0.6,0.6,0.6}
+
+\newcommand{\Stefan}[1]{}
+
+% \newauthor{Stela}{0.8,0.8,0}
+
+
+\setlist[itemize]{leftmargin=*}
+
+\def\dotminus{\mathbin{\ooalign{\hss\raise1ex\hbox{.}\hss\cr\mathsurround=0pt$-$}}}
+
+%%%%%%%%%%%%%%% TIKZ Package %%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz, pgf}
+\usetikzlibrary{shapes,arrows,cd,positioning}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{caption}
+\usepackage{subcaption}
+% \usepackage{subfigure}
+
+\usepackage[colorlinks=true, linkcolor=blue, pdfstartview=FitV,citecolor=blue, urlcolor=blue]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Теорема}[chapter]
+\newtheorem{dfn}{Определение}[chapter]
+\newtheorem{problem}{{\bf Задача}}[chapter]
+\newtheorem{prb}{{\bf Задача}}[chapter]
+\newtheorem{prop}{Твърдение}[chapter]
+\newtheorem{cor}{Следствие}[chapter]
+\newtheorem{lemma}{Лема}[chapter]
+\newtheorem{example}{Пример}[chapter]
+\newtheorem{remark}{Забележка}[chapter]
+
+\newcommand{\REC}{{\bf REC}}
+
+\newcommand{\NN}{\mathbf{Num}}
+\newcommand{\BB}{\mathbf{Bool}}
+
+\usepackage{mysymbols}
+
+\renewenvironment{proof}{\noindent{\bf Доказателство.}\hspace*{1em}}{\qed\par}
+\newenvironment{hint}{\noindent{\bf Упътване.}\hspace*{1em}}{\qed\par}
+\newenvironment{solution}{\noindent{\bf Решение.}\hspace*{1em}}{\qed\par}
+\newcommand{\answer}{\it Отговор.\rm}
+
+\newcommand{\Ex}[1]{{\em Пример }~\ref{ex:#1}}
+\newcommand{\Alg}[1]{{\em Алгоритъм}~\ref{alg:#1}}
+\newcommand{\Th}[1]{{\em Теорема}~\ref{th:#1}}
+\newcommand{\Cor}[1]{{\em Следствие}~\ref{cr:#1}}
+\newcommand{\Lem}[1]{{\em Лема}~\ref{lem:#1}}
+\newcommand{\Prop}[1]{{\em Твърдение}~\ref{pr:#1}}
+\newcommand{\Problem}[1]{{\em Задача}~\ref{prob:#1}}
+\newcommand{\Fig}[1]{{\em Фигура}~\ref{fig:#1}}
+\newcommand{\Chapter}[1]{{\em Глава}~\ref{ch:#1}}
+%%\selectlanguage{bulgarian}
+
+\newcommand{\writedown}{\ding{45}\ }
+
+% \newcommand{\val}[1]{\llbracket{#1}\rrbracket}
+\newcommand{\evalv}[1]{\text{eval}^P_V\val{{#1}}}
+\newcommand{\evaln}[1]{\text{eval}^P_N\val{{#1}}}
+\newcommand{\ifelse}[3]{\texttt{if}\ #1\ \texttt{then}\ #2\ \texttt{else}\ #3} 
+\newcommand{\while}[2]{\mathbf{while}\ #1\ \mathbf{do}\ #2}
+\newcommand{\rpt}[2]{\mathbf{repeat}\ #1\ \mathbf{until}\ #2}
+\newcommand{\op}{\texttt{op}}
+\newcommand{\true}{\mathbf{t}}
+\newcommand{\false}{\mathbf{f}}
+\newcommand{\exit}{\mathbf{exit}}
+\newcommand{\skp}{\mathbf{skip}}
+\newcommand{\newvar}[3]{\mathbf{newvar}\ #1 := #2\ \mathbf{in}\ #3}
+\newcommand{\trycatch}[2]{\mathbf{try}\ #1\ \mathbf{catch}\ #2}
+\newcommand{\finally}[3]{\mathbf{try}\ #1\ \mathbf{catch}\ #2\ \mathbf{finally}\ #3}
+\newcommand{\for}[4]{\mathbf{for}\ #1 := #2\ \mathbf{to}\ #3\ \mathbf{do}\ #4}
+\newcommand{\dfs}{\stackrel{\textnormal{деф}}{=}}
+% \newcommand{\dff}{\stackrel{\textnormal{деф}}{=}}
+\newcommand{\dfff}{\stackrel{\textnormal{деф}}{\equiv}}
+\newcommand{\dffff}{\stackrel{\textnormal{деф}}{\equiv}}
+\newcommand{\lfp}{\texttt{lfp}}
+\newcommand{\lub}{\texttt{lub}}
+
+\newcommand{\Mapping}[2]{[#1~\to~#2]}
+% \newcommand{\Total}[2]{[#1~\stackrel{t}{\to}~#2]}
+\newcommand{\Partial}[2]{[#1~\stackrel{\text{ч}}{\to}~#2]}
+\newcommand{\Strict}[2]{[#1~\stackrel{\text{т}}{\to}~#2]}
+\newcommand{\Mon}[2]{[#1~\stackrel{\text{м}}{\to}~#2]}
+\newcommand{\Cont}[2]{[#1~\stackrel{\text{н}}{\to}~#2]}
+% \newcommand{\Compact}[2]{[#1~\stackrel{\text{k}}{\to}~#2]}
+\newcommand{\DomOpCBN}{\Cont{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Cont{\Nat^{m_k}_\bot}{\Nat_\bot}}
+\newcommand{\RanOpCBN}{\Cont{\Nat^{n}_\bot}{\Nat_\bot}}
+\newcommand{\DomOpCBV}{\Strict{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Strict{\Nat^{m_k}_\bot}{\Nat_\bot}}
+\newcommand{\RanOpCBV}{\Strict{\Nat^{n}_\bot}{\Nat_\bot}}
+
+
+\newcommand{\Pref}{\texttt{Pref}}                 %% Преднеподвижни точки
+\newcommand{\Fenv}{\textbf{Fenv}[\varsf]}
+\newcommand{\Venv}{\textbf{Env}[\varsx]}
+
+\newcommand{\Graph}[1]{\texttt{Graph}(#1)}
+
+\newcommand\nil{\texttt{[]}}
+% \newcommand{\pair}[1]{\langle{#1}\rangle}
+% \newcommand{\abs}[1]{\lvert{#1}\rvert}
+% \newcommand{\ov}[1]{\overline{#1}}
+% \renewcommand{\iff}{\Longleftrightarrow}
+\newcommand{\Cmd}{\mathbf{Cmd}}
+\newcommand{\Arith}{\mathbf{Arith}}
+\newcommand{\vv}[1]{\texttt{#1}}
+\newcommand{\varx}{\mathbf{x}}
+\newcommand{\varsx}{\bar{\texttt{x}}}
+\newcommand{\varsf}{\bar{\texttt{f}}}
+
+%%%%%%% LISTS %%%%%%%
+
+\newcommand{\FinL}{\texttt{FinL}}
+\newcommand{\PartL}{\texttt{PartL}}
+\newcommand{\InfL}{\texttt{InfL}}
+
+%%%%%%%%%%%%%%%%%%%%%
+
+\def\monus{\mathbin{\ooalign{\hss\raise1ex\hbox{.}\hss\cr
+      \mathsurround=0pt$-$}}}
+
+\setlength{\marginparsep}{0.7cm}
+\setlength{\oddsidemargin}{0.3cm}
+\setlength{\hoffset}{0cm}
+\setlength{\marginparwidth}{110pt}
+\let\oldmarginpar\marginpar
+
+\def\dotminus{\mathbin{\ooalign{\hss\raise1ex\hbox{.}\hss\cr
+             \mathsurround=0pt$-$}}}
+
+
+% \renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize #1]%
+% {\raggedright\footnotesize #1}}
+% \renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\scriptsize #1]
+% {\raggedright\scriptsize #1}}
+\renewcommand\marginpar[1]{\oldmarginpar{\scriptsize #1}}
+
+\newif\ifhints
+%\proofstrue % comment out to hide answers
+\hintstrue
+
+\allowdisplaybreaks
+\makeindex
+\begin{document}
+
+\author{Стефан Вътев\footnote{\href{mailto:stefanv@fmi.uni-sofia.bg}{stefanv@fmi.uni-sofia.bg}}, Стела Николова\footnote{\href{mailto:stenik@fmi.uni-sofia.bg}{stenik@fmi.uni-sofia.bg}}}
+\title{Семантика на езиците за програмиране - записки}
+
+
+% \frontmatter
+\maketitle
+\tableofcontents
+
+
+% \chapter{Увод}
+
+% Увод няма.
+
+
+% \mainmatter
+
+% \begin{otherlanguage}{greek}
+% \begin{haskellcode}
+%   ΤΕΣΤ
+% \end{haskellcode}
+% \end{otherlanguage}
+
+
+% \include{basic}
+% \include{imp}
+% \include{Operators}
+\include{domains-basic/domains-basic}
+\include{domains-extra/domains-extra}
+\include{rec/rec}
+\include{proofs/proofs}
+\include{lists/lists}
+
+% \include{call-by-value}
+% \include{call-by-name}
+% \include{verification}
+% include{dataflow}
+% \include{abstract-interpretation}
+%\include{extra}
+% \include{struct-ind}
+
+% \include{tail}
+%\backmatter
+
+\bibliographystyle{plain}
+\bibliography{semantics}
+
+\printindex
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

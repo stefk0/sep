@@ -1,0 +1,363 @@
+\section{Алгебрични области на Скот}
+
+\marginpar{\cite{abramsky94}}
+
+\begin{itemize}
+\item 
+  \index{компактен елемент}
+  Нека $\A$ е област на Скот.
+  Казваме, че елементът $c$ е {\bf компактен}, ако 
+  за всяка верига $\chain{a}{i}$, за която $c \sqsubseteq \bigsqcup_i a_i$,
+  съществува индекс $i_0$, за който $c \sqsubseteq a_{i_0}$.
+  Компактните елементи на $\A$ ще означаваме с $K(\A)$.
+\item
+  \index{област на Скот!алгебрична}
+  Ще казваме, че областта на Скот $\A$ е {\bf алгебрична}, ако за всеки елемент $a \in \A$,
+  съществува верига от {\em компактни} елементи $\chain{c}{i}$ в $\A$, за която $a = \bigsqcup_i c_i$.
+\end{itemize}
+
+\begin{example}
+  Нека да разгледаме $\A = \pair{A,\sqsubseteq, \bot}$,
+  където 
+  \[A = \{a_0,a_1,\dots,\} \cup \{a_\omega, b\},\]
+  релацията $\sqsubseteq$ е представена на \Fig{noncompact-element}.
+  Лесно се съобразява, че $\A$ е област на Скот.
+  Всеки от елементите на $A$ е компактен, с изключение на $a_\omega$ и $b$.
+  Също така е ясно, че $\A$ {\em не е} алгебрична област на Скот, защото 
+  няма верига от крайни елементи, чиято точна горна граница да е елементът $b$.
+  \begin{framed}
+    \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,->]
+      \tikzstyle{vertex}=[circle,minimum size=17pt,inner sep=0pt]
+      
+      \node[vertex] (omega) at (0,5) {$a_\omega$};
+      \node[vertex] (2) at (0,3) {$a_3$};
+      \node[vertex] (1) at (0,2) {$a_2$};
+      \node[vertex] (0) at (0,1) {$a_1$};
+      \node[vertex] (bot) at (0,0) {$a_0$};
+      
+      \node[vertex] (a) at (3,3) {$b$};
+
+      \draw (bot) -- (a);
+      \draw (a)   -- (omega);
+      \draw (bot) -- (0);
+      \draw (0)   -- (1);
+      \draw (1)   -- (2);
+      \draw[dashed] (2) -- (omega);
+    \end{tikzpicture}    
+    \caption{Графично представяне на $\sqsubseteq$ върху $\A$}
+    \label{fig:noncompact-element}
+  \end{figure}
+\end{framed}
+\end{example}
+
+\begin{example}
+  Областта на Скот $\F_n$ е алгебрична.
+  Компактните елементи са тези функции, за които $|Dom(f)| < \infty$, т.е.
+  крайните функции.   
+\end{example}
+
+
+\begin{framed}
+  \begin{thm}
+    Нека $\A$ и $\B$ са области на Скот, където $\A$ е {\em алгебрична}.
+    Тогава $f \in \Cont{\A}{\B}$ точно тогава, когато за произволен елемент $a \in A$,
+    \[f(a) = \bigsqcup\{f(c) \mid c \sqsubseteq a\ \&\ c \in K(\A)\}.\]
+  \end{thm}
+\end{framed}
+\begin{proof}
+  \begin{enumerate}[(1)]
+  \item
+    Нека $f \in \Cont{\A}{\B}$ и да разгледаме произволен елемент $a \in A$.
+    Нека $c$ е комапктен елемент, за който $c \sqsubseteq a$.
+    \marginpar{Всяко непрекъснато изображение е монотонно}
+    Тогава $f(c) \sqsubseteq f(a)$, защото $f$ е монотонно изображение.
+    Това означава, че $f(a)$ е горна граница на множеството
+    $\{f(c) \mid c \sqsubseteq a\ \&\ c\in K(\A)\}$.
+    
+    Нека сега $b$ е друга горна граница на $\{f(c) \mid c \sqsubseteq a\ \&\ c\in K(\A)\}$.
+    Ще докажем, че $f(a) \sqsubseteq b$.
+
+    Понеже $\A$ е алгебрична област на Скот, то $a = \bigsqcup_i c_i$, за някоя вергига $\chain{c}{i}$ от компактни елементи.
+    Знаем, че $f(c_i) \sqsubseteq b$ за всеки компактен елемент $c_i \sqsubseteq a$.
+    \marginpar{$\chain{f(c_i)}{i}$ образуват верига и следователно притежава точна горна граница}
+    Тогава $\bigsqcup_i f(c_i) \sqsubseteq b$ и следователно
+    $f(\bigsqcup_i c_i) \sqsubseteq b$, защото $f$ е непрекъснато изображение.
+    Понеже $a = \bigsqcup_i c_i$, то получаваме, че $f(a) \sqsubseteq b$.
+
+    От всичко това следва, че
+    \[f(a) = \bigsqcup \{f(c) \mid c \sqsubseteq a\ \&\ c\in K(\A)\}.\]
+  \item
+    Сега да разгледаме обратната посока, т.е. нека $f$ е изображение, за което
+    за произволен елемент $a \in A$ е изпълнено, че
+    \[f(a) = \bigsqcup\{f(c) \mid c \sqsubseteq a\ \&\ c \in K(\A)\}.\]
+
+    Нека първо да проверим, че $f$ е монотонно изображение.
+    За целта, нека разгледаме $a \sqsubseteq b$.
+    Ясно е, че
+    \[\{f(c) \mid c \sqsubseteq a\ \&\ c \in K(\A) \}\subseteq \{f(c) \mid c \sqsubseteq b\ \&\ c \in K(\A) \}.\]
+    Оттук директно получаваме, че
+    \begin{align*}
+      f(a) & = \bigsqcup \{f(c) \mid c \sqsubseteq a\ \&\ c \in K(\A) \}\\
+           & \sqsubseteq \bigsqcup\{f(c) \mid c \sqsubseteq b\ \&\ c \in K(\A) \}\\
+           & = f(b).
+    \end{align*}
+    Така, щом $f$ е монотонно изображение, то можем да заключим, че
+    за произволна верига $(a_i)^\infty_{i=0}$ е изпълнено
+    \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
+
+    За другата посока, да разгледаме произволна верига $(a_i)^\infty_{i=0}$.
+    Тогава ако $c$ е компактен елемент и $c \sqsubseteq \bigsqcup_i a_i$,
+    то съществува индекс $i_0$, за който $c \sqsubseteq a_{i_0}$.
+    Понеже $f$ е монотонно изображение, то
+    \[f(c) \sqsubseteq f(a_{i_0}) \sqsubseteq \bigsqcup_i f(a_i).\]
+    Това означава, че елементът $\bigsqcup_i f(a_i)$
+    е горна граница на множеството
+    \[\{f(c) \mid c \sqsubseteq \bigsqcup_i a_i\ \&\ c \in K(\A)\}.\]
+    Оттук заключаваме, че
+    \[f(\bigsqcup_i a_i) = \bigsqcup\{f(c) \mid c \sqsubseteq \bigsqcup_i a_i\ \&\ c \in K(\A)\} \sqsubseteq \bigsqcup_i f(a_i).\]
+  \end{enumerate}
+\end{proof}
+
+
+Използвайки факта, че $\F_n$ е алгебрична област на Скот, то имаме следната полезна харектеризация.
+\begin{cor}
+  Следните условия са еквивалентни:
+  \begin{enumerate}[(1)]
+  \item
+    $\Gamma \in \Cont{\F_n}{\F_m}$;
+  \item
+    $\Gamma(f)(\ov{x}) \simeq y \iff (\exists \theta \subseteq f)[\ \theta\text{ е крайна функция}\ \&\ \Gamma(\theta)(\ov{x}) \simeq y\ ]$.
+  \end{enumerate}
+\end{cor}
+
+% \begin{prop}
+%   \label{pr:compact-monotone1}
+%   Нека $\A$ и $\B$ са области на Скот и $f:\A \to \B$ е {\bf компактно изображение}.
+%   Тогава $f$ е монотонно върху крайните елементи, т.е. за всеки два крайни елемента $c_1$ и $c_2$,
+%   \[c_1 \sqsubseteq c_2 \implies f(c_1) \sqsubseteq f(c_2).\]
+% \end{prop}
+% \begin{proof}
+%   Нека фиксираме крайни елементи $c_1 \sqsubseteq c_2$.
+%   Имаме, че $c_1 \sqcup c_2 = c_2$, т.е.
+%   $c_1 \sqsubseteq c_2 = c_2 = c_2 = \cdots$ образуват верига,
+%   чиято точна горна граница е $c_2$.
+%   Понеже $f$ е компактен,
+%   \[f(c_1 \sqcup c_2) = f(c_1) \sqcup f(c_2)\]
+%   Обединявайки всичко, получаваме:
+%   \begin{align*}
+%     f(c_1) & \sqsubseteq f(c_1) \sqcup f(c_2)\\
+%     & = f(c_1 \sqcup c_2) & \comment{f \text{ е компактен}}\\
+%     & = f(c_2).
+%   \end{align*}
+% \end{proof}
+
+% \begin{prop}
+%   \label{pr:compact-monotone2}
+%   Нека $\A$ и $\B$ са области на Скот, като $\A$ е алгебрична.
+%   Тогава
+%   \[\Compact{\A}{\B} \subseteq \Mon{\A}{\B}.\]
+% \end{prop}
+% \begin{hint}
+%   Нека $f \in \Compact{\A}{\B}$ и $a_1 \sqsubseteq a_2$ в $\A$.
+%   Ще докажем, че $f(a_1) \sqsubseteq f(a_2)$.
+%   Понеже $\A$ е алгебрична област на Скот, 
+%   съществуват вериги от крайни елементи $\chain{c}{i}$ и $\chain{d}{i}$,
+%   за които $\bigsqcup_k c_k = a_1$ и $\bigsqcup_i d_i = a_2$.
+%   Понеже за всяко $k$, $c_k \sqsubseteq a_1 \sqsubseteq a_2 = \bigsqcup_i d_i$,
+%   то съществува индекс $i_k$, $c_k \sqsubseteq d_{i_k}$.
+%   Тогава от \Prop{compact-monotone1} следва, че $f(c_k) \sqsubseteq f(d_{i_k})$.
+%   Оттук следва, че 
+%   \begin{equation}
+%     \label{eq:mon1}
+%     \bigsqcup_k f(c_k) \sqsubseteq \bigsqcup_k f(d_{i_k}) \sqsubseteq \bigsqcup_i f(d_i).
+%   \end{equation}
+%   Вече сме готови да завършим доказателството:
+%   \begin{align*}
+%     f(a_1) & = f(\bigsqcup_k c_k) & \comment{a_1 = \bigsqcup_k c_k}\\
+%     & = \bigsqcup_k f(c_k) & \comment{f \text{ е компактно}}\\
+%     & \sqsubseteq \bigsqcup_i f(d_{i}) & \comment{\text{от Формула (\ref{eq:mon1})}}\\
+%     & = f(\bigsqcup_i d_{i}) & \comment{f \text{ е компактно}}\\
+%     & = f(a_2) & \comment a_2 = \bigsqcup_i d_i.
+%   \end{align*}
+% \end{hint}
+
+% \begin{framed}
+%   \begin{thm}
+%     Нека $\A$ и $\B$ са области на Скот, като $\A$ е {\em алгебрична}.
+%     Тогава 
+%     \[\Cont{\A}{\B} = \Compact{\A}{\B}.\]
+%   \end{thm}  
+% \end{framed}
+% \begin{hint}
+%   $(\Rightarrow)$ Нека $f$ да бъде непрекъснато изображение и да разгледаме верига от крайни елементи $\chain{c}{i}$.
+%   Тогава директно от дефиницията на непрекъснато изображение имаме, че
+%   \[f(\bigsqcup_ic_i) = \bigsqcup_i f(c_i).\]
+%   Следователно, $f$ е компактно изображение.
+
+%   $(\Leftarrow)$ Нека $f$ да бъде компактно изображение и да разгледаме една верига $\chain{a}{i}$ в $\A$.
+%   Трябва да докажем, че 
+%   \[f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i).\]
+%   Понеже от \Prop{compact-monotone2} знаем, че всяко компактно изображение е монотонно, то 
+%   прилагаме \Prop{monotone-chain} и получаваме, че
+%   \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
+%   Понеже $\A$ е алгебрична област на Скот, то съществува верига от крайни елементи $\chain{c}{k}$,
+%   за която $\bigsqcup_k c_k = \bigsqcup_i a_i$.  
+%   Понеже $c_k \sqsubseteq \bigsqcup_i a_i$ и $c_k$ е краен, то 
+%   съществува индекс $i_k$, за който $c_k \sqsubseteq a_{i_k}$, откъдето $f(c_k) \sqsubseteq f(a_{i_k})$.
+  
+%   Така получаваме, че 
+%   \begin{align*}
+%     f(\bigsqcup_i a_i) & = f(\bigsqcup_k c_k) &  \comment{\text{от избора на }\chain{c}{k}}\\
+%                        & = \bigsqcup_k f(c_k) & \comment{f \text{ е компактно}}\\
+%                        & \sqsubseteq \bigsqcup_k f(a_{i_k}) & \comment{f\text{ е монотонно и } c_k \sqsubseteq a_{i_k}}\\
+%                        & \sqsubseteq \bigsqcup_i f(a_i) & \comment{(a_{i_k})^{\infty}_{k=0}\text{ е подредица на }\chain{a}{i}}.
+%   \end{align*}
+% \end{hint}
+
+% \begin{prop}
+%   \label{pr:compact-characterisation}
+%   \marginpar{Естествено, можем да говорим и за $f \in \Cont{\A}{\B}$}
+%   Нека $\A$ и $\B$ са алгебрични области на Скот.
+%   Тогава $f \in \Compact{\A}{\B}$ точно тогава, когато:
+%   \begin{enumerate}[(1)]
+%   \item 
+%     $f \in \Mon{\A}{\B}$;
+%   \item
+%     за произволен краен елемент $d \sqsubseteq f(a)$
+%     съществува краен елемент $c \sqsubseteq a$, за който $d \sqsubseteq f(c)$.
+%   \end{enumerate}
+% \end{prop}
+% \begin{proof}
+%   Нека $f$ е компактно изображение. От \Prop{compact-monotone2} имаме, че $f$ е монотонно.
+%   За (2), да фиксираме верига от крайни елементи $\chain{c}{i}$, за която $\bigsqcup_i c_i = a$.
+%   Тогава от компактността на $f$, $f(\bigsqcup_i c_i) = \bigsqcup_i f(c_i)$.
+%   Нека $d$ е краен елемент, за който $d \sqsubseteq f(a)$.
+%   Това означава, че съществува индекс $i_0$, за който $d \sqsubseteq f(c_{i_0})$.
+
+%   Нека сега са изпълнени свойства (1) и (2). Ще докажем, че $f$ е компактно изображение.
+%   От монотонността на $f$, веднага получаваме, че $\bigsqcup_if(c_i) \sqsubseteq f(\bigsqcup_ic_i)$.
+%   За другата посока ще използваме (2).
+%   Ще докажем, че $f(\bigsqcup_i c_i) \sqsubseteq \bigsqcup_i f(c_i)$.
+%   Нека $a = \bigsqcup_i c_i$ и  $b = f(a)$.
+%   От алгебричността на $\B$, съществува верига от крайни елементи $\chain{d}{i}$,
+%   за която $\bigsqcup_k d_k = b$. 
+%   Тогава от (2) имаме, че същестува краен елемент $c \sqsubseteq a$, за който $d_k \sqsubseteq f(c)$.
+%   Понеже $\A$ е алгебрична, същестува индекс $i_k$, за който $c \sqsubseteq c_{i_k}$.
+%   От монотонността на $f$, $d_k \sqsubseteq f(c) \sqsubseteq f(c_{i_k})$.
+%   Така получаваме, че 
+%   \begin{align*}
+%     f(\bigsqcup_i c_i) & = f(a) & \comment{a = \bigsqcup_i c_i}\\
+%                        & = b\\
+%                        & = \bigsqcup_k d_k & \comment{\text{алгебричност на }\B}\\
+%                        & \sqsubseteq \bigsqcup_k f(c_{i_k}) & \comment{\text{от }(2)}\\
+%                        & \sqsubseteq \bigsqcup_i f(c_i) & \comment{(c_{i_k})^\infty_{k=0}\text{ е подверига на }\chain{c}{i}}.
+%   \end{align*}
+% \end{proof}
+
+
+
+% \begin{cor}
+%   \label{pr:operator-compact}
+%   \marginpar{Това следствие ще е важно за задачите, които се решават на упражнения}
+%   $\Gamma \in \Compact{\F_n}{\F_m}$  точно тогава, когато:
+%   \begin{enumerate}[(1)]
+%   \item 
+%     $\Gamma \in \Mon{\F_n}{\F_m}$, и
+%   \item
+%     ако $\Gamma(f)(\bar{x}) \simeq y$, то съществува крайна подфункция $\theta \subseteq f$,
+%     за която $\Gamma(\theta)(\bar{x}) \simeq y$.
+%   \end{enumerate}
+% \end{cor}
+% \begin{proof}
+%   Нека $\Gamma$ е компактен оператор.
+%   От (1) на \Prop{compact-characterisation} имаме, че $\Gamma$ е монотонен.
+%   Нека $\Gamma(f)(\bar{x}) \simeq y$. Тогава да изберем крайния елемент $\hat\theta \subseteq \Gamma(f)$, 
+%   където \[\Graph{\hat\theta} = \{\pair{\bar{x},y}\}.\]
+%   Тогава от (2) на \Prop{compact-characterisation} имаме краен елемент $\theta \subseteq f$, за който $\hat\theta \subseteq \Gamma(\theta)$.
+%   Това означава, че $\Gamma(\theta)(\bar{x}) \simeq y$.  
+
+%   За обратната посока, единствено трябва да проверим, че е изпълнено (2) на \Prop{compact-characterisation}.
+%   Нека $\hat\theta \subseteq \Gamma(f)$, където
+%   \[\Graph{\hat\theta} = \{\pair{\bar{x}_i,y_i} \mid i = 1,\dots,k\}.\]
+%   Тогава за всяко $i=1,\dots,k$ $\Gamma(f)(\bar{x}_i)\simeq y_i$ и от (2) имаме, че съществува 
+%   крайна $\theta_i \subseteq f$, за която $\Gamma(\theta_i)(\bar{x}_i) \simeq y_i$.
+%   Накрая, нека $\theta = \bigcup_i \theta_i$.
+% \end{proof}
+
+% \begin{cor}
+%   \marginpar{Това е дефиницията на компактен оператор дадена в \cite{ditchev-soskov}. Ползата от нашите по-абстрактни разглеждания е, че знем какво представляват компактните оператори и върху по-сложни от $\F_n$ структури.}
+%   $\Gamma \in \Compact{\F_n}{\F_m}$  точно тогава, когато
+%   \[\Gamma(f)(\bar{x}) \simeq y \iff (\exists \text{ крайна }\theta \subseteq f)[\Gamma(\theta)(\bar{x}) \simeq y].\]
+% \end{cor}
+
+% \index{изображение!графика}
+% Нека $\A$ и $\B$ са {\em алгебрични} области на Скот и $f \in \Mapping{\A}{\B}$.
+% Тогава {\bf графиката} на $f$ е множеството
+% \[\Graph{f} \dff \{\pair{c,d} \in K(\A)\times K(\B) \mid  d \sqsubseteq f(c)\}.\]
+
+% \begin{framed}
+%   \begin{thm}
+%     Нека $\A$ и $\B$ са алгебрични области на Скот.
+%     Тогава следните твърдения са еквивалентни:
+%     \begin{enumerate}[(1)]
+%     \item 
+%       $f \in \Cont{\A}{\B}$;
+%     \item
+%       за всеки елемент $a \in \A$,
+%       \[f(a) = \bigsqcup\{d \mid \pair{c,d} \in \Graph{f}\ \&\ c \sqsubseteq a\}.\]    
+%     \end{enumerate}
+%   \end{thm}
+% \end{framed}
+% \begin{proof}
+%   \marginpar{Тази теорема е важна, когато разглеждаме $\A$ и $\B$ да бъдат областите от лениви списъци или други по-сложни структури}
+%   За посоката $(1) \to (2)$, нека за произволно $a \in \A$,
+%   \[R_a \dff \{d \mid \pair{c,d} \in \Graph{f}\ \&\ c \sqsubseteq a\}.\]
+%   Ще докажем, че $f(a) = \bigsqcup R_a$.
+
+%   Първо, нека $d \in R_a$, т.е. съществува $c \sqsubseteq a$, такова че $d \sqsubseteq f(c)$.
+%   Тогава от монотонността на $f$, $d \sqsubseteq f(c) \sqsubseteq f(a)$.
+%   Получаваме, че $\bigsqcup R_a \sqsubseteq f(a)$.
+
+%   Второ, от алгебричността на $\B$,
+%   $f(a) = \bigsqcup_i d_i$.
+%   Понеже $d_i \sqsubseteq f(a)$, от \Prop{compact-characterisation} следва, че
+%   съществува $c_i \sqsubseteq a$, за който $d_i \sqsubseteq f(c_i)$.
+%   Това означава, че $d_i \in R_a$. 
+%   Оттук, $f(a) = \bigsqcup d_i \sqsubseteq \bigsqcup R_a$.
+
+%   Сега ще докажем и посоката $(2) \to (1)$. Ще докажем, че
+%   \[\bigsqcup_i f(c_i) = f(\bigsqcup_i c_i).\]
+%   Първо, лесно се съобразява, че $f$ е монотонно изображение.
+%   Тогава от \Prop{monotone-chain} следва, че
+%   \[\bigsqcup_i f(c_i) \sqsubseteq f(\bigsqcup_i c_i).\]
+%   Сега нека да обърнем внимание, че според (2), $\bigsqcup R_a$ съществува за всеки елемент $a\in \A$.
+%   Освен това, лесно се съобразява, че ако $a_0 \sqsubseteq a_1$, то $R_{a_0} \subseteq R_{a_1}$ и 
+%   оттук $\bigsqcup R_{a_0} \sqsubseteq \bigsqcup R_{a_1}$.
+  
+%   Нека сега да разгледаме $a = \bigsqcup_i c_i$.
+%   Знаем, че ако $c \sqsubseteq a$, то съществува индекс $i_0$, за който $c \sqsubseteq c_{i_0}$.
+%   От това следва, че множеството $R_a \subseteq \bigcup_i R_{c_i}$.
+%   Тогава, ако $d \in R_a$, то $d \in R_{c_i}$, за някое $i$,
+%   откъдето следва, че $d \sqsubseteq \bigsqcup R_{c_i}$.
+%   Това означава, че
+%   \begin{equation}
+%     \label{eq:2}
+%     \bigsqcup R_a \sqsubseteq \bigsqcup_i (\bigsqcup R_{c_i}).
+%   \end{equation}
+%   Заключаваме, че 
+%   \begin{align*}
+%     f(\bigsqcup_i c_i) & = f(a) & \comment{a = \bigsqcup_i c_i}\\
+%                        & = \bigsqcup R_a & \comment{\text{ от }(2)}\\
+%                        & \sqsubseteq \bigsqcup_i (\bigsqcup R_{c_i}) & \comment{\text{ от }(\ref{eq:2})}\\
+%                        & = \bigsqcup_i f(c_i) & \comment{f(c_i) = \bigsqcup R_{c_i} \text{ от }(2)}.
+%   \end{align*}
+% \end{proof}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

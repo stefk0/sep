@@ -1,0 +1,227 @@
+\section{Правило на Скот}
+\marginpar{\cite[стр. 166]{winskel}}
+\index{правило на Скот}
+\begin{itemize}
+\item 
+  Нека $\A$ е област на Скот и нека $f \in \Cont{\A}{\A}$.
+\item
+  Всяко $P \subseteq A$ ще наричаме свойство.
+\item
+  \marginpar{С $\texttt{lfp}(f)$ означаваме най-малката неподвижна точка на $f$ (от англ. least fixed point)}
+  Тогава {\bf правилото на Скот} гласи следното:
+  \begin{prooftree}
+  \AxiomC{$P(\bot)$}
+  \AxiomC{$(\forall a \in \A)[P(a) \implies P(f(a))]$}
+  \BinaryInfC{$P(\texttt{lfp}(f))$}
+\end{prooftree}
+\end{itemize}
+
+\begin{proof}
+  
+\end{proof}
+
+
+\begin{problem}
+  \marginpar{Сравнете с \Prop{prefix-point}}
+  Нека $f \in \Cont{\A}{\A}$.
+  Да означим множеството от преднеподвижни точки на $f$ като
+  \[\texttt{Pref}(f) \dff \{a \in \A \mid f(a) \sqsubseteq a\}.\]
+  Тогава 
+  \[(\forall a \in \A)[a \in \texttt{Pref}(f) \implies \lfp(f) \sqsubseteq a].\]
+\end{problem}
+\begin{proof}
+  Да фиксираме елемент $a \in \texttt{Pref}(f)$.
+  Да разгледаме непрекъснатото свойство
+  \marginpar{Сами се убедете, че $P$ е непрекъснато свойство!}
+  \[P(b) \dfff b \sqsubseteq a.\]
+  Ясно е, че $P(\bot)$.
+  Нека $b\in \A$, за който $P(b)$. Ще докажем, че $P(f(b))$.
+  \begin{align*}
+    b \sqsubseteq a & \implies f(b) \sqsubseteq f(a) & \comment{f \text{ е мон.}}\\
+    & \implies f(b) \sqsubseteq f(a) \sqsubseteq a & \comment{a \in \texttt{Pref}(f)}\\
+    & \implies f(b) \sqsubseteq a & \comment{\sqsubseteq \text{ е транз. рел.}}.
+  \end{align*}
+  От правилото на Скот, заключаваме, че $P(\lfp(f))$, т.е.
+  $\lfp(f) \sqsubseteq a$.
+\end{proof}
+  
+\begin{example}
+  Нека $f,g \in \Cont{\A}{\A}$ като имаме свойствата:
+  \begin{itemize}
+  \item
+    $f(\bot) \sqsubseteq g(\bot)$;
+  \item
+    $f \circ g \sqsubseteq g \circ f$.
+  \end{itemize}
+  Докажете, че $\lfp(f) \sqsubseteq \lfp(g)$.
+\end{example}
+\begin{proof}
+  Разгледайте непрекъснатото свойството 
+  \[P(a) \dfff f(a) \sqsubseteq g(a).\]
+  От условието имаме, че $P(\bot)$.
+  Нека $P(a)$. Ще докажем, че $P(g(a))$.
+  \begin{align*}
+    P(a) & \iff f(a) \sqsubseteq g(a)\\
+         & \implies g(f(a)) \sqsubseteq g(g(a)) & \comment{g \text{ е мон.}}\\
+         & \implies f(g(a)) \sqsubseteq g(g(a)) & \comment{ f\circ g \sqsubseteq g\circ f}\\
+         & \iff P(g(a)).
+  \end{align*}
+  Тогава по правилото на Скот ще заключим, че $P(\lfp(g))$, откъдето
+  \[f(\lfp(g)) \sqsubseteq g(\lfp(g)) = \lfp(g).\]
+  Това означава, че $\lfp(g)$ е преднеподвижна точка на $f$, т.е.
+  \[\lfp(g) \in \texttt{Pref}(f).\]
+  Понеже $\lfp(f)$ е най-малката преднеподвижна точка на $f$,
+  то заключаваме, че $\lfp(f) \sqsubseteq \lfp(g)$.
+\end{proof}
+
+\begin{problem}
+  Нека $h \in \Cont{\A}{\B}$, $f \in \Cont{\A}{\A}$, $g \in \Cont{\B}{\B}$,
+  като имаме свойствата:
+  \begin{itemize}
+  \item 
+    $h$ е точна, т.е. $h(\bot^\A) = \bot^\B$;
+  \item
+    $g\circ h = h \circ f$.
+  \end{itemize}
+  Докажете, че $\lfp(g) = h(\lfp(f))$.
+\end{problem}
+\ifhints
+\begin{hint}
+  \begin{itemize}
+  \item 
+    Разгледайте непрекъснатото свойство 
+    \[P_1(a) \dfff h(a) \sqsubseteq g(h(a)).\]
+    Докажете с правилото на Скот, че $P_1(\lfp(f))$.
+    Тогава
+    \begin{align*}
+      h(\lfp(f)) \sqsubseteq g(h(\lfp(f)) & \iff h(f(\lfp(f))) \sqsubseteq g(h(\lfp(f)\\
+                                          & \iff h(f(\lfp(f))) \sqsubseteq h(f(\lfp(f)))\\
+                                          & \iff g(h(\lfp(f))) \sqsubseteq h(\lfp(f)).
+    \end{align*}
+    Това означава, че $h(\lfp(f))$ е преднеподвижна точка на $g$, т.е.
+    \[h(\lfp(f)) \in \texttt{Pref}(g).\]
+    Заключаваме, че $\lfp(g) \sqsubseteq h(\lfp(f))$.
+  \item
+    Другата посока е по-лесна. Разгледайте непрекъснатото свойство
+    \[P_2(a) \dfff h(a) \sqsubseteq \lfp(g).\]
+    Докажете, че $P_2(\lfp(f))$.
+  \end{itemize}
+\end{hint}
+\fi
+
+\begin{problem}
+  Нека $f,g \in \Cont{\A}{\A}$ като имаме свойствата:
+  \begin{itemize}
+  \item
+    $f(\bot) = g(\bot)$;
+  \item
+    $f \circ g = g \circ f$.
+  \end{itemize}
+  Докажете, че $\lfp(f \circ g) = \lfp(g \circ f)$.
+\end{problem}
+\ifhints
+\begin{hint}
+  Разгледайте непрекъснатото свойство
+  \marginpar{Лесно се вижда, че $P$ е непрекъснато свойство, защото $f$ и $g$ са непрекъснати изображения.}
+  \[P(a) \dfff g(f(a)) \sqsubseteq a.\]
+  Ясно е, че $P(\bot)$.
+  Нека $P(a)$. Ще докажем, че $P(f(g(a))$.
+  \begin{align*}
+    g(f(a)) \sqsubseteq a & \implies g(f(g(f(a)))) \sqsubseteq g(f(a))\\
+    & \implies g(f(f(g(a)))) \sqsubseteq f(g(a))\\
+    & \implies P(f(g(a))).
+  \end{align*}
+  От правилото на Скот заключваме, че $P(\lfp(f\circ g))$.
+  Това означава, че 
+  \[g(f(\lfp(f\circ g))) \sqsubseteq \lfp(f\circ g),\] т.е.
+  $\lfp(f\circ g) \in \texttt{Pref}(g \circ f)$.
+  Следователно,
+  \[\lfp(g \circ f) \sqsubseteq \lfp(f\circ g).\]
+
+  За другата посока разсъждаваме аналогично.
+\end{hint}
+\fi
+
+
+\begin{problem}
+  Нека $p \in \Cont{\A}{\Nat_\bot}$ и $h \in \Cont{\A}{\A}$, като $h$ е точна, т.е. $h(\bot) = \bot$.
+  Да разгледаме 
+  \[\Gamma \in \Cont{\Cont{\A\times\A}{\A}}{\Cont{\A\times\A}{\A}},\]
+  където
+  \begin{align*}
+    \Gamma(f)(x,y) =
+    \begin{cases}
+      y, & p(x) = 0\\
+      h(f(h(x),y)), & p(x) \in \Nat^+\\
+      \bot, & p(x) = \bot.
+    \end{cases}
+  \end{align*}
+  Докажете, че ако $f_\Gamma \dff \lfp(\Gamma)$, то
+  \[(\forall a,b\in\A)[h(f_\Gamma(a,b)) = f_\Gamma(a,h(b))].\]
+\end{problem}
+\ifhints
+\begin{hint}
+  Разгледайте непрекъснатото свойство
+  \[P(g) \dfff (\forall a,b\in\A)[h(g(a,b)) = g(a,h(b))].\]
+\end{hint}
+\fi
+
+\begin{problem}
+  Нека $p \in \Cont{\A}{\Nat_\bot}$ и $h \in \Cont{\A}{\A}$, като $p$ е точна, т.е. $p(\bot) = \bot$.
+  Да разгледаме 
+  \[\Gamma \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}},\] 
+  където:
+  \begin{align*}
+    \Gamma(f)(x) =
+    \begin{cases}
+      x, & p(x) = 0\\
+      f(f(h(x))), & p(x) \in \Nat^+\\
+      \bot, & p(x) = \bot.
+    \end{cases}
+  \end{align*}
+  Докажете, че ако $f_\Gamma \dff \lfp(\Gamma)$, то
+  \[(\forall a\in\A)[f_\Gamma(f_\Gamma(a)) = f_\Gamma(a)].\]
+\end{problem}
+\ifhints
+\begin{hint}
+  Разгледайте непрекъснатото свойство
+  \[P(g) \dfff (\forall a \in \A)[f_\Gamma(g(a)) = g(a)].\]
+\end{hint}
+\fi
+
+\begin{problem}
+  Нека $p \in \Cont{\A}{\Nat_\bot}$ и $h,k \in \Cont{\A}{\A}$, като $h$ е точна, т.е. $h(\bot) = \bot$.
+  Да разгледаме $\Gamma_{1,2} \in \Cont{\Cont{\A\times\A}{\A}}{\Cont{\A\times\A}{\A}}$, където:
+  \begin{align*}
+    & \Gamma_1(f)(x,y) =
+    \begin{cases}
+      y, & p(x) = 0\\
+      h(f(k(x),y)), & p(x) \in \Nat^+\\
+      \bot, & p(x) = \bot;\\
+    \end{cases}\\
+   & \Gamma_2(f)(x,y) =
+    \begin{cases}
+      y, & p(x) = 0\\
+      f(k(x),h(y)), & p(x) \in \Nat^+\\
+      \bot, & p(x) = \bot;
+    \end{cases}
+  \end{align*}
+  Докажете, че ако $f_1 \dff \lfp(\Gamma_1)$ и $f_2 = \lfp(\Gamma_2)$, то
+  $f_1 = f_2$.
+\end{problem}
+\ifhints
+\begin{hint}
+  Разгледайте непрекъснатото изображение $\Delta$, където
+  \[\Delta(f,g) = \pair{\Gamma_1(f),\Gamma_2(g)}.\]
+  Разгледайте свойството:
+  \[P(f,g) \dfff f = g\ \&\ (\forall a,b \in \A)[h(f(a,b))) = f(a,h(b))].\]
+  Първо трябва да се съобрази, че това свойство е непрекъснато, което не е трудно.
+  Ясно е, че $P(\Omega,\Omega)$.
+  Докажете, че $P(f,g) \implies P(\Delta(f,g))$.
+\end{hint}
+\fi
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

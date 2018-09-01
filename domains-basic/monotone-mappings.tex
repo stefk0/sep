@@ -1,0 +1,45 @@
+\subsection{Монотонни изображения}
+
+\index{изображение!монотонно}
+Да разгледаме областите на Скот $\A_1 = (A_1, \sqsubseteq_1, \bot_1)$ и $\A_2 =(A_2, \sqsubseteq_2, \bot_2)$.
+Едно изображение $f:\A_1\to \A_2$ се нарича {\bf монотонно}, ако
+\[(\forall a,a'\in\A_1)[a \sqsubseteq_1 a' \implies f(a) \sqsubseteq_2 f(a')].\]
+Да въведем означението
+\[\Mon{\A_1}{\A_2} \dff \{f: \A_1 \to \A_2 \mid f\text{ е монотонно изобр.}\}.\]
+
+
+\Stefan{Да се обясни каква е интерпретацията на монотонните изображения в нашия частен случай и защо на практика това е най-естествения клас от изображения, с който ще работим}
+
+\begin{framed}
+  \begin{thm}
+    \label{th:monotone-is-domain}
+    $(\Mon{\A_1}{\A_2},\ \sqsubseteq, \bot)$ е област на Скот.
+  \end{thm}  
+\end{framed}
+\begin{hint}
+  Да фиксираме една верига $\chain{f}{i}$ в $\Mon{\A_1}{\A_2}$. Трябва да докажем, че тази верига притежава точна горна граница,
+  която е монотонно изображение.
+  Да разгледаме същото изображение $h:\A_1 \to \A_2$ както в доказателството на \Th{all-mappings-is-domain}, като
+  \[h(a) \dff \bigsqcup_i \{f_i(a) \mid i \in \Nat\}.\]
+  Оттам знаем, че $h$ е точна горна граница на веригата. 
+  Остава да докажем, че $h \in \Mon{\A_1}{\A_2}$.
+  Нека $a \sqsubseteq b$. Тогава, понеже $f_k$ са монотонни изображения,
+  \[(\forall k)[f_k(a) \sqsubseteq f_k(b) \sqsubseteq \bigsqcup_i \{f_i(b) \mid i \in \Nat\} \dff h(b)].\]
+  Това означава, че $h(b)$ е горна граница за веригата $(f_i(a))^{\infty}_{i=0}$.
+  Заключаваме, че 
+  \begin{align*}
+    h(a) & \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}\\
+         & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \dff h(b).    
+  \end{align*}
+\end{hint}
+
+\begin{cor}
+  \label{cr:flat-monotone-is-domain}
+  $(\Mon{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq, \Omega^{(n)})$ е област на Скот.
+\end{cor}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

@@ -1,0 +1,389 @@
+\subsection{Теорема за еквивалентност}
+
+\begin{prop}
+  \label{pr:rec:op-value-inclusion1}
+  \marginpar{Сравнете с \Prop{rec:op-name-inclusion1}}
+  Нека $\mu$ е {\em функционален} терм и 
+  \[\bar{\delta} \in \DomOpCBV\]
+  е решение на системата от уравнения $\Delta_{\tau_i}$ съответстващи на програмата \vv{P}.
+  \marginpar{Тук не е необходимо $\bar{\delta}$ да бъде най-малкото решение}
+  Тогава 
+  \marginpar{\cite[стр. 182]{ditchev-soskov}}
+  \[\evalv\mu \sqsubseteq \val{\mu}(\ov{\delta}).\]
+\end{prop}
+\begin{proof}
+  \marginpar{Тук до голяма степен повтаряме същите разсъждения както в доказателството на \Prop{rec:op-name-inclusion1}}
+  Ако от терма $\mu$ {\em няма извод} до елемент на $\Nat_\bot$, то
+  по дефиниция $\evaln{\mu} = \bot$ и в този случай е очевидно, че
+  \[\evalv{\mu} \sqsubseteq \val{\mu}(\ov{\delta}).\]
+
+  \marginpar{Ако $\mu \to^P_V \bot$, то е ясно, че $\evalv{\mu} \sqsubseteq \val{\mu}(\ov{\delta})$}
+  Интересният случай е когато от терма $\mu$ {\em има извод} до елемент на $\Nat$.
+  Тогава ще докажем, че за произволен функционален терм $\mu$ и елемент $a \in \Nat$, 
+  \begin{equation}
+    \label{eq:18}
+    \mu\to^P_V a\ \implies \val{\mu}(\ov{\delta}) = a.
+  \end{equation}
+  Доказателството на (\ref{eq:18}) ще проведем с индукция по дължината $l$ на извода $\mu\to^P_V a$.
+
+  Първо, нека $l = 1$. Тогава единствения случай, който трябва да разгледаме е $\mu \equiv \vv{a}$.
+  Този случай е прекалено лесен.
+
+  Нека сега изводът $\mu \to^P_V a$ има дължина $l > 1$.
+  Понеже правилата за извод строго следват дефиницията на термовете, 
+  трябва да разгледаме следните случаи.
+  \begin{itemize}
+  \item
+    Нека $\mu \equiv \mu_1 + \mu_2$, като $\evalv{\mu} = a$. Тогава:
+    \begin{prooftree}
+      \AxiomC{$\vdots$}
+      \LeftLabel{\scriptsize{(извод с дълж. $l_1$)}}
+      \UnaryInfC{$\mu_1 \to^P_V a_1$}
+      \AxiomC{$\vdots$}
+      \RightLabel{\scriptsize{(извод с дълж. $l_2$)}}
+      \UnaryInfC{$\mu_2 \to^P_V a_2$}
+      \RightLabel{\scriptsize{\text{правило }$(2_+)$}}
+      \BinaryInfC{$\mu \to^P_V a$}
+    \end{prooftree}
+    Тук имаме, че $l = l_1 + l_2 + 1$ и $a = \texttt{plus}(a_1,a_2)$.
+    Следователно можем да приложим {\bf И.П.} за $\mu_1$ и $\mu_2$, откъдето получаваме, че
+    \begin{align*}
+      & \mu_1 \to^P_V a_1\ \implies \val{\mu_1}(\ov{\delta}) = a _1\\
+      & \mu_2 \to^P_V a_2\ \implies \val{\mu_2}(\ov{\delta}) = a _2.
+    \end{align*}
+    % Получаваме, че:
+    % \begin{align*}
+    %   & \evalv{\mu_1} = a_1 \sqsubseteq \val{\mu}(\ov{\delta})\\
+    %   & \evalv{\mu_2} = a_2 \sqsubseteq \val{\mu}(\ov{\delta}).
+    % \end{align*}
+    % Тогава, понеже изображението $\texttt{plus}$ е непрекъснато, а следователно и монотонно, то
+    % можем да заключим, че 
+    Тогава получаваме, че ако $\mu_1 + \mu_2 \to^P_V a$, то
+    \begin{align*}
+      \val{\mu_1 + \mu_2}(\ov{\delta}) & \dff \texttt{plus}(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\delta}))\\
+                                       & = \texttt{plus}(a_1,a_2)\\
+                                       & = a.
+    \end{align*}
+  \item
+    Нека $\mu \equiv \mu_1\ \vv{==}\ \mu_2$. Този случай не крие изненади.
+    \marginpar{\writedown Домашно!}
+  \item
+    Нека $\mu \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.    
+  \item
+    Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и да приемем, че $\mu \to^P_V a$.
+    Според правилата на операционната семантика, единствената възможна ситуация е следната.
+    Съществуват елементи $a_1,\dots,a_{m_i} \in \Nat$, за които:
+    % \begin{itemize}
+    % \item 
+    %   Ако $\bot \not\in \{a_1,\dots,a_{m_i}\}$, където:
+    \begin{prooftree}
+      \AxiomC{$\vdots$}
+      \LeftLabel{\scriptsize(дълж. $l_1$)}
+      \UnaryInfC{$\mu_1\to^P_V a_1$}
+      \AxiomC{$\cdots$}
+      \AxiomC{$\vdots$}
+      \LeftLabel{\scriptsize($l_{m_i}$)}
+      \UnaryInfC{$\mu_{m_i} \to^P_V a_{m_i}$}
+      \AxiomC{$\vdots$}
+      \RightLabel{\scriptsize(дълж. $l_0$)}
+      \UnaryInfC{$\tau_i[\varsx/\bar{\vv{a}}] \to^P_V a$}
+      \LeftLabel{\scriptsize{(дълж. $l$)}}
+      \RightLabel{\scriptsize{правило ($4_\Nat$)}}
+      \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V a$}
+    \end{prooftree}
+
+    Понеже за $j = 1,\dots, m_i$ изводът на $\mu_j\to^P_V a_j$ има дължина $l_j < l$,
+    то от {\bf И.П.} за (\ref{eq:18}) имаме, че 
+    \begin{equation}
+      \label{eq:20}
+      \val{\mu_j}(\bar{\delta}) = a_j.
+    \end{equation}
+    \marginpar{$l_0 + l_1+\cdots l_{m_i} + 1 = l$}
+    Аналогично, понеже изводът на $\tau_i[\varsx/\bar{\vv{a}}] \to^P_V a$ има дължина $l_0 < l$,
+    и очевидно термът $\tau_i[\varsx/\bar{\vv{a}}]$ е функционален, то от {\bf И.П.} за (\ref{eq:18}) имаме, че 
+    \begin{equation}
+      \label{eq:3}
+      \val{\tau_i[\varsx/\bar{\vv{a}}]}(\bar{\delta}) = a.
+    \end{equation}
+    
+    Получаваме следното:
+    \begin{align*}
+      \val{\mu}(\ov{\delta}) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\delta}) \\
+                             & = \delta_i(\underbrace{\val{\mu_1}(\bar{\delta})}_{a_1},\dots,\underbrace{\val{\mu_{m_i}}(\bar{\delta})}_{a_{m_i}}) & \comment{\text{стойност на терм}}\\
+                             & = \delta_i(a_1,\dots,a_{m_i}) & \comment{\text{от (\ref{eq:20})}}\\
+                             & = \Delta_{\tau_i}(\bar{\delta})(a_1,\dots,a_{m_i}) & \comment{\delta_i = \Delta_{\tau_i}(\ov{\delta})}\\
+                             & = \Sigma_{\star}(\Gamma_{\tau_i}(\ov{\delta}))(\bar{a}) & \comment{\Delta_{\tau_i} \dff \Sigma_{\star} \circ \Gamma_{\tau_i}}\\
+                             & = \Gamma_{\tau_i}(\bar{\delta})(\ov{a}) & \comment{\text{защото }\bot\not\in\{a_1,\dots,a_n\}}\\
+                             & \dff \val{\tau_i}(\ov{\delta})(\ov{a}) & \comment{\ov{\delta}\text{ са непрекъснати}}\\
+                             & = \val{\tau_i[\varsx/\bar{\vv{a}}]}(\bar{\delta}) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+                             & = a & \comment{\text{от (\ref{eq:3})}}
+    \end{align*}
+  % \item
+  %   Ако $\bot \in \{a_1,\dots,a_{m_i}\}$, където:
+  %   \begin{prooftree}
+  %     \AxiomC{$\vdots$}
+  %     \LeftLabel{\scriptsize(дълж. $l_1$)}
+  %     \UnaryInfC{$\mu_1\to^P_V a_1$}
+  %     \AxiomC{$\cdots$}
+  %     \AxiomC{$\vdots$}
+  %     \LeftLabel{\scriptsize($l_{m_i}$)}
+  %     \UnaryInfC{$\mu_{m_i} \to^P_V a_{m_i}$}
+  %     \RightLabel{\scriptsize{правило ($4_\bot$)}}
+  %     \TrinaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V \bot$}
+  %   \end{prooftree}
+  %   \marginpar{$l_0 + l_1+\cdots l_{m_i} = l$ и $l_j \geq 1$}
+  %   В този случай е ясно, че $a = \bot$. Тогава понеже за $j = 1,\dots, m_i$ изводът на $\mu_j\to^P_V a_j$ има дължина $l_j < l$,
+  %   то от {\bf И.П.} за (\ref{eq:18}) имаме, че 
+  %   \begin{equation}
+  %     \label{eq:19}
+  %     \val{\mu_j}(\bar{\delta}) = a_j.
+  %   \end{equation}
+  %   Накрая получаваме следното:
+  %   \begin{align*}
+  %     \val{\mu}(\ov{\delta}) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\delta}) \\
+  %                            & \dff \delta_i(\underbrace{\val{\mu_1}(\bar{\delta})}_{a_1},\dots,\underbrace{\val{\mu_{m_i}}(\bar{\delta})}_{a_{m_i}}) & \comment{\text{ стойност на терм}}\\
+  %                            & = \delta_i(a_1,\dots,a_{m_i}) & \comment{\text{от (\ref{eq:18})}}\\
+  %                            & = \bot. & \comment{\delta_i\text{ е точно изображение}}
+  %   \end{align*}
+  % \end{itemize}
+  \end{itemize}
+\end{proof}
+
+Обърнете внимание, че дотук използвахме само, че $\bar{\delta}$ е решение на системата от оператори $\Delta_{\tau_i}$ зададена от програмата \vv{P}. 
+Не сме използвали, че $\ov{\delta}$ е най-малкото решение.
+
+\begin{framed}
+  \begin{cor}
+    \label{cr:ov-in-dv}
+    За всяка рекурсивна програма $\vv{P}$ на езика $\REC$  имаме, че
+    \[\O_V\val{\vv{P}} \sqsubseteq \D_V\val{\vv{P}}.\]
+  \end{cor}
+\end{framed}
+\begin{proof}
+  \marginpar{Озн. с $\ov{\delta}$ най-малкото решение на системата от оператори за програмата \vv{P}} Тогава
+  \begin{align*}
+    \O_V\val{\vv{P}}(\ov{a}) & \dff \evalv{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} \\
+                             & \sqsubseteq \val{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})}(\ov{\delta}) & \comment{\text{от \Prop{rec:op-value-inclusion1}}}\\
+                             & = \delta_1(\val{\vv{a}_1}(\ov{\delta}), \dots, \val{\vv{a}_{m_1}}(\ov{\delta})) \\
+                             & = \delta_1(a_1,\dots,a_{m_1})\\
+                             & \dff \D_V\val{\vv{P}}(\ov{a}).
+  \end{align*}
+
+  
+  % \begin{itemize}
+  % \item 
+  %   Нека $\bot \not\in \{a_1,\dots,a_{m_0}\}$. Тогава:
+  %   \begin{align*}
+  %     \O_V\val{\vv{P}}(\ov{a}) & \dff \evalv{\vv{f}_0(\vv{a}_1,\dots,\vv{a}_{m_0})} \\
+  %                              & = \evalv{\tau_0[\varsx/\ov{\vv{a}}]} & \comment{\text{Правило }(4_\Nat)}\\
+  %                              & \sqsubseteq \val{\tau_0[\varsx/\ov{\vv{a}}]}(\ov{\delta})& (\text{от \Prop{rec:op-value-inclusion1}})\\
+  %                              & = \val{\tau_0}(\ov{\delta})(\ov{a}) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+  %                              & \dff \Gamma_{\tau_0}(\ov{\delta})(\ov{a})\\
+  %                              & = \Sigma_{\star}(\Gamma_{\tau_0}(\ov{\delta})(\ov{a}) & \comment{\bot\not\in\{a_1,\dots,a_{m_0}\}}\\
+  %                              & \dff \Delta_{\tau_0}(\ov{\delta})(\ov{a}) & \comment{\Delta_{\tau_0} = \Sigma_{\star} \circ \Gamma_{\tau_0}}\\
+  %                              & = \delta_0(\ov{a}) & \comment{\delta_0 = \Delta_{\tau_0}(\ov{\delta})}\\
+  %                              & \dff \D_V\val{\vv{P}}(\ov{a}).
+  %   \end{align*}
+  % \item
+  %   Нека $\bot \in \{a_1,\dots,a_{m_0}\}$. Тогава:
+  %   \begin{align*}
+  %     \O_V\val{\vv{P}}(\ov{a}) & \dff \evalv{\vv{f}_0(\vv{a}_1,\dots,\vv{a}_{m_0})} \\
+  %                              & = \bot & \comment{\text{Правило }(4_\bot)}\\
+  %                              & \sqsubseteq \D_V\val{\vv{P}}.
+  %   \end{align*}
+  % \end{itemize}
+\end{proof}
+
+
+Обръщаме нашето внимание към доказателството на обратната посока, т.е. $\D_V\val{h} \sqsubseteq \O_V\val{h}$. 
+Нека сега $\ov{\delta}$ е най-малкото решение на системата от оператори, която съответства на програма \vv{P}
+за денотационната семантика по стойност.
+Да напомним, че това означава, че $\ov{\delta} = \bigsqcup_r \ov{\delta}_r$, 
+където $\delta^i_{r+1} = \Delta_{\tau_i}(\ov{\delta}_r)$
+
+\begin{prop}
+  \label{pr:rec:op-value-inclusion2}
+  Тогава за всеки {\em функционален} терм $\mu[\vv{f}_1,\dots,\vv{f}_k]$ и всяко $r$,
+  \[\val{\mu}(\ov{\delta}_r) \sqsubseteq \evalv{\mu}.\]
+\end{prop}
+\begin{hint}
+  \marginpar{Сравнете с \Prop{op-name-inclusion2}. Основната разлика е, че тук можем да минем само с функционални термове. Това не можем да направим при семантиката по име поради разликата в правилата за извод. Всъщност можем да го направим, ако имаме лема за симулацията, но тя сега е сложена като задача}
+  
+  Доказателството на това твърдение следва същата схема като доказателството на \Prop{op-name-inclusion2}.
+  За произволно естествено число $r$, нека твърдението $\texttt{Include}(r)$ да гласи следното:
+
+  ,,за произволен функционален терм $\mu[\vv{f}_1,\dots,\vv{f}_l]$
+  е изпълнено, че:
+  \[\val{\mu}(\ov{\delta}_r) \sqsubseteq \evalv{\mu}.\text{''}\]
+  
+  Трябва да докажем, че $\texttt{Include}(r)$ е изпълнено за всяко $r$.
+  Това ще направим с индукция по $r$.
+
+
+  \begin{itemize}
+  \item 
+    Първо ще докажем $\texttt{Include}(0)$.
+    Това ще направим с индукция по построението на терма $\tau$.
+    Доказателството протича по същия начин ( с индукция по построението на термовете ) както доказателството в този случай на \Prop{op-name-inclusion2}.
+    \begin{itemize}
+    \item
+      Нека $\mu \equiv \vv{a}$.
+    \item
+      Нека $\mu \equiv \mu_1 + \mu_2$.
+      От {\bf И.П.} имаме, че за $i = 1,2$ е изпълнено
+      \[\val{\mu_i}(\ov{\delta}_0) \sqsubseteq \evalv{\mu_i}.\]
+      Тогава
+      \begin{align*}
+        \val{\mu_1 + \mu_2}(\ov{\delta}_0) & = \texttt{plus}(\val{\mu_1}(\ov{\delta}_0), \val{\mu_2}(\ov{\delta}_0))\\
+                                           & \sqsubseteq \texttt{plus}(\evalv{\mu_1}, \evalv{\mu_2}) & \comment{\text{ от И.П. и мон. на }\texttt{plus}}\\
+                                           & = \evalv{\mu_1 + \mu_2} & \comment{\text{ от правило }(2_+)}
+      \end{align*}
+    \item
+      Нека $\mu \equiv \mu_1 \vv{==} \mu_2$.
+    \item
+      Нека $\mu \equiv \ifelse{\mu_1}{\mu_2}{\mu_3}$.
+    \item
+      Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$.
+    \end{itemize}
+  \item 
+    Нека $r > 0$. Да приемем, че $\texttt{Include}(r-1)$ е изпълнено. Ще докажем $\texttt{Include}(r)$
+    с индукция по построението на термовете.
+    Единственият случай, който заслужава внимание е 
+    \[\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i}).\]
+    Доказателствата на всички останали случаи за $\mu$ протичат по абсолютно същия начин както при $r = 0$.
+    
+    Понеже термът $\mu$ е построен с помощта на термовете $\mu_j$, за $j = 1, \dots, m_i$,
+    можем да приложим {\bf И.П.} за тях и да получим, че 
+    \[b_j \dff \val{\mu_{j}}(\ov{\delta}_r) \sqsubseteq \evalv{\mu_j}.\]
+    Трябва да разгледаме два случая.
+    \begin{itemize}
+    \item 
+      Ако $\bot \not\in \{b_1,\dots,b_{m_i}\}$. Тогава, понеже работим в плоска наредба, \[\evalv{\mu_j} = b_j.\]
+      От правилата на операционната семантика, това означава, че в този случай имаме следния извод:
+      \begin{figure}[h!]
+        \begin{prooftree}
+          \AxiomC{$\vdots$}
+          \UnaryInfC{$\mu_1\to^P_V b_1$}
+          \AxiomC{$\cdots$}
+          \AxiomC{$\vdots$}
+          \UnaryInfC{$\mu_{m_i}\to^P_V b_{m_i}$}
+          \AxiomC{$\vdots$}
+          \UnaryInfC{$\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}] \to^P_V b$}
+          \RightLabel{$(4_\Nat)$}
+          \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V b$}
+        \end{prooftree}
+      \end{figure}
+      
+      Оттук следва, че:
+      \begin{equation}
+        \label{eq:14}
+        \evalv{\vv{f}_i(\mu_1,\dots,\mu_{m_i})} = \evalv{\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}]}.
+      \end{equation}
+      Получаваме, че:
+      \begin{align*}
+        \val{\mu}(\ov{\delta}_r) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\delta}_r)\\
+                                 & \dff \delta^i_r(\underbrace{\val{\mu_1}(\ov{\delta}_r)}_{b_1}, \dots, \underbrace{\val{\mu_{m_i}}(\ov{\delta}_r)}_{b_{m_i}}) & \comment{\ov{\delta}_r = (\delta^1_r,\dots,\delta^k_r)}\\
+                                 & = \delta^i_r(b_1,\dots,b_{m_i}) \\
+                                 & = \Delta_{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\delta^i_r = \Delta_{\tau_i}(\ov{\delta}_r)}\\
+                                 & = \Sigma_{\star}(\Gamma_{\tau_i}(\ov{\delta}_{r-1}))(b_1,\dots,b_{m_i}) & \comment{\Delta_{\tau_i} \dff \Sigma_{\star} \circ \Gamma_{\tau_i}}\\
+                                 & = \Gamma_{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\text{всяко }b_j \neq \bot}\\
+                                 & \dff \val{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\ov{\delta}_{r-1}\text{ са непрекъснати}}\\
+                                 & = \val{\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}]}(\ov{\delta}_{r-1}) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+                                 & \sqsubseteq \evalv{\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
+                                 & = \evalv{\vv{f}_i(\mu_1,\dots,\mu_{m_i})} & \comment{\text{от (\ref{eq:14})}}\\
+                                 & = \evalv{\mu}.
+      \end{align*}
+    \item
+      Нека $\bot \in \{b_1,\dots,b_{m_i}\}$. Тогава е лесно, защото:
+      \begin{align*}
+        \val{\mu}(\ov{\delta}_r)  & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\delta}_r)\\
+                                  & \dff \delta^i_r(\underbrace{\val{\mu_1}(\ov{\delta}_r)}_{b_1}, \dots, \underbrace{\val{\mu_{m_i}}(\ov{\delta}_r)}_{b_{m_i}})  & \comment{\ov{\delta}_r = (\delta^1_r,\dots,\delta^k_r)}\\
+                                  & = \delta^i_r(b_1,\dots,b_{m_i}) & \comment{b_j \dff \val{\mu_j}(\ov{\delta}_r)}\\
+                                  & = \bot & \comment{\delta^i_r\text{ е точно изображение}}\\
+                                  & \sqsubseteq \evalv{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}\\
+                                  & = \evalv{\mu}.
+      \end{align*}      
+    \end{itemize}
+  \end{itemize}
+\end{hint}
+
+\begin{cor}
+  \label{cr:rec:equivalence-cbv-inclusion2}
+  Нека $\mu$ е функционален терм.
+  Тогава $\evalv{\mu}$ е горна граница на веригата $(\val{\mu}(\ov{\delta}_r))^{\infty}_{r=0}$.
+\end{cor}
+
+\begin{lemma}
+  За всяка рекурсивна програма $\vv{P}$,
+  произволен {\em функционален} терм $\mu$,
+  \[\val{\mu}(\ov{\delta}) \sqsubseteq \evalv{\mu},\]
+  където $\delta = \lfp(\Delta)$, а $\Delta$ е операторът, който съответства на системата от 
+  уравнения за $\vv{P}$.
+\end{lemma}
+\begin{hint}
+  Знаем, че $\ov{\delta} = \bigsqcup_r \ov{\delta}_r$. Тогава:
+  \begin{align*}
+    \val{\mu}(\ov{\delta}) & = \val{\mu}(\bigsqcup_r\ov{\delta}_r)\\
+                           & = \bigsqcup_r \val{\mu}(\ov{\delta}_r) & \comment{\text{от \Cor{rec:equivalence-cbv-inclusion2}}}\\
+                           & \sqsubseteq \evalv{\mu}. & \comment{\text{от \Prop{rec:op-value-inclusion2}}}
+  \end{align*}
+\end{hint}
+
+\begin{framed}
+  \begin{thm}
+    \label{th:dv-equivalent-ov}
+    За всяка рекурсивна програма $\vv{P}$ на езика $\REC$ е изпълнено:
+    \[\D_V\val{\vv{P}} = \O_V\val{\vv{P}}.\]
+  \end{thm}  
+\end{framed}
+\begin{proof}
+  От \Cor{ov-in-dv} знаем, че 
+  \[\O_V\val{\vv{P}} \sqsubseteq \D_V\val{\vv{P}}.\]
+  Остава да докажем другата посока, а именно, че 
+  \[\D_V\val{\vv{P}} \sqsubseteq \O_V\val{\vv{P}}.\]
+  Но това е лесно:
+
+  \begin{align*}
+    \D_V\val{\vv{P}}(\ov{a}) & \dff \delta_1(\ov{a})\\
+                             & = \delta_1(\val{\vv{a}_1}(\ov{\delta}),\dots,\val{\vv{a}_{m_1}}(\ov{\delta})) & \comment{ a_j = \val{\vv{a}_j}(\ov{\delta})}\\
+                             & = \val{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})}(\ov{\delta}) & \comment{\text{ деф. на стойност на терм}}\\
+                             % & = \Delta_{\tau_1}(\ov{\delta})(\ov{a}) & \comment{\delta_1 = \Delta_{\tau_1}(\ov{\delta})}\\
+                             % & = \Sigma_{m_1}(\Gamma_{\tau_1}(\ov{\delta}))(\ov{a}) & \comment{\Delta_{\tau_1} \dff \Sigma_{m_1}\circ\Gamma_{\tau_1}}\\
+                             % & = \Gamma_{\tau_1}(\ov{\delta})(\ov{a}) &  \comment{\text{защото }a_j \neq \bot}\\
+                             % & \dff \val{\tau_1}(\bar{a},\bar{\delta}) \\
+                             % & = \val{\tau_1[\varsx/\ov{\vv{a}}]}(\ov{\delta}) & \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+                             & \sqsubseteq \evalv{\vv{f}_1(\vv{a}_1,\dots\vv{a}_{m_1})} & \comment{\text{от \Prop{rec:op-value-inclusion2}}}\\
+                             & \dff \O_V\val{\vv{P}}(\ov{a}).
+  \end{align*}
+
+  
+  
+  % \begin{itemize}
+  % \item 
+  %   Ако $\bot \not\in\{a_1,\dots,a_{m_0}\}$, то 
+  %   \begin{align*}
+  %     \D_V\val{\vv{P}}(\ov{a}) & \dff \delta_0(\ov{a})\\
+  %                               & = \Delta_{\tau_1}(\ov{\delta})(\ov{a}) & \comment{\delta_1 = \Delta_{\tau_1}(\ov{\delta})}\\
+  %                               & = \Sigma_{m_1}(\Gamma_{\tau_1}(\ov{\delta}))(\ov{a}) & \comment{\Delta_{\tau_1} \dff \Sigma_{m_1}\circ\Gamma_{\tau_1}}\\
+  %                               & = \Gamma_{\tau_1}(\ov{\delta})(\ov{a}) &  \comment{\text{защото }a_j \neq \bot}\\
+  %                               & \dff \val{\tau_1}(\bar{a},\bar{\delta}) \\
+  %                               & = \val{\tau_1[\varsx/\ov{\vv{a}}]}(\ov{\delta}) & \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+  %                               & \sqsubseteq \evalv{\tau_1[\varsx/\ov{\vv{a}}]} & \comment{\text{от \Prop{rec:op-value-inclusion2}}}\\
+  %                               & = \evalv{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} & \comment{\text{правило }(4_\Nat)}\\
+  %                               & \dff \O_V\val{\vv{P}}(\ov{a}).
+  %   \end{align*}
+  % \item
+  %   Ако $\bot \in \{a_1,\dots,a_{m_1}\}$, то в този случай, 
+  %   \begin{align*}
+  %     \D_V\val{\vv{P}}(\ov{a}) & \dff \delta_1(\ov{a})\\
+  %                              & = \bot & \comment{\delta_1 \text{ е точно изображение}}\\
+  %                              & \sqsubseteq \O_V\val{\vv{P}}(\ov{a}).
+  %   \end{align*}
+  % \end{itemize}
+\end{proof}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

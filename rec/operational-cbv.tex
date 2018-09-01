@@ -1,0 +1,169 @@
+\subsection{Предаване на параметрите по стойстност}
+\index{операционна семантика!по стойност}
+
+
+В операционната семантика показва как свеждаме един {\em функционален} терм до естествено число или $\bot$.
+Да разгледаме една програмата \vv{P}.
+
+За всеки {\em функционален терм} $\mu$ дефинираме {\bf извод $\mu \to^P_V a$ с предаване на параметрите по стойност}
+посредством индукция по построението на функционалния терм $\mu$.
+\marginpar{Тук разликата, в сравнение с \cite{ditchev-soskov, winskel} е, че $\bot$ е константа в езика}
+\marginpar{Да напомним, че функционален терм е терм без свободни обектови променливи}
+\marginpar{В \cite{ditchev-soskov} се използва означението $\vv{P} \vdash_V \mu \to n$}
+\begin{description}
+\item
+  % За произволно $a \in \Nat_\bot$,
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{a}\to^P_V a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^P_V a_1$}
+      \AxiomC{$\mu_2\to^P_V a_2$}
+      \AxiomC{$a = \texttt{plus}(a_1, a_2)$}
+      \RightLabel{\scriptsize{$(2_+)$}}
+      \TrinaryInfC{$\mu_1 + \mu_2 \to^P_V a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^P_N a_1$}
+      \AxiomC{$\mu_2\to^P_N a_2$}
+      \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
+      \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
+      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \to^P_N a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_0\to^P_V a_0$}
+      \AxiomC{$\mu_1 \to^P_V a_1$}
+      \AxiomC{$a_0 \in \Nat^+$}
+      \RightLabel{\scriptsize{$(3_\true)$}}
+      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^P_V a_1$}
+    \end{prooftree}
+  \end{figure}  
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_0\to^P_V 0$}
+      \AxiomC{$\mu_2 \to^P_V a_2$}
+      \RightLabel{\scriptsize{$(3_\false)$}}
+      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^P_V a_2$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_0\to^P_V \bot$}
+      \RightLabel{\scriptsize{$(3_\bot)$}}
+      \UnaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^P_V \bot$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^P_V a_1$}
+      \AxiomC{$\cdots$}
+      \AxiomC{$\mu_{m_i}\to^P_V a_{m_i}$}
+      \AxiomC{$\tau_i[\vv{x}_1/\vv{a}_1,\dots,\vv{x}_{m_i}/\vv{a}_{m_i}] \to^P_V a$}
+      \AxiomC{$\bot \not\in \{a_1,\dots, a_{m_i}\}$}
+      \RightLabel{\scriptsize{$(4_\Nat)$}}
+      \QuinaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^P_V a_1$}
+      \AxiomC{$\cdots$}
+      \AxiomC{$\mu_{m_i}\to^P_V a_{m_i}$}
+      \AxiomC{$\bot\in\{a_1,\dots, a_{m_i}\}$}
+      \RightLabel{\scriptsize{$(4_\bot)$}}
+      \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V \bot$}
+    \end{prooftree}
+  \end{figure}
+\end{description}
+
+\Stefan{Всъщност това правило $3_\bot$ за какво ми е ? Ако го махна, всичко ще продължи да си е ОК.}
+
+\marginpar{Докато доказателства за денотационна семантика протичаха с индукция по построението на термовете,
+  доказателствата за операционна семантика обикновено протичат с индукция по дължината на извода.}
+
+За фиксираната програма $\vv{P}$, с всеки {\em функционален} терм $\mu[\varsf]$ асоциираме 
+\[\evalv{\mu}\dff
+\begin{cases}
+  b, & \text{ ако }\mu \to^P_V b\\
+  \bot, & \text{ ако }\mu \text{ няма извод до константа}.
+\end{cases}\]
+
+\begin{framed}
+  % \index{$\O_V$}
+  Операционната семантика по стойност на рекурсивната програма $\vv{P}[\varsx,\varsf]$ представлява изображението
+  $\O_V\val{\vv{P}} \in \Strict{\Nat^{m_0}_\bot}{\Nat_\bot}$
+  дефинирано като
+  \[\O_V\val{\vv{P}}(a_1,\dots,a_{m_1}) \dff \evalv{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})},\]
+  за произволни $a_1,\dots,a_{m_1} \in \Nat_\bot$.
+\end{framed}
+
+\begin{remark}
+  Можем директно да докажем, че $\O_V\val{\vv{P}}$ е точно изображение.
+  Но това е излишно. Това свойство ще следва от теоремата за еквивалентност, която ще докажем след малко, 
+  защото вече знаем, че денотационната семантика по стойност представлява точно изображение.
+\end{remark}
+
+\begin{example}
+  Да разгледаме отново програмата \vv{P}, където:
+  \begin{haskellcode}
+f(x) = g(f(x)) where
+  g(x) = 0
+  \end{haskellcode}
+  За нея вече видяхме, че $\D_V\val{\vv{P}} \sqsubseteq \D_N\val{\vv{P}}$,
+  но $\D_V\val{\vv{P}} \neq \D_N\val{\vv{P}}$.
+  
+  Да разгледаме операционната семантика на тази програма.
+  Лесно се съобразява, че $\vv{f(1)} \to^P_N 0$.
+  
+  \begin{prooftree}
+    \AxiomC{}
+    \RightLabel{\scriptsize{правило (1)}}
+    \UnaryInfC{$\vv{0}[\vv{x}/\vv{g(f(1))}] \to^P_N 0$}
+    \RightLabel{\scriptsize{правило (4)}}
+    \UnaryInfC{$\vv{g(f(x))}[\vv{x}/\vv{1}] \to^P_N 0$}
+    \RightLabel{\scriptsize{правило (4)}}
+    \UnaryInfC{$\vv{f(1)} \to^P_N 0$}
+  \end{prooftree}
+
+  
+  Да видим защо $\vv{f(1)}$ няма извод до елемент в операционната семантика по стойност.
+
+  \begin{prooftree}
+    \AxiomC{}
+    \LeftLabel{\scriptsize{(1)}}
+    \UnaryInfC{$\vv{1} \to^P_V 1$}
+    \AxiomC{$\vdots$}
+    \LeftLabel{\scriptsize{правило $(4_\Nat)$}}
+    \UnaryInfC{$\vv{f(1)} \to^P_V \square$}
+    \AxiomC{}
+    \LeftLabel{\scriptsize{(1)}}
+    \UnaryInfC{$\vv{0}[\vv{x}/\square] \to^P_V 0$}
+    \RightLabel{\scriptsize{$(4_\bot)$ или $(4_\Nat)$}}
+    \BinaryInfC{$\vv{g(f(x))}[\vv{x}/\vv{1}] \to^P_V \square$}
+    \RightLabel{\scriptsize{правило $(4_\Nat)$}}
+    \BinaryInfC{$\vv{f(1)} \to^P_V \square$}
+  \end{prooftree}
+
+\end{example}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

@@ -1,0 +1,105 @@
+\subsection{Точни ограничения}
+\index{изображение!точно ограничение}
+
+Нека фиксираме две области на Скот $\A$ и $\B$.
+За едно изображение $f \in \Mapping{\A^n}{\B}$, дефинираме точното изображение $f_\star \in \Strict{\A^n}{\B}$ по следния начин:
+\[f_\star(\bar{a}) =
+\begin{cases}
+  f(\bar{a}), & \text{ако } \bot\not\in\{a_1,\dots,a_n\}\\
+  \bot, & \text{ако }\bot\in\{a_1,\dots,a_n\}.
+\end{cases}\]
+Ще казваме, че $f_\star$ е {\bf точно ограничение} на $f$.
+
+\begin{framed}
+  \begin{prop}
+    За всяко $f \in \Mapping{\A^n}{\B}$, имаме 
+    \[f_\star \sqsubseteq f.\]
+  \end{prop}
+\end{framed}
+
+\begin{example}
+  Точното ограничение на функцията $f$ от \Ex{plus} е
+  \[f_\star(x, y) =
+  \begin{cases}
+    x + y, & \text{ако } x \neq \bot\ \&\ y \neq \bot\\
+    \bot, & \text{иначе}
+  \end{cases}
+\]
+\end{example}
+
+\begin{example}
+  Да видим какъв резултат връща хаскел при следните извиквания:
+  
+  \begin{haskellcode}
+ghci> (\x -> 5) 4
+5
+ghci> (\x -> 5) undefined
+5
+  \end{haskellcode}
+  
+  От второто извикване се вижда, че в хаскел, анонимната функция $\lambda x.5$ е дефинирана и върху $\bot$ и връща отново $5$.
+  \marginpar{$(\lambda x.5)(4) = 5$, $(\lambda x.5)(\bot) = 5$}
+  Това е естествено, понеже хаскел е {\em неточен} език, т.е. една функция може да има като аргумент $\bot$
+  и да връща ,,смислен'' резултат. 
+
+  \marginpar{Повече информация за \texttt{seq} може да се намери в \cite[стр. 108]{real-world-haskell}}
+  При разглеждането на семантики на езици за програмиране, ще се нуждаем от това да направим една функция {\em точна}.
+  Такава възможност има и в хаскел с командата \texttt{seq}.
+  
+  \begin{haskellcode}
+ghci> :t seq
+seq :: a -> b -> b
+ghci> (\x -> x `seq` 5) 4
+5
+ghci> (\x -> x `seq` 5) undefined
+*** Exception: Prelude.undefined
+ghci> :set -XBangPatterns
+ghci> (\(!x) -> 5) undefined
+*** Exception: Prelude.undefined
+\end{haskellcode}
+  
+  Командата \texttt{seq} приема два аргумента. Тя работи като оценява първия аргумент, като очаква той да се оцени до ,,смислен'' резултат, т.е. нещо различно от $\bot$. След това връща втория.
+  Тук първия пример се превежда като $(\lambda x. 5)_\star(4) = 5$, а втория като $(\lambda x.5)_\star(\bot) = \bot$.
+\end{example}
+
+За произволно естествено число $n$, да дефинираме изображение
+\[\Sigma_\star : \Mapping{\Nat^n_\bot}{\Nat_\bot} \to \Strict{\Nat^n_\bot}{\Nat_\bot},\]
+където
+\[\Sigma_\star(f) = f_\star.\] 
+Ще наричаме $\Sigma_\star$ {\bf ограничаващ} оператор, защото на всяка функция дава нейното точно ограничение.
+
+\begin{framed}
+\begin{prop}
+  \label{pr:strict-operator}
+  За всяко $n$, $\Sigma_\star$ е непрекъснат оператор, т.е.
+  \[\Sigma_\star \in \Cont{\Mapping{\Nat^n_\bot}{\Nat_\bot}}{\Strict{\Nat^n_\bot}{\Nat_\bot}}.\]
+\end{prop}  
+\end{framed}
+\begin{hint}
+  Трябва да докажем, че за произволна верига $\chain{f}{i}$ от елементи на $\Mapping{\Nat^n_\bot}{\Nat_\bot}$, имаме
+  \[\Sigma_\star(\bigsqcup_i f_i) = \bigsqcup_i \Sigma_\star(f_i).\]
+  \begin{enumerate}[(1)]
+  \item 
+    Лесно се съобразява, че $\Sigma_\star$ е монотонно изображение, т.е.
+    \[f \sqsubseteq g \implies \Sigma_\star(f) \sqsubseteq \Sigma_\star(g).\]
+    Сега използваме \Prop{monotone-chain}, откъдето следва, че
+    \[\bigsqcup_i \Sigma_\star(f_i) \sqsubseteq \Sigma_\star(\bigsqcup_i f_i).\]
+  \item
+    За другата посока, нека да разгледаме $\ov{a}$, за които
+    \marginpar{Случаят $\Sigma_\star(\bigsqcup_i f_i)(\ov{a}) = \bot$ е тривиален.}
+    \[\Sigma_\star(\bigsqcup_i f_i)(\ov{a}) = b \neq \bot.\]
+    Щом $b \neq \bot$, то ако $\ov{a} = (a_1, \dots, a_n)$, със сигурност $\bot \not\in \{a_1, \dots, a_n\}$.
+    Тогава директно имаме, че $(\bigsqcup_i f_i)(\ov{a}) = b \neq \bot$.
+    Сега от \Problem{sup-f} получаваме, че съществува $i_0$, за което $f_{i_0}(\ov{a}) = b$.
+    Ясно е, че също така $\Sigma_\star(f_{i_0})(\ov{a}) = b$ и оттук
+    $(\bigsqcup_i \Sigma_\star(f_i))(\ov{a}) = b$,
+    защото $\Sigma_\star(f_{i_0}) \sqsubseteq \bigsqcup_i \Sigma_\star(f_i)$.
+    Заключаваме, че
+    \[\Sigma_\star(\bigsqcup_i f_i) \sqsubseteq \bigsqcup_i\Sigma_\star(f_i).\]
+  \end{enumerate}
+\end{hint}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:

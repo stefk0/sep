@@ -1,0 +1,221 @@
+\subsection{Точни изображения}
+
+\marginpar{На англ. се нарича {\em strict}. Стандартната семантика на хаскел е {\em non-strict}}
+\index{изображение!точно}
+Едно изображение $f:\A^n_1 \to \A_2$ се нарича {\bf точно}, ако 
+\[(\forall \bar{a}\in\A^n_1)[\bot_1\in\{a_1,\dots,a_n\} \implies f(a_1,\dots,a_n) = \bot_2].\]
+% Тук ще разглеждаме съвкупността от точни изображения:
+% \[S_n \dff \{f: \Nat^n_\bot \to \Nat_\bot \mid f\text{ е точна}\}.\]
+За произволни области на Скот $\A_1$ и $\A_2$, ще означаваме съвкупността от
+точните изображения като $\Strict{\A_1}{\A_2}$.
+
+\begin{example}
+  Да разгледаме свойствата на няколко прости изображения.
+  \begin{itemize}
+  \item 
+    Изображението $f:\Nat_\bot \to \Nat_\bot$, дефинирано като 
+    \[f(x) = 42,\]
+    за всяко $x \in \Nat_\bot$,
+    {\bf не е точно}, защото $f(\bot) = 42$. Лесно се вижда, че $f$ е монотонно и непрекъснато изображение.
+  \item
+    От друга страна, изображението $g:\Nat_\bot \to \Nat_\bot$, дефинирано като 
+    \[g(x) = \bot,\]
+    за всяко $x \in \Nat_\bot$,
+    {\bf е точно}, защото $g(\bot) = \bot$. Освен това, $g$ е монотонно и непрекъснато изображение.
+  \end{itemize}
+\end{example}
+
+Видяхме, че лесно се намират монотонни изображения, които не са точни.
+Сега ще разгледаме обратната посока.
+
+\begin{prop}
+  \label{pr:strict-is-monotone}
+  Всяко точно изображение $f:\Nat^n_\bot \to \Nat_\bot$ е също така и монотонно.
+  С други думи, 
+  \[\Strict{\Nat^n_\bot}{\Nat_\bot} \subseteq \Mon{\Nat^n_\bot}{\Nat_\bot}.\]
+\end{prop}
+\begin{proof}
+  Нека $f$ е точно и $\bar{a} \sqsubseteq \bar{b}$.
+  Ще проверим, че 
+  \[f(\bar{a}) = c \sqsubseteq d = f(\bar{b}).\]
+  \begin{itemize}
+  \item 
+    Ако $c = \bot$, то е очевидно, че $c \sqsubseteq d$.
+  \item
+    Интересният случай е когато $c \neq \bot$. Тогава трябва да видим, че $c = d$.
+    Понеже $f$ е точна и $c \neq \bot$, това означава, че $\bot \not\in\{a_1,\dots,a_n\}$.
+    Но понеже $\sqsubseteq$ е плоска наредба, и $\bar{a} \sqsubseteq \bar{b}$, това означава, че $\bar{a} = \bar{b}$.
+    Следотвателно, наистина $c = d$.
+  \end{itemize}
+\end{proof}
+
+\begin{framed}
+  \begin{thm}
+    \label{th:strict-is-domain}
+    $(\Strict{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq,\ \Omega^{(n)})$ е област на Скот.
+  \end{thm}  
+\end{framed}
+\begin{hint}
+  Да разгледаме веригата $\chain{f}{i}$ от елементи на $\Strict{\Nat^n_\bot}{\Nat_\bot}$.
+  Трябва да докажем, че тази верига притежава точна горна граница, която също е точно изображение.
+  % Понеже от \Prop{strict-is-monotone} имаме, че всяка точна функция е монотонна, то наготово от 
+  От доказателството на \Th{all-mappings-is-domain} знаем, че изображението $h$ дефинирано за всяко $\bar{a} \in \Nat^n_\bot$ като
+  \[h(\bar{a}) \dff \bigsqcup \{f_i(\bar{a}) \mid i \in \Nat\}\]
+  е точна горна граница на веригата $\chain{f}{i}$.
+  Остава да проверим, че $h$ е точно изображение.
+  Нека $\bar{a} \in \Nat^n_\bot$ и да приемем, че $\bot \in \{a_1,\dots,a_n\}$.
+  Тогава:
+  \begin{align*}
+    h(\bar{a}) & = \bigsqcup \{f_i(\bar{a}) \mid i \in \Nat\} & (\text{от деф. на }h)\\
+    & = \bigsqcup\{\bot,\bot,\dots,\bot,\dots\} & (f_i\text{ са точни})\\
+    & = \bot.
+  \end{align*}
+\end{hint}
+
+\begin{example}
+  \label{ex:simple-non-continuous}
+  Нека сега да разгледаме $h:\Nat_\bot \to \Nat_\bot$, където 
+  \begin{align*}
+    h(x) = &
+    \begin{cases}
+      0, & x = \bot,\\
+      1, & \text{иначе}.
+    \end{cases}
+  \end{align*}
+  Да видим колко ,,лошо'' изображение е $h$:
+  \begin{itemize}
+  \item 
+    $h$ не е точно, защото $h(\bot) \neq \bot$;
+  \item
+    $h$ не е монотонно, защото $\bot \sqsubseteq 5$, но $h(\bot) = 0 \not\sqsubseteq 1 = h(5)$;
+  \item
+    $h$ не е непрекъснато, защото $\Cont{\Nat_\bot}{\Nat_\bot} = \Mon{\Nat_\bot}{\Nat_\bot}$.
+  \end{itemize}
+  Нека да видим, че хаскел не позволява такива ,,лоши'' функции:
+
+  \begin{haskellcode}
+ghci> let h(x) = if x == undefined then 0 else 1
+ghci> h(5)
+*** Exception: Prelude.undefined
+ghci> h(undefined)
+*** Exception: Prelude.undefined
+  \end{haskellcode}
+\end{example}
+
+\begin{example}
+  \label{ex:non-strict-monotone}
+  Да разгледаме $f:\Nat^2_\bot \to \Nat_\bot$ дефинирано като \[f(x,y) = x.\]
+  \begin{itemize}
+  \item 
+    $f$ не е точно, защото $f(0,\bot) = 0$.
+  \item
+    $f$ е монотонно, защото ако $\pair{x,y} \sqsubseteq \pair{x',y'}$, то $x \sqsubseteq x'$ и
+    \[f(x,y) = x \sqsubseteq x' = f(x',y').\]
+  \item
+    $f$ е непрекъснато, защото от \Prop{stab-continuous} знаем, че 
+    $\Mon{\Nat^2_\bot}{\Nat_\bot} = \Cont{\Nat^2_\bot}{\Nat_\bot}$.
+  \end{itemize}
+\end{example}
+
+Можем да обобщим всичко, което направихме дотук, със следната илюстрация на основните области на Скот, с които ще работим
+в \Chapter{rec}.
+
+\begin{framed}
+    \begin{align*}
+      \Strict{\Nat^n_\bot}{\Nat_\bot} & \subsetneqq \Mon{\Nat^n_\bot}{\Nat_\bot} & \comment{\text{от \Ex{non-strict-monotone} и \Prop{strict-is-monotone}}}\\
+      & = \Cont{\Nat^n_\bot}{\Nat_\bot} & \comment{\text{от \Prop{continuous-is-monotone} и \Cor{monotone-is-continuous}}}\\
+      & \subsetneqq \Mapping{\Nat^n_\bot}{\Nat_\bot} & \comment{\text{от \Ex{simple-non-continuous}}}.
+    \end{align*}
+\end{framed}
+
+\begin{example}
+  \label{ex:plus}
+  Да разгледаме $f:\Nat^2_\bot \to \Nat_\bot$ дефинирана по следния начин:
+  \[f(x,y) = 
+  \begin{cases}
+    \bot, & x = \bot\ \&\ y = \bot\\
+    x, & x \neq \bot\ \&\ y = \bot\\
+    y, & x = \bot\ \&\ y \neq \bot\\
+    x+y, & x \neq \bot\ \&\ y \neq \bot.
+  \end{cases}\]
+  Изображението $f$ не е точно, защото например $f(\bot,0) \neq \bot$.
+  Оттук директно следва, че $f$ не е монотонно изображение, защото $\Strict{\Nat^2_\bot}{\Nat_\bot} \subseteq \Mon{\Nat^2_\bot}{\Nat_\bot}$.
+  Също така, $f$ не е непрекъснато изображение, защото $\Mon{\Nat^2_\bot}{\Nat_\bot} = \Cont{\Nat^2_\bot}{\Nat_\bot}$.
+\end{example}
+% \begin{hint}
+%   \begin{itemize}
+%   \item 
+%     $f$ не е точно изображение, защото например
+%     $f(\bot,0) \neq \bot$.
+%   \item
+%     $f$ не е монотонно. Например,
+%     \[\pair{\bot,0} \sqsubseteq \pair{1,0}\ \&\ f(\bot,0) = 0 \not\sqsubseteq 1 = f(1,0).\]    
+%   \item
+%     $f$ не е непрекъснато, защото $\Cont{\Nat^2_\bot}{\Nat_\bot} = \Mon{\Nat^2_\bot}{\Nat_\bot}$.
+%   \end{itemize}    
+% \end{hint}
+
+
+% \subsection{Точни продължения}
+% \index{изображение!точно продължение}
+
+% Нека $A$ и $B$ са произволни множества, а $\A_\bot$ и $\B_\bot$ са плоските области на Скот получени съответно от $A$ и $B$.
+% За еднa частична функция $f:A^n \to B$, определяме точното изображение $f^\star:\A^n_\bot \to \B_\bot$ по следния начин:
+% \marginpar{$f^\star \in \Strict{\A^n_\bot}{\B_\bot}$}
+% \begin{align*}
+%   f^\star(\ov{a}) \dff
+%   \begin{cases}
+%     f(\ov{a}), & \text{ако }\bot\not\in\{a_1,\dots,a_n\}\ \&\ f(\ov{a})\text{ е деф.}\\
+%     \bot, & \text{иначе}.
+%   \end{cases}
+% \end{align*}
+% Изображението $f^\star$ се нарича {\bf точно продължение} на $f$.
+
+% \begin{example}
+%   Да разгледаме частичната функция $f:\Nat^2 \to \Nat$, дефинирана като
+%   $f(x,y) = x+y$. Тогава точното продължение на $f$ е 
+%   \[f^\star(x,y) = 
+%   \begin{cases}
+%     x+y, & x,y\in\Nat\\
+%     \bot, & x = \bot \vee y = \bot.
+%   \end{cases}\]
+% \end{example}
+
+% \Stefan{За какво ми е точното продължение да е непрекъснато?}
+% \noindent Да дефинираме оператор $\Sigma^\star : \Partial{\Nat^n}{\Nat} \to \Strict{\Nat^n_\bot}{\Nat_\bot}$ като
+% \[\Sigma^\star(f) = f^\star.\] 
+% Ще наричаме $\Sigma^\star$ {\bf продължаващ} оператор, защото на всяка частична функция дава нейното точно продължение.
+
+% \begin{framed}
+%   \begin{prop}
+%     $\Sigma^\star$ е непрекъснато изображение, т.е.
+%     \[\Sigma^\star \in \Cont{\Partial{\Nat^n}{\Nat}}{\Strict{\Nat^n_\bot}{\Nat_\bot}}.\]
+%   \end{prop}
+% \end{framed}
+% \begin{hint}
+%   Трябва да докажем, че за произволна верига $(f_i)^{\infty}_{i=0}$ от частични функции, 
+%   $\Sigma^\star(\bigcup_i f_i) = \bigsqcup_i \Sigma^\star(f_i)$.
+%   \begin{itemize}
+%   \item 
+%     Лесно се съобразява, че ако $f \subseteq g$, то $\Sigma^\star(f) \sqsubseteq \Sigma^\star(g)$.
+%     Оттук следва, че 
+%     \[\bigsqcup_i \Sigma^\star(f_i) \sqsubseteq \Sigma^\star(\bigcup_i f_i).\]
+%   \item
+%     За другата посока,
+%     Нека $\Sigma^\star(\bigcup_i f_i)(\ov{x}) = y \neq \bot$.
+%     Това означава, че $\ov{x} \in \Nat^n$ и $(\bigcup_i f_i)(\ov{x}) \simeq y$.
+%     Оттук следва, че съществува $i_0$, за което $f_{i_0}(\ov{x}) \simeq y$.
+%     Тогава $\Sigma^\star(f_{i_0})(\ov{x}) = y$.
+%     Понеже $y \neq \bot$, 
+%     \[\bigsqcup_i (\Sigma^\star(f_i)(\ov{x})) = (\bigsqcup_i \Sigma^\star(f_i))(\ov{x}) = y.\]
+%     Заключаваме, че $\Sigma^\star(\bigcup_i f_i)(\ov{x}) \sqsubseteq \bigsqcup_i (\Sigma^\star(f_i)(\ov{x}))$
+%   \end{itemize}
+% \end{hint}
+
+% \Stefan{Това означава, че някъде трябва да се каже, че $\F_n$ е област на Скот. Някъде в тази глава трябва да е. Това може да бъде един от първите примери след дефиницията на О.С.}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-notes"
+%%% End:
