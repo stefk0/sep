@@ -2,7 +2,7 @@
 \index{частична наредба}
 
 Бинарната релация $\sqsubseteq$ върху множеството $A$ се нарича {\bf частична наредба}, ако тя е:
-\marginpar{На англ. partial order}
+\marginpar{На англ. \emph{partial order}}
 \begin{itemize}
 \item 
   рефлексивна, т.е. $(\forall a \in A)[a \sqsubseteq a]$;
@@ -68,16 +68,17 @@ $(\forall n)[a_n \sqsubseteq b]$.
 
 \begin{example}
   \Stefan{Друго означение вместо $\F_n$ ?}
-  $\F_n \dff (\Partial{\Nat^n}{\Nat},\subseteq, \emptyset^{(n)})$ е област на Скот, където:
+  Тройката
+  \[\F_n \dff (\ \Partial{\Nat^n}{\Nat},\subseteq, \emptyset^{(n)}\ )\] е област на Скот, където:
   \begin{itemize}
   \item
     С $\Partial{\Nat^n}{\Nat}$ означаваме всички частични функции от $\Nat^n$ в $\Nat$.
   \item
      релацията ,,включване'' между функции е дефинирана по следния начин:
-     \[f\subseteq g\ \dffff\ (\forall \bar{x}\forall y)[ f(\bar{x}) \simeq y \implies  g(\bar{x}) \simeq y].\]
+     \[f\subseteq g\ \dffff\ (\forall \bar{x})(\forall y)[ f(\bar{x}) \simeq y \implies  g(\bar{x}) \simeq y].\]
    \item
      $\emptyset^{(n)}$ е функцията с празна дефиниционна област, т.е.
-     $(\forall \bar{x} \in \Nat^n)[\neg !\emptyset^{(n)}(\bar{x})]$.
+     \[(\forall \bar{x} \in \Nat^n)[\neg !\emptyset^{(n)}(\bar{x})].\]
   \end{itemize}
 \end{example}
 
@@ -116,5 +117,5 @@ $(\forall n)[a_n \sqsubseteq b]$.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

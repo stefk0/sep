@@ -5,7 +5,7 @@
 \begin{thm}
   \label{th:double-chain}
   \marginpar{\cite[стр. 127]{winskel}}
-  \marginpar{\cite[стр. 178]{theory-computation2017}}
+  \marginpar{\cite[стр. 178]{models-of-computation}}
   Нека $\A = (A,\sqsubseteq,\bot)$ да бъде област на Скот и нека множеството 
   \[E = \{a_{m,n} \mid m,n \in \Nat\}\]
   от елементи на $A$ притежава свойството, че 
@@ -17,15 +17,14 @@
   Първо ще въведем някои означения.
   \begin{itemize}
   \item 
-    Да фиксираме произволно $m$. Тогава можем да подредим елементите на множеството $\{a_{n,m} \mid n \in \Nat\}$ във възходящ ред относно
-     $\sqsubseteq$:
-    \[a_{0,m} \sqsubseteq a_{1,m} \sqsubseteq a_{2,m} \sqsubseteq \ldots\]
+    Да фиксираме произволно $m$. Тогава можем да подредим елементите на множеството $\{a_{n,m} \mid n \in \Nat\}$ във възходящ ред: 
+    \[a_{0,m} \sqsubseteq a_{1,m} \sqsubseteq a_{2,m} \sqsubseteq \cdots\]
     \marginpar{По дефиниция, всяка монотонно растяща редица в област на Скот притежава точна горна граница.}
-    Следователно тя има точна горна граница $b_m \dff \bigsqcup_n \{a_{n,m} \mid n \in \Nat\}$.
+    Следователно тя има точна горна граница $b_m \dff \bigsqcup \{a_{n,m} \mid n \in \Nat\}$.
   \item
     Аналогично, при фиксирано $n$, можем да подредим елементите на множеството $\{a_{n,m} \mid m \in \Nat\}$ в монотонно растяща редица:
     \[a_{n,0} \sqsubseteq a_{n,1} \sqsubseteq a_{n,2} \sqsubseteq \ldots,\]
-    която притежава точна горна граница $c_n \dff \bigsqcup_m \{a_{n,m} \mid m \in \Nat\}$.
+    която притежава точна горна граница $c_n \dff \bigsqcup \{a_{n,m} \mid m \in \Nat\}$.
   \end{itemize}
   Това означава, че трябва да докажем следното:
   \[\bigsqcup E = \bigsqcup_mb_m = \bigsqcup_n c_n = \bigsqcup_n a_{n,n}.\]
@@ -98,16 +97,17 @@
   С това доказателството на теоремата е завършено.
 \end{proof}
 
-\begin{lemma}
-  Нека $\A$ и $\B$ са области на Скот.
-  Нека $\chain{f}{k}$ е верига от елементи на $\Cont{\A}{\B}$.
-  Да дефинираме изображението $h$ на $\A$ в $\B$ по следния начин
-  \marginpar{Обикновено ще изпускаме да пишем $\{\}$}
-  \marginpar{Ако $b_k = f_k(a)$, то $h(a)$ е точната горна граница на веригата $\chain{b}{k}$ в $\B$}
-  \[h(a) \dff \bigsqcup_k\{f_k(a)\}.\]
-  Изображението $h$ е {\em непрекъснато} и е {\em точна горна граница} на веригата $\chain{f}{k}$,
-  т.е. $h = \bigsqcup_k f_k$.
-\end{lemma}
+\begin{framed}
+  \begin{lemma}
+    Нека $\A$ и $\B$ са области на Скот.
+    Нека $\chain{f}{k}$ е верига от елементи на $\Cont{\A}{\B}$.
+    Да дефинираме изображението $h$ на $\A$ в $\B$ по следния начин
+    \[h(a) \dff \bigsqcup\{f_k(a) \mid k \in \Nat\}.\]
+    Изображението $h$ е {\em непрекъснато} и е {\em точна горна граница} на веригата $\chain{f}{k}$,
+    т.е. $h = \bigsqcup_k f_k$.
+  \end{lemma}
+\end{framed}
+\marginpar{Ако $b_k = f_k(a)$, то $h(a)$ е точната горна граница на веригата $\chain{b}{k}$ в $\B$}
 \begin{proof}
   \ifhints
   Доказателството, че $h$ е точна горна граница на веригата $\chain{f}{k}$ е лесно.
@@ -116,7 +116,8 @@
     Да разгледаме произволен елемент $a \in A$.
     Лесно се вижда, че понеже $\chain{f}{k}$ е верига, то $(f_k(a))^\infty_{k=0}$ също е верига.
     Това е така, защото всяко непрекъснато изображение е също така и монотонно.
-    
+
+    \marginpar{$\bigsqcup_n f_n(a)$ е съкратен запис за $\bigsqcup\{f_n(a) \mid n \in \Nat\}$.}
     Получаваме, че за всяко $k$, $f_k(a) \sqsubseteq^\B \bigsqcup_n f_n(a) \dff h(a)$.
     Понеже това е вярно за произволно $a \in A$, $(\forall k)[f_k \sqsubseteq h]$,
     което означава, че $h$ е горна граница на веригата.
@@ -147,12 +148,11 @@
   \end{align*}
 \end{proof}
 
-Да напомним, че релацията \[f \sqsubseteq g \dfff (\forall a\in A)[f(a) \sqsubseteq^\B g(a)]\]
-е частична наредба и изображението $\Omega(a) \dff \bot^\B$ за всяко $a\in \A$, е непрекъснато и е най-малкият ѝ елемент
-в $\Cont{\A}{\B}$.
+Да напомним, че релацията $\sqsubseteq$ между две изображения е дефинирана като
+\[f \sqsubseteq g \dfff (\forall a\in A)[f(a) \sqsubseteq^\B g(a)].\]
 \begin{framed}
   \begin{cor}
-    $(\Cont{\A}{\B}, \sqsubseteq, \Omega)$ е област на Скот.
+    $(\Cont{\A}{\B}, \sqsubseteq, \bm{\bot} )$ е област на Скот.
   \end{cor}
 \end{framed}
 
@@ -227,15 +227,17 @@
 \Stefan{Интересно е, че това твърдение не е вярно за непрекъснати свойства. Добре е да се обясни някъде.}
 
 \begin{proof}
-  \marginpar{Обобщете това твърдение за $n > 2$}
+  \marginpar{\writedown Обобщете това твърдение за $n > 2$.}
   За по-просто изложение, да разгледаме случая $n = 2$.
-  \marginpar{Защо?}
 
   $(\Rightarrow)$ Лесно се съобразява, че ако $f$ е непрекъснато изображение, то $f$ е непрекъснато по всеки от аргументите си.
+  \Stefan{Все пак е добре тук да се напише нещо.}
   
   $(\Leftarrow)$ Нека сега $f$ е непрекъснато по всеки от аргументите си. Ще докажем, че $f$ е непрекъснато.
-  Нека $\{\pair{a_n,b_n}\}_n$ е монотонно растяща редица в $\A_1\times \A_2$.
-  Понеже $\bigsqcup_n\pair{a_n,b_n} = \pair{\bigsqcup_na_n,\bigsqcup_n b_n}$, ще докажем, че 
+  Нека $\{\pair{a_n,b_n}\}^\infty_{n=0}$ е верига в $\A_1\times \A_2$.
+  Понеже от \Prop{cartesian} знаем, че
+  \[\bigsqcup_n\pair{a_n,b_n} = \pair{\bigsqcup_na_n,\bigsqcup_n b_n},\]
+  ще докажем, че 
   \[\bigsqcup_n f(a_n,b_n) = f(\bigsqcup_n a_n,\bigsqcup_n b_n).\]
   Да положим $e_{n,m} = f(a_n,b_m)$.
   Понеже $f$ е непрекъснато по всеки от аргументите си, лесно се вижда, че $f$
@@ -254,5 +256,5 @@
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

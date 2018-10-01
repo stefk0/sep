@@ -4,10 +4,9 @@
 \begin{example}
   Да разгледаме програмата $\vv{P}$ на езика $\REC$:
   \begin{haskellcode}
-f(x) = g(f(x)) where
-  g(x) = 0  
+f(x) = g(f(x))
+g(x) = 0  
   \end{haskellcode}
-
 Да проверим, че
 $\D_V\val{\vv{P}} \neq \D_N\val{\vv{P}}$.
 Имаме, че
@@ -85,7 +84,7 @@ $\D_V\val{\vv{P}} \neq \D_N\val{\vv{P}}$.
     \Gamma_{\tau_2}(\varphi,\psi)(x) & \dff 0.
   \end{align*}
   Търсим най-малката неподвижна точна на оператора 
-  \[\Gamma(\varphi,\psi) \dff (\Gamma_{\tau_0}(\varphi, \psi), \Gamma_{\tau_1}(\varphi,\psi)).\]
+  \[\Gamma(\varphi,\psi) \dff (\Gamma_{\tau_1}(\varphi, \psi), \Gamma_{\tau_2}(\varphi,\psi)).\]
   \marginpar{т.е. това са функциите, които винаги връщат $\bot$}
   Имаме, че $\varphi_0(x) \dff \lambda x.\bot$ и $\psi_0(x) \dff \lambda x.\bot$.
   Сега, за произволно $x \in \Nat_\bot$, получаваме:
@@ -196,8 +195,7 @@ undefined
 \end{proof}
 
 
-
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

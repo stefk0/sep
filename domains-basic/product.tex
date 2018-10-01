@@ -16,34 +16,37 @@ $\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
   $\bot = \pair{\bot_1,\dots,\bot_n}$.
 \end{itemize}
 
-\begin{prop}
-  \label{pr:cartesian}
-  Ако $\A_1,\dots,\A_n$ са области на Скот, то $\prod^n_{i=1}\A_i$ е област на Скот.
-\end{prop}
+\begin{framed}
+  \begin{prop}
+    \label{pr:cartesian}
+    Ако $\A_1,\dots,\A_n$ са области на Скот, то $\prod^n_{i=1}\A_i$ е област на Скот.
+  \end{prop}  
+\end{framed}
 \begin{hint}
   Лесно се съобразява, че $\sqsubseteq$ е частична наредба и че $\bot$ е най-малкият елемент.
   Да разгледаме една верига $\chain{\ov{a}}{i}$ в $\prod^n_{i=1}\A_i$,
   където $\bar{a}_i = \pair{a^i_1,\dots,a^i_n}$.
-  Да положим \[\bar{a} = \pair{\bigsqcup_i a^i_1,\bigsqcup_i a^i_2,\ldots,\bigsqcup_i a^i_n,}.\]
+  Да положим \[\bar{a} \df \pair{\bigsqcup_i a^i_1,\bigsqcup_i a^i_2,\ldots,\bigsqcup_i a^i_n,}.\]
   Ще докажем, че $\bar{a}$ е точната горна граница на верига $\chain{\ov{a}}{i}$, т.е.
   \[\bigsqcup_i\bar{a}_i = \pair{\bigsqcup_i a^i_1,\bigsqcup_i a^i_2,\ldots,\bigsqcup_i a^i_n,}.\]
   Това ще направим на две стъпки.
   \begin{itemize}
   \item 
     Първо ще докажем, че $\bar{a}$ е горна граница на $\chain{\bar{a}}{i}$.
-    За произволно $j$, знаем, че $\bar{a}_j = (a^j_1,\dots,a^j_n)$.
+    За произволен индекс $j$, имаме, че $\bar{a}_j = (a^j_1,\dots,a^j_n)$.
     Да разгледаме $1 \leq k \leq n$.
     Ясно е, че $a^j_k \sqsubseteq_k \bigsqcup_i a^i_k$.
     Оттук веднага следва, че
     \[\bar{a}_j = (a^j_1,\dots,a^j_n) \sqsubseteq (\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n) = \bar{a}.\]
   \item
-    Нека $\bar{b}$ е произволна горна граница на $\chain{\bar{a}}{i}$.
+    Нека $\bar{b} = \pair{b_1,\dots,b_n}$ е произволна горна граница на $\chain{\bar{a}}{i}$.
     Ще докажем, че $\bar{a} \sqsubseteq \bar{b}$.
-    Знаем, че за произволно $j$, $\bar{a}_j \sqsubseteq \bar{b}$.
-    Това означава, че за $1 \leq k \leq n$,
-    $a^j_k \sqsubseteq b_k$. 
-    Оттук следва, че $b_k$ е горна граница за веригата $(a^j_k)^k_{j=0}$.
-    Следователно $\bigsqcup_j a^k_j \sqsubseteq_k b_k$.
+    Знаем, че за произволен индекс $j$, $\bar{a}_j \sqsubseteq \bar{b}$.
+    Да разгледаме произволен индекс $k$, за който $1 \leq k \leq n$.
+    Знаем, че в областта на Скот $\A_k$ е изпълнено, че $a^j_k \sqsubseteq_k b_k$, за всеки индекс $j$.
+    Оттук следва, че $b_k$ е горна граница за веригата $(a^j_k)^\infty_{j=0}$ в $\A_k$.
+    Следователно
+    \[\bigsqcup_j a^k_j \sqsubseteq_k b_k.\]
     Заключаваме, че
     \[\bar{a} = (\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n) \sqsubseteq (b_1,\dots,b_n) = \bar{b}.\]
   \end{itemize}
@@ -128,5 +131,5 @@ $\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

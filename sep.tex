@@ -7,7 +7,7 @@
 \usepackage[T2A]{fontenc}
 \usepackage[bulgarian]{babel}
 
-\usepackage{amssymb, amsmath, amsthm, mathrsfs}
+\usepackage{amssymb, amsmath, amsthm, mathrsfs, bm}
 \usepackage{stmaryrd}
 \usepackage{latexsym}
 \usepackage{makeidx}
@@ -45,9 +45,9 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-% \newauthor{Stefan}{0.6,0.6,0.6}
+\newauthor{Stefan}{0.6,0.6,0.6}
 
-\newcommand{\Stefan}[1]{}
+% \newcommand{\Stefan}[1]{}
 
 % \newauthor{Stela}{0.8,0.8,0}
 
@@ -166,10 +166,12 @@
 \def\monus{\mathbin{\ooalign{\hss\raise1ex\hbox{.}\hss\cr
       \mathsurround=0pt$-$}}}
 
-\setlength{\marginparsep}{0.7cm}
+\setlength{\marginparsep}{1cm}
 \setlength{\oddsidemargin}{0.3cm}
-\setlength{\hoffset}{0cm}
+\setlength{\hoffset}{-0.75in}
 \setlength{\marginparwidth}{110pt}
+\setlength{\textwidth}{420pt}
+\setlength{\textheight}{670pt}
 \let\oldmarginpar\marginpar
 
 \def\dotminus{\mathbin{\ooalign{\hss\raise1ex\hbox{.}\hss\cr
@@ -234,7 +236,7 @@
 %\backmatter
 
 \bibliographystyle{plain}
-\bibliography{semantics}
+\bibliography{sep}
 
 \printindex
 

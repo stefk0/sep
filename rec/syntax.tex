@@ -17,7 +17,7 @@
   \index{променлива!функционална}
   изброимо много променливи от тип 1 (или функционални променливи) $\vv{f},\vv{g},\vv{h},\dots$, евентуално с индекси. 
   Формално погледнато, трябва на всяка функционална применлива $\vv{f}$
-  да съпоставим число - брой аргументи, които приема. Нека да означим с $\#\vv{f}$ броят аргументи на $f$.
+  да съпоставим число - брой аргументи, които приема. Нека да означим с $\#\vv{f}$ броя аргументи на $f$.
   Обикновено броят аргументи на $\vv{f}$ ще е ясен от контекста.
 \item
   Термовете $\tau_0,\tau_1,\dots$ в {\bf REC} имат следния синтаксис:
@@ -36,14 +36,14 @@
 \index{рекурсивна програма}
 Една {\bf рекурсивна програма} $\vv{P}$ на езика {\bf REC} има следния общ вид:
 \marginpar{Една програма е просто текст със специален формат. Важният въпрос е каква функция (семантика) отговаря на този текст (синтаксис)}
-\marginpar{Може да си мислите, че $\vv{f}_0$ е $\vv{main}$ функцията на нашата програма}
+\marginpar{Може да си мислите, че $\vv{f}_1$ е $\vv{main}$ функцията на нашата програма}
 \begin{align*}
   \vv{P} = 
   \begin{cases}
-    & \vv{f}_0(\vv{x}_1,\dots,\vv{x}_{m_0}) = \tau_0[\vv{x}_1,\dots,\vv{x}_{m_0},\vv{f}_0,\vv{f}_1,\dots,\vv{f}_k]\ \texttt{where}\\
-    & \quad\vv{f}_1(\vv{x}_1,\dots,\vv{x}_{m_1}) = \tau_1[\vv{x}_1,\dots,\vv{x}_{m_1},\vv{f}_0,\vv{f}_1,\dots,\vv{f}_k]\\
-    & \quad \vdots\\
-    & \quad \vv{f}_k(\vv{x}_1,\dots,\vv{x}_{m_k}) = \tau_k[\vv{x}_1,\dots,\vv{x}_{m_k},\vv{f}_0,\vv{f}_1,\dots,\vv{f}_k]
+    % & \vv{f}_0(\vv{x}_1,\dots,\vv{x}_{m_0}) = \tau_0[\vv{x}_1,\dots,\vv{x}_{m_0},\vv{f}_0,\vv{f}_1,\dots,\vv{f}_k]\ \texttt{where}\\
+    & \vv{f}_1(\vv{x}_1,\dots,\vv{x}_{m_1}) = \tau_1[\vv{x}_1,\dots,\vv{x}_{m_1},\vv{f}_1,\dots,\vv{f}_k]\\
+    & \vdots\\
+    & \vv{f}_k(\vv{x}_1,\dots,\vv{x}_{m_k}) = \tau_k[\vv{x}_1,\dots,\vv{x}_{m_k},\vv{f}_1,\dots,\vv{f}_k]
   \end{cases}
 \end{align*}
 
@@ -51,25 +51,26 @@
 
 \begin{example}
   \label{ex:minus}
-  Да разгледаме програмата $\vv{P}$:
+  Да разгледаме програмата $\vv{P}$ на езика хаскел:
   \begin{haskellcode}
-h(x) = f(x, 1) where
-  f(x,y) = if x == y then 0 
-             else f(x, y+1) + 1
+h(x) = f(x, 1)
+f(x,y) = if x == y then 0 
+           else f(x, y+1) + 1
   \end{haskellcode}
   Да положим
   \begin{align*}
-    & \tau_0[\vv{x},\vv{f}] \dfff \vv{f}(\vv{x},\vv{1})\\
-    & \tau_1[\vv{x},\vv{y},\vv{f}] \dfff \ifelse{\vv{x == y}}{\vv{0}}{\vv{f(x,y+1) + 1}}.
+    & \tau_1[\vv{x},\vv{h},\vv{f}] \dfff \vv{f}(\vv{x},\vv{1})\\
+    & \tau_2[\vv{x},\vv{y},\vv{h},\vv{f}] \dfff \ifelse{\vv{x == y}}{\vv{0}}{\vv{f(x,y+1) + 1}}.
   \end{align*}
   Тогава програмата $\vv{P}$ приема следния вид:
   \begin{align*}
-    \vv{h}(&\vv{x}) = \tau_0[\vv{x},\vv{f}] \vv{ where }\\
-    & \vv{f}(\vv{x},\vv{y}) = \tau_1[\vv{x},\vv{y},\vv{f}].
+    & \vv{h}(\vv{x}) = \tau_1[\vv{x},\vv{h},\vv{f}]\\
+    & \vv{f}(\vv{x},\vv{y}) = \tau_2[\vv{x},\vv{y},\vv{h},\vv{f}].
   \end{align*}
 \end{example}
 
+
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

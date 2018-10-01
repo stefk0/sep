@@ -13,18 +13,21 @@
 \begin{framed}
   \begin{thm}
     \label{th:monotone-is-domain}
-    $(\Mon{\A_1}{\A_2},\ \sqsubseteq, \bot)$ е област на Скот.
+    $(\Mon{\A_1}{\A_2},\ \sqsubseteq, \bm{\bot})$ е област на Скот.
   \end{thm}  
 \end{framed}
 \begin{hint}
   Да фиксираме една верига $\chain{f}{i}$ в $\Mon{\A_1}{\A_2}$. Трябва да докажем, че тази верига притежава точна горна граница,
   която е монотонно изображение.
   Да разгледаме същото изображение $h:\A_1 \to \A_2$ както в доказателството на \Th{all-mappings-is-domain}, като
-  \[h(a) \dff \bigsqcup_i \{f_i(a) \mid i \in \Nat\}.\]
+  \[h(a) \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}.\]
   Оттам знаем, че $h$ е точна горна граница на веригата. 
   Остава да докажем, че $h \in \Mon{\A_1}{\A_2}$.
-  Нека $a \sqsubseteq b$. Тогава, понеже $f_k$ са монотонни изображения,
-  \[(\forall k)[f_k(a) \sqsubseteq f_k(b) \sqsubseteq \bigsqcup_i \{f_i(b) \mid i \in \Nat\} \dff h(b)].\]
+  Нека $a \sqsubseteq b$. Тогава, за всеки индекс $k$, понеже $f_k$ са монотонни изображения, получаваме следното:
+  \begin{align*}
+    f_k(a) & \sqsubseteq f_k(b)\\
+           & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \dff h(b).
+  \end{align*}
   Това означава, че $h(b)$ е горна граница за веригата $(f_i(a))^{\infty}_{i=0}$.
   Заключаваме, че 
   \begin{align*}
@@ -35,11 +38,11 @@
 
 \begin{cor}
   \label{cr:flat-monotone-is-domain}
-  $(\Mon{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq, \Omega^{(n)})$ е област на Скот.
+  $(\Mon{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq, \bm{\bot}^{(n)})$ е област на Скот.
 \end{cor}
 
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

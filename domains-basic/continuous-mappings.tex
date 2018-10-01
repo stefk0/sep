@@ -3,16 +3,15 @@
 
 \marginpar{На англ. {\em continuous}}
 Едно изображение $f:\A_1\to \A_2$ се нарича {\bf непрекъснато}, ако
-при всеки избор на верига $\chain{a}{n}$ в $\A_1$, то имаме равенството
+при всеки избор на верига $\chain{a}{i}$ в $\A_1$, то имаме равенството
 \marginpar{Понеже $\A_1$ е област на Скот знаем, че $\bigsqcup_i a_i \in \A_1$}
 \marginpar{$\bigsqcup_if(a_i) \dff \bigsqcup\{f(a_i) \mid i \in \Nat\}$}
 \[f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i).\]
 С други думи, 
 $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на множеството 
-\[\{f(a_n) \mid n \in \Nat\}.\]
+\[\{f(a_i) \mid i \in \Nat\}.\]
 Да означим
 \[\Cont{\A_1}{\A_2} \dff \{f: \A_1 \to \A_2 \mid f\text{ е непр. изобр.}\}.\]
-
 
 \begin{framed}
   \begin{prop}
@@ -25,12 +24,10 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
   Нека $f \in \Cont{\A_1}{\A_2}$.
   Да вземем два произволни елемента в $\A_1$, за които $a \sqsubseteq_1 b$.
   Ще докажем, че $f(a) \sqsubseteq_2 f(b)$.
-  
   Да разгледаме веригата $\chain{a}{i}$ в $\A_1$, където:
   \[\underbrace{a_0}_{a} \sqsubseteq \underbrace{a_1}_{b} = \underbrace{a_2}_{b} = \underbrace{a_3}_{b} = \cdots\]
-
   Ясно е, че 
-  \[\bigsqcup_i\{a_i \mid i \in \Nat\} = \bigsqcup\{a,b\} = b.\]
+  \[\bigsqcup\{a_i \mid i \in \Nat\} = \bigsqcup\{a,b\} = b.\]
   Тогава от непрекъснатостта на $f$ имаме, че
   \begin{align*}
     f(a) & = f(a_0) & \comment{\text{защото }a_0 \dff a}\\
@@ -43,10 +40,8 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
   \[a \sqsubseteq_1 b \implies f(a) \sqsubseteq_2 f(b).\]
 \end{proof}
 
-% \begin{cor}
-%   \label{cr:continuous-is-monotone}
-%   $\Cont{\Nat^n_\bot}{\Nat_\bot} \subseteq \Mon{\Nat^n_\bot}{\Nat_\bot}$.
-% \end{cor}
+Ествено да си зададем въпроса дали имаме и обратното включване.
+Оказва се, че в общия случай не е вярно, че всяко монотонно изображение е непрекъснато.
 
 \begin{prop}
   Съществува област на Скот $\A$, за която
@@ -60,7 +55,8 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
   Нека $f(a_n) = a_{n+1}$ и $f(a_{\omega}) = b_0$.
   Очевидно е, че $f$ е монотонно изображение.
   Лесно се вижда, че $f$ не е непрекъснато изображение, 
-  защото $f(\bigsqcup_n a_n) = f(a_\omega) = b_0$,
+  защото
+  \[f(\bigsqcup_n a_n) = f(a_\omega) = b_0,\]
   но 
   \[\bigsqcup_n f(a_n) = \bigsqcup_n a_{n+1} = a_\omega.\]
 \end{hint}
@@ -75,20 +71,23 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
   \end{prop}  
 \end{framed}
 \begin{hint}
-  Да разгледаме една верига $\chain{a}{i}$ и $f \in \Mon{\A_1}{\A_2}$.
+  Да разгледаме една верига $\chain{a}{i}$ в $\A_1$ и $f \in \Mon{\A_1}{\A_2}$.
   Ще докажем, че \[f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i).\]
 
   \begin{enumerate}[(1)]
-  \item 
+  \item
+    \marginpar{Това включване е вярно за произволна област на Скот $\A_1$.}
     Ясно е, че за всяко монотонно изображение $f$,
     понеже $a_i \sqsubseteq \bigsqcup_i a_i$, то $f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
-    Това означава, че $f(\bigsqcup_i a_i)$ е горна граница на веригата $(f(a_i))^\infty_{i=0}$
-    и следователно $\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+    Това означава, че $f(\bigsqcup_i a_i)$ е горна граница на веригата $(f(a_i))^\infty_{i=0}$ в $\A_2$
+    и следователно
+    \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
   \item
     За другата посока ще използваме свойството, че веригата $\chain{a}{i}$ се стабилизира.
     Нека $n_0$ е индекс, такъв че $(\forall k \geq n_0)[a_k = a_{n_0}]$.
     Това означава, че $\bigsqcup_i a_i = a_{n_0}$.
-    Тогава $f(\bigsqcup_i a_i) = f(a_{n_0}) \sqsubseteq \bigsqcup_i f(a_i)$.    
+    Тогава
+    \[f(\bigsqcup_i a_i) = f(a_{n_0}) \sqsubseteq \bigsqcup_i f(a_i).\]
   \end{enumerate}
   
   От $(1)$ и $(2)$ следва, че $f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i)$.
@@ -117,7 +116,7 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
 \begin{framed}
 \begin{thm}
   \label{th:continuous-is-domain}
-  $(\Cont{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq,\ \Omega^{(n)})$ е област на Скот.
+  $(\Cont{\Nat^n_\bot}{\Nat_\bot},\ \sqsubseteq,\ \bm{\bot}^{(n)})$ е област на Скот.
 \end{thm}  
 \end{framed}
 % \begin{proof}
@@ -151,5 +150,5 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:
