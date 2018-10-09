@@ -1,7 +1,7 @@
 \section{Изображения в области на Скот}
 
 \index{област на Скот!изображения}
-Нека $\A_i = (A_i,\sqsubseteq_i,\bot_i)$, $i = 1,2$, са области на Скот.
+Нека $\A_i = (A_i,\sqsubseteq_i,\bot_i)$, за $i = 1,2$, са области на Скот.
 Ще въведем няколко основни вида изображения между $\A_1$ и $\A_2$, 
 които ще използваме често. След това ще разгледаме някои свойства на тези изображения
 и ще видим каква е връзката между тях.
@@ -19,6 +19,10 @@
   \[(\forall a \in \A_1)[\bm{\bot}(a) = \bot_2].\]
 \end{itemize}
 
+  \begin{haskellcode}
+ghci> let bottom _ = undefined
+  \end{haskellcode}
+
 \begin{framed}
   \begin{thm}
     \label{th:all-mappings-is-domain}
@@ -32,7 +36,7 @@
   Да разгледаме изображението $h:\A_1 \to \A_2$, където:
   \begin{equation}
     \label{eq:9}
-    h(a) \dff \bigsqcup_i \{f_i(a) \mid i \in \Nat\}.
+    h(a) \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}.
   \end{equation}
   Ще докажем, че $h$ е тази точна горна граница.
   \begin{itemize}

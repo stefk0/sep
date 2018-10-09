@@ -102,7 +102,11 @@
 \begin{framed}
   \begin{prop}
     \label{pr:system:independent}
-    Да разгледаме изображенията $f \in \Cont{\A\times\B}{\A}$ и $g \in \Cont{\B}{\B}$,
+    Да разгледаме две изображения
+    \begin{align*}
+      & f \in \Cont{\A\times\B}{\A}\\
+      & g \in \Cont{\B}{\B},
+    \end{align*}
     за които имаме системата от уравнения
     \begin{align*}
       \bigstar = 
@@ -229,10 +233,10 @@ ghci> let psi(x) = (approx !! (x+1))(x)
 Горният пример ни подсказва, че с индукция по $k$, можем да докажем, че 
 ако имаме редицата
 \begin{align*}
-  & g_0 = \Omega^{(2)}\\
+  & g_0 = \bm{\bot}^{(2)}\\
   & g_{k+1} = \Delta(g_k),
 \end{align*}
-то, за произволно $k$, имаме
+то, за произволнен индекс $k$, имаме
 \[g_k(x,y) =
 \begin{cases}
   x \cdot y, & \text{ако }x < k\text{ и }y \in \Nat\\
@@ -275,21 +279,21 @@ ghci> phi(8)    -- phi е най-малмата неподвижна точка 
 Горният пример ни подсказва, че с индукция по $k$, можем да докажем,
 че ако имаме редицата
 \begin{align*}
-  & f_0 = \Omega^{(1)}\\
+  & f_0 = \bm{\bot}^{(1)}\\
   & f_{k+1} = \hat\Gamma(f_k),
 \end{align*}
-то, за произволно $k$, имаме
+то, за произволен индекс $k$, имаме
 \[f_k(x) =
 \begin{cases}
-  x!, & x < k\\
+  x!, & \text{ако }x < k\\
   \bot, & \text{иначе}.
 \end{cases}\]
 
 \noindent Отново по Теоремата на Клини, 
 \[\lfp(\hat\Gamma)(x) =
 \begin{cases}
-  x!, & x \in \Nat\\
-  \bot, & x = \bot.
+  x!, & \text{ако }x \in \Nat\\
+  \bot, & \text{ако }x = \bot.
 \end{cases}\]
             
 От \Prop{system:independent} знаем, че двойката $(\lfp(\hat\Gamma)),\lfp(\Delta))$ е най-малкото решение на системата,
@@ -331,7 +335,7 @@ ghci> phi(8)    -- phi е най-малмата неподвижна точка 
 \begin{example}
 Да разгледаме следната програма:
   \begin{haskellcode}
-ghci> :{  -- Multiline
+ghci> :{  -- използване на multiline дефиниции
 ghci> let g(x, y, z) = if x == y + z then z 
 ghci|                    else if z == x + 1 then 0 
 ghci|                      else g(x, y, z + 1)
@@ -382,7 +386,7 @@ ghci> g9(2,11,4)  -- 2+1 \not\in [4, 13)
 Горният пример ни подсказва, че с индукция по $k$, можем да докажем,
 че ако имаме редицата
 \begin{align*}
-  & g_0 = \Omega^{(3)}\\
+  & g_0 = \bm{\bot}^{(3)}\\
   & g_{k+1} = \Gamma(g_k),
 \end{align*}
 то, за произволно $k$, имаме

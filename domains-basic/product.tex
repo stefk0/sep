@@ -3,17 +3,16 @@
 \index{област на Скот!крайно произведение}
 \marginpar{\cite[стр. 125]{winskel}}
 
-Да фиксираме тройките $\A_1,\A_2,\dots,\A_n$, където за $i = 1,\dots,n$ имаме
-$\A_i = (A_i, \sqsubseteq_i, \bot_i)$. Дефинираме тройката 
+Да разгледаме тройките $\A_i = (A_i, \sqsubseteq_i, \bot_i)$, където $i = 1,\dots,n$. Дефинираме тройката 
 $\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
 \begin{itemize}
 \item
-  $A = A_1\times\dots\times A_n$;
+  $A \df A_1\times\dots\times A_n$, декартовото произведение на множествата $A_1,\dots,A_n$;
 \item 
-  \marginpar{Наредбата $\sqsubseteq$ се нарича {\em поточкова наредба}}
-  $\pair{a_1,\dots,a_n} \sqsubseteq \pair{b_1,\dots,b_n} \iff a_1 \sqsubseteq_1 b_1\ \&\ \dots\ \&\ a_n \sqsubseteq_n b_n$;
+  $\pair{a_1,\dots,a_n} \sqsubseteq \pair{b_1,\dots,b_n} \dfff a_1 \sqsubseteq_1 b_1\ \&\ \dots\ \&\ a_n \sqsubseteq_n b_n$,
+  която ще наричаме {\em поточкова наредба};
 \item
-  $\bot = \pair{\bot_1,\dots,\bot_n}$.
+  $\bot \df \pair{\bot_1,\dots,\bot_n}$.
 \end{itemize}
 
 \begin{framed}
@@ -37,7 +36,7 @@ $\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
     Да разгледаме $1 \leq k \leq n$.
     Ясно е, че $a^j_k \sqsubseteq_k \bigsqcup_i a^i_k$.
     Оттук веднага следва, че
-    \[\bar{a}_j = (a^j_1,\dots,a^j_n) \sqsubseteq (\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n) = \bar{a}.\]
+    \[\bar{a}_j = \pair{a^j_1,\dots,a^j_n} \sqsubseteq \pair{\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n} = \bar{a}.\]
   \item
     Нека $\bar{b} = \pair{b_1,\dots,b_n}$ е произволна горна граница на $\chain{\bar{a}}{i}$.
     Ще докажем, че $\bar{a} \sqsubseteq \bar{b}$.
@@ -48,7 +47,7 @@ $\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
     Следователно
     \[\bigsqcup_j a^k_j \sqsubseteq_k b_k.\]
     Заключаваме, че
-    \[\bar{a} = (\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n) \sqsubseteq (b_1,\dots,b_n) = \bar{b}.\]
+    \[\bar{a} = \pair{\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n} \sqsubseteq \pair{b_1,\dots,b_n} = \bar{b}.\]
   \end{itemize}
 \end{hint}
 
@@ -114,9 +113,8 @@ $\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
 ще се окаже важно по-нататък. Сега ще въведем понятие, което описва това свойство в произволна област на Скот.
 \marginpar{ $\Nat^k_\bot = \underbrace{\Nat_\bot \times \cdots \times\Nat_\bot}_{k}$}
 
-Нека $\A$ е област на Скот и да разгледаме една растяща верига $(a_n)_{n\in\Nat}$ в $\A$.
-% \[a_1\sqsubseteq a_2 \sqsubseteq a_2 \sqsubseteq \cdots \sqsubseteq a_n \sqsubseteq \cdots\]
-Ще казваме, че $(a_n)_{n\in \Nat}$ се {\bf стабилизира}, ако съществува индекс $n_0$, за който
+Нека $\A$ е област на Скот и да разгледаме една верига $\chain{a}{n}$ в $\A$.
+Ще казваме, че $\chain{a}{n}$ се {\bf стабилизира}, ако съществува индекс $n_0$, за който
 \[(\forall n \geq n_0)[a_{n_0} = a_{n}],\]
 т.е.
 \[a_0 \sqsubseteq a_1 \sqsubseteq a_2 \sqsubseteq \cdots \sqsubseteq a_{n_0} = a_{n_0+1} = a_{n_0+2} = \cdots\]
