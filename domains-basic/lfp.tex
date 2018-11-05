@@ -78,9 +78,8 @@
   Това означава, че $\lfp(f)$ е най-малката преднеподвижна точка на $f$.
 \end{prop}
 \begin{proof}
-  Знаем от Теоремата на Клини, че $\lfp(f) = \bigsqcup_n f^n(\bot)$.
-  Нека за улеснение $b_n \dff f^n(\bot)$.
-  От доказателството на \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем, че $\chain{b}{n}$ е верига.
+  Знаем от \hyperref[th:knaster-tarski]{Теоремата на Клини}, че $\lfp(f) = \bigsqcup_n f^n(\bot)$.
+  Също така знаем, че $\chain{b}{n}$ е верига, където за улеснение сме положили $b_n \dff f^n(\bot)$. 
   Ясно е също, че $\texttt{Pref}(f) \neq \emptyset$, защото $\lfp(f) \in \texttt{Pref}(f)$.
   Да фиксираме прозиволен елемент $a\in \texttt{Pref}(f)$.
   С индукция по $n$ ще докажем, че $b_n \sqsubseteq a$ за всяко $n$.
@@ -102,8 +101,34 @@
   \[\lfp(f) = \bigsqcup_n b_n \sqsubseteq a.\]
 \end{proof}
 
+\begin{problem}
+  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но $\bigsqcup_n f^n(\bot^\A)$ не е.
+\end{problem}
+\ifhints
+\begin{hint}
+  Да разгледаме $\A = (A, \sqsubseteq, a_0)$, където елементите на $A$ са подредени по следния начин:
+
+  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset b_0 \sqsubset b_1 \}.\]
+  т.е. $A$ е съставена от веригата $(a_n)^\infty_{n=0}$ веднага следвана от елементите $b_0$ и $b_1$.
+  Да обърнем внимание, че $\bigsqcup_n a_n = b_0$.
+
+  Да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
+  \begin{align*}
+    & f(a_n) = a_{n+1}\\
+    & f(b_0) = b_{1}\\
+    & f(b_1) = b_1.
+  \end{align*}
+  Лесно се вижда, че това изображение е монотонно.
+  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = b_0$, и тогава:
+  \[f(\bigsqcup_n a_n) = f(b_0) = b_1 \neq b_0 = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
+  Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $b_1$.
+  Това означава, че $b_1$ е също и най-малката неподвижна точка.
+  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка,
+  макар и тя да не може да не е $\bigsqcup_n f^n(a_0)$.
+\end{hint}
+\fi
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

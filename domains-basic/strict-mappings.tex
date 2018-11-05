@@ -66,9 +66,9 @@
   Нека $\bar{a} \in \Nat^n_\bot$ и да приемем, че $\bot \in \{a_1,\dots,a_n\}$.
   Тогава:
   \begin{align*}
-    h(\bar{a}) & = \bigsqcup \{f_i(\bar{a}) \mid i \in \Nat\} & (\text{от деф. на }h)\\
-    & = \bigsqcup\{\bot,\bot,\dots,\bot,\dots\} & (f_i\text{ са точни})\\
-    & = \bot.
+    h(\bar{a}) & = \bigsqcup \{f_i(\bar{a}) \mid i \in \Nat\} & \comment{\text{от деф. на }h}\\
+               & = \bigsqcup\{\bot,\bot,\dots,\bot,\dots\} & \comment{f_i\text{ са точни}}\\
+               & = \bot.
   \end{align*}
 \end{hint}
 
@@ -78,7 +78,7 @@
   \begin{align*}
     h(x) = &
     \begin{cases}
-      0, & x = \bot,\\
+      0, & \text{ако }x = \bot,\\
       1, & \text{иначе}.
     \end{cases}
   \end{align*}
@@ -139,7 +139,7 @@ ghci> h(undefined)
     x+y, & x \neq \bot\ \&\ y \neq \bot.
   \end{cases}\]
   Изображението $f$ не е точно, защото например $f(\bot,0) \neq \bot$.
-  Оттук директно следва, че $f$ не е монотонно изображение, защото $\Strict{\Nat^2_\bot}{\Nat_\bot} \subseteq \Mon{\Nat^2_\bot}{\Nat_\bot}$.
+  $f$ не е монотонно изображение, защото $\pair{2,\bot} \sqsubseteq \pair{2,3}$, но $2 = f(2,\bot) \not\sqsubseteq f(2,3) = 5$.
   Също така, $f$ не е непрекъснато изображение, защото $\Mon{\Nat^2_\bot}{\Nat_\bot} = \Cont{\Nat^2_\bot}{\Nat_\bot}$.
 \end{example}
 % \begin{hint}

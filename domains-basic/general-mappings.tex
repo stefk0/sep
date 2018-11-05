@@ -19,9 +19,10 @@
   \[(\forall a \in \A_1)[\bm{\bot}(a) = \bot_2].\]
 \end{itemize}
 
-  \begin{haskellcode}
+На хаскел можем да дефинираме изображението $\bm{\bot}$ по следния начин:
+\begin{haskellcode}
 ghci> let bottom _ = undefined
-  \end{haskellcode}
+\end{haskellcode}
 
 \begin{framed}
   \begin{thm}
@@ -76,7 +77,7 @@ ghci> let bottom _ = undefined
 \end{proof}
 
 \begin{cor}
-  $(\Mapping{\Nat^n_\bot}{\Nat_\bot},\sqsubseteq, \bm{\bot}^{(n)})$ е област на Скот,
+  Наредената тройка $(\Mapping{\Nat^n_\bot}{\Nat_\bot},\sqsubseteq, \bm{\bot}^{(n)})$ образува област на Скот,
   където $\bm{\bot}^{(n)}(\bar{a}) = \bot$, за всяко $\bar{a} \in \Nat^n_\bot$.
 \end{cor}
 

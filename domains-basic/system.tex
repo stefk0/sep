@@ -210,8 +210,7 @@ ghci> let f(x) = if x == 0 then 1 else x * f(x - 1)
 ghci> let gamma(f, g)(x) = if x == 0 then 1 else g(x, f(x - 1))
 ghci> let delta(g)(x, y) = if x == 0 then 0 else g(x - 1, y) + y
 -- Започваме да строим редицата от апроксимации по Теоремата на Клини
-ghci> let omega2(x,y) = undefined
-ghci> let g1 = delta(omega2)
+ghci> let g1 = delta( \(x,y) -> undefined )
 ghci> let g2 = delta(g1)
 ghci> let g3 = delta(g2)
 ghci> g3(2,4)
@@ -220,7 +219,7 @@ ghci> g3(3,4)
 *** Exception: Prelude.undefined
 -- Можем да подходим и по-мързеливо, като направо дефинираме безкрайния
 -- списък от тези апроксимации.
-ghci> let approx = omega2:[delta(g) | g <- approx]
+ghci> let approx = (\(x,y) -> undefined):[delta(g) | g <- approx]
 ghci> let g9 = approx !! 9
 ghci> g9(8,100)
 800
@@ -264,8 +263,7 @@ ghci> let gamma(f,g)(x) = if x == 0 then 1 else g(x,f(x-1))
 ghci> let gamma'(f) = gamma(f, \(x, y) -> x * y)
 ghci> :t gamma'
 gamma' :: (a -> a) -> a -> a
-ghci> let omega1(x) = undefined
-ghci> let approx' = omega1:[gamma'(f) | f <- approx']
+ghci> let approx' = (\x -> undefined):[gamma'(f) | f <- approx']
 ghci> let f9 = approx' !! 9
 ghci> f9(8)
 40320
@@ -372,8 +370,7 @@ ghci|                             else g(x, y, z + 1)
 ghci| :}
 ghci> :t delta
 delta :: ((t, t, t) -> t) -> (t, t, t) -> t
-ghci> let omega3(x,y,z) = undefined
-ghci> let approx = omega3:[delta(g) | g <- approx]
+ghci> let approx = (\(x,y,z) -> undefined):[delta(g) | g <- approx]
 ghci> let g9 = approx !! 9
 ghci> g9(20,11,1)  -- 20-11 \in [1, 10)
 9
@@ -387,7 +384,7 @@ ghci> g9(2,11,4)  -- 2+1 \not\in [4, 13)
 че ако имаме редицата
 \begin{align*}
   & g_0 = \bm{\bot}^{(3)}\\
-  & g_{k+1} = \Gamma(g_k),
+  & g_{k+1} = \Delta(g_k),
 \end{align*}
 то, за произволно $k$, имаме
 \[g_k(x,y,z) =

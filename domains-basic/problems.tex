@@ -196,33 +196,7 @@
   Обосновете заключенията си.
 \end{problem}
 
-\begin{problem}
-  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, за което $\bigsqcup_n f^n(\bot^\A)$ не е най-малката неподвижна точка на $f$.
-\end{problem}
-\ifhints
-\begin{hint}
-  Да разгледаме $\A = (A, \sqsubseteq, a_0)$, където елементите на $A$ са подредени по следния начин:
-
-  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset b_0 \sqsubset b_1 \sqsubset \cdots \sqsubset b_n \sqsubset \cdots \sqsubset c\},\]
-  т.е. $A$ е съставена от веригата $(a_n)^\infty_{n=0}$ веднага следвана от веригата $(b_n)^\infty_{n=0}$ и имаме най-голям елемент $c$.
-  Да обърнем внимание, че $\bigsqcup_n a_n = b_0$ и $\bigsqcup_n b_n = c$.
-
-  Да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
-  \begin{align*}
-    & f(a_n) = a_{n+1}\\
-    & f(b_n) = b_{n+1}\\
-    & f(c) = c.
-  \end{align*}
-  Лесно се вижда, че това изображение е монотонно.
-  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = b_0$, и тогава:
-  \[f(\bigsqcup_n a_n) = f(b_0) = b_1 \neq b_0 = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
-  Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $c$.
-  Това означава, че $c$ е също и най-малката неподвижна точка.
-  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка.
-\end{hint}
-\fi
-
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

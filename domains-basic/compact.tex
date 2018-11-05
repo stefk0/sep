@@ -54,13 +54,15 @@
 
 \begin{example}
   Областта на Скот $\F_n$ е алгебрична.
-  Компактните елементи са тези функции, за които $|Dom(f)| < \infty$, т.е.
+  Компактните елементи са тези функции $f$, за които $|Dom(f)| < \infty$, т.е.
   крайните функции.   
 \end{example}
+\Stefan{Да се даде някакво обяснение!}
 
 
 \begin{framed}
   \begin{thm}
+    \label{th:compact-operator}
     Нека $\A$ и $\B$ са области на Скот, където $\A$ е {\em алгебрична}.
     Тогава $f \in \Cont{\A}{\B}$ точно тогава, когато за произволен елемент $a \in A$,
     \[f(a) = \bigsqcup\{f(c) \mid c \sqsubseteq a\ \&\ c \in K(\A)\}.\]
@@ -134,7 +136,20 @@
     \end{enumerate}
   \end{cor}
 \end{framed}
-Понякога се оказва, че за проверката дали даден оператор $\Gamma$ е непрекъснат е по-лесно да се провери условието (2).
+
+% \begin{proof}
+%   $(1) \to (2)$. Да напомним, че
+%   \[h = \bigcup\{\Gamma(\theta) \mid \theta \subseteq f\ \&\ \theta\text{ е крайна функция}\}\]
+%     е функция, защото $\Gamma$ е монотонно изображение, и
+%   \[h(\ov{x}) \simeq y \iff \exists \theta \subseteq f\ \&\ \theta\text{ е крайна функция}\ \&\ \Gamma(\theta)(\ov{x}) \simeq y.\]
+  
+%   От \Theorem{compact-operator} имаме, че
+%   \[\Gamma(f) = h.\]
+%   Тогава е ясно, че
+%   \[\Gamma(f)(\ov{x}) \simeq y \iff (\exists \theta \subseteq f)[\ \theta\text{ е крайна функция}\ \&\ \Gamma(\theta)(\ov{x}) \simeq y\ ].\]
+% \end{proof}
+
+\marginpar{Понякога се оказва, че за проверката дали даден оператор $\Gamma$ е непрекъснат е по-лесно да се провери условието (2). Особено на упражнение ще се използва често характеризацията (2).}
 
 \Stefan{Да се даде поне един пример!}
 
