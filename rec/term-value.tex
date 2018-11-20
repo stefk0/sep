@@ -82,6 +82,13 @@
                         \end{cases}
   \end{align*}
 \end{example}
+Нека сега да видим следния пример на хаскел.
+\begin{haskellcode}
+ghci> let f(x) = if x == undefined then 0 else 1
+ghci> f(2)
+*** Exception: Prelude.undefined
+\end{haskellcode}
+Това означава, че функцията \texttt{==} е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата денотационна семантика.
 
 \begin{framed}
   \begin{lemma}[Лема за замяната]
@@ -116,12 +123,13 @@
     \[\val{\vv{x}_i}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\bar{\varphi})) = \val{\mu_i}(\bar{\varphi}).\]
   \item
     Нека $\tau \equiv \tau_1 + \tau_2$.
-    От {\bf И.П.} имаме, че за $j = 1,2$
-    \[\val{\tau_j[\varsx/\ov{\mu}]}(\ov{\varphi}) = \val{\tau_j}(\underbrace{\val{\mu_1}(\ov{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_n}(\ov{\varphi})}_{b_n},\ov{\varphi}).\]
+    От {\bf И.П.} имаме, че за $j = 1,2$ е изпъленено следното:
+    \[\val{\tau_j[\varsx/\ov{\mu}]}(\ov{\varphi}) = \val{\tau_j}(\ov{\varphi})(\underbrace{\val{\mu_1}(\ov{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_n}(\ov{\varphi})}_{b_n}).\]
     Тогава
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\tau_1[\varsx/\ov{\mu}] + \tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})\\
                                                 & \dff \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
+                                                % & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})),\val{\tau_2}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi}))) & \comment{\text{от {\bf И.П.}}}\\
                                                 & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
                                                 & \dff \val{\tau}(\ov{\varphi})(b_1,\dots,b_n)\\
                                                 & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \dff \val{\mu_j}(\ov{\varphi})}
@@ -163,5 +171,5 @@
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

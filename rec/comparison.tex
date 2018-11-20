@@ -32,7 +32,8 @@ $\D_V\val{\vv{P}} \neq \D_N\val{\vv{P}}$.
   Нека $\Delta \dff \Delta_{\tau_1} \times \Delta_{\tau_2}$. За да намерим най-малкото
   решение на системата, трябва да намерим най-малката неподвижна точка на $\Delta$.
   Ще получим това най-малко решение като точна горна граница на редица от двойки функции $(\varphi_i, \psi_i)$.
-  Имаме, че $\varphi_0(x) \dff \lambda x.\bot$ и $\psi_0(x) \dff \lambda x.\bot$.
+  Имаме, че $\varphi_0 \dff \lambda x.\bot$ и $\psi_0 \dff \lambda x.\bot$.
+  За произволно $x \in \Nat_\bot$ имаме, че
   \begin{align*}
     \varphi_1(x) & \dff \Delta_{\tau_1}(\varphi_0,\psi_0)(x)\\
                  & =
@@ -86,7 +87,7 @@ $\D_V\val{\vv{P}} \neq \D_N\val{\vv{P}}$.
   Търсим най-малката неподвижна точна на оператора 
   \[\Gamma(\varphi,\psi) \dff (\Gamma_{\tau_1}(\varphi, \psi), \Gamma_{\tau_2}(\varphi,\psi)).\]
   \marginpar{т.е. това са функциите, които винаги връщат $\bot$}
-  Имаме, че $\varphi_0(x) \dff \lambda x.\bot$ и $\psi_0(x) \dff \lambda x.\bot$.
+  Имаме, че $\varphi_0 \dff \lambda x.\bot$ и $\psi_0 \dff \lambda x.\bot$.
   Сега, за произволно $x \in \Nat_\bot$, получаваме:
   \begin{align*}
     \varphi_1(x) & \dff \Gamma_{\tau_1}(\varphi_0,\psi_0)(x) = \psi_0(\varphi_0(x)) = \bot\\
@@ -159,9 +160,9 @@ undefined
   \begin{hint}
     \marginpar{Обърнете внимание, че ако $\varphi$ е точна функция, то $\Gamma_\tau(\varphi)$ е непрекъсната, но може да не е точна.}
     Понеже за всяка $\varphi \in \Mapping{\Nat^n_\bot}{\Nat_\bot}$,
-    \[\Sigma_n(\varphi) \sqsubseteq \varphi,\]
+    \[\Sigma_\star(\varphi) \sqsubseteq \varphi,\]
     по получаваме, че
-    \[\Delta_\tau(\bar{\varphi}) \dff \Sigma_n(\Gamma_\tau(\bar{\varphi})) \sqsubseteq \Gamma_\tau(\bar{\varphi}).\]
+    \[\Delta_\tau(\bar{\varphi}) \dff \Sigma_\star(\Gamma_\tau(\bar{\varphi})) \sqsubseteq \Gamma_\tau(\bar{\varphi}).\]
 \end{hint}
 
 \begin{framed}
@@ -173,18 +174,22 @@ undefined
 \begin{proof}
   Първо с индукция по $k$ ще докажем, че
   \[(\forall k)[\ \bar{\delta}_k \sqsubseteq \bar{\gamma}_k\ ].\]
-  За $k = 0$ е ясно, защото $\delta^i_0 = \Omega^{(m_i)} = \gamma^i_0$.
+  За $k = 0$ е ясно, защото $\delta^i_0(\ov{x}) = \bot = \gamma^i_0(\ov{x})$.
   \marginpar{Озн. $\ov{\delta}_k = (\delta^1_k,\dots,\delta^n_k)$}
+  Да приемем, че $\ov{\delta}_k \sqsubseteq \ov{\gamma}_k$. Тогава
   \begin{align*}
     \delta^i_{k+1} & \dff \Delta_{\tau_i}(\bar{\delta}_k)\\
                    & \sqsubseteq \Gamma_{\tau_i}(\bar{\delta}_k) & \comment{\text{\Prop{delta-in-gamma}}}\\
-                   & \sqsubseteq \Gamma_{\tau_i}(\bar{\gamma}_k) & \comment{\text{$\Gamma_{\tau_i}$ е мон. и от {\bf И.П.} имаме, че } \ov{\delta}_k \sqsubseteq \ov{\gamma}_k}\\
+                   & \sqsubseteq \Gamma_{\tau_i}(\bar{\gamma}_k) & \comment{\text{$\Gamma_{\tau_i}$ е мон., а от {\bf И.П.} имаме, че } \ov{\delta}_k \sqsubseteq \ov{\gamma}_k}\\
                    & \dff \gamma^i_{k+1}.
   \end{align*}
+  Заключаваме, че $\ov{\delta}_{k+1} \sqsubseteq \ov{\gamma}_{k+1}$.
+  Сега е лесно да съобразим, че
+  \[\delta^i = \bigsqcup_k \delta^i_k \sqsubseteq \bigsqcup_k \gamma^i_k = \gamma^i.\]
   Оттук следва, че 
   \begin{equation}
     \label{eq:12}
-    \bar{\delta} = \bigsqcup_i\bar{\delta}_i \sqsubseteq \bigsqcup_i\bar{\gamma}_i = \bar{\gamma}.
+    \bar{\delta} = \bigsqcup_k\bar{\delta}_k \sqsubseteq \bigsqcup_k\bar{\gamma}_k = \bar{\gamma}.
   \end{equation}
   Сега, за произволни елементи $\ov{a}$,
   \begin{align*}

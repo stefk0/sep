@@ -39,7 +39,7 @@
 
   \marginpar{От \Prop{continuous-is-monotone} знаем, че всеки непрекъснат оператор е монотонен. 
     Щом $\val{\tau}$ не е монотоненно, то той със сигурност не е непрекъснато.}
-  Това означава, че за конкретния терм $\tau$, изображението $\val{\tau}$ не е монотонно, откъдето следва, че той не е непрекъснато.
+  Това означава, че за конкретния терм $\tau$, изображението $\val{\tau}$ не е монотонно, откъдето следва, че то не е непрекъснато.
 \end{example}
 
 % Горният пример ни казва, че за $\val{\tau}$, дефинирани върху произволни елементи от $\Mapping{\Nat^{m_i}_\bot}{\Nat_\bot}$
@@ -163,7 +163,7 @@ ghci> psi(0)
     \begin{align*}
       \val{\tau}(\ov{\varphi})(\ov{a}) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a})\\
                                       & \dff \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{a}))\\
-                                      & \sqsubseteq \varphi_i(\val{\tau_1}(\ov{b},\ov{\varphi}), \dots, \val{\tau_{m_i}}(\ov{a},\ov{\varphi})) & \comment{\text{от (\ref{eq:6}) и $\varphi_i$ е мон.}}\\
+                                      & \sqsubseteq \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от (\ref{eq:6}) и $\varphi_i$ е мон.}}\\
                                       & \dff \val{\tau}(\ov{\varphi})(\ov{b}).
     \end{align*}
   \end{itemize}
@@ -189,45 +189,6 @@ ghci> psi(0)
   \[\val{\tau}(\ov{\varphi})(\bigsqcup_i\ov{a}_i) = \bigsqcup_i\val{\tau}(\ov{\varphi})(\ov{a}_i).\]
 \end{proof}
 
-% \begin{prop}
-%   Да разгледаме един терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$.
-%   Тогава за произволна верига $\chain{\bar{a}}{i}$ в $\Nat^{n}_\bot$,
-%   \marginpar{Озн. $\ov{a}_i = (a^1_i,\dots,a^n_i)$}
-%   \[\val{\tau}(\bigsqcup_i\ov{a}_i,\ov{\varphi}) = \bigsqcup_i\val{\tau}(\ov{a}_i,\ov{\varphi}),\]
-%   където
-%   $\varphi_i \in \Cont{\Nat^{n_i}_\bot}{\Nat_\bot}$, за $i = 1,\dots,k$.
-% \end{prop}
-% \begin{hint}
-%   \marginpar{Всъщност тук е достатъчно да се докаже, че $\val{\tau}(\ov{a},\ov{\varphi}) \sqsubseteq \val{\tau}(\ov{b},\ov{\varphi})$ за
-%     произволни $\ov{a} \sqsubseteq \ov{b}$. От това директно следва непрекъснатост.}
-%   Индукция по построението на терма $\tau$.
-%   \begin{itemize}
-%   \item
-%     Нека $\tau \equiv \vv{c}$.
-%   \item
-%     Нека $\tau \equiv \vv{x}_i$. Тогава
-%     \begin{align*}
-%       \val{\tau}(\bigsqcup_k \bar{a}_k, \bar{\varphi}) & = \val{\vv{x}_i}(\bigsqcup_k \bar{a}_k, \bar{\varphi})\\
-%       & = \bigsqcup_k a^i_k \\
-%       & = \bigsqcup_k \underbrace{\val{\tau}(\bar{a}_k,\bar{\varphi})}_{a^i_k}.
-%     \end{align*}
-%   \item
-%     Нека $\tau \equiv \tau_1 + \tau_2$.
-%   \item
-%     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
-%   \item
-%     Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.  
-%   \item
-%     Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$. Тогава
-%     \begin{align*}
-%       \val{\tau}(\bigsqcup_k\bar{a}_k,\bar{\varphi}) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\bigsqcup_k\bar{a}_k,\bar{\varphi}) \\
-%       & = \varphi_i(\val{\tau_1}(\bigsqcup_k\bar{a}_k,\bar{\varphi}), \dots, \val{\tau_{m_i}}(\bigsqcup_k\bar{a}_k,\bar{\varphi})) & \comment{\text{стойност на терм}}\\
-%      & = \varphi_i(\bigsqcup_k \val{\tau_1}(\bar{a}_k,\bar{\varphi}), \dots, \bigsqcup_k \val{\tau_{m_i}}(\bar{a}_k,\bar{\varphi})) & \comment{\text{от И.П.}}\\
-%      & = \bigsqcup_k \varphi_i(\val{\tau_1}(\bar{a}_k,\bar{\varphi}), \dots, \val{\tau_{m_i}}(\bar{a}_k,\bar{\varphi})) & \comment{\varphi_i \in \Cont{\Nat^{m_i}_\bot}{\Nat_\bot}}\\
-%      & = \bigsqcup_k \val{\tau}(\bar{a}_k,\bar{\varphi}) & \comment{\text{стойност на терм}}.
-%     \end{align*}
-%   \end{itemize}
-% \end{hint}
 
 \begin{cor}
   \label{cr:gamma-preserves-continuous}
@@ -311,7 +272,7 @@ ghci> psi(0)
   от елементи на
   \[\DomOpCBN.\]
   Тогава 
-  \[\val{\tau}(\ov{a},\bigsqcup_r\ov{\varphi}_r) = \bigsqcup_r \val{\tau}(\ov{a},\ov{\varphi}_r).\]  
+  \[\val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}).\]  
 \end{cor}
 \begin{proof}
   \begin{align*}
@@ -320,190 +281,6 @@ ghci> psi(0)
                                                   & = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}) &  \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
   \end{align*}
 \end{proof}
-
-
-% \begin{prop}
-%   \label{pr:tau-preserves-monotone}
-%   Да разгледаме произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$.
-%   Да разгледаме произволни $\ov{a} \in \Nat^n_\bot$ и $\ov{\varphi} \sqsubseteq \ov{\psi}$,
-%   където $\varphi_i,\psi_i \in \Cont{\Nat^{m_i}_\bot}{\Nat_\bot}$, за $i = 1, \dots, k$.
-%   Тогава 
-%   \[\val{\tau}(\ov{a},\ov{\varphi}) \sqsubseteq \val{\tau}(\ov{a},\ov{\psi}).\]
-% \end{prop}
-% \begin{hint}
-%   Отново индукция по построението на терма $\tau$, 
-%   като съществено използваме \Prop{continuous-is-monotone}, което ни казва, че всяка непрекъснато изображене е монотонно.
-%   \begin{itemize}
-%   \item
-%     Нека $\tau \equiv \vv{c}$.
-%   \item
-%     Нека $\tau \equiv \vv{x}_i$.
-%   \item
-%     Нека $\tau \equiv \tau_1 + \tau_2$.
-%   \item
-%     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
-%   \item
-%     Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.
-%   \item 
-%     Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$.
-%     Тогава от {\bf И.П.} имаме, че за $j = 1,\dots,m_i$,
-%     \begin{equation}
-%       \label{eq:7}
-%       \val{\tau_j}(\ov{a},\ov{\varphi}) \sqsubseteq \val{\tau_j}(\ov{a},\ov{\psi}).      
-%     \end{equation}
-
-%     Понеже $\varphi_i$ е непрекъснато и следователно монотонно, заключаваме, че 
-%     \begin{align*}
-%       \val{\tau}(\ov{a},\ov{\varphi}) & = \varphi_i(\val{\tau_1}(\ov{a},\ov{\varphi}), \dots, \val{\tau_{m_i}}(\ov{a},\ov{\varphi})) & \comment{\text{стойност на терм}}\\
-%                                       & \sqsubseteq \varphi_i(\val{\tau_1}(\ov{a},\ov{\psi}), \dots, \val{\tau_{m_i}}(\ov{a},\ov{\psi})) & \comment{\text{от (\ref{eq:7}) и $\varphi_i$ е мон.}}\\
-%                                       & \sqsubseteq \psi_i(\val{\tau_1}(\ov{a},\ov{\psi}), \dots, \val{\tau_{m_i}}(\ov{a},\ov{\psi})) & \comment{\varphi_i \sqsubseteq \psi_i}\\
-%       & = \val{\tau}(\ov{a},\ov{\psi}) & \comment{\text{стойност на терм}}.
-%     \end{align*}
-%   \end{itemize}
-% \end{hint}
-
-% \begin{cor}
-%   За произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$,
-%   $\Gamma_\tau$ е монотонен оператор.
-% \end{cor}
-
-% \begin{prop}
-%   \label{pr:tau-is-finite}
-%   Да разгледаме един терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$ и 
-%   нека $(\bar{\varphi}_r)^{\infty}_{r=0}$ е верига във $\C$,
-%   \marginpar{Озн. $\ov{\varphi}_r = (\varphi^1_r,\dots,\varphi^{k}_r)$}
-%   $\bar{a}\in\N^n_\bot$, и $b \neq \bot$.
-%   Тогава \[\val{\tau}(\bar{a},\bigsqcup_r\bar{\varphi}_r) = b\ \iff\ \val{\tau}(\bar{a},\bar{\varphi}_{r_0}) = b\text{ за някой индекс }r_0\]
-% \end{prop}
-% \begin{proof}
-%   Посоката $(\Leftarrow)$ следва директно от \Prop{tau-preserves-monotone},
-%   защото за индекса $r_0$ имаме, че $\bar{\varphi}_{r_0} \sqsubseteq \bigsqcup_r\bar{\varphi}_{r}$, и оттук 
-%   \begin{align*}
-%     \bot \neq b & = \val{\tau}(\bar{a},\bar{\varphi}_{r_0}) \\
-%                 & \sqsubseteq \val{\tau}(\bar{a},\bigsqcup_r\bar{\varphi}_{r}) & (\text{монотонност})\\
-%                 & = b & (\text{плоска наредба и }b \neq \bot).
-%   \end{align*}
-
-%   % Понеже $b \neq \bot$ и $\sqsubseteq$ е плоската наредба, то $\val{\tau}(\bar{a},\bigsqcup_r\bar{\varphi}_{r}) = b$.
-  
-%   Ще докажем посоката $(\Rightarrow)$ с индукция по построението на терма $\tau$.
-%   Тук трябва да внимаваме с индексите, защото означаваме $\ov{\varphi}_r = (\varphi^1_r,\dots,\varphi^{k}_r)$
-%   и 
-%   \[\bigsqcup_r(\varphi^1_r,\dots,\varphi^k_r) = (\bigsqcup_r\varphi^1_r,\dots,\bigsqcup_r\varphi^{k}_r).\]
-%   \begin{enumerate}[a)]
-%   \item
-%     Нека $\tau \equiv \vv{c}$.
-%   \item
-%     Нека $\tau \equiv \vv{x}_i$.
-%   \item
-%     Нека $\tau[\varsx, \varsf] \equiv \tau_1[\varsx, \varsf] + \tau_2[\varsx, \varsf]$.
-%     Нека
-%     \begin{align*}
-%       b_1 & \dff \val{\tau_1}(\ov{a},\bigsqcup_r\ov{\varphi}_r)\\
-%       b_2 & \dff \val{\tau_2}(\ov{a},\bigsqcup_r\ov{\varphi}_r).
-%     \end{align*}
-%     Понеже $b \neq \bot$, то $b_1, b_1 \in \Nat$ и $b = b_1 + b_2$.
-%     От {\bf И.П.} получаваме, че съществуват $r_1,r_2$, за които:
-%     \begin{align*}
-%       b_1 & = \val{\tau_1}(\ov{a},\bigsqcup_r\ov{\varphi}_r) = \val{\tau_1}(\ov{a},\ov{\varphi}_{r_1})\\
-%       b_2 & = \val{\tau_2}(\ov{a},\bigsqcup_r\ov{\varphi}_r) = \val{\tau_1}(\ov{a},\ov{\varphi}_{r_2}).
-%     \end{align*}
-%     Нека $r_0 \dff \max\{r_1,r_2\}$. Тогава 
-%     \begin{align*}
-%       \ov{\varphi}_{r_1} \sqsubseteq \ov{\varphi}_{r_0} & \implies \val{\tau_1}(\ov{a},\ov{\varphi}_{r_1}) = \val{\tau_1}(\ov{a},\ov{\varphi}_{r_0}) = b_1 \neq \bot \\
-%       \ov{\varphi}_{r_2} \sqsubseteq \ov{\varphi}_{r_0} & \implies \val{\tau_1}(\ov{a},\ov{\varphi}_{r_2}) = \val{\tau_1}(\ov{a},\ov{\varphi}_{r_0}) = b_2 \neq \bot.
-%     \end{align*}
-%     Накрая,
-%     \begin{align*}
-%       \val{\tau}(\ov{a},\bigsqcup_r\ov{\varphi}_r) & = \overbrace{\val{\tau_1}(\ov{a},\bigsqcup_r\ov{\varphi}_{r})}^{b_1 \neq \bot} + \overbrace{\val{\tau_2}(\ov{a},\bigsqcup_r\ov{\varphi}_{r})}^{b_2 \neq \bot}\\
-%                                                    & = \val{\tau_1}(\ov{a},\ov{\varphi}_{r_1}) + \val{\tau_2}(\ov{a},\ov{\varphi}_{r_2})\\
-%                                                    & = \val{\tau_1}(\ov{a},\ov{\varphi}_{r_0}) + \val{\tau_2}(\ov{a},\ov{\varphi}_{r_0})\\
-%       & = \val{\tau}(\ov{a},\ov{\varphi}_{r_0}).
-%     \end{align*}
-
-%   \item
-%     Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$. Тогава 
-%     \begin{align*}
-%       \val{\tau}(\ov{a},\bigsqcup_r\ov{\varphi}_r) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{a},\bigsqcup_r\ov{\varphi}_r)\\
-%                                                      & = (\bigsqcup_r\varphi^i_r)(\overbrace{\val{\tau_1}(\ov{a},\bigsqcup_r\ov{\varphi}_r)}^{b_1},\dots,\overbrace{\val{\tau_{m_i}}(\ov{a},\bigsqcup_r\ov{\varphi}_r)}^{b_{m_i}}) & \comment{\text{стойност на терм}}\\
-%                                                      & = (\bigsqcup_r\varphi^i_r)(b_1,\dots,b_{m_i}) & \comment{\text{Може някои }b_j = \bot}\\
-%                                                      & = \bigsqcup\{\underbrace{\varphi^i_r(b_1,\dots,b_{m_i})}_{c_r} \mid r \in \Nat\} & \comment{\text{от \Th{continuous-is-domain}}}\\
-%                                                      & = \bigsqcup\{c_0 \sqsubseteq c_1 \sqsubseteq c_2 \sqsubseteq \cdots\} & \comment{\text{защото }\varphi^{i}_{r} \sqsubseteq \varphi^{i}_{r+1}}\\
-%                                                      & = b \neq \bot.
-%     \end{align*}
-%     Понеже $(c_r)^{\infty}_{r=0}$ е верига в $\Nat_\bot$, където работим с плоската наредба, и $\bigsqcup_r c_r = b \neq \bot$, то съществува индекс $\hat{r}$,
-%     за който $\varphi^i_{\hat{r}}(\ov{b}) \dff c_{\hat{r}} = b \neq \bot$.
-%     Да разгледаме сега за всяко $j = 1,\dots,m_i$,
-%     \begin{itemize}
-%     \item
-%       Ако $b_j \neq \bot$, то използваме {\bf И.П.}:
-%       \[\val{\tau_j}(\ov{a},\bigsqcup_r\ov{\varphi}_r) = b_j\ \implies\ \val{\tau_j}(\ov{a},\ov{\varphi}_{r_j}) = b_j\text{ за някой индекс }r_j\]
-%       Избираме този индекс $r_j$.
-%     \item
-%       Ако $b_j = \bot$, то фиксираме $r_j = 42$. (Защо?)
-%     \end{itemize}
-%     Нека да положим
-%     \[r_0 = \max\{\hat{r},r_1,\dots,r_{m_i}\}.\]
-%     \marginpar{Естествено, всеки индекс $\geq r_0$ ще свърши работа}
-%     Ще видим, че $r_0$ е търсения индекс. За всяко $j = 1, \dots, m_i$ получаваме:
-%     \begin{itemize}
-%     \item 
-%       $b_j \neq \bot$, то
-%       \[\ov{\varphi}_{r_j} \sqsubseteq \ov{\varphi}_{r_0} \implies \val{\tau_j}(\ov{a},\ov{\varphi}_{r_j}) = b_j \sqsubseteq \val{\tau_j}(\ov{a},\ov{\varphi}_{r_0}),\]
-%       защото от \Prop{tau-preserves-monotone} имаме монотонност.
-%       Понеже $b_j \neq \bot$, то $\val{\tau_j}(\ov{a},\ov{\varphi}_{r_0}) = b_j$.
-%     \item
-%       $b_j = \bot$, то отново използваме монотонност и получаваме, че
-%       \[\ov{\varphi}_{r_0} \sqsubseteq \bigsqcup_k\ov{\varphi_k} \implies \val{\tau_j}(\ov{a}, \ov{\varphi}_{r_0}) \sqsubseteq \val{\tau_j}(\ov{a}, \bigsqcup_k\ov{\varphi}_k) = b_j = \bot.\]
-%       Това означава, че $\val{\tau_j}(\ov{a}, \ov{\varphi}_{r_0}) = b_j$
-%     \end{itemize}
-%     Така видяхме, че за $j=1,\dots,m_i$, 
-%     \begin{equation}
-%       \label{eq:b-j}
-%       \val{\tau_j}(\ov{a},\ov{\varphi}_{r_0}) = b_j.
-%     \end{equation}
-%     Освен това, понеже $r_0 \geq \hat{r}$ и $c_{\hat{r}} = b\neq \bot$ в $\Nat_\bot$,
-%     то \[\varphi^i_{r_0}(b_1,\dots,b_{m_i}) \dff c_{r_0} = c_{\hat{r}} = b\neq \bot.\]
-%     Получаваме, че 
-%     \begin{align*}
-%       \bot \neq b & = \val{\tau}(\ov{a},\bigsqcup_k\ov{\varphi}_k)\\
-%                   & = (\bigsqcup_k\varphi^i_k)(b_1,\dots,b_{m_i}) & (\text{стойност на терм})\\
-%                   & = \varphi^i_{\hat{r}}(b_1,\dots,b_{m_i}) & (\text{от избора на }\hat{r})\\
-%                   & = \varphi^i_{\hat{r}}(\val{\tau_1}(\ov{a},\ov{\varphi}_{r_0}), \dots, \val{\tau_{m_i}}(\ov{a},\ov{\varphi}_{r_{0}})) & (\text{от Равенство \ref{eq:b-j}})\\
-%                   & \sqsubseteq \varphi^i_{r_0}(\val{\tau_1}(\ov{a},\ov{\varphi}_{r_0}), \dots, \val{\tau_{m_i}}(\ov{a},\ov{\varphi}_{r_{0}})) & (r_0 \geq \hat{r})\\
-%                   & = \val{\tau}(\ov{a},\ov{\varphi}_{r_0}) & (\text{стойност на терм})\\
-%                   & = b & (\text{плоска наредба}).
-%     \end{align*}
-%   \end{enumerate}
-% \end{proof}
-
-% \begin{cor}
-%   \label{cr:tau-is-continuous}
-%   Да разгледаме един терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_m]$ и 
-%   нека $(\bar{\varphi}_r)^{\infty}_{r=0}$ е верига във $\C$,
-%   \marginpar{Озн. $\bar{\varphi}_r = (\varphi^1_r,\dots,\varphi^{m}_r)$}
-%   $\bar{a}\in\N^n_\bot$. Тогава
-%   \[\val{\tau}(\bar{a},\bigsqcup_r\bar{\varphi}_r) = \bigsqcup_r \val{\tau}(\bar{a},\bar{\varphi}_r).\]
-% \end{cor}
-% \begin{hint}
-%   Имаме да разгледаме два случая.
-%   \begin{itemize}
-%   \item 
-%     Нека $\val{\tau}(\bar{a},\bigsqcup_k\ov{\varphi}_k) = \bot$.
-%     Тогава от \Prop{tau-preserves-monotone} имаме, че понеже $\varphi_r \sqsubseteq \bigsqcup_k \varphi_k$, то 
-%     \[(\forall r)[\ \val{\tau}(\bar{a},\varphi_r) \sqsubseteq \val{\tau}(\bar{a},\bigsqcup_k\bar{\varphi}_k) = \bot\ ],\]
-%     откъдето следва, че 
-%     \[(\forall r)[\ \val{\tau}(\bar{a},\varphi_r) = \bot\ ].\]
-%     Заключаваме, че в този случай, 
-%     \[\bigsqcup_r \val{\tau}(\bar{a},\varphi_r) = \bot = \val{\tau}(\bar{a},\bigsqcup_r\bar{\varphi}_r).\]
-%   \item
-%     Нека $\val{\tau}(\bar{a},\bigsqcup_r\bar{\varphi}_r) = b \neq \bot$.
-%     Тогава от \Prop{tau-is-finite} следва, че съществува индекс $r_0$, за който 
-%     $\val{\tau}(\bar{a},\bar{\varphi}_{r_0}) = b$.
-%     Понеже $b \neq \bot$ и работим с плоска наредба, то от \Prop{tau-preserves-monotone}, за всяко $r \geq r_0$ имаме, че
-%     $\val{\tau}(\bar{a},\bar{\varphi}_{r}) = b$. Заключаваме, че $\bigsqcup_r \val{\tau}(\bar{a},\bar{\varphi}_r) = b$.    
-%   \end{itemize}
-% \end{hint}
 
 Вече имаме всичко необходимо за да се убедим, че термалните оператори са непрекъснати.
 
@@ -522,8 +299,7 @@ ghci> psi(0)
   Сега директно се позоваваме на \Cor{rec:term:continuous}.
 \end{proof}
 
-
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:
