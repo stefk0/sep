@@ -256,7 +256,7 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
 
 \begin{problem}
   Докажете, че съществуват области на Скот $\A$, $\B$ и $\C$, за които
-  \[\Cont{\Cont{\A}{\B}}{\C} \not\cong \Cont{\A}{\Cont{B}{\C}}.\]  
+  \[\Cont{\Cont{\A}{\B}}{\C} \not\cong \Cont{\A}{\Cont{\B}{\C}}.\]  
 \end{problem}
 
 \subsection*{Точни продължения на частични функции}
@@ -281,27 +281,27 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
   \end{cases}\]
 \end{example}
 
-\noindent Да дефинираме оператор $\Sigma^\star : \Partial{\Nat^n}{\Nat} \to \Strict{\Nat^n_\bot}{\Nat_\bot}$ като
-\[\Sigma^\star(f) = f^\star.\] 
-Ще наричаме $\Sigma^\star$ {\bf продължаващ} оператор, защото на всяка частична функция дава нейното точно продължение.
+\noindent Да дефинираме оператор $\Sigma^\star_n : \Partial{\Nat^n}{\Nat} \to \Strict{\Nat^n_\bot}{\Nat_\bot}$ като
+\[\Sigma^\star_n(f) = f^\star.\] 
+Ще наричаме $\Sigma^\star_n$ {\bf продължаващ} оператор, защото на всяка частична функция дава нейното точно продължение.
 
 
 \begin{thm}
   За всяко естествено число $n$,
   \[\Partial{\Nat^n}{\Nat}\ \cong\ \Strict{\Nat^n_\bot}{\Nat_\bot}\]
-  чрез изображението $\Sigma^\star$.
+  чрез изображението $\Sigma^\star_n$.
 \end{thm}
 \begin{hint}
   \begin{itemize}
   \item 
-    Лесно се съобразява, че $\Sigma^\star$ е биективна функция на $\Partial{\Nat^n}{\Nat}$ върху $\Strict{\Nat^n_\bot}{\Nat_\bot}$.
+    Лесно се съобразява, че $\Sigma^\star_n$ е биективна функция на $\Partial{\Nat^n}{\Nat}$ върху $\Strict{\Nat^n_\bot}{\Nat_\bot}$.
   \item
-    Лесно се проверява също, че $f \subseteq g \iff \Sigma^\star(f) \sqsubseteq \Sigma^\star(g)$.    
+    Лесно се проверява също, че $f \subseteq g \iff \Sigma^\star_n(f) \sqsubseteq \Sigma^\star_n(g)$.    
   \end{itemize}
 \end{hint}
 
 \begin{cor}
-  $\Sigma^\star$ е непрекъснато изображение, т.е.
+  $\Sigma^\star_n$ е непрекъснато изображение, т.е.
   \[\Sigma^\star \in \Cont{\Partial{\Nat^n}{\Nat}}{\Strict{\Nat^n_\bot}{\Nat_\bot}}.\]
 \end{cor}
 
@@ -348,31 +348,30 @@ f(x, y) = if x == y then 0
   \end{cases}
 \end{align*}
 
-Понеже $\Sigma^\star$ задава изоморфизъм между областите на Скот $\Partial{\Nat^2}{\Nat}$ и $\Strict{\Nat^2_\bot}{\Nat_\bot}$,
+Понеже $\Sigma^\star_2$ задава изоморфизъм между областите на Скот $\Partial{\Nat^2}{\Nat}$ и $\Strict{\Nat^2_\bot}{\Nat_\bot}$,
 то от \Prop{isomorphic-higher-order} имаме, че
 \[\Cont{\Partial{\Nat^2}{\Nat}}{\Partial{\Nat^2}{\Nat}} \cong_{\mathcal{G}} \Cont{\Strict{\Nat^2_\bot}{\Nat_\bot}}{\Strict{\Nat^2_\bot}{\Nat_\bot}},\]
 където
-\[\mathcal{G}(\Gamma) = \Sigma^\star \circ \Gamma \circ (\Sigma^\star)^{-1}.\]
+\[\mathcal{G}(\Gamma) = \Sigma^\star_2 \circ \Gamma \circ (\Sigma^\star_2)^{-1}.\]
 Графично това може да се представи така:
 \shorthandoff{"}%
 \begin{center}
   \begin{tikzcd}[sep=large]
-    \Partial{\Nat^n}{\Nat} \arrow[r, "\Gamma"] & \Partial{\Nat^n}{\Nat} \arrow[d, "\Sigma^\star"]\\
-    \Strict{\Nat^n_\bot}{\Nat_\bot} \arrow[u, "(\Sigma^\star)^{-1}"]\arrow[r, dashed, "\mathcal{G}(\Gamma)"] & \Strict{\Nat^n_\bot}{\Nat_\bot}
+    \Partial{\Nat^n}{\Nat} \arrow[r, "\Gamma"] & \Partial{\Nat^n}{\Nat} \arrow[d, "\Sigma^\star_2"]\\
+    \Strict{\Nat^n_\bot}{\Nat_\bot} \arrow[u, "(\Sigma^\star_2)^{-1}"]\arrow[r, dashed, "\mathcal{G}(\Gamma)"] & \Strict{\Nat^n_\bot}{\Nat_\bot}
   \end{tikzcd}
 \end{center}
 \shorthandon{"}%
 Сега директно получаваме, че
 \begin{align*}
   \D_V\val{\vv{P}} & \dff \lfp(\Delta)\\
-                   & = \Sigma^\star(\lfp(\Gamma)),
+                   & = \Sigma^\star_2(\lfp(\Gamma)),
 \end{align*}
 защото $\Delta = \mathcal{G}(\Gamma)$ и от \Prop{isomorphic-higher-order} знаем, че
-\[\lfp(\mathcal{G}(\Gamma)) = \Sigma^\star(\lfp(\Gamma)).\]
+\[\lfp(\mathcal{G}(\Gamma)) = \Sigma^\star_2(\lfp(\Gamma)).\]
 \end{example}
-
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:

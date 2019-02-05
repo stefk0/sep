@@ -8,7 +8,8 @@
   Да разгледаме една програма \vv{P}.
   Нека $\mu[\vv{f}_1,\dots,\vv{f}_n]$ е {\em функционален} терм. Тогава
   \[\evaln{\mu} \sqsubseteq \val{\mu}(\bar{\gamma}),\]
-  \marginpar{За това твърдение не е необходимо $\bar{\gamma}$ да бъде най-малката неподвижна точка на $\Gamma$}
+  \marginpar{За това твърдение не е необходимо $\bar{\gamma}$ да бъде най-малката неподвижна точка на $\Gamma$, а просто решение.
+    Само за другата посока ще е важно да е най-малкото решение.}
   където $\bar{\gamma} = (\gamma_1,\dots,\gamma_n)$ е 
   някоя неподвижна точка на оператора
   \[\Gamma \dff \Gamma_{\tau_1}\times \cdots \times \Gamma_{\tau_n},\]
@@ -23,36 +24,36 @@
   Тогава ще докажем, че за произволен функционален терм $\mu$ и елемент $a \in \Nat_\bot$, 
   \begin{equation}
     \label{eq:16}
-    \mu\to^P_N a\ \implies \val{\mu}(\ov{\gamma}) = a.
+    \mu\to^{\vv{P}}_N a\ \implies \val{\mu}(\ov{\gamma}) = a.
   \end{equation}
   Доказателството на (\ref{eq:16}) ще проведем с индукция по дължината на извода $\mu\to^P_N a$.
 
   \marginpar{Константата $\vv{a}$ има стойност елементът $a$, която принадлежи на $\Nat_\bot$}
   Нека изводът има дължина 1. Понеже $\mu$ е функционален терм, според правилата на операционната семантика, единствената възможност е $\mu \equiv \vv{a}$.
   Тогава е очевидно, че $\val{\mu}(\bar{\gamma}) = a$. Ясно е, че в този случай,
-  \[\vv{a} \to^P_N a\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
+  \[\vv{a} \to^{\vv{P}}_N a\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
   
-  Нека (\ref{eq:16}) е изпълнено, когато $\mu \to^P_N a$ има извод с дължина $< l$.
-  Ще докажем твърдението когато изводът има дължина $l$.
+  Нека (\ref{eq:16}) е изпълнено, когато $\mu \to^P_N a$ има извод с дължина $< \ell$.
+  Ще докажем твърдението когато изводът има дължина $\ell$.
   Трябва да разгледаме различни случаи в зависимост от вида на функционалния терм $\mu$.
   \begin{itemize}
   \item
     Да разгледаме случая, когато $\mu \equiv \mu_1 + \mu_2$.
-    Нека $\mu_1 + \mu_2 \to^P_N a$ като дължината на извода е $l$.
+    Нека $\mu_1 + \mu_2 \to^P_N a$ като дължината на извода е $\ell$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
-      \LeftLabel{\scriptsize{(Извод с дълж. $l_1$)}}
+      \LeftLabel{\scriptsize{(Извод с дълж. $\ell_1$)}}
       \UnaryInfC{$\mu_1 \to^P_N a_1$}
       \AxiomC{$\vdots$}
-      \RightLabel{\scriptsize{(Извод с дълж. $l_2$)}}
+      \RightLabel{\scriptsize{(Извод с дълж. $\ell_2$)}}
       \UnaryInfC{$\mu_2 \to^P_N a_2$}
       \RightLabel{\scriptsize{\text{правило }($2_{+}$)}}
       \BinaryInfC{$\mu_1 + \mu_2 \to^P_N a$}
     \end{prooftree}
 
-    където $a = \texttt{plus}(a_1,a_2)$, и дължината на извода $l = l_1 + l_2 + 1$.
-    Ясно е, че изводите на $\mu_1\to^P_N a_1$ и $\mu_2 \to^P_N a_2$ са с дължини $< l$.
+    където $a = \texttt{plus}(a_1,a_2)$, и дължината на извода $\ell = \ell_1 + \ell_2 + 1$.
+    Ясно е, че изводите на $\mu_1\to^P_N a_1$ и $\mu_2 \to^P_N a_2$ са с дължини $< \ell$.
     Следователно можем да приложим {\bf И.П.} за $\mu_1$ и $\mu_2$, откъдето получаваме, че
     \begin{align*}
       & \mu_1 \to^P_N a_1\ \implies \val{\mu_1}(\ov{\gamma}) =a _1\\
@@ -73,16 +74,16 @@
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
-      \RightLabel{\scriptsize{Извод с дълж. $(l-1)$}}
+      \RightLabel{\scriptsize{Извод с дълж. $(\ell-1)$}}
       \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to^P_N a$}
       \RightLabel{\scriptsize{\text{правило }(4)}}
       \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N a$}
     \end{prooftree}
     
-    Понеже изводът $\tau_i[\varsx/\ov{\mu}] \to^P_N a$ има дължина $l-1 < l$, 
+    Понеже изводът $\tau_i[\varsx/\ov{\mu}] \to^P_N a$ има дължина $\ell-1 < \ell$, 
     от {\bf И.П.} имаме, че 
     \[\tau_i[\varsx/\ov{\mu}] \to^P_N a\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
-    \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$. Единствено в този случай се използва, че $\ov{\gamma}$ е решение на системата от оператори}
+    \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$. Единствено в този случай се използва, че $\ov{\gamma}$ е решение на системата от оператори, като не е задължително да е най-малкото решение.}
     Лесно се съобразява, че:
     \begin{align*}
       \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) & = \val{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots,\val{\mu_{m_i}}(\ov{\gamma})) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
@@ -125,10 +126,12 @@
 Нека сега $\ov{\gamma}$ е най-малкото решение на системата от оператори, която съответства на програма \vv{P}
 за денотационната семантика по име.
 Да напомним, че това означава, че $\ov{\gamma} = \bigsqcup_r \ov{\gamma}_r$, 
-където $\gamma^i_{r+1} = \Gamma_{\tau_i}(\ov{\gamma}_r)$
+където $\gamma^i_{r+1} = \Gamma_{\tau_i}(\ov{\gamma}_r)$ и $\ov{\gamma}_r = ( \gamma^1_r, \dots, \gamma^k_r)$.
 
 \begin{prop}
   \label{pr:op-name-inclusion2}
+  \marginpar{Съобразете защо не можем да докажем по-простото твърдение, че за всеки функционален терм $\mu$ и всяко $r$,
+  $\val{\mu}(\ov{\gamma}_r) \sqsubseteq \evaln{\mu}$.}
   Да разгледаме една програма \vv{P} в езика $\REC$, като
   $\ov{\gamma} = \bigsqcup_r\ov{\gamma}_r$ е най-малкото решение на системата от оператори за \vv{P}.
   Тогава за произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$ и
@@ -287,5 +290,5 @@
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:
