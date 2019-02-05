@@ -24,12 +24,12 @@
     \label{eq:18}
     \mu\to^P_V a\ \implies \val{\mu}(\ov{\delta}) = a.
   \end{equation}
-  Доказателството на (\ref{eq:18}) ще проведем с индукция по дължината $l$ на извода $\mu\to^P_V a$.
+  Доказателството на (\ref{eq:18}) ще проведем с индукция по дължината $\ell$ на извода $\mu\to^P_V a$.
 
-  Първо, нека $l = 1$. Тогава единствения случай, който трябва да разгледаме е $\mu \equiv \vv{a}$.
+  Първо, нека $\ell = 1$. Тогава единствения случай, който трябва да разгледаме е $\mu \equiv \vv{a}$.
   Този случай е прекалено лесен.
 
-  Нека сега изводът $\mu \to^P_V a$ има дължина $l > 1$.
+  Нека сега изводът $\mu \to^P_V a$ има дължина $\ell > 1$.
   Понеже правилата за извод строго следват дефиницията на термовете, 
   трябва да разгледаме следните случаи.
   \begin{itemize}
@@ -37,15 +37,15 @@
     Нека $\mu \equiv \mu_1 + \mu_2$, като $\evalv{\mu} = a$. Тогава:
     \begin{prooftree}
       \AxiomC{$\vdots$}
-      \LeftLabel{\scriptsize{(извод с дълж. $l_1$)}}
+      \LeftLabel{\scriptsize{(извод с дълж. $\ell_1$)}}
       \UnaryInfC{$\mu_1 \to^P_V a_1$}
       \AxiomC{$\vdots$}
-      \RightLabel{\scriptsize{(извод с дълж. $l_2$)}}
+      \RightLabel{\scriptsize{(извод с дълж. $\ell_2$)}}
       \UnaryInfC{$\mu_2 \to^P_V a_2$}
       \RightLabel{\scriptsize{\text{правило }$(2_+)$}}
       \BinaryInfC{$\mu \to^P_V a$}
     \end{prooftree}
-    Тук имаме, че $l = l_1 + l_2 + 1$ и $a = \texttt{plus}(a_1,a_2)$.
+    Тук имаме, че $\ell = \ell_1 + \ell_2 + 1$ и $a = \texttt{plus}(a_1,a_2)$.
     Следователно можем да приложим {\bf И.П.} за $\mu_1$ и $\mu_2$, откъдето получаваме, че
     \begin{align*}
       & \mu_1 \to^P_V a_1\ \implies \val{\mu_1}(\ov{\delta}) = a _1\\
@@ -78,28 +78,28 @@
     %   Ако $\bot \not\in \{a_1,\dots,a_{m_i}\}$, където:
     \begin{prooftree}
       \AxiomC{$\vdots$}
-      \LeftLabel{\scriptsize(дълж. $l_1$)}
+      \LeftLabel{\scriptsize(дълж. $\ell_1$)}
       \UnaryInfC{$\mu_1\to^P_V a_1$}
       \AxiomC{$\cdots$}
       \AxiomC{$\vdots$}
-      \LeftLabel{\scriptsize($l_{m_i}$)}
+      \LeftLabel{\scriptsize($\ell_{m_i}$)}
       \UnaryInfC{$\mu_{m_i} \to^P_V a_{m_i}$}
       \AxiomC{$\vdots$}
-      \RightLabel{\scriptsize(дълж. $l_0$)}
+      \RightLabel{\scriptsize(дълж. $\ell_0$)}
       \UnaryInfC{$\tau_i[\varsx/\bar{\vv{a}}] \to^P_V a$}
-      \LeftLabel{\scriptsize{(дълж. $l$)}}
+      \LeftLabel{\scriptsize{(дълж. $\ell$)}}
       \RightLabel{\scriptsize{правило ($4_\Nat$)}}
       \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_V a$}
     \end{prooftree}
 
-    Понеже за $j = 1,\dots, m_i$ изводът на $\mu_j\to^P_V a_j$ има дължина $l_j < l$,
+    Понеже за $j = 1,\dots, m_i$ изводът на $\mu_j\to^P_V a_j$ има дължина $\ell_j < \ell$,
     то от {\bf И.П.} за (\ref{eq:18}) имаме, че 
     \begin{equation}
       \label{eq:20}
       \val{\mu_j}(\bar{\delta}) = a_j.
     \end{equation}
-    \marginpar{$l_0 + l_1+\cdots l_{m_i} + 1 = l$}
-    Аналогично, понеже изводът на $\tau_i[\varsx/\bar{\vv{a}}] \to^P_V a$ има дължина $l_0 < l$,
+    \marginpar{$\ell_0 + \ell_1+\cdots \ell_{m_i} + 1 = \ell$}
+    Аналогично, понеже изводът на $\tau_i[\varsx/\bar{\vv{a}}] \to^{\vv{P}}_V a$ има дължина $\ell_0 < \ell$,
     и очевидно термът $\tau_i[\varsx/\bar{\vv{a}}]$ е функционален, то от {\bf И.П.} за (\ref{eq:18}) имаме, че 
     \begin{equation}
       \label{eq:3}
@@ -284,7 +284,7 @@
         \val{\mu}(\ov{\delta}_r) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\delta}_r)\\
                                  & \dff \delta^i_r(\underbrace{\val{\mu_1}(\ov{\delta}_r)}_{b_1}, \dots, \underbrace{\val{\mu_{m_i}}(\ov{\delta}_r)}_{b_{m_i}}) & \comment{\ov{\delta}_r = (\delta^1_r,\dots,\delta^k_r)}\\
                                  & = \delta^i_r(b_1,\dots,b_{m_i}) \\
-                                 & = \Delta_{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\delta^i_r = \Delta_{\tau_i}(\ov{\delta}_r)}\\
+                                 & = \Delta_{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\delta^i_r = \Delta_{\tau_i}(\ov{\delta}_{r-1})}\\
                                  & = \Sigma_{\star}(\Gamma_{\tau_i}(\ov{\delta}_{r-1}))(b_1,\dots,b_{m_i}) & \comment{\Delta_{\tau_i} \dff \Sigma_{\star} \circ \Gamma_{\tau_i}}\\
                                  & = \Gamma_{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\text{всяко }b_j \neq \bot}\\
                                  & \dff \val{\tau_i}(\ov{\delta}_{r-1})(b_1,\dots,b_{m_i}) & \comment{\ov{\delta}_{r-1}\text{ са непрекъснати}}\\
@@ -385,5 +385,5 @@
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:
