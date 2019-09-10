@@ -13,101 +13,101 @@ h(x,y) = f(x,y,1) where
   
   Докажете, че $(\forall x,y\in\Nat)[\D_V\val{\vv{h}}(x,y) \neq \bot \implies \D_V\val{\vv{h}}(x,y) = (x!)^y]$.
 \end{problem}
-\begin{solution}
-  \Stefan{В главата за REC означавах операторите с $\Delta$}
-  \marginpar{Понеже разглеждаме денотационна семантика по стойност, то работим с {\bf точни} изображения}
-  Да разгледаме непрекъснатите термални оператори 
-  \begin{align*}
-    & \Delta_1:\S_3\times\S_2 \to \S_3\\
-    & \Delta_2:\S_3\times\S_2 \to \S_2,
-  \end{align*}
-  съответстващи на термовете дефиниращи \vv{f} и \vv{g}:
-  \begin{align*}
-    \Delta_1(f,g)(x,y,z) = &
-    \begin{cases}
-      z & \text{, ако } x \leq 1\\
-      f(x-1,y,z\cdot g(x,y)) &  \text{, ако } x > 1\\
-      \bot & \text{, ако }\bot \in \{x,y,z\}
-    \end{cases}
-    \\
-    \Delta_2(f,g)(x,y) = &
-    \begin{cases}
-      1 & \text{, ако } y = 0\\
-      x \cdot g(x,y-1) & \text{, ако }y > 0\\
-      \bot & \text{, ако } \bot \in \{x,y\}.
-    \end{cases}
-  \end{align*}
-  Тогава операторът $\Delta:\S_3\times\S_2 \to \S_3\times\S_2$, дефиниран като:
-  \marginpar{Знаем, че $\delta_1, \delta_2$ е най-малкото решение на системата от уравнения:
-    \begin{align*}
-      & \Delta_1(f,g) = f\\
-      & \Delta_2(f,g) = g
-    \end{align*}}
-  \[\Delta(f,g) = (\Delta_1(f,g),\Delta_2(f,g)),\] също е непрекъснат.
-  Ако означим $(\delta_1,\delta_2) = \lfp(\Delta)$, то по дефиниция
-  % \marginpar{Следвайки дефинициите, $\D_V\val{\vv{h}}(x,y) \simeq \delta_1(x,y,1)$}
-  \[\D_V\val{\vv{h}}(x,y) = \delta_1(x,y,1).\]
-  Сега дефинираме следните свойства:
-  \begin{align*}
-    & P_1(f,g) \dfff (\forall x,y,z\in\Nat)[f(x,y,z) \neq \bot \implies f(x,y,z) = z.(x!)^y],\\
-    & P_2(f,g) \dfff (\forall x,y \in \Nat)[g(x,y) \neq \bot \implies g(x,y) = x^y].
-  \end{align*}
-  Понеже те са от тип частична коректност, те са и непрекъснати.
-  Ще докажем с индукционно правило на Скот, приложено върху областта на Скот $\S_3 \times \S_2$ за непрекъснатото изображение $\Gamma$,
-  че $P(\delta_1,\delta_2)$, където 
-  \[P(f,g) \dfff P_1(f,g)\ \&\ P_2(f,g).\]
-  $P$ също е непрекъснато свойство, защото е конюнкция на две непрекъснати свойства.
+% \begin{solution}
+%   \Stefan{В главата за REC означавах операторите с $\Delta$}
+%   \marginpar{Понеже разглеждаме денотационна семантика по стойност, то работим с {\bf точни} изображения}
+%   Да разгледаме непрекъснатите термални оператори 
+%   \begin{align*}
+%     & \Delta_1:\S_3\times\S_2 \to \S_3\\
+%     & \Delta_2:\S_3\times\S_2 \to \S_2,
+%   \end{align*}
+%   съответстващи на термовете дефиниращи \vv{f} и \vv{g}:
+%   \begin{align*}
+%     \Delta_1(f,g)(x,y,z) = &
+%     \begin{cases}
+%       z & \text{, ако } x \leq 1\\
+%       f(x-1,y,z\cdot g(x,y)) &  \text{, ако } x > 1\\
+%       \bot & \text{, ако }\bot \in \{x,y,z\}
+%     \end{cases}
+%     \\
+%     \Delta_2(f,g)(x,y) = &
+%     \begin{cases}
+%       1 & \text{, ако } y = 0\\
+%       x \cdot g(x,y-1) & \text{, ако }y > 0\\
+%       \bot & \text{, ако } \bot \in \{x,y\}.
+%     \end{cases}
+%   \end{align*}
+%   Тогава операторът $\Delta:\S_3\times\S_2 \to \S_3\times\S_2$, дефиниран като:
+%   \marginpar{Знаем, че $\delta_1, \delta_2$ е най-малкото решение на системата от уравнения:
+%     \begin{align*}
+%       & \Delta_1(f,g) = f\\
+%       & \Delta_2(f,g) = g
+%     \end{align*}}
+%   \[\Delta(f,g) = (\Delta_1(f,g),\Delta_2(f,g)),\] също е непрекъснат.
+%   Ако означим $(\delta_1,\delta_2) = \lfp(\Delta)$, то по дефиниция
+%   % \marginpar{Следвайки дефинициите, $\D_V\val{\vv{h}}(x,y) \simeq \delta_1(x,y,1)$}
+%   \[\D_V\val{\vv{h}}(x,y) = \delta_1(x,y,1).\]
+%   Сега дефинираме следните свойства:
+%   \begin{align*}
+%     & P_1(f,g) \dfff (\forall x,y,z\in\Nat)[f(x,y,z) \neq \bot \implies f(x,y,z) = z.(x!)^y],\\
+%     & P_2(f,g) \dfff (\forall x,y \in \Nat)[g(x,y) \neq \bot \implies g(x,y) = x^y].
+%   \end{align*}
+%   Понеже те са от тип частична коректност, те са и непрекъснати.
+%   Ще докажем с индукционно правило на Скот, приложено върху областта на Скот $\S_3 \times \S_2$ за непрекъснатото изображение $\Gamma$,
+%   че $P(\delta_1,\delta_2)$, където 
+%   \[P(f,g) \dfff P_1(f,g)\ \&\ P_2(f,g).\]
+%   $P$ също е непрекъснато свойство, защото е конюнкция на две непрекъснати свойства.
 
-  Очевидно е, че $P(\Omega^{(3)},\Omega^{(2)})$.
-  Сега да приемем, че $P(f,g)$ е изпълнено. Ще докажем $P(\Delta(f,g))$.
-  \begin{enumerate}[1)]
-  \item 
-    Ще докажем, че е изпълнено $P_1(\Delta(f,g))$, т.е.
-    \[(\forall x,y,z\in\Nat)[\Delta_1(f,g)(x,y,z) \neq \bot \implies \Delta_1(f,g)(x,y,z) = z.(x!)^y].\]
-    Нека $\Delta_1(f,g)(x,y,z) \neq \bot$, за произволни $x,y,z \in \Nat$.
-    \begin{itemize}
-    \item 
-      ако $x \leq 1$, то $\Delta_1(f,g)(x,y,z) = z = z.(x!)^y$, което следва от дефиницията на $\Delta_1$.
-    \item
-      ако $x > 1$, тогава имаме, че
-      \[\Delta_1(f,g)(x, y, z) = f(x-1, y, z.g(x,y)) \neq \bot,\]
-      откъдето следва, че $g(x,y) \neq \bot$, защото $f$ е точна функция.
-      Тогава от $P_2(f,g)$ получаваме, че $g(x,y) = x^y$.
-      Обединявайки всичко, получаваме:
-      \begin{align*}
-        \Delta_1(f,g)(x,y,z)&  = f(x-1,y,z.g(x,y)) & (\text{от деф.})\\
-                            & = f(x-1,y,z.x^y) & (\text{от }P_2(f,g))\\
-                            & = (z.x^y).((x-1)!)^y & (\text{от }P_1(f,g))\\
-                            & = z.(x!)^y.
-      \end{align*}
-    \end{itemize}
-  \item
-    Сега ще докажем, че е изпълнено $P_2(\Delta(f,g))$, т.е.
-    \[(\forall x,y\in\Nat)[\Delta_2(f,g)(x,y) \neq \bot \implies \Delta_2(f,g)(x,y) = x^y].\]
-    Нека $\Delta_2(f,g)(x,y) \neq \bot$, за произволни $x,y \in \Nat$.
-    \begin{itemize}
-    \item 
-      ако $y = 0$, то $\Delta_2(f,g)(x,0) = 1 = x^0$, което следва от дефиницията на $\Delta_2$.
-    \item
-      ако $y > 0$, то имаме $\Delta_2(f,g)(x,y) = x \cdot g(x, y-1) \neq \bot$.
-      Оттук следва, че $g(x,y-1) \neq \bot$ и от $P_2(f,g)$ получаваме, че 
-      $g(x,y-1) = x^{y-1}$.
-      Обединявайки всичко, получаваме:
-      \begin{align*}
-        \Delta_2(f,g)(x,y) & = x.g(x,y-1) & (\text{от деф.})\\
-        & = x.x^{y-1} & (\text{от }P_2(f,g))\\
-        & = x^y.
-      \end{align*}
-    \end{itemize}
-  \end{enumerate}
-  Заключаваме, че $P(\Delta(f,g))$.
-  Следователно, $P(\delta_1,\delta_2)$ и в частност, 
-  \begin{align*}
-    \D_V\val{\vv{h}}(x) & = \delta_1(x,y,1) & (\text{от деф.})\\
-    & = 1.(x!)^y & (\text{от }P_1(\delta_1,\delta_2))\\
-    & = (x!)^y.
-  \end{align*}
-\end{solution}
+%   Очевидно е, че $P(\Omega^{(3)},\Omega^{(2)})$.
+%   Сега да приемем, че $P(f,g)$ е изпълнено. Ще докажем $P(\Delta(f,g))$.
+%   \begin{enumerate}[1)]
+%   \item 
+%     Ще докажем, че е изпълнено $P_1(\Delta(f,g))$, т.е.
+%     \[(\forall x,y,z\in\Nat)[\Delta_1(f,g)(x,y,z) \neq \bot \implies \Delta_1(f,g)(x,y,z) = z.(x!)^y].\]
+%     Нека $\Delta_1(f,g)(x,y,z) \neq \bot$, за произволни $x,y,z \in \Nat$.
+%     \begin{itemize}
+%     \item 
+%       ако $x \leq 1$, то $\Delta_1(f,g)(x,y,z) = z = z.(x!)^y$, което следва от дефиницията на $\Delta_1$.
+%     \item
+%       ако $x > 1$, тогава имаме, че
+%       \[\Delta_1(f,g)(x, y, z) = f(x-1, y, z.g(x,y)) \neq \bot,\]
+%       откъдето следва, че $g(x,y) \neq \bot$, защото $f$ е точна функция.
+%       Тогава от $P_2(f,g)$ получаваме, че $g(x,y) = x^y$.
+%       Обединявайки всичко, получаваме:
+%       \begin{align*}
+%         \Delta_1(f,g)(x,y,z)&  = f(x-1,y,z.g(x,y)) & (\text{от деф.})\\
+%                             & = f(x-1,y,z.x^y) & (\text{от }P_2(f,g))\\
+%                             & = (z.x^y).((x-1)!)^y & (\text{от }P_1(f,g))\\
+%                             & = z.(x!)^y.
+%       \end{align*}
+%     \end{itemize}
+%   \item
+%     Сега ще докажем, че е изпълнено $P_2(\Delta(f,g))$, т.е.
+%     \[(\forall x,y\in\Nat)[\Delta_2(f,g)(x,y) \neq \bot \implies \Delta_2(f,g)(x,y) = x^y].\]
+%     Нека $\Delta_2(f,g)(x,y) \neq \bot$, за произволни $x,y \in \Nat$.
+%     \begin{itemize}
+%     \item 
+%       ако $y = 0$, то $\Delta_2(f,g)(x,0) = 1 = x^0$, което следва от дефиницията на $\Delta_2$.
+%     \item
+%       ако $y > 0$, то имаме $\Delta_2(f,g)(x,y) = x \cdot g(x, y-1) \neq \bot$.
+%       Оттук следва, че $g(x,y-1) \neq \bot$ и от $P_2(f,g)$ получаваме, че 
+%       $g(x,y-1) = x^{y-1}$.
+%       Обединявайки всичко, получаваме:
+%       \begin{align*}
+%         \Delta_2(f,g)(x,y) & = x.g(x,y-1) & (\text{от деф.})\\
+%         & = x.x^{y-1} & (\text{от }P_2(f,g))\\
+%         & = x^y.
+%       \end{align*}
+%     \end{itemize}
+%   \end{enumerate}
+%   Заключаваме, че $P(\Delta(f,g))$.
+%   Следователно, $P(\delta_1,\delta_2)$ и в частност, 
+%   \begin{align*}
+%     \D_V\val{\vv{h}}(x) & = \delta_1(x,y,1) & (\text{от деф.})\\
+%     & = 1.(x!)^y & (\text{от }P_1(\delta_1,\delta_2))\\
+%     & = (x!)^y.
+%   \end{align*}
+% \end{solution}
 
 \begin{problem}
   Дадена е следната програма на езика $\REC$:
@@ -391,5 +391,5 @@ mem(x, y) = f(g(x, 2^y, 0), 2) where
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../sep-notes"
+%%% TeX-master: "../sep"
 %%% End:
