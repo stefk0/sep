@@ -1,0 +1,44 @@
+\begin{problem}
+  Нека изображението \[\texttt{comp}:(\Cont{\B}{\C} \times \Cont{\A}{\B}) \to \Cont{\A}{\C}\]
+  е определено като 
+  \[\texttt{comp}(g,f) \dff g\circ f.\]
+  \marginpar{$(g \circ f)(a) = g(f(a))$}
+  Докажете, че $\texttt{comp}$ е непрекъснато изображение.
+\end{problem}
+\ifhints
+\begin{hint}
+  \marginpar{\cite[стр. 124]{reynolds}}
+  Трябва да докажем, че за всяка монотонно растяща редица $\{(g_n,f_n)\}_{n\in\Nat}$,
+  \[\Gamma(\bigsqcup_n(g_n,f_n))(a) = \bigsqcup_n\Gamma(g_n,f_n)(a),\]
+  за произволно $a \in A$.
+  Да фиксираме едно $a\in A$ и да положим $g_n(f_k(a)) = e_{n,k}$.
+  Лесно се вижда, че 
+  \[n\leq n^\prime\ \&\ k \leq k^\prime\ \Rightarrow\ e_{n,k} \sqsubseteq e_{n^\prime,k^\prime}.\]
+  Тогава:
+  \begin{align*}
+    \Gamma(\bigsqcup_n(g_n,f_n))(a) & = \Gamma(\bigsqcup_n g_n, \bigsqcup_k f_k)(a) & \\
+                                    & = (\bigsqcup_n g_n)(\bigsqcup_k f_k(a)) & \comment\text{ по деф. на }\Gamma\\
+                                    & = (\bigsqcup_n g_n)(\bigsqcup_k b_k) & \comment\text{ полагаме }b_k = f_k(a)\\
+                                    & = \bigsqcup_k (\bigsqcup_n g_n)(b_k) & \comment\bigsqcup_n g_n\text{ е непр.}\\
+                                    & = \bigsqcup_k(\bigsqcup_n g_n(b_k)) & \comment\text{ по деф. на }\bigsqcup_n g_n\\
+                                    & = \bigsqcup_k (\bigsqcup_n g_n(f_k(a))) & \comment\text{ полагаме }e_{n,k} = g_n(f_k(a))\\
+                                    & = \bigsqcup_k\bigsqcup_n e_{n,k} = \bigsqcup_n e_{n,n} & \comment\text{ от \Th{double-chain}}\\
+                                    & = \bigsqcup_n g_n(f_n(a)) = \bigsqcup_n \Gamma(g_n, f_n)(a).
+  \end{align*}
+\end{hint}
+\fi
+
+\begin{remark}
+  \marginpar{Когато на хаскел пишем $(.)$, означава, че операцията е инфиксна}
+  В хаскел има операция композиция на функции.
+  \begin{haskellcode}
+ghci> :t (.)
+(.) :: (b -> c) -> (a -> b) -> a -> c
+  \end{haskellcode}
+\end{remark}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

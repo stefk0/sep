@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,oneside]{book}
+\documentclass[a4paper,12pt,oneside]{book}
 
 % \renewcommand{\familydefault}{\sfdefault}
 
@@ -6,6 +6,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[bulgarian]{babel}
+
+
 
 \usepackage[xindy]{imakeidx}
 \def\xindylangopt{-M lang/bulgarian/utf8-lang.xdy}
@@ -82,6 +84,8 @@
 % \usepackage{subfigure}
 
 \usepackage[colorlinks=true, linkcolor=blue, pdfstartview=FitV,citecolor=blue, urlcolor=blue]{hyperref}
+\usepackage[pdfauthor={Stefan Vatev}, pdftitle={Semantics of Programming Languages}, colorlinks=true, linkcolor=blue, pdfstartview=FitV, citecolor=green, urlcolor=blue]{hyperref}
+\hypersetup{pdftex,unicode}
 
 \theoremstyle{definition}
 \newtheorem{thm}{Теорема}[chapter]
@@ -207,10 +211,15 @@
 
 \allowdisplaybreaks
 % \makeindex
-\begin{document}
 
-\author{Стефан Вътев\footnote{\href{mailto:stefanv@fmi.uni-sofia.bg}{stefanv@fmi.uni-sofia.bg}}, Стела Николова\footnote{\href{mailto:stenik@fmi.uni-sofia.bg}{stenik@fmi.uni-sofia.bg}}}
+
+\usepackage[scaled=0.89]{PTSerif}
+\usepackage[scaled=0.89]{PTSans}
+
+\author{Стефан Вътев\footnote{\href{mailto:stefanv@fmi.uni-sofia.bg}{stefanv@fmi.uni-sofia.bg}}}
 \title{Семантика на езиците за програмиране - записки}
+
+\begin{document}
 
 
 % \frontmatter
