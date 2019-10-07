@@ -1,0 +1,34 @@
+\begin{problem}
+  Нека са дадени областите на Скот $\D$ и $\E$ и изображението 
+  \[\texttt{eval}: \Cont{\D}{\E} \times \D \to \E,\]
+  където 
+  \[\texttt{eval}(f,d) \dff f(d).\]
+  Докажете, че $\texttt{eval}$ е непрекъснато изображение.
+\end{problem}
+\ifhints
+\begin{hint}
+  Понеже $\bigsqcup_n(f_n,d_n) = (\bigsqcup_m f_m,\bigsqcup_n d_n)$, 
+  ще докажем, че \[\texttt{eval}(\bigsqcup_m f_m, \bigsqcup_n d_n) = \bigsqcup_n \texttt{eval}(f_n,d_n).\]
+  Знаем, че
+  \begin{align*}
+    \texttt{eval}(\bigsqcup_m f_m, \bigsqcup_n d_n) & = (\bigsqcup_m f_m)(\bigsqcup_n d_n) & \comment\text{от опр. на }\texttt{eval}\\
+                                                    & = \bigsqcup_m (f_m(\bigsqcup_n d_n)) & \comment\text{от опр. на }\bigsqcup_mf_m\\
+                                                    & = \bigsqcup_m (\bigsqcup_n (f_m(d_n)) & \comment\text{всяка }f_m\mbox{ е непр.}\\
+  \end{align*}
+  Нека да положим $e_{m,n} = f_m(d_n)$.
+  Лесно се съобразява, че
+  \[m \leq m^\prime\ \&\ n \leq n^\prime\ \Rightarrow\ e_{m,n} \sqsubseteq^\E e_{m^\prime,n^\prime}.\]
+  Така получаваме, че 
+  \begin{align*}
+    \texttt{eval}(\bigsqcup_m f_m, \bigsqcup_n d_n) & = \bigsqcup_m (\bigsqcup_n (f_m(d_n)) & \comment\text{от по-горе}\\
+    & = \bigsqcup_{m,n} e_{m,n} = \bigsqcup_{n} e_{n,n} & \comment\text{от \Th{double-chain}}\\
+    & = \bigsqcup_{n} f_n(d_n) & \comment\text{ от опр. на }e_{m,n}\\
+    & = \bigsqcup_n \texttt{eval}(f_n,d_n).
+  \end{align*}
+\end{hint}
+\fi
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

@@ -1,0 +1,76 @@
+\section{Оператор за най-малка неподвижна точка}
+
+\Stefan{Това да се остави само с упътване.}
+
+\begin{thm}
+  % \index{$Y_\A$}
+  Нека $\A$ е област на Скот и нека $f \in \Cont{\A}{\A}$.
+  \marginpar{Знаем от \Th{knaster-tarski}, че най-малката неподвижна точка на $f$ е елемента $\bigsqcup_n f^n(\bot^\A)$.}
+  Тогава изображението $Y_\A : \Cont{\A}{\A} \to \A$, определено като
+  \[Y_\A(f) = \lfp(f),\]
+  е непрекъснато, т.е.
+  $Y_\A \in \Cont{\Cont{\A}{\A}}{\A}$.
+\end{thm}
+\begin{proof}
+  Нека да вземем една верига $(f_n)^\infty_{n=0}$ от непрекъснати изображения.
+  Нашата цел е да докажем, че
+  \[Y_\A(\bigsqcup_n f_n) = \bigsqcup_n Y_\A(f_n).\]
+  Да означим с $h$ точната горна граница на $(f_n)^\infty_{n=0}$.
+  Знаем, че $h(a) = \bigsqcup_n f_n(a)$.
+  \begin{prop}
+    За всяко $k \geq 1$, $h^k(a) = \bigsqcup_n f^k_n(a)$.
+  \end{prop}
+  \begin{proof}
+    Ще докажем твърдението с индукция по $k$, като случая $k = 1$ следва от дефиницията на $h$.
+    Нека приемем, че твърдението е вярно за произволно $k \geq 1$.
+    Ще докажем, че твърдението е вярно за $k+1$.
+    \begin{align*}
+      h^{k+1}(a) & = h(h^k(a)) & \\
+      & = h(\bigsqcup_n f^k_n(a))& \comment{\text{ от инд. предположение}}\\
+      & = \bigsqcup_n h(f^k_n(a))& \comment{h \text{ е непрекъснато изображение}}\\
+      & = \bigsqcup_n (\bigsqcup_m f_m(f^k_n(a))). & 
+    \end{align*}
+    
+    Да положим $b_n = f^k_n(a)$, за всяко $n$.
+    Понеже $f_n \sqsubseteq f_{n^\prime}$, лесно се съобразява, че за $n \leq n^\prime$
+    имаме $b_n \sqsubseteq^\A b_{n^\prime}$.
+
+    Сега да положим $e_{m,n} = f_m(b_n)$.
+    Отново, понеже $(b_n)^\infty_{n=0}$ и $(f_m)^\infty_{m=0}$ са вериги, имаме 
+    \[m \leq m^\prime\ \&\ n\leq n^\prime\ \Rightarrow\ e_{m,n} \sqsubseteq^\A e_{m^\prime,n^\prime}.\]
+    Това означава, че можем да приложим \Th{double-chain} за множеството $E = \{e_{m,n} \mid m,n \in \Nat\}$.
+    Получаваме, че
+    \begin{align*}
+      h^{k+1}(a) & = \bigsqcup_n (\bigsqcup_m f_m(f^k_n(a))) & \comment{\text{ от горното равенство}}\\
+      & = \bigsqcup_n (\bigsqcup_m e_{m,n}) & \comment{\text{ от определението на }e_{m,n}}\\
+      & = \bigsqcup_n e_{n,n} & \comment{\text{ от \Th{double-chain}}}\\
+      & = \bigsqcup_n f_n(f^k_n(a))  = \bigsqcup_n f^{k+1}_n(a) & 
+    \end{align*}
+    С това твърдението е доказано.
+  \end{proof}
+  Сега вече сме готови да докажем непрекъснатостта на $Y_\A$.
+  Имаме, че:
+  \begin{align*}
+    Y_\A(\bigsqcup_n f_n) & = Y_\A(h) & \comment{\text{ от опр. на }h}\\
+    & = \bigsqcup_m h^m(\bot^\A) & \comment{\text{ от опр. на }Y_\A }\\
+    & = \bigsqcup_m (\bigsqcup_n f^m_n(\bot^\A)) & \comment{\text{ от горното твърдение}}.
+  \end{align*}
+  
+  Да положим $e_{m,n} = f^m_n(\bot^\A)$.
+  Отново лесно се съобразява, че 
+  \[m \leq m^\prime\ \&\ n\leq n^\prime\ \Rightarrow\ e_{m,n} \sqsubseteq^\A e_{m^\prime,n^\prime}.\]
+  Получаваме, че
+  \begin{align*}
+    Y_\A(\bigsqcup_n f_n) & = \bigsqcup_m (\bigsqcup_n f^m_n(\bot^\A)) & \comment{\text{ от горното равенство}}\\
+    & = \bigsqcup_m (\bigsqcup_n e_{m,n}) & \comment{\text{ от опр. на }e_{m,n}}\\
+    & = \bigsqcup_n(\bigsqcup_m e_{m,n}) & \comment{\text{ от \Th{double-chain}}}\\
+    & = \bigsqcup_n (\bigsqcup_m f^m_n(\bot^\A)) = \bigsqcup_n Y_\A(f_n). & \comment{\text{ от опр. на }Y_\A}.
+  \end{align*}
+\end{proof}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

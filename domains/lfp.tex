@@ -1,0 +1,134 @@
+\section{Най-малки неподвижни точки}
+\index{най-малка неподвижна точка}
+
+\begin{itemize}
+\item 
+  \index{неподвижна точка}
+  Да фиксираме произволна област на Скот $\A = (A, \sqsubseteq, \bot)$ и да разгледаме едно изображение $f:\A\to\A$.
+  Казваме, че $a \in \A$ е {\bf неподвижна точка} на $f$, ако $f(a) = a$.
+\item
+  \index{най-малка неподвижна точка}
+  Казваме, че $a \in \A$ е {\bf най-малката неподвижна точка} на $f$, ако:
+  \begin{itemize}
+  \item 
+    $a$ е неподвижна точка, т.е. $f(a) = a$;
+  \item
+    за всяко $b \in \A$ със свойството, че $f(b) = b$ имаме $a \sqsubseteq b$.
+  \item
+    \marginpar{least fixed point}
+    Ще означаваме най-малката неподвижна точка на $f$ като $\lfp(f)$.
+  \end{itemize}
+\end{itemize}
+
+\begin{framed}
+\begin{theorem}[Клини]
+  \label{th:knaster-tarski}
+  \index{Клини}
+  Нека $\A$ е област на Скот.
+  Всяко $f \in \Cont{\A}{\A}$ притежава най-малка неподвижна точка.
+\end{theorem}
+\end{framed}
+\begin{proof}
+  \marginpar{В \cite{ditchev-soskov} се нарича теорема на Кнастер-Тарски. Според \href{https://en.wikipedia.org/wiki/Kleene_fixed-point_theorem}{уикипедия} е теорема на Клини}
+  Определяме монотонно растяща редица от елементи на $\A$ по следния начин:
+  \begin{align*}
+    & a_0 \dff \bot & \comment = f^0(\bot)\\
+    & a_{n+1} \dff f(a_n) & \comment = f^{n+1}(\bot).
+  \end{align*}
+
+  Първо ще докажем с индукция по $n$, че $\chain{a}{n}$ е верига.
+  Ясно е, че $a_0 \sqsubseteq a_1$.
+  Да приемем, че $a_n \sqsubseteq a_{n+1}$. Тогава, понеже всяко непрекъснато
+  изображение е монотонно, то имаме, че
+  \[\underbrace{f(a_n)}_{a_{n+1}} \sqsubseteq \underbrace{f(a_{n+1})}_{a_{n+2}}.\]
+
+  Нека $a \dff \bigsqcup_i a_i$. Тогава 
+  \begin{align*}
+    f(a) & = f(\bigsqcup_i a_i) & \comment a \dff \bigsqcup_i a_i\\
+         & = \bigsqcup_i f(a_i) & \comment f \text{ е непрекъсната}\\
+         & = \bigsqcup_i a_{i+1} & \comment a_{i+1} = f(a_i)\\
+         & = \bigsqcup_i a_i & \comment \text{защото }\chain{a}{i}\text{ е верига}\\
+         & = a.
+  \end{align*}
+  Така доказахме, че $a$ е {\em неподвижна точка} на $f$.
+  Остана да видим, че е най-малката неподвижна точка на $f$.
+
+  Нека $b = f(b)$. С индукция по $n$ ще докажем, $(\forall n)[a_n \sqsubseteq b]$.
+  \begin{itemize}
+  \item 
+    За $n = 0$ е очевидно.
+  \item
+    Да приемем, че $a_n \sqsubseteq b$.
+    Тогава $a_{n+1} \dff f(a_n) \sqsubseteq f(b) = b$, защото $f$ е монотонно изображение.    
+  \end{itemize}
+  Така доказахме, че $b$ е горна граница на веригата $\chain{a}{n}$.
+  Заключаваме, че $a \dff \bigsqcup_n a_n \sqsubseteq b$.
+  Следователно, $a$ е {\em най-малката неподвижна точка} на $f$,
+  т.е. $a = \lfp(f)$.
+\end{proof}
+
+\begin{prop}
+  \label{pr:prefix-point}
+  За всяко $f \in \Cont{\A}{\A}$ е изпълнено, че 
+  \[(\forall a \in \Pref(f))[\lfp(f) \sqsubseteq a],\]
+  където
+  \index{преднеподвижна точка}
+  \[\Pref(f) \dff \{a \in \A \mid f(a) \sqsubseteq a\}\]
+  е множеството от всички преднеподвижни точки на $f$.
+  Това означава, че $\lfp(f)$ е най-малката преднеподвижна точка на $f$.
+\end{prop}
+\begin{proof}
+  Знаем от \hyperref[th:knaster-tarski]{Теоремата на Клини}, че $\lfp(f) = \bigsqcup_n f^n(\bot)$.
+  Също така знаем, че $\chain{b}{n}$ е верига, където за улеснение сме положили $b_n \dff f^n(\bot)$. 
+  Ясно е също, че $\texttt{Pref}(f) \neq \emptyset$, защото $\lfp(f) \in \texttt{Pref}(f)$.
+  Да фиксираме прозиволен елемент $a\in \texttt{Pref}(f)$.
+  С индукция по $n$ ще докажем, че $b_n \sqsubseteq a$ за всяко $n$.
+  \begin{itemize}
+  \item 
+    За $n = 0$ е очевидно, защото тогава $b_0 \dff \bot \sqsubseteq a$.
+  \item
+    Да приемем, че $b_n \sqsubseteq a$.
+    Ще докажем, че $b_{n+1} \sqsubseteq a$.
+    Но това е лесно.
+    \begin{align*}
+      b_{n+1} & = f(b_n) & \comment \text{от деф. на }b_{n+1}\\
+      & \sqsubseteq f(a) & \comment b_n \sqsubseteq a\ \&\ f\text{ е мон.}\\
+      & \sqsubseteq a & \comment a \in \texttt{Pref}(f).
+    \end{align*}
+  \end{itemize}
+  Така доказахме, че за всяко $n$, $b_n \sqsubseteq a$,
+  откъдето следва, че $a$ е горна граница за веригата $\chain{b}{n}$, откъдето директно получаваме, че
+  \[\lfp(f) = \bigsqcup_n b_n \sqsubseteq a.\]
+\end{proof}
+
+\begin{problem}
+  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но тя не е $\bigsqcup_n f^n(\bot^\A)$.
+\end{problem}
+\ifhints
+\begin{hint}
+  Да разгледаме $\A = (A,\ \sqsubseteq,\ a_0)$, където елементите на $A$ са подредени по следния начин:
+
+  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset b_0 \sqsubset b_1 \}.\]
+  т.е. $A$ е съставена от веригата $(a_n)^\infty_{n=0}$ веднага следвана от елементите $b_0$ и $b_1$.
+  Да обърнем внимание, че $\bigsqcup_n a_n = b_0$.
+
+  Да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
+  \begin{align*}
+    & f(a_n) = a_{n+1}\\
+    & f(b_0) = b_{1}\\
+    & f(b_1) = b_1.
+  \end{align*}
+  Лесно се вижда, че това изображение е монотонно.
+  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = b_0$, и тогава:
+  \[f(\bigsqcup_n a_n) = f(b_0) = b_1 \neq b_0 = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
+  Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $b_1$.
+  Това означава, че $b_1$ е също и най-малката неподвижна точка.
+  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка,
+  макар и тя да не може да не е $\bigsqcup_n f^n(a_0)$.
+\end{hint}
+\fi
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:
