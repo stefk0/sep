@@ -25,9 +25,8 @@
 
 
 
-\usepackage{amssymb, amsmath, amsthm, mathrsfs, bm}
+\usepackage{amssymb, amsmath, amsthm, latexsym, mathrsfs, bm, mathtools}
 \usepackage{stmaryrd}
-\usepackage{latexsym}
 \usepackage{makeidx}
 
 \usepackage{stackrel}
@@ -83,13 +82,12 @@
 \usepackage{subcaption}
 % \usepackage{subfigure}
 
-\usepackage[colorlinks=true, linkcolor=blue, pdfstartview=FitV,citecolor=blue, urlcolor=blue]{hyperref}
-\usepackage[pdfauthor={Stefan Vatev}, pdftitle={Semantics of Programming Languages}, colorlinks=true, linkcolor=blue, pdfstartview=FitV, citecolor=green, urlcolor=blue]{hyperref}
-\hypersetup{pdftex,unicode}
+\usepackage[pdfencoding=unicode, colorlinks=true, linkcolor=blue, pdfstartview=FitV, citecolor=green, urlcolor=blue]{hyperref}
+\hypersetup{pdfauthor={Стефан Вътев},pdftitle={Семантика на езиците за програмиране},pdftex,unicode}
 
 \theoremstyle{definition}
-\newtheorem{thm}{Теорема}[chapter]
-\newtheorem{dfn}{Определение}[chapter]
+\newtheorem{theorem}{Теорема}[chapter]
+\newtheorem{definition}{Определение}[chapter]
 \newtheorem{problem}{{\bf Задача}}[chapter]
 \newtheorem{prb}{{\bf Задача}}[chapter]
 \newtheorem{prop}{Твърдение}[chapter]
@@ -244,10 +242,10 @@
 % \include{basic}
 % \include{imp}
 % \include{Operators}
-\include{domains-basic/domains-basic}
-\include{domains-extra/domains-extra}
-\include{rec/rec}
-\include{proofs/proofs}
+\include{domains/domains}
+% \include{domains-extra/domains-extra}
+% \include{rec/rec}
+% \include{proofs/proofs}
 % \include{lists/lists}
 
 % \include{call-by-value}

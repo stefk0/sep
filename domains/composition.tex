@@ -1,0 +1,23 @@
+\begin{prop}
+  \label{pr:composition}
+  \index{изображения!композиция}
+  Ако $f \in \Cont{\A}{B}$ и $g \in \Cont{\B}{\C}$, то $g \circ f \in \Cont{\A}{\C}$,
+  където \[(g\circ f)(a) \dff g(f(a)).\]
+\end{prop}
+\begin{hint}
+  Нека $\chain{a}{i}$ е верига в $\A$.
+  Да обърнем внимание, че понеже $f \in \Cont{\A}{\B}$,
+  то $f$ е монотонно изображение и тогава $(f(a_i))^\infty_{i=0}$ е верига в $\B$.
+  Тогава:
+  \begin{align*}
+    (g \circ f)(\bigsqcup_i a_i) & = g(f(\bigsqcup_i a_i)) & \comment{\text{от деф.}}\\
+    & = g(\bigsqcup_i f(a_i)) & \comment{f \text{ е непр.}}\\
+    & = \bigsqcup_i g(f(a_i)) & \comment{g \text{ е непр.}}
+  \end{align*}
+\end{hint}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:
