@@ -1,33 +1,31 @@
 \section{Област на Скот от непрекъснати изображения}
 
-Следващата теорема е важна, защото с нейна помощ се доказват много свойства на непрекъснатите изображения.
+Следващата теорема е важна, защото с нейна помощ се доказват много свойства на непрекъснатите изображения от по-висок ред.
 
-\begin{theorem}
-  \label{th:double-chain}
+\begin{theorem}\label{th:double-chain}
   \marginpar{\cite[стр. 127]{winskel}}
   \marginpar{\cite[стр. 178]{models-of-computation}}
   Нека $\A = (A,\sqsubseteq,\bot)$ да бъде област на Скот и нека множеството 
-  \[E = \{a_{m,n} \mid m,n \in \Nat\}\]
-  от елементи на $A$ притежава свойството, че 
+  \[\{a_{m,n} \mid m,n \in \Nat\}\] от елементи на $A$ притежава свойството, че 
   \[n \leq n^\prime\ \&\ m \leq m^\prime\ \Rightarrow\ a_{n,m} \sqsubseteq a_{n^\prime,m^\prime}.\]
-  Тогава множеството $E$ има точна горна граница, която означаваме с $\bigsqcup E$, и са изпълнени равенствата
-  \[\bigsqcup E = \bigsqcup_m(\bigsqcup_n a_{n,m}) = \bigsqcup_n(\bigsqcup_{m} a_{n,m}) = \bigsqcup_n a_{n,n}.\]
+  Тогава са изпълнени равенствата
+  \[\bigsqcup_m(\bigsqcup_n a_{n,m}) = \bigsqcup_n(\bigsqcup_{m} a_{n,m}) = \bigsqcup_n a_{n,n}.\]
 \end{theorem}
 \begin{proof}
   Първо ще въведем някои означения.
   \begin{itemize}
   \item 
-    Да фиксираме произволно $m$. Тогава можем да подредим елементите на множеството $\{a_{n,m} \mid n \in \Nat\}$ във възходящ ред: 
+    Да фиксираме произволно $m$. Тогава множеството $\{a_{n,m} \mid n \in \Nat\}$ образува верига:
     \[a_{0,m} \sqsubseteq a_{1,m} \sqsubseteq a_{2,m} \sqsubseteq \cdots\]
     \marginpar{По дефиниция, всяка монотонно растяща редица в област на Скот притежава точна горна граница.}
     Следователно тя има точна горна граница $b_m \dff \bigsqcup \{a_{n,m} \mid n \in \Nat\}$.
   \item
-    Аналогично, при фиксирано $n$, можем да подредим елементите на множеството $\{a_{n,m} \mid m \in \Nat\}$ в монотонно растяща редица:
+    Аналогично, при фиксирано $n$, множеството $\{a_{n,m} \mid m \in \Nat\}$ образува верига:
     \[a_{n,0} \sqsubseteq a_{n,1} \sqsubseteq a_{n,2} \sqsubseteq \ldots,\]
     която притежава точна горна граница $c_n \dff \bigsqcup \{a_{n,m} \mid m \in \Nat\}$.
   \end{itemize}
   Това означава, че трябва да докажем следното:
-  \[\bigsqcup E = \bigsqcup_mb_m = \bigsqcup_n c_n = \bigsqcup_n a_{n,n}.\]
+  \[\bigsqcup_m b_m = \bigsqcup_n c_n = \bigsqcup_n a_{n,n}.\]
   \begin{enumerate}[1)]
   \item 
     Първо да съобразим, че множеството $\{b_m \mid m \in \Nat\}$ образува верига в $\A$ и следователно притежава точна горна граница $\bigsqcup_m b_m$.
@@ -40,60 +38,34 @@
   \item
     Сега ще докажем, че \[\bigsqcup_m b_m = \bigsqcup_n c_n.\]
     Имаме, че 
-    \[(\forall m)(\forall n)[a_{n,m} \sqsubseteq \bigsqcup_na_{n,m} = b_m \sqsubseteq \bigsqcup_m b_m],\]
+    \[(\forall m)(\forall n)[a_{n,m} \sqsubseteq \bigsqcup_{i}a_{i,m} = b_m \sqsubseteq \bigsqcup_i b_i],\]
     което е еквивалентно на 
-    \[(\forall n)(\forall m)[a_{n,m} \sqsubseteq b_m \sqsubseteq \bigsqcup_m b_m].\]
+    \[(\forall n)(\forall m)[a_{n,m} \sqsubseteq b_m \sqsubseteq \bigsqcup_i b_i].\]
     Да фиксираме произволно $n$.
-    Тогава $\bigsqcup_m b_m$ е горна граница на веригата $(a_{n,m})^\infty_{m=0}$.
-    Следователно, $c_n = \bigsqcup_m a_{n,m} \sqsubseteq \bigsqcup_m b_m$.
-    Така получаваме, че $\bigsqcup_m b_m$ е горна граница и на веригата $\chain{c}{n}$
-    и тогава \[\bigsqcup_n c_n \sqsubseteq \bigsqcup_m b_m.\]
+    Тогава $\bigsqcup_i b_i$ е горна граница на веригата $(a_{n,i})^\infty_{i=0}$.
+    Следователно, $c_n = \bigsqcup_i a_{n,i} \sqsubseteq \bigsqcup_i b_i$.
+    Така получаваме, че $\bigsqcup_i b_i$ е горна граница и на веригата $\chain{c}{n}$
+    и тогава \[\bigsqcup_n c_n \sqsubseteq \bigsqcup_i b_i.\]
     С аналогични разсъждения можем да докажем също, че 
     \[\bigsqcup_m b_m \sqsubseteq \bigsqcup_n c_n.\]
     Така доказахме, че \[\bigsqcup_m b_m = \bigsqcup_n c_n.\]
   \item
-    Сега ще докажем, че \[\bigsqcup E = \bigsqcup_m b_m.\]
-    За целта ще проверим следното:
-    \begin{enumerate}[a)]
-    \item 
-      $\bigsqcup_m b_m$ е горна граница на $E$.
-    \item
-      Ако $d$ е друга горна граница на $E$, то $\bigsqcup_m b_m \sqsubseteq d$.
-    \end{enumerate}
-    \begin{itemize}
-    \item 
-      $\bigsqcup_m b_m$ е горна граница на $E$, защото
-      \[(\forall m)(\forall n)[a_{n,m} \sqsubseteq b_m \sqsubseteq \bigsqcup_m b_m].\]
-    \item
-      Нека $d$ е друга горна граница на $E$, т.е.
-      \[(\forall m)(\forall n)[a_{n,m} \sqsubseteq d].\]
-      Да фиксираме произволно $m$.
-      Тогава $d$ е горна граница на веригата $(a_{n,m})^\infty_{n=0}$.
-      Това означава, че $b_m = \bigsqcup_n a_{n,m} \sqsubseteq d$.
-      Получаваме, че $d$ е горна граница на веригата $\chain{b}{m}$,
-      откъдето следва, че $\bigsqcup_m b_m \sqsubseteq d$.
-    \end{itemize}
-    Заключаваме, че $\bigsqcup_m b_m$ е точната горна граница на $E$.
-    Обобщавайки всичко от по-горе, следва, че:
-    \[\bigsqcup E = \bigsqcup_m b_m = \bigsqcup_n c_n.\]
-  \item
-    Остана да видим, че 
-    \[\bigsqcup E = \bigsqcup_n a_{n,n}.\]
-    \begin{itemize}
-    \item 
-      Да разгледаме произволен елемент $a_{n,m} \in E$.
-      Нека $k = \max\{n,m\}$.
-      Ясно е, че $a_{n,m} \sqsubseteq a_{k,k} \sqsubseteq \bigsqcup_na_{n,n}$.
-      Следователно, $\bigsqcup_n a_{n,n}$ е горна граница на $E$, откъдето получаваме
-      \[\bigsqcup E \sqsubseteq \bigsqcup_n a_{n,n}.\]
-    \item
-      Нека $d$ е горна граница на $E$.
-      Тогава $(\forall n)(\forall m)[a_{n,m} \sqsubseteq d]$
-      и в частност, $(\forall n)[a_{n,n} \sqsubseteq d]$.
-      Сега можем да заключим, че $\bigsqcup_n a_{n,n} \sqsubseteq d$.    
-    \end{itemize}
-    Така доказахме, че $\bigsqcup_n a_{n,n}$ е точна горна граница на $E$.
-    \end{enumerate}
+    Достатъчно е още да докажем, че
+    \[\bigsqcup_n a_{n,n} = \bigsqcup_n c_n.\]
+    Ясно е, че $a_{n,n}$ е елемент на веригата ${(a_{n,m})}^{\infty}_{m=0}$ и следователно
+    $a_{n,n} \sqsubseteq \bigsqcup_m a_{n,m} = c_n \sqsubseteq \bigsqcup_n c_n$.
+    Получаваме, че $\bigsqcup_n c_n$ е горна граница на веригата ${(a_{n,n})}^{\infty}_{n=0}$
+    и следователно $\bigsqcup_n a_{n,n} \sqsubseteq \bigsqcup_n c_n$.
+    
+    
+    За другата посока, да разгледаме произволен елемент $a_{n,m}$.
+    Нека $k = \max\{n,m\}$.
+    Ясно е, че $a_{n,m} \sqsubseteq a_{k,k} \sqsubseteq \bigsqcup_n a_{n,n}$.
+    Следователно, $\bigsqcup_n a_{n,n}$ е горна граница на верига ${(a_{m,n})}^{\infty}_{m=0}$
+    и оттук получаваме, че за всяко $n$, $c_n \sqsubseteq \bigsqcup_n a_{n,n}$.
+    Получаваме, че $\bigsqcup_n a_{n,n}$ е горна граница на веригата $\chain{c}{n}$ и следователно
+    $\bigsqcup_n c_n \sqsubseteq \bigsqcup_n a_{n,n}$.
+  \end{enumerate}
   С това доказателството на теоремата е завършено.
 \end{proof}
 
@@ -125,8 +97,8 @@
     Да разгледаме произволно изображение $g$, което е горна граница на веригата $\chain{f}{k}$.
     За произволен елемент $a \in A$, 
     \[(\forall k)[f_k(a) \sqsubseteq^\B g(a)].\]
-    Това означава, че $g(a)$ е горна граница на веригата $(f_k(a))^\infty_{k=0}$.
-    Понеже $h(a) = \bigsqcup_k \{f_k(a)\}$ е точната горна граница на веригата $(f_k(a))^\infty_{k=0}$,
+    Това означава, че $g(a)$ е горна граница на веригата ${(f_k(a))}^\infty_{k=0}$.
+    Понеже $h(a) = \bigsqcup_k \{f_k(a)\}$ е точната горна граница на веригата ${(f_k(a))}^\infty_{k=0}$,
     то $h(a) \sqsubseteq^\B g(a)$.
     Оттук следва, че $h \sqsubseteq g$.
   \end{itemize}
@@ -151,92 +123,43 @@
 Да напомним, че релацията $\sqsubseteq$ между две изображения е дефинирана като
 \[f \sqsubseteq g \dfff (\forall a\in A)[f(a) \sqsubseteq^\B g(a)].\]
 \begin{framed}
-  \begin{cor}
+  \begin{theorem}
+    \label{th:continuous-domain}
     Ако $\A$ и $\B$ са области на Скот, то $\Cont{\A}{\B}$ е област на Скот.
-  \end{cor}
+  \end{theorem}
 \end{framed}
-
-
-
-% \begin{remark}
-%   Интересен въпрос е при какви условия областта на Скот $\Cont{\A_1}{\A_2}$ е алгебрична.
-%   Ние по-късно ще разгледаме този въпрос в един частен, но достатъчно общ, случай, 
-%   а именно когато $\A_1$ и $\A_2$ са областта на Скот от лениви списъци.
-% \end{remark}
-
-% \begin{problem}
-%   Нека $\A = (A, \sqsubseteq^\A, \bot^\A)$ е област на Скот, а $X$ е произволно непразно множество.
-%   Определяме $\A^X = (A^X,\sqsubseteq^X,\bot^X)$ като:
-%   \begin{itemize}
-%   \item 
-%     $A^X \dff \{f:X \to A\mid f\mbox{ е тотална}\}$;
-%   \item
-%     $f \sqsubseteq^X g\ \iff\ (\forall x \in X)[f(x) \sqsubseteq^\A g(x)]$;
-%   \item
-%     $\bot^X \in A^X$, като $(\forall x \in X)[\bot^X(x) = \bot^\A]$.
-%   \end{itemize}
-%   Докажете, че $\A^X$ е област на Скот.
-% \end{problem}
-% \begin{proof}
-%   \begin{enumerate}[1)]
-%   \item 
-%     Лесно се вижда, че $\sqsubseteq^X$ е частична наредба.
-%   \item
-%     Също така, $\bot^X$ е най-малкият елемент на $A^X$ относно $\sqsubseteq^X$.
-%   \item
-%     Нека $(f_n)^\infty_{n=0}$ е верига от елементи на $A^X$. 
-%     Ще докажем, че функцията $h$, дефинирана като $h(x) = \bigsqcup_n f_n(x)$,
-%     е точна горна граница на $(f_n)^\infty_{n=0}$.
-%     Но преди това, първо да съобразим, че $h \in A^X$.
-%     Това следва от факта, че $\A$ е област на Скот и за всяко $x\in X$,
-%     $(f_n(x))^\infty_{n=0}$ е верига в $\A$ 
-%     и следователно има точна горна граница, която е равна на $h(x)$.
-    
-%     Сега ще покажем, че $h$ е горна граница на $(f_n)^\infty_{n=0}$.
-%     Имаме, че:
-%     \begin{align*}
-%       (\forall x\in X)(\forall n)[f_n(x) \sqsubseteq^\A \bigsqcup_n f_n(x) = h(x)] & \iff (\forall n)(\forall x\in X)[f_n(x) \sqsubseteq^\A h(x)] \\
-%       & \iff (\forall n)[f_n \sqsubseteq^\A h].
-%     \end{align*}
-    
-%     Остана да видим, че $h$ е най-малката измежду горните граници на редицата $(f_n)^\infty_{n=0}$.
-%     Нека $g$ е произволна горна граница на $(f_n)^\infty_{n=0}$. Това означава, че:
-%     \begin{align*}
-%       (\forall n)[f_n \sqsubseteq^X g] & \iff (\forall n)(\forall x\in X)[f_n(x) \sqsubseteq^\A g(x)]\\
-%       & \iff (\forall x\in X)(\forall n)[f_n(x) \sqsubseteq^\A g(x)]
-%     \end{align*}
-%     Да разгледаме произволно $x \in X$. Тогава:
-%     \[(\forall n)[f_n(x) \sqsubseteq^\A \bigsqcup_n f_n(x) \sqsubseteq^\A g(x)].\]
-%     Понеже $h(x) = \bigsqcup_n f_n(x)$, получаваме, че за всяко $x \in X$,
-%     \[h(x) \sqsubseteq^\A g(x),\]
-%     което означава, че
-%     $h \sqsubseteq^X g$.
-%   \end{enumerate}
-% \end{proof}
 
 Нека $\A_1,\dots,\A_n$ и $\A$ са области на Скот и да разгледаме $f: \A_1\times \dots \times \A_n \to \A$.
 Казваме, че $f$ е {\bf непрекъснато изображение по $i$-тия аргумент}, ако 
 за всяка верига $\chain{a}{k}$ в $\A_i$, то
-\[f(b_1,\dots, b_{i-1}, \bigsqcup_k a_k, b_{i+1},\dots,b_n) = \bigsqcup_kf(b_1,\dots, b_{i-1}, a_k, b_{i+1},\dots,b_n).\]
+\[f(b_1,\dots, b_{i-1}, \bigsqcup_k a_k, b_{i+1},\dots,b_n) = \bigsqcup_k f(b_1,\dots, b_{i-1}, a_k, b_{i+1},\dots,b_n).\]
 
-\begin{prop}
-  Нека $\A_1,\dots,\A_n$ и $\A$ са области на Скот.
-  Едно изображение $f: \A_1\times \dots \times \A_n \to \A$ 
+\begin{proposition}
+  \label{pr:continuous-arguments}
+  \marginpar{\cite[стр. 184]{models-of-computation}}
+  Нека $\A_1,\dots,\A_n$ и $\A$ са области на Скот. Едно изображение
+  \[f: \A_1\times \dots \times \A_n \to \A\]
   е непрекъснато точно тогава, когато $f$ е непрекъснато по всеки от аргументите си.
-\end{prop}
-\Stefan{Интересно е, че това твърдение не е вярно за непрекъснати свойства. Добре е да се обясни някъде.}
-
+\end{proposition}
 \begin{proof}
   \marginpar{\writedown Обобщете това твърдение за $n > 2$.}
   За по-просто изложение, да разгледаме случая $n = 2$.
 
   $(\Rightarrow)$ Лесно се съобразява, че ако $f$ е непрекъснато изображение, то $f$ е непрекъснато по всеки от аргументите си.
-  \Stefan{Все пак е добре тук да се напише нещо.}
-  
+  Да видим например защо $f$ е непрекъснато по първия аргумент.
+  Да разгледаме веригата ${(\pair{a_i,b})}^\infty_{i=0}$ от елементи на $\A\times\B$, за някое фиксирано $b$.
+  Знаем, че $\bigsqcup_i \pair{a_i,b} = \pair{\bigsqcup_ia_i,b}$.
+  Тогава
+  \marginpar{Формално погледнато, правилно е да пишем $f(\pair{a,b})$ вместо $f(a,b)$.}
+  \begin{align*}
+    f(\bigsqcup_i a_i,b) & = f(\bigsqcup_i\pair{a_i,b}) \\
+                        & = \bigsqcup_i f(a_i,b) & \comment{f\text{ е непрекъснато}}.
+  \end{align*}
+    
   $(\Leftarrow)$ Нека сега $f$ е непрекъснато по всеки от аргументите си. Ще докажем, че $f$ е непрекъснато.
-  Нека $\{\pair{a_n,b_n}\}^\infty_{n=0}$ е верига в $\A_1\times \A_2$.
+  Нека ${\{\pair{a_n,b_n}\}}^\infty_{n=0}$ е верига в $\A_1\times \A_2$.
   Понеже от \Prop{cartesian} знаем, че
-  \[\bigsqcup_n\pair{a_n,b_n} = \pair{\bigsqcup_na_n,\bigsqcup_n b_n},\]
+  \[\bigsqcup_n\pair{a_n,b_n} = \pair{\bigsqcup_n a_n,\bigsqcup_n b_n},\]
   ще докажем, че 
   \[\bigsqcup_n f(a_n,b_n) = f(\bigsqcup_n a_n,\bigsqcup_n b_n).\]
   Да положим $e_{n,m} = f(a_n,b_m)$.
@@ -246,9 +169,9 @@
   Получаваме, че
   \begin{align*}
     \bigsqcup_n f(a_n,b_n) & = \bigsqcup_n e_{n,n} & \comment{\text{от опр. на }e_{n,m}}\\
-                           & = \bigsqcup_n(\bigsqcup_m e_{n,m}) & \comment{\text{от \Th{double-chain}}}\\
-                           & = \bigsqcup_n(\bigsqcup_m f(a_n,b_m)) & \comment{\text{от опр. на }e_{n,m}}\\
-                           & = \bigsqcup_nf(a_n,\bigsqcup_m b_m) & \comment{f \text{ е непр. по втория си аргумент}}\\
+                           & = \bigsqcup_n (\bigsqcup_m e_{n,m}) & \comment{\text{от \Th{double-chain}}}\\
+                           & = \bigsqcup_n (\bigsqcup_m f(a_n,b_m)) & \comment{\text{от опр. на }e_{n,m}}\\
+                           & = \bigsqcup_n f(a_n,\bigsqcup_m b_m) & \comment{f \text{ е непр. по втория си аргумент}}\\
                            & = f(\bigsqcup_n a_n,\bigsqcup_m b_m) & \comment{f \text{ е непр. по първия си аргумент}}.
   \end{align*}
 \end{proof}

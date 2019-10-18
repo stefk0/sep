@@ -1,52 +1,55 @@
-\subsection{Непрекъснати изображения}
-\index{изображение!непрекъснато}
+\subsection{Непрекъснати изображения}\index{изображение!непрекъснато}
 
 \marginpar{На англ. {\em continuous}}
-Едно изображение $f:\A_1\to \A_2$ се нарича {\bf непрекъснато}, ако
-при всеки избор на верига $\chain{a}{i}$ в $\A_1$, то имаме равенството
-\marginpar{Понеже $\A_1$ е област на Скот знаем, че $\bigsqcup_i a_i \in \A_1$}
-\marginpar{$\bigsqcup_if(a_i) \dff \bigsqcup\{f(a_i) \mid i \in \Nat\}$}
-\[f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i).\]
-С други думи, 
-$f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на множеството 
-\[\{f(a_i) \mid i \in \Nat\}.\]
+Едно изображение $f:\A_1\to \A_2$ се нарича {\bf непрекъснато}, ако са изпълнени свойствата:
+\begin{itemize}
+\item
+  $f$ е монотонно изображение;
+\item
+  при всеки избор на верига $\chain{a}{i}$ в $\A_1$, то имаме равенството
+  \marginpar{Понеже $\A_1$ е област на Скот знаем, че $\bigsqcup_i a_i \in \A_1$}
+  \marginpar{Понеже $f$ е монотонно, то ${(f(a_i))}^{\infty}_{i=0}$ е верига.}
+  \marginpar{$\bigsqcup_i f(a_i) \dff \bigsqcup\{f(a_i) \mid i \in \Nat\}$}
+  \[f(\bigsqcup_i a_i) = \bigsqcup \{f(a_i) \mid i \in \Nat\}.\]  
+\end{itemize}
 Да означим
 \[\Cont{\A_1}{\A_2} \dff (\{f: \A_1 \to \A_2 \mid f\text{ е непр. изобр.}\},\ \sqsubseteq,\ \bm{\bot}).\]
 
-\begin{framed}
-  \begin{prop}
-    \label{pr:continuous-is-monotone}
-    За произволни области на Скот $\A_1$ и $\A_2$, всяко непрекъснато изображение $f:\A_1 \to \A_2$ е монотонно, т.е.
-    \[\Cont{\A_1}{\A_2}\ \subseteq\ \Mon{\A_1}{\A_2}.\]
-  \end{prop}
-\end{framed}
-\begin{proof}
-  Нека $f \in \Cont{\A_1}{\A_2}$.
-  Да вземем два произволни елемента в $\A_1$, за които $a \sqsubseteq_1 b$.
-  Ще докажем, че $f(a) \sqsubseteq_2 f(b)$.
-  Да разгледаме веригата $\chain{a}{i}$ в $\A_1$, където:
-  \[\underbrace{a_0}_{a} \sqsubseteq \underbrace{a_1}_{b} = \underbrace{a_2}_{b} = \underbrace{a_3}_{b} = \cdots\]
-  Ясно е, че 
-  \[\bigsqcup\{a_i \mid i \in \Nat\} = \bigsqcup\{a,b\} = b.\]
-  Тогава от непрекъснатостта на $f$ имаме, че
-  \begin{align*}
-    f(a) & = f(a_0) & \comment{\text{защото }a_0 \dff a}\\
-    & \sqsubseteq_2 \bigsqcup\{f(a_i) \mid i \in \Nat\} & \comment{\text{защото }f(a_0) \in \{f(a_i) \mid i\in\Nat\}}\\
-    & = f(\bigsqcup_i a_i) & \comment{\text{защото $f$ е непр.}}\\
-    & = f(\bigsqcup\{a,b,b,b,\dots\}) & \comment{\text{от избора на веригата }\chain{a}{i}}\\
-    & = f(b) & \comment{\text{защото }a \sqsubseteq_1 b}.
-  \end{align*}
-  Така получихме, че за произволни $a,b\in\A_1$, 
-  \[a \sqsubseteq_1 b \implies f(a) \sqsubseteq_2 f(b).\]
-\end{proof}
+% \begin{framed}
+%   \begin{prop}
+%     \label{pr:continuous-is-monotone}
+%     За произволни области на Скот $\A_1$ и $\A_2$, всяко непрекъснато изображение $f:\A_1 \to \A_2$ е монотонно, т.е.
+%     \[\Cont{\A_1}{\A_2}\ \subseteq\ \Mon{\A_1}{\A_2}.\]
+%   \end{prop}
+% \end{framed}
+% \begin{proof}
+%   Нека $f \in \Cont{\A_1}{\A_2}$.
+%   Да вземем два произволни елемента в $\A_1$, за които $a \sqsubseteq_1 b$.
+%   Ще докажем, че $f(a) \sqsubseteq_2 f(b)$.
+%   Да разгледаме веригата $\chain{a}{i}$ в $\A_1$, където:
+%   \[\underbrace{a_0}_{a} \sqsubseteq \underbrace{a_1}_{b} = \underbrace{a_2}_{b} = \underbrace{a_3}_{b} = \cdots\]
+%   Ясно е, че 
+%   \[\bigsqcup\{a_i \mid i \in \Nat\} = \bigsqcup\{a,b\} = b.\]
+%   Тогава от непрекъснатостта на $f$ имаме, че
+%   \begin{align*}
+%     f(a) & = f(a_0) & \comment{\text{защото }a_0 \dff a}\\
+%     & \sqsubseteq_2 \bigsqcup\{f(a_i) \mid i \in \Nat\} & \comment{\text{защото }f(a_0) \in \{f(a_i) \mid i\in\Nat\}}\\
+%     & = f(\bigsqcup_i a_i) & \comment{\text{защото $f$ е непр.}}\\
+%     & = f(\bigsqcup\{a,b,b,b,\dots\}) & \comment{\text{от избора на веригата }\chain{a}{i}}\\
+%     & = f(b) & \comment{\text{защото }a \sqsubseteq_1 b}.
+%   \end{align*}
+%   Така получихме, че за произволни $a,b\in\A_1$, 
+%   \[a \sqsubseteq_1 b \implies f(a) \sqsubseteq_2 f(b).\]
+% \end{proof}
 
-Ествено да си зададем въпроса дали имаме и обратното включване.
+Ясно е, че всяко непрекъснато изображение е монотонно.
+Ествено е да си зададем въпроса дали имаме и обратното включване.
 Оказва се, че в общия случай не е вярно, че всяко монотонно изображение е непрекъснато.
 
-\begin{prop}
+\begin{proposition}
   Съществува област на Скот $\A$, за която
   \[\Cont{\A}{\A} \subsetneqq \Mon{\A}{\A}.\]
-\end{prop}
+\end{proposition}
 \begin{hint}
   Нека $A = \{a_n \mid n \in \Nat\} \cup \{a_\omega, b_0\}$.
   Да разгледаме областта на Скот $\A = (A, \sqsubseteq, a_0)$, където 
@@ -64,11 +67,10 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
 Сега да видим един важен за нас случай, при който имаме и обратното включване.
 
 \begin{framed}
-  \begin{prop}
-    \label{pr:stab-continuous}
+  \begin{proposition}\label{pr:stab-continuous}
     Ако всяка верига в $\A_1$ се {\em стабилизира}, то
     \[\Mon{\A_1}{\A_2} \subseteq \Cont{\A_1}{\A_2}.\]
-  \end{prop}  
+  \end{proposition}
 \end{framed}
 \begin{hint}
   Да разгледаме една верига $\chain{a}{i}$ в $\A_1$ и $f \in \Mon{\A_1}{\A_2}$.
@@ -76,11 +78,13 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
 
   \begin{enumerate}[(1)]
   \item
-    \marginpar{Това включване е вярно за произволна област на Скот $\A_1$.}
-    Ясно е, че за всяко монотонно изображение $f$,
-    понеже $a_i \sqsubseteq \bigsqcup_i a_i$, то $f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
-    Това означава, че $f(\bigsqcup_i a_i)$ е горна граница на веригата $(f(a_i))^\infty_{i=0}$ в $\A_2$
-    и следователно
+    % \marginpar{Това включване е вярно за произволна област на Скот $\A_1$.}
+    % Ясно е, че за всяко монотонно изображение $f$,
+    % понеже $a_i \sqsubseteq \bigsqcup_i a_i$, то $f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+    % Това означава, че $f(\bigsqcup_i a_i)$ е горна граница на веригата $(f(a_i))^\infty_{i=0}$ в $\A_2$
+    % и следователно
+    % \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
+    От \Prop{monotone-chain} веднага получаваме, че
     \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
   \item
     За другата посока ще използваме свойството, че веригата $\chain{a}{i}$ се стабилизира.
@@ -96,19 +100,17 @@ $f(\bigsqcup_i a_i)$ е точната горна граница в $\A_2$ на 
 Понеже всяка верига в $\Nat^n_\bot$ се {\em стабилизира}, то
 получаваме следното важно следствие.
 \begin{framed}
-\begin{cor}
-  \label{cr:monotone-is-continuous}
+\begin{cor}\label{cr:monotone-is-continuous}
   $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$.
 \end{cor}  
 \end{framed}
 
-От доказателството на (1) за \Prop{stab-continuous} можем да извлечем следното свойство,
-което ще ни бъде полезно по-нататък.
-\begin{prop}
-  \label{pr:monotone-chain}
-  За всяко изображение $f \in \Mon{\A}{\B}$ и всяка верига $\chain{a}{i}$, е изпълнено, че
-  \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
-\end{prop}
+% От доказателството на (1) за \Prop{stab-continuous} можем да извлечем следното свойство,
+% което ще ни бъде полезно по-нататък.
+% \begin{proposition}\label{pr:monotone-chain}
+%   За всяко изображение $f \in \Mon{\A}{\B}$ и всяка верига $\chain{a}{i}$, е изпълнено, че
+%   \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
+% \end{proposition}
 
 Понеже от \Cor{flat-monotone-is-domain} имаме, че монотонните изображения образуват област на Скот, 
 то директно получаваме следната важна теорема.

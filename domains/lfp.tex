@@ -2,12 +2,10 @@
 \index{най-малка неподвижна точка}
 
 \begin{itemize}
-\item 
-  \index{неподвижна точка}
+\item\index{неподвижна точка}
   Да фиксираме произволна област на Скот $\A = (A, \sqsubseteq, \bot)$ и да разгледаме едно изображение $f:\A\to\A$.
   Казваме, че $a \in \A$ е {\bf неподвижна точка} на $f$, ако $f(a) = a$.
-\item
-  \index{най-малка неподвижна точка}
+\item\index{най-малка неподвижна точка}
   Казваме, че $a \in \A$ е {\bf най-малката неподвижна точка} на $f$, ако:
   \begin{itemize}
   \item 
@@ -50,7 +48,7 @@
          & = \bigsqcup_i a_i & \comment \text{защото }\chain{a}{i}\text{ е верига}\\
          & = a.
   \end{align*}
-  Така доказахме, че $a$ е {\em неподвижна точка} на $f$.
+  Така доказахме, че $a$ е \emph{ неподвижна точка} на $f$.
   Остана да видим, че е най-малката неподвижна точка на $f$.
 
   Нека $b = f(b)$. С индукция по $n$ ще докажем, $(\forall n)[a_n \sqsubseteq b]$.
@@ -63,12 +61,159 @@
   \end{itemize}
   Така доказахме, че $b$ е горна граница на веригата $\chain{a}{n}$.
   Заключаваме, че $a \dff \bigsqcup_n a_n \sqsubseteq b$.
-  Следователно, $a$ е {\em най-малката неподвижна точка} на $f$,
+  Следователно, $a$ е \emph{ най-малката неподвижна точка} на $f$,
   т.е. $a = \lfp(f)$.
 \end{proof}
 
-\begin{prop}
-  \label{pr:prefix-point}
+\begin{problem}
+  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но тя не е $\bigsqcup_n f^n(\bot^\A)$.
+\end{problem}
+\ifhints\begin{hint}
+  Да разгледаме $\A = (A,\ \sqsubseteq,\ a_0)$, където елементите на $A$ са подредени по следния начин:
+  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset a_\omega \sqsubset b \}.\]
+  т.е. $A$ е съставена от веригата ${(a_n)}^\infty_{n=0}$ веднага следвана от елементите $a_\omega$ и $b$.
+  Да обърнем внимание, че $\bigsqcup_n a_n = a_\omega$.
+  Сега да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
+  \begin{align*}
+    & f(a_n) = a_{n+1}\\
+    & f(a_\omega) = b\\
+    & f(b) = b.
+  \end{align*}
+  Лесно се вижда, че това изображение е монотонно.
+  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = a_\omega$, и тогава:
+  \[f(\bigsqcup_n a_n) = f(a_\omega) = b \neq a_\omega = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
+  Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $b$.
+  Това означава, че $b$ е също и най-малката неподвижна точка.
+  \marginpar{$f^n(a_0) = a_n$.}
+  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка,
+  макар и тя да не е $\bigsqcup_n f^n(a_0)$.
+\end{hint}
+\fi
+
+% \begin{problem}
+%   Да разгледаме $\Gamma:\Partial{\Nat}{\Nat} \to \Partial{\Nat}{\Nat}$, където
+%   \begin{enumerate}[a)]
+%   \item
+%     $\Gamma(f)(x) = 5$, за всяко $x \in \Nat$;
+%   \item
+%     $\Gamma(f)(x)$ не е деф. за всяко $x \in \Nat$;
+%   \item
+%     $\Gamma(f) = f$;
+%   \item
+%     $\Gamma(f) = f\circ f$;
+%   \item
+%     $\Gamma(f)(x) = x * f(x+1)$;
+%     \item
+%     $\Gamma(f)(x) =
+%     \begin{cases}
+%       \text{не е деф.}, & \text{ ако }x = 0\\
+%       x * f(x-1), & \text{ ако }x > 0.
+%     \end{cases}$    
+%   \item
+%     $\Gamma(f)(x) =
+%     \begin{cases}
+%       0, & \text{ ако }x = 0\\
+%       x * f(x-1), & \text{ ако }x > 0.
+%     \end{cases}$
+%     \item
+%     $\Gamma(f)(x) =
+%     \begin{cases}
+%       1, & \text{ ако }x = 0\\
+%       x * f(x-1), & \text{ ако }x > 0.
+%     \end{cases}$    
+%   \end{enumerate}
+% \end{problem}
+
+
+\begin{example}
+  Да разгледаме следното изображение $\Gamma:\Partial{\Nat}{\Nat} \to \Partial{\Nat}{\Nat}$, където
+  \[\Gamma(f)(x) =
+    \begin{cases}
+      0, & \text{ ако }x = 0\\
+      x + f(x-1), & \text{ ако }x > 0.
+    \end{cases}\]
+  Първо да видим, че $\Gamma$ е монотонно изображение.
+  Нека $f \sqsubseteq g$.
+  Трябва да докажем, че за всяко $x$, ако $\Gamma(f)(x) = y$, то $\Gamma(g)(x) = y$.
+  \begin{itemize}
+  \item
+    Нека $x = 0$.
+    Тогава $\Gamma(f)(0) = 0 = \Gamma(g)(0)$.
+  \item
+    Нека $x > 0$ и да приемем, че $\Gamma(f)(x) = x + f(x-1) = y$.
+    Това означава, че $f(x-1) = z$, за някое $z$, и $x + z = y$.
+    От $f \sqsubseteq g$ следва, че имаме също и $g(x-1) = z$.
+    Тогава е ясно, че $\Gamma(g)(x) = x + g(x-1) = x+z = y$.
+  \end{itemize}
+  Разгледахме всички възмножни случаи за естественото число $x$ и
+  \marginpar{$\texttt{Graph}(\Gamma(f)) \subseteq \texttt{Graph}(\Gamma(g))$.}
+  видяхме, че за произволно $x$, ако $\Gamma(f)(x) = y$, то $\Gamma(g)(x) = y$.
+  Заключаваме, че $\Gamma(f) \sqsubseteq \Gamma(g)$, т.е. $\Gamma$ е монотонно изображение.
+
+  Нека сега да видим, че $\Gamma$ е непрекъснато изображение.
+  Да разгледаме произволна верига $\chain{f}{i}$ от частични функции.
+  Трябва да докажем, че
+  \[\Gamma(\bigsqcup_i f_i) = \bigsqcup_i \Gamma(f_i).\]
+  Щом $\Gamma$ е монотонно, от \Prop{monotone-chain} вече знаем, че
+  \[\bigsqcup_i \Gamma(f_i) \sqsubseteq \Gamma(\bigsqcup_i f_i).\]
+  Остава да докажем обратната посока. И така, нека първо да вземем $x = 0$.
+  Тогава $\Gamma(\bigsqcup_i f_i)(0) = 0$. От дефиницията от $\Gamma$ знаем, че
+  за всяко $i$, $\Gamma(f_i)(0) = 0$ и оттук $(\bigsqcup_i \Gamma(f_i))(0) = 0$.
+  Следователно,
+  \[\Gamma(\bigsqcup_i f_i)(0) = 0 = (\bigsqcup_i \Gamma(f_i))(0).\]
+  Нека сега $x > 0$. Тогава
+  \marginpar{Да напомним, че $(\bigsqcup_i f_i)(u) = v$ точно тогава, когато съществува индекс $i$, за който $f_i(u) = v$.}
+  \[\Gamma(\bigsqcup_i f_i)(x) = x + (\bigsqcup_i f_i)(x-1) = y.\]
+  Ясно е, че съществува $z$, за което $(\bigsqcup_i f_i)(x-1) = z$ и $x + z = y$.
+  Знаем, че съществува индекс $i$, за който $f_i(x-1) = z$.
+  Тогава, понеже $\Gamma(f_i)(x) = x + f_i(x-1) = x+z = y$, то следва, че $(\bigsqcup_i \Gamma(f_i))(x) = y$.
+
+  Сега вече можем да намерим $\lfp(\Gamma) = \bigsqcup_n \Gamma^n(\bm{\bot})$.
+  Ще докажем, че
+  \[\lfp(\Gamma)(x) = \frac{x(x+1)}{2}\] за всяко естествено число $x$.
+  Нека за улеснение да означим $g_n = \Gamma^n(\bm{\bot})$.
+  Ще докажем, че за всяко $n$,
+  \[g_n(x) = \begin{cases}
+      \sum^x_{i=1}i, & \text{ ако } x < n\\
+      \text{не е деф.}, & \text{ ако } x \geq n.
+    \end{cases}\]
+  Ясно е, че $g_0 = \bm{\bot}$, което може да се запише и така:
+  \marginpar{Да напомним, че $\Gamma^0(g) = g$ и $\Gamma^{n+1}(g) = \Gamma(\Gamma^n(g))$.}
+  \[g_0(x) = \begin{cases}
+      \sum^x_{i=1}i, & \text{ ако } x < 0\\
+      \text{не е деф.}, & \text{ ако } x \geq 0.
+    \end{cases}\]
+  Да приемем, че нашето твърдение е изпълнено за $g_n$.
+  Ще докажем, че то е изпълнено и за $g_{n+1}$. И така,
+  \begin{align*}
+    g_{n+1}(x) & = \Gamma(g_n)(x)\\
+               &  = \begin{cases}
+                 0, & \text{ ако } x = 0\\
+                 x + g_n(x-1), & \text{ ако }x > 0\\
+               \end{cases}\\
+               & \stackrel{\text{И.П.}}{=} \begin{cases}
+                 0, & \text{ ако } x = 0\\
+                 x + \sum^{x-1}_{i=1}i , & \text{ ако } 0 \leq x-1 < n\\
+                 \text{не е деф.}, & \text{ ако }x-1 \geq n\\
+               \end{cases}\\
+               & = \begin{cases}
+                 0, & \text{ ако } x = 0\\
+                 \sum^{x}_{i=1}i , & \text{ ако } 1 \leq x < n+1\\
+                 \text{не е деф.}, & \text{ ако }x \geq n+1\\
+               \end{cases}\\
+               & = \begin{cases}
+                 \sum^{x}_{i=1}i , & \text{ ако } x < n+1\\
+                 \text{не е деф.}, & \text{ ако }x \geq n+1.
+               \end{cases}
+  \end{align*}
+  Сега можем да заключим, че за всяко естествено число $x$,
+  \[g_{x+1}(x) = \sum^x_{i=1}i = \frac{x(x+1)}{2}.\]
+  Тогава
+  \[\texttt{lfp}(\Gamma)(x) = (\bigsqcup_i g_i)(x) = \frac{x(x+1)}{2}.\]
+\end{example}
+
+
+\begin{proposition}\label{pr:prefix-point}
   За всяко $f \in \Cont{\A}{\A}$ е изпълнено, че 
   \[(\forall a \in \Pref(f))[\lfp(f) \sqsubseteq a],\]
   където
@@ -76,7 +221,7 @@
   \[\Pref(f) \dff \{a \in \A \mid f(a) \sqsubseteq a\}\]
   е множеството от всички преднеподвижни точки на $f$.
   Това означава, че $\lfp(f)$ е най-малката преднеподвижна точка на $f$.
-\end{prop}
+\end{proposition}
 \begin{proof}
   Знаем от \hyperref[th:knaster-tarski]{Теоремата на Клини}, че $\lfp(f) = \bigsqcup_n f^n(\bot)$.
   Също така знаем, че $\chain{b}{n}$ е верига, където за улеснение сме положили $b_n \dff f^n(\bot)$. 
@@ -100,33 +245,6 @@
   откъдето следва, че $a$ е горна граница за веригата $\chain{b}{n}$, откъдето директно получаваме, че
   \[\lfp(f) = \bigsqcup_n b_n \sqsubseteq a.\]
 \end{proof}
-
-\begin{problem}
-  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но тя не е $\bigsqcup_n f^n(\bot^\A)$.
-\end{problem}
-\ifhints
-\begin{hint}
-  Да разгледаме $\A = (A,\ \sqsubseteq,\ a_0)$, където елементите на $A$ са подредени по следния начин:
-
-  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset b_0 \sqsubset b_1 \}.\]
-  т.е. $A$ е съставена от веригата $(a_n)^\infty_{n=0}$ веднага следвана от елементите $b_0$ и $b_1$.
-  Да обърнем внимание, че $\bigsqcup_n a_n = b_0$.
-
-  Да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
-  \begin{align*}
-    & f(a_n) = a_{n+1}\\
-    & f(b_0) = b_{1}\\
-    & f(b_1) = b_1.
-  \end{align*}
-  Лесно се вижда, че това изображение е монотонно.
-  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = b_0$, и тогава:
-  \[f(\bigsqcup_n a_n) = f(b_0) = b_1 \neq b_0 = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
-  Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $b_1$.
-  Това означава, че $b_1$ е също и най-малката неподвижна точка.
-  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка,
-  макар и тя да не може да не е $\bigsqcup_n f^n(a_0)$.
-\end{hint}
-\fi
 
 %%% Local Variables:
 %%% mode: latex

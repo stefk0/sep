@@ -1,34 +1,35 @@
 \section{Оператор за най-малка неподвижна точка}
 
-\Stefan{Това да се остави само с упътване.}
-
 \begin{theorem}
+  \marginpar{Доказателството в \cite[стр. 188]{models-of-computation} е малко по-различно.}
   % \index{$Y_\A$}
   Нека $\A$ е област на Скот и нека $f \in \Cont{\A}{\A}$.
   \marginpar{Знаем от \Th{knaster-tarski}, че най-малката неподвижна точка на $f$ е елемента $\bigsqcup_n f^n(\bot^\A)$.}
-  Тогава изображението $Y_\A : \Cont{\A}{\A} \to \A$, определено като
-  \[Y_\A(f) = \lfp(f),\]
+  Тогава изображението $\texttt{fix} : \Cont{\A}{\A} \to \A$, определено като
+  \[Y(f) = \lfp(f),\]
   е непрекъснато, т.е.
-  $Y_\A \in \Cont{\Cont{\A}{\A}}{\A}$.
+  $Y \in \Cont{\Cont{\A}{\A}}{\A}$.
 \end{theorem}
 \begin{proof}
-  Нека да вземем една верига $(f_n)^\infty_{n=0}$ от непрекъснати изображения.
+  Нека да вземем една верига $\chain{f}{n}$ от непрекъснати изображения.
   Нашата цел е да докажем, че
-  \[Y_\A(\bigsqcup_n f_n) = \bigsqcup_n Y_\A(f_n).\]
-  Да означим с $h$ точната горна граница на $(f_n)^\infty_{n=0}$.
-  Знаем, че $h(a) = \bigsqcup_n f_n(a)$.
-  \begin{prop}
-    За всяко $k \geq 1$, $h^k(a) = \bigsqcup_n f^k_n(a)$.
-  \end{prop}
+  \[Y(\bigsqcup_n f_n) = \bigsqcup_n \texttt{fix}(f_n).\]
+  \marginpar{Записът ще стане много тромав, ако вместо $h$ използваме означението $\bigsqcup_n f_n$.}
+  Да означим с $h$ точната горна граница на $\chain{f}{n}$.
+  Знаем, че $h(a) = \bigsqcup_n \{f_n(a)\}$, а от \Th{continuous-domain} знаем, че $h$ е непрекъснато изображение.
+  \begin{proposition}
+    За всяко $k \geq 0$ и за всеки елемент $a \in \A$,
+    \[h^k(a) = \bigsqcup_n \{f^k_n(a)\}.\]
+  \end{proposition}
   \begin{proof}
-    Ще докажем твърдението с индукция по $k$, като случая $k = 1$ следва от дефиницията на $h$.
-    Нека приемем, че твърдението е вярно за произволно $k \geq 1$.
+    Ще докажем твърдението с индукция по $k$, като случая $k = 0$ е ясен, защото $h^0(a) = f^0_n(a) = a$.
+    Нека приемем, че твърдението е вярно за произволно $k$.
     Ще докажем, че твърдението е вярно за $k+1$.
     \begin{align*}
       h^{k+1}(a) & = h(h^k(a)) & \\
-      & = h(\bigsqcup_n f^k_n(a))& \comment{\text{ от инд. предположение}}\\
-      & = \bigsqcup_n h(f^k_n(a))& \comment{h \text{ е непрекъснато изображение}}\\
-      & = \bigsqcup_n (\bigsqcup_m f_m(f^k_n(a))). & 
+                 & = h(\bigsqcup_n f^k_n(a))& \comment{\text{ от инд. предположение}}\\
+                 & = \bigsqcup_n h(f^k_n(a))& \comment{h \text{ е непрекъснато изображение}}\\
+                 & = \bigsqcup_n (\bigsqcup_m f_m(f^k_n(a))). & 
     \end{align*}
     
     Да положим $b_n = f^k_n(a)$, за всяко $n$.
@@ -36,24 +37,23 @@
     имаме $b_n \sqsubseteq^\A b_{n^\prime}$.
 
     Сега да положим $e_{m,n} = f_m(b_n)$.
-    Отново, понеже $(b_n)^\infty_{n=0}$ и $(f_m)^\infty_{m=0}$ са вериги, имаме 
+    Отново, понеже $\chain{b}{n}$ и $\chain{f}{m}$ са вериги, имаме 
     \[m \leq m^\prime\ \&\ n\leq n^\prime\ \Rightarrow\ e_{m,n} \sqsubseteq^\A e_{m^\prime,n^\prime}.\]
-    Това означава, че можем да приложим \Th{double-chain} за множеството $E = \{e_{m,n} \mid m,n \in \Nat\}$.
     Получаваме, че
     \begin{align*}
-      h^{k+1}(a) & = \bigsqcup_n (\bigsqcup_m f_m(f^k_n(a))) & \comment{\text{ от горното равенство}}\\
-      & = \bigsqcup_n (\bigsqcup_m e_{m,n}) & \comment{\text{ от определението на }e_{m,n}}\\
-      & = \bigsqcup_n e_{n,n} & \comment{\text{ от \Th{double-chain}}}\\
-      & = \bigsqcup_n f_n(f^k_n(a))  = \bigsqcup_n f^{k+1}_n(a) & 
+      h^{k+1}(a) & = \bigsqcup_n (\bigsqcup_m f_m(f^k_n(a))) & \comment{\text{ от горното равенство за } h^{k+1}}\\
+                 & = \bigsqcup_n (\bigsqcup_m e_{m,n}) & \comment{\text{ от определението на }e_{m,n}}\\
+                 & = \bigsqcup_n e_{n,n} & \comment{\text{ от \Th{double-chain}}}\\
+                 & = \bigsqcup_n f_n(f^k_n(a))  = \bigsqcup_n f^{k+1}_n(a) & 
     \end{align*}
     С това твърдението е доказано.
   \end{proof}
-  Сега вече сме готови да докажем непрекъснатостта на $Y_\A$.
+  Сега вече сме готови да докажем непрекъснатостта на $Y$.
   Имаме, че:
   \begin{align*}
-    Y_\A(\bigsqcup_n f_n) & = Y_\A(h) & \comment{\text{ от опр. на }h}\\
-    & = \bigsqcup_m h^m(\bot^\A) & \comment{\text{ от опр. на }Y_\A }\\
-    & = \bigsqcup_m (\bigsqcup_n f^m_n(\bot^\A)) & \comment{\text{ от горното твърдение}}.
+    Y(\bigsqcup_n f_n) & = Y(h) & \comment{\text{ от опр. на }h}\\
+                       & = \bigsqcup_m h^m(\bot^\A) & \comment{\text{ от опр. на }Y }\\
+                       & = \bigsqcup_m (\bigsqcup_n f^m_n(\bot^\A)) & \comment{\text{ от горното твърдение}}.
   \end{align*}
   
   Да положим $e_{m,n} = f^m_n(\bot^\A)$.
@@ -61,13 +61,36 @@
   \[m \leq m^\prime\ \&\ n\leq n^\prime\ \Rightarrow\ e_{m,n} \sqsubseteq^\A e_{m^\prime,n^\prime}.\]
   Получаваме, че
   \begin{align*}
-    Y_\A(\bigsqcup_n f_n) & = \bigsqcup_m (\bigsqcup_n f^m_n(\bot^\A)) & \comment{\text{ от горното равенство}}\\
-    & = \bigsqcup_m (\bigsqcup_n e_{m,n}) & \comment{\text{ от опр. на }e_{m,n}}\\
-    & = \bigsqcup_n(\bigsqcup_m e_{m,n}) & \comment{\text{ от \Th{double-chain}}}\\
-    & = \bigsqcup_n (\bigsqcup_m f^m_n(\bot^\A)) = \bigsqcup_n Y_\A(f_n). & \comment{\text{ от опр. на }Y_\A}.
+    Y(\bigsqcup_n f_n) & = \bigsqcup_m (\bigsqcup_n f^m_n(\bot^\A)) & \comment{\text{ от горното равенство}}\\
+                          & = \bigsqcup_m (\bigsqcup_n e_{m,n}) & \comment{\text{ от опр. на }e_{m,n}}\\
+                          & = \bigsqcup_n(\bigsqcup_m e_{m,n}) & \comment{\text{ от \Th{double-chain}}}\\
+                          & = \bigsqcup_n (\bigsqcup_m f^m_n(\bot^\A)) = \bigsqcup_n Y(f_n). & \comment{\text{ от опр. на }Y}.
   \end{align*}
 \end{proof}
 
+\marginpar{Добре е да погледнете това: \url{https://en.wikibooks.org/wiki/Haskell/Fix_and_recursion}}
+
+\begin{haskellcode}
+ghci> fact x = if x == 0 then 1 else x * fact(x-1)
+ghci> fact 5
+120
+ghci> fix f = x where x = f x
+ghci> :t f
+fix :: (t -> t) -> t
+ghci> fact' = fix \f x -> if x == 0 then 1 else x * f(x-1)
+ghci> fact' 5
+120
+ghci> gamma f = \x -> if x == 0 then 1 else x * f(x-1)
+ghci> :t gamma
+(t -> t) -> t -> t
+ghci> fact'' = fix gamma
+ghci> fact'' 5
+120
+ghci> fix' f = x where x = f(f(f(x)))
+ghci> fact''' = fix' gamma
+ghci> fact''' 5
+120
+\end{haskellcode}
 
 
 %%% Local Variables:

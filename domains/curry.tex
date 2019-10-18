@@ -1,10 +1,33 @@
 \begin{problem}
-  Докажете, че изображението
-  \[\texttt{curry}:\Cont{\A\times \B}{\C} \to \Cont{\A}{\Cont{\B}{\C}},\]
+  \marginpar{\cite[стр. 187]{models-of-computation}}
+  Да разгледаме следното изображение
+  \[\texttt{curry}:\Mapping{\A\times \B}{\C} \to \Mapping{\A}{\Mapping{\B}{\C}},\]
   дефинирано като
-  \[\texttt{curry}(f)(a)(b) \dff f(a,b),\]
-  е непрекъснато.
+  \[\texttt{curry}(f)(a)(b) \dff f(a,b).\]
+  Докажете, че ако $f$ е непрекъснато изображение, то
+  $\texttt{curry}(f)$ е непрекъснато изображение,
+  т.е. $\texttt{curry}(f) \in \Cont{\A}{\Mapping{\B}{\C}}$.
 \end{problem}
+\begin{proof}
+  Да разгледаме произволна верига $\chain{a}{i}$ от елементи на $\A$.
+  Трябва да докажем, че
+  \[\texttt{curry}(f)(\bigsqcup_i a_i) = \bigsqcup_i \texttt{curry}(f)(a_i).\]
+  За целта, да разгледаме произволен елемент $b \in \B$. Тогава
+  \begin{align*}
+    \texttt{curry}(f)(\bigsqcup_i a_i)(b) & = f(\bigsqcup_i a_i,b) & \comment\text{опр. на }\texttt{curry}\\
+                                          & = \bigsqcup_i f(a_i,b) & \comment\text{ $f$ е непр. по първия аргумент}\\
+                                          & = \bigsqcup_i \{\texttt{curry}(f)(a_i)(b)\}. & \comment\text{опр. на }\texttt{curry}
+  \end{align*}
+\end{proof}
+
+% \begin{hint}
+%   Трябва да докажем, че
+%   \[\texttt{curry}(\bigsqcup_i f_i)(a)(b) = \bigsqcup_i \{\texttt{curry}(f_i)(a,b)\}.\]
+%   \begin{align*}
+%     \texttt{curry}(\bigsqcup_i f_i)(a)(b) = (\bigsqcup_i f_i)(a,b)
+%   \end{align*}
+% \end{hint}
+
 
 %%% Local Variables:
 %%% mode: latex

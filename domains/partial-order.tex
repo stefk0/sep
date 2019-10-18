@@ -70,12 +70,11 @@ $(\forall n)[a_n \sqsubseteq b]$.
 \marginpar{В Хаскел $\bot$ се означава като \vv{undefined}. Повече за денотационна семантика в Хаскел може да прочетете \href{https://en.wikibooks.org/wiki/Haskell/Denotational_semantics}{тук}}
 
 \begin{example}
-  \Stefan{Друго означение вместо $\F_n$ ?}
   Тройката
-  \[\F_n \dff (\ \Partial{\Nat^n}{\Nat},\ \sqsubseteq,\ \emptyset^{(n)}\ )\] е област на Скот, където:
+  \[\Partial{\Nat^n}{\Nat} \dff (\ \F_n,\ \sqsubseteq,\ \emptyset^{(n)}\ )\] е област на Скот, където:
   \begin{itemize}
   \item
-    С $\Partial{\Nat^n}{\Nat}$ означаваме всички частични функции от $\Nat^n$ в $\Nat$.
+    С $\F_n$ означаваме всички частични функции от $\Nat^n$ в $\Nat$.
   \item
      релацията ,,включване'' между функции е дефинирана по следния начин:
      \[f\sqsubseteq g\ \dffff\ \text{Graph}(f) \subseteq \text{Graph}(g).\]
@@ -116,6 +115,19 @@ $(\forall n)[a_n \sqsubseteq b]$.
   \end{itemize}
   Тогава $Bin^\infty = (Bin^\infty,\preceq,\varepsilon)$ е област на Скот.
 \end{example}
+
+\begin{problem}
+  Нека $\chain{a}{i}$ и $\chain{b}{i}$ са вериги в областта на Скот $\A$, за които е изпълнено, че
+  $a_i \sqsubseteq b_i$ за всяко $i$.
+  Докажете, че $\bigsqcup_i a_i \sqsubseteq \bigsqcup_i b_i$.
+\end{problem}
+
+\begin{problem}
+  Нека $\chain{a}{i}$ е верига в областта на Скот $\A$ и нека $k$ е естествено число.
+  Докажете, че $\bigsqcup_i a_i = \bigsqcup_i a_{i+k}$.
+\end{problem}
+
+
 
 %%% Local Variables:
 %%% mode: latex

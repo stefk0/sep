@@ -7,11 +7,8 @@
 Да въведем означението
 \[\Mon{\A_1}{\A_2} \dff (\{f: \A_1 \to \A_2 \mid f\text{ е мон. изобр.}\},\ \sqsubseteq,\ \bm{\bot}).\]
 
-\Stefan{Да се обясни каква е интерпретацията на монотонните изображения в нашия частен случай и защо на практика това е най-естествения клас от изображения, с който ще работим}
-
 \begin{framed}
-  \begin{theorem}
-    \label{th:monotone-is-domain}
+  \begin{theorem}\label{th:monotone-is-domain}
     $\Mon{\A_1}{\A_2}$ е област на Скот.
   \end{theorem}  
 \end{framed}
@@ -27,7 +24,7 @@
     f_k(a) & \sqsubseteq f_k(b)\\
            & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \dff h(b).
   \end{align*}
-  Това означава, че $h(b)$ е горна граница за веригата $(f_i(a))^{\infty}_{i=0}$.
+  Това означава, че $h(b)$ е горна граница за веригата ${(f_i(a))}^{\infty}_{i=0}$.
   Заключаваме, че 
   \begin{align*}
     h(a) & \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}\\
@@ -35,10 +32,25 @@
   \end{align*}
 \end{hint}
 
-\begin{cor}
-  \label{cr:flat-monotone-is-domain}
+\begin{cor}\label{cr:flat-monotone-is-domain}
   $\Mon{\Nat^n_\bot}{\Nat_\bot}$ е област на Скот.
 \end{cor}
+
+Удобно е да имаме следващото свойство на монотонните изображения като отделно твърдение за да можем да го използваме наготово по-късно.
+\begin{proposition}\label{pr:monotone-chain}
+  Нека $f \in \Mon{\A}{\B}$ и $\chain{a}{i}$ е верига от елементи на $\A$.
+  Тогава
+  \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
+\end{proposition}
+\begin{proof}
+  Понеже $f$ е монотонно, то ${(f(a_i))}^{\infty}_{i=0}$ е верига от елементи на $\B$
+  и тя има точна горна граница.
+  Достатъчно е да докажем, че $f(\bigsqcup_i a_i)$ е горна граница на веригата ${(f(a_i))}^{\infty}_{i=0}$.
+  Но това е лесно.
+  Понеже $a_i \sqsubseteq \bigsqcup_i a_i$ и $f$ е монотонно, то веднага получаваме, че
+  $f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+  Заключаваме, че $\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+\end{proof}
 
 %%% Local Variables:
 %%% mode: latex
