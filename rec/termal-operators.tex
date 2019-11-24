@@ -1,115 +1,113 @@
-\subsection{Термални оператори}
+% % \subsection{Термални оператори}
 
-Вече дефинирахме как на всеки терм $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$
-съпоставяме изображението $\val{\tau}$ със сигнатура
-\[\val{\tau}:\Mapping{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Mapping{\Nat^{m_k}_\bot}{\Nat_\bot} \to \Mapping{\Nat^n_\bot}{\Nat_\bot}\]
-%  по следния начин:
-% \[\Xi_\tau(\bar{\varphi})(\bar{a}) \dff \val{\tau}(\bar{a},\bar{\varphi}).\]
-Едно от основните свойства, които трябва да притежават тези изображения е да бъдат {\em непрекъснати} относно областите на Скот,
-за които са дефинирани.
-Причината за това е, че искаме да дефинираме семантиката на една програма като използваме най-малкото решение 
-на система от такива оператори, а според \hyperref[th:knaster-tarski]{Теоремата на Клини}, за да можем да направим това, трябва да работим
-с непрекъснати оператори. Следващият пример ни показва, че трябва да сме по-внимателни върху какви елементи разглеждаждаме тези изображения.
+% Вече дефинирахме как на всеки терм $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$
+% съпоставяме изображението $\val{\tau}$ със сигнатура
+% \[\val{\tau}:\Mapping{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Mapping{\Nat^{m_k}_\bot}{\Nat_\bot} \to \Mapping{\Nat^n_\bot}{\Nat_\bot}\]
 
-\begin{example}
-  \label{ex:non-continuous}
-  Да разгледаме терма 
-  \[\tau[\vv{x},\vv{f},\vv{g}] \dfff \vv{f}(\vv{g}(\vv{x})),\]
-  и следните две изображения от тип $\Mapping{\Nat_\bot}{\Nat_\bot}$:
-  \marginpar{Обърнете внимание, че $\varphi$ не е монотонна функция. Тя дори не е точна. 
-    Функцията $\psi$ не е точна, но е монотонна. Знаем, че $\varphi$ не е непрекъсната}
-  \begin{align*}
-    & \varphi(x) \dff
-    \begin{cases}
-      42,   & \text{ако }x = \bot\\
-      \bot, & \text{ако }x \in \Nat
-    \end{cases}\\
-    & \psi(x) \dff 42 \text{, за всяко }x \in \Nat_\bot.
-  \end{align*}
-  Лесно се вижда, че $\pair{\varphi,\varphi} \sqsubseteq \pair{\varphi,\psi}$, но
-  \[\val{\tau}(\varphi,\varphi) \not\sqsubseteq \val{\tau}(\varphi,\psi),\]
-  защото за произволно $a \in \Nat$,
-  \begin{align*}
-    \val{\tau}(\varphi,\varphi)(a) & = \varphi(\varphi(a)) & \comment{\text{стойност на терм}}\\
-                                 & = 42  \\
-                                 & \not\sqsubseteq \bot & \comment{\text{плоска наредба}}\\
-                                 & = \varphi(\psi(a)) & \comment{\text{защото }\psi(a) \neq \bot}\\
-                                 & = \val{\tau}(\varphi,\psi)(a) & \comment{\text{от деф. на }\tau}\\
-  \end{align*}
+% Едно от основните свойства, които трябва да притежават тези изображения е да бъдат {\em непрекъснати} относно областите на Скот,
+% за които са дефинирани.
+% Причината за това е, че искаме да дефинираме семантиката на една програма като използваме най-малкото решение 
+% на система от такива оператори, а според \hyperref[th:knaster-tarski]{Теоремата на Клини}, за да можем да направим това, трябва да работим
+% с непрекъснати оператори. Следващият пример ни показва, че трябва да сме по-внимателни върху какви елементи разглеждаждаме тези изображения.
 
-  \marginpar{От \Prop{continuous-is-monotone} знаем, че всеки непрекъснат оператор е монотонен. 
-    Щом $\val{\tau}$ не е монотоненно, то той със сигурност не е непрекъснато.}
-  Това означава, че за конкретния терм $\tau$, изображението $\val{\tau}$ не е монотонно, откъдето следва, че то не е непрекъснато.
-\end{example}
+% \begin{example}
+%   \label{ex:non-continuous}
+%   Да разгледаме терма 
+%   \[\tau[\vv{x},\vv{f},\vv{g}] \dfff \vv{f}(\vv{g}(\vv{x})),\]
+%   и следните две изображения от тип $\Mapping{\Nat_\bot}{\Nat_\bot}$:
+%   \marginpar{Обърнете внимание, че $\varphi$ не е монотонна функция. Тя дори не е точна. 
+%     Функцията $\psi$ не е точна, но е монотонна. Знаем, че $\varphi$ не е непрекъсната}
+%   \begin{align*}
+%     & \varphi(x) \dff
+%     \begin{cases}
+%       42,   & \text{ако }x = \bot\\
+%       \bot, & \text{ако }x \in \Nat
+%     \end{cases}\\
+%     & \psi(x) \dff 42 \text{, за всяко }x \in \Nat_\bot.
+%   \end{align*}
+%   Лесно се вижда, че $\pair{\varphi,\varphi} \sqsubseteq \pair{\varphi,\psi}$, но
+%   \[\val{\tau}(\varphi,\varphi) \not\sqsubseteq \val{\tau}(\varphi,\psi),\]
+%   защото за произволно $a \in \Nat$,
+%   \begin{align*}
+%     \val{\tau}(\varphi,\varphi)(a) & = \varphi(\varphi(a)) & \comment{\text{стойност на терм}}\\
+%                                  & = 42  \\
+%                                  & \not\sqsubseteq \bot & \comment{\text{плоска наредба}}\\
+%                                  & = \varphi(\psi(a)) & \comment{\text{защото }\psi(a) \neq \bot}\\
+%                                  & = \val{\tau}(\varphi,\psi)(a) & \comment{\text{от деф. на }\tau}\\
+%   \end{align*}
 
-% Горният пример ни казва, че за $\val{\tau}$, дефинирани върху произволни елементи от $\Mapping{\Nat^{m_i}_\bot}{\Nat_\bot}$
-% {\em не можем да гарантираме свойството непрекъснатост}. Ще видим, че ако се ограничим само до непрекъснатите изображения,
-% то тогава операторите ще бъдат непрекъснати.
-Всъщност на нас е необходимо да можем да подаваме като аргументи на $\val{\tau}$ само такива $\varphi$,
-които можем да дефинираме на езика \REC.
-Според семантиката на термовете, която дефинирахме по-горе, не е ясно дали можем да дефинираме терм на езика ${\bf REC}$, чиято семантика да бъде изображението $\varphi$. Естествено е да разгледаме терма 
-\[\tau[\vv{x}] \dfff \ifelse{\vv{x}\ \vv{==}\ \bot}{42}{\bot}.\]
-\marginpar{Това {\em не} е доказателство, че не можем да дефинираме функцията $\varphi$ на езика \REC. Тук ние твърдим само, че очевидният опит за дефиниция на $\varphi$ се проваля. По-нататък ще видим, че наистина не може да дефинираме $\varphi$ на нашия език, защото тя не е непрекъсната функция.}
- Каква е семантиката на този терм? Следваме дефиницията на стойност на терм, за произволно $a \in \Nat_\bot$, и получаваме:
- \begin{align*}
-   \val{\tau}(a) & =
-                   \begin{cases}
-                     42,   & \text{ако }\val{\vv{x}\ \vv{==}\ \bot}(a) \in \Nat^+\\
-                     \bot, & \text{ако }\val{\vv{x}\ \vv{==}\ \bot}(a) = 0\\
-                     \bot, & \text{ако }\val{\vv{x}\ \vv{==}\ \bot}(a) = \bot\\
-                   \end{cases}\\
-                 & = 
-                   \begin{cases}
-                     42,   & \text{ако }\underbrace{\val{\vv{x}}(a)}_{\in\Nat} = \underbrace{\val{\bot}(a)}_{\in \Nat}\\
-                     \bot, & \text{ако }\underbrace{\val{\vv{x}}(a)}_{\in\Nat} \neq \underbrace{\val{\bot}(a)}_{\in \Nat}\\
-                     \bot, & \text{ако }\val{\vv{x}}(a) = \bot\text{ или }\val{\bot}(a) = \bot\\
-                   \end{cases}\\
-                 & = \bot.
- \end{align*}
+%   \marginpar{Знаем, че всеки непрекъснат оператор е монотонен. Щом $\val{\tau}$ не е монотонен, то той със сигурност не е непрекъснат.}
+%   Това означава, че за конкретния терм $\tau$, изображението $\val{\tau}$ не е монотонно, откъдето следва, че то не е непрекъснато.
+% \end{example}
+
+% % Горният пример ни казва, че за $\val{\tau}$, дефинирани върху произволни елементи от $\Mapping{\Nat^{m_i}_\bot}{\Nat_\bot}$
+% % {\em не можем да гарантираме свойството непрекъснатост}. Ще видим, че ако се ограничим само до непрекъснатите изображения,
+% % то тогава операторите ще бъдат непрекъснати.
+% Всъщност на нас е необходимо да можем да подаваме като аргументи на $\val{\tau}$ само такива $\varphi$,
+% които можем да дефинираме на езика \REC.
+% Според семантиката на термовете, която дефинирахме по-горе, не е ясно дали можем да дефинираме терм на езика \REC, чиято семантика да бъде изображението $\varphi$. Естествено е да разгледаме терма 
+% \[\tau[\vv{x}] \dfff \ifelse{\vv{x}\ \vv{==}\ \bot}{42}{\bot}.\]
+% \marginpar{Това {\em не} е доказателство, че не можем да дефинираме функцията $\varphi$ на езика \REC. Тук ние твърдим само, че очевидният опит за дефиниция на $\varphi$ се проваля. По-нататък ще видим, че наистина не може да дефинираме $\varphi$ на нашия език, защото тя не е непрекъсната функция.}
+%  Каква е семантиката на този терм? Следваме дефиницията на стойност на терм, за произволно $a \in \Nat_\bot$, и получаваме:
+%  \begin{align*}
+%    \val{\tau}(a) & =
+%                    \begin{cases}
+%                      42,   & \text{ако }\val{\vv{x}\ \vv{==}\ \bot}(a) \in \Nat^+\\
+%                      \bot, & \text{ако }\val{\vv{x}\ \vv{==}\ \bot}(a) = 0\\
+%                      \bot, & \text{ако }\val{\vv{x}\ \vv{==}\ \bot}(a) = \bot\\
+%                    \end{cases}\\
+%                  & = 
+%                    \begin{cases}
+%                      42,   & \text{ако }\underbrace{\val{\vv{x}}(a)}_{\in\Nat} = \underbrace{\val{\bot}(a)}_{\in \Nat}\\
+%                      \bot, & \text{ако }\underbrace{\val{\vv{x}}(a)}_{\in\Nat} \neq \underbrace{\val{\bot}(a)}_{\in \Nat}\\
+%                      \bot, & \text{ако }\val{\vv{x}}(a) = \bot\text{ или }\val{\bot}(a) = \bot\\
+%                    \end{cases}\\
+%                  & = \bot.
+%  \end{align*}
  
-Да видим, какво ще стане ако преведем директно горния пример на \vv{хаскел}.
-\begin{haskellcode}
-ghci> let phi(x) = if x == undefined then 42 else undefined
-ghci> let psi(x) = 42
-ghci> phi(0)
-*** Exception: Prelude.undefined
-ghci> phi(undefined)
-*** Exception: Prelude.undefined
-ghci> psi(0)
-42
-\end{haskellcode}
+% Да видим, какво ще стане ако преведем директно горния пример на \vv{хаскел}.
+% \begin{haskellcode}
+% ghci> let phi(x) = if x == undefined then 42 else undefined
+% ghci> let psi(x) = 42
+% ghci> phi(0)
+% *** Exception: Prelude.undefined
+% ghci> phi(undefined)
+% *** Exception: Prelude.undefined
+% ghci> psi(0)
+% 42
+% \end{haskellcode}
 
-Виждаме, че тук \texttt{хаскел} следва нашата семантика за езика {\bf REC}.
-Направените по-горе бележки ни насочват към следната дефиниция на {\bf термален оператор}.
+% Виждаме, че тук \texttt{хаскел} следва нашата семантика за езика {\bf REC}.
+% Направените по-горе бележки ни насочват към следната дефиниция на {\bf термален оператор}.
 
-\begin{framed}
-  \begin{dfn}
-    \index{термален оператор}
-    За всеки терм от вида $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$
-    дефинираме оператора 
-    \[\Gamma_\tau: \DomOpCBN \to \RanOpCBN,\] % като
-    където
-    \[\Gamma_\tau(\bar{\varphi})(\bar{a}) \dff \val{\tau}(\ov{\varphi})(\ov{a}).\]
-  \end{dfn}  
-\end{framed}
-\marginpar{Обърнете внимание, че все още не е ясно защо $\Gamma_\tau(\ov{\varphi}) \in \RanOpCBN$}
-В следващия раздел ще се концентрираме върху доказателството на следния основен резултат:
+% \begin{framed}
+%   \begin{definition}
+%     \index{термален оператор}
+%     За всеки терм от вида $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$
+%     дефинираме оператора 
+%     \[\Gamma_\tau: \DomOpCBN \to \RanOpCBN,\] % като
+%     където
+%     \[\Gamma_\tau(\bar{\varphi})(\bar{a}) \dff \val{\tau}(\ov{\varphi})(\ov{a}).\]
+%   \end{definition}
+% \end{framed}
+% \marginpar{Обърнете внимание, че все още не е ясно защо $\Gamma_\tau(\ov{\varphi}) \in \RanOpCBN$}
+% В следващия раздел ще се концентрираме върху доказателството на следния основен резултат:
 
-\begin{framed}
-  За всеки терм $\tau[\varsx, \varsf]$, операторът $\Gamma_\tau$ е непрекъснат.
-\end{framed}
+% \begin{framed}
+%   За всеки терм $\tau[\varsx, \varsf]$, операторът $\Gamma_\tau$ е непрекъснат.
+% \end{framed}
 
 \subsection{Непрекъснатост на термалните оператори}
 
-Първата ни задача ще бъде да проверим, че операторът $\Gamma_\tau$ е коректно дефиниран.
-Това означава, че трябва да се уверим, че винаги когато подадем като аргументи на $\Gamma_\tau$ непрекъснати изображения,
-то $\Gamma_\tau$ връща непрекъснато изображение.
+% Първата ни задача ще бъде да проверим, че операторът $\Gamma_\tau$ е коректно дефиниран.
+% Това означава, че трябва да се уверим, че винаги когато подадем като аргументи на $\Gamma_\tau$ непрекъснати изображения,
+% то $\Gamma_\tau$ връща непрекъснато изображение.
 
 \begin{remark}
   В този раздел всички доказателства се провеждат с индукция по построението на термовете.
 \end{remark}
 
-\begin{prop}
+\begin{proposition}
   \label{pr:term-monotone}
   Да разгледаме един терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$.
   \marginpar{Озн. $\ov{a}_i = (a^1_i,\dots,a^n_i)$}
@@ -118,12 +116,12 @@ ghci> psi(0)
   \[\val{\tau}(\ov{\varphi})(\ov{a}) \sqsubseteq \val{\tau}(\ov{\varphi})(\ov{b}),\]
   където
   $\varphi_i \in \Cont{\Nat^{m_i}_\bot}{\Nat_\bot}$, за $i = 1,\dots,k$.
-\end{prop}
+\end{proposition}
 \begin{hint}
   Индукция по построението на терма $\tau$.
   \begin{itemize}
   \item
-    Нека $\tau \equiv \vv{c}$.
+    Нека $\tau \equiv \vv{c}$. Този случай е ясен.
   \item
     Нека $\tau \equiv \vv{x}_i$. Тогава
     \begin{align*}
@@ -169,40 +167,34 @@ ghci> psi(0)
   \end{itemize}
 \end{hint}
 
-\begin{cor}
+\begin{corollary}
   \label{cr:tau-preserves-continuous}
   Да разгледаме един терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$.
   Тогава за произволна верига $\chain{\bar{a}}{i}$ в $\Nat^{n}_\bot$,
   \[\val{\tau}(\ov{\varphi})(\bigsqcup_i\ov{a}_i) = \bigsqcup_i\val{\tau}(\ov{\varphi})(\ov{a}_i),\]
   където
   $\varphi_i \in \Cont{\Nat^{n_i}_\bot}{\Nat_\bot}$, за $i = 1,\dots,k$.
-\end{cor}
+\end{corollary}
 \begin{proof}
-  За терма $\tau$ и $\ov{\varphi}$, да разгледаме изображението
-  \[\psi(\ov{a}) \dff \val{\tau}(\ov{\varphi})(\ov{a}).\]
-  От \Prop{term-monotone} следва, че $\psi \in \Mon{\Nat^n_\bot}{\Nat_\bot}$.
+  Да разгледаме произволен терм $\tau$ и непрекъснати изображения $\ov{\varphi}$.
+  От \Prop{term-monotone} следва, че $\val{\tau}(\ov{\varphi}) \in \Mon{\Nat^n_\bot}{\Nat_\bot}$.
   Понеже всяка верига в $\Nat^n_\bot$ се стабилизира, то директно от \Prop{stab-continuous}
-  следва, че $\psi \in \Cont{\Nat^n_\bot}{\Nat_\bot}$,
+  следва, че $\val{\tau}(\ov{\varphi}) \in \Cont{\Nat^n_\bot}{\Nat_\bot}$,
   което означава, че за произволна верига $\chain{\ov{a}}{i}$,
-  \[\psi(\bigsqcup_i \ov{a}_i) = \bigsqcup_i \psi(\ov{a}_i),\]
-  което означава, че 
   \[\val{\tau}(\ov{\varphi})(\bigsqcup_i\ov{a}_i) = \bigsqcup_i\val{\tau}(\ov{\varphi})(\ov{a}_i).\]
 \end{proof}
 
-
-\begin{cor}
-  \label{cr:gamma-preserves-continuous}
+\begin{corollary}\label{cr:gamma-preserves-continuous}
   Да разгледаме произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$.
   Тогава за произволни $\varphi_i \in \Cont{\Nat^{m_i}}{\Nat_\bot}$, за $i = 1,\dots k$,
   имаме, че
-  \[\Gamma_\tau(\bar\varphi) \in \RanOpCBN.\]
-\end{cor}
+  \[\val{\tau}(\bar\varphi) \in \RanOpCBN.\]
+\end{corollary}
 
 Щом термалните оператори $\Gamma_\tau$ са добре дефинирани, ще 
 проверим, че са непрекъснати. Първата стъпка ще бъде проверката, че те са монотонни.
 
-\begin{lemma}
-  \label{lem:rec:functional:term:continuous}
+\begin{lemma}\label{lem:rec:functional:term:continuous}
   Нека $\mu[\vv{f}_1,\dots,\vv{f}_k]$ е {\em функционален} терм.
   \marginpar{Да напомним, че $m_i \dff \#\vv{f}_i$}
   Да разгледаме произволна верига $\chain{\ov{\varphi}}{r}$
@@ -232,8 +224,7 @@ ghci> psi(0)
     Използвайте \Problem{rec:if:continuous}.
   \item
     Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$. 
-    От И.П. знаем, че $\val{\mu_j}$ са непрекъснати изображения за $j = 1,\dots,m_i$, а от \Prop{continuous-is-monotone}
-    следва, че $\val{\mu_j}$ са монотонни. Тогава
+    От И.П. знаем, че $\val{\mu_j}$ са непрекъснати изображения за $j = 1,\dots,m_i$ и следователно са монотонни. Тогава
     за произволни индекси $n \leq n'$ и $r \leq r'$ имаме, че
     \marginpar{$\ov{\varphi}_n \dff (\varphi^1_n,\dots,\varphi^{k}_n)$}
     \begin{align*}
@@ -264,7 +255,7 @@ ghci> psi(0)
   \end{itemize}
 \end{proof}
 
-\begin{cor}
+\begin{corollary}
   \label{cr:rec:term:continuous}
   Нека $\tau[\varsx,\varsf]$ е терм.
   Да разгледаме произволни елементи $\ov{a}$ на $\Nat^n_\bot$ и 
@@ -273,7 +264,7 @@ ghci> psi(0)
   \[\DomOpCBN.\]
   Тогава 
   \[\val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}).\]  
-\end{cor}
+\end{corollary}
 \begin{proof}
   \begin{align*}
     \val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) & = \val{\tau[\varsx/\ov{\vv{a}}]}(\bigsqcup_r \ov{\varphi}_r) & \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
@@ -285,14 +276,14 @@ ghci> psi(0)
 Вече имаме всичко необходимо за да се убедим, че термалните оператори са непрекъснати.
 
 \begin{framed}
-\begin{thm}
+\begin{theorem}
   \label{th:gamma-is-continuous}
   За всеки терм $\tau[\vv{x}_1,\dots,\vv{x}_n, \vv{f}_1,\dots,\vv{f}_k]$, операторът 
   \[\Gamma_\tau: \DomOpCBN \to \RanOpCBN,\]
   дефиниран като
   \[\Gamma_\tau(\bar{\varphi})(\bar{a}) = \val{\tau}(\ov{\varphi})(\bar{a}),\]
   е непрекъснат.
-\end{thm}
+\end{theorem}
 \end{framed}
 \begin{proof}
   От \Cor{gamma-preserves-continuous} имаме, че $\Gamma_\tau$ е коректно дефиниран.

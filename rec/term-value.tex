@@ -1,4 +1,4 @@
-\subsection{Стойност на терм}
+\subsection{Термални оператори}
 
 Нека първо да дефинираме следните {\em изображения}
 \begin{align*}
@@ -27,18 +27,23 @@
 \marginpar{Спестяваме си труда от въвеждането на булевия тип променливи}
 \marginpar{Озн. $\Nat^+ \dff \Nat \setminus \{0\}$}
 
-\begin{problem}
-  \label{prob:rec:if:continuous}
+\begin{problem}\label{prob:rec:if:continuous}
   Докажете, че изображенията $\texttt{plus}$, $\texttt{eq}$, $\texttt{if}$ са непрекъснати.
 \end{problem}
+\begin{hint}
+  Понеже $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$,
+  достатъчно е да докажете, че изображенията са монотонни.
+\end{hint}
 
 \index{денотационна семантика!по име}
 \marginpar{\cite[стр. 155]{winskel}}
 \index{терм!стойност}
+\index{оператор!термален}
 За всеки терм $\tau[\vv{x}_1,\dots,\vv{x}_{n},\vv{f}_1,\dots,\vv{f}_k]$,
 ще разгледаме изображението със сигнатура
-\[\val{\tau}:\Mapping{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Mapping{\Nat^{m_k}_\bot}{\Nat_\bot} \to \Mapping{\Nat^{n}_\bot}{\Nat_\bot},\]
+\[\val{\tau}:\Cont{\Nat^{m_1}_\bot}{\Nat_\bot}\times\cdots\times\Cont{\Nat^{m_k}_\bot}{\Nat_\bot} \to \Mapping{\Nat^{n}_\bot}{\Nat_\bot},\]
 което ще дефинираме с индукция по построението на термовете.
+Изображенията от вида $\val{\tau}$ ще наричаме {\bf термални оператори}.
 
 \begin{itemize}
 \item
@@ -51,7 +56,7 @@
   ако $\tau \equiv \tau_1 + \tau_2$, то
   \[\val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 \item
-  \marginpar{Знаем, че изображенията $\texttt{plus}$ и $\texttt{eq}$ са непрекъснати}
+  \marginpar{Знаем, че изображенията $\texttt{plus}$ и $\texttt{eq}$ са непрекъснати.}
   ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
   \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{eq}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 \item
@@ -88,23 +93,24 @@ ghci> let f(x) = if x == undefined then 0 else 1
 ghci> f(2)
 *** Exception: Prelude.undefined
 \end{haskellcode}
-Това означава, че функцията \texttt{==} е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата денотационна семантика.
+Това означава, че функцията на хаскел \texttt{==} е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата
+денотационна семантика, т.е. функцията $\texttt{eq}$.
 
 \begin{framed}
   \begin{lemma}[Лема за замяната]
     \label{lem:rec:substitution}
     Да разгледаме терма $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_{k}]$ и {\em функционалните} термове 
     $\mu_1[\vv{f}_1,\dots,\vv{f}_k],\dots, \mu_n[\vv{f}_1,\dots,\vv{f}_k]$.
-    Тогава % за произволни $\varphi_1,\dots,\varphi_k$,
+    Тогава
     \[\val{\tau[\bar{\vv{x}}/\bar{\mu}]}(\bar{\varphi}) = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\bar{\varphi}))\]
-    за произволни $\varphi_i \in \Mapping{\Nat^{m_i}_\bot}{\Nat_\bot}$, за $i = 1, \dots, k$.
+    за произволни $\varphi_i \in \Cont{\Nat^{m_i}_\bot}{\Nat_\bot}$, за $i = 1, \dots, k$.
   \end{lemma}
 \end{framed}
 \begin{proof}
   Доказателството се провежда с {\em индукция по построението на терма $\tau$.}
-  \marginpar{Важно е, че нямаме обектови променливи в $\mu_1,\dots,\mu_n$}
-  \marginpar{Substitution Lemma, \cite[стр. 149]{winskel}}
-  \marginpar{Това твърдение е без д-во в \cite[стр. 188]{ditchev-soskov}}
+  \marginpar{Понеже нямаме обектови променливи в $\mu_1,\dots,\mu_n$, то е очевидно как правим замяната.}
+  \marginpar{Substitution Lemma, \cite[стр. 149]{winskel}.}
+  \marginpar{Това твърдение е без д-во в \cite[стр. 188]{ditchev-soskov}.}
   \begin{itemize}
   \item
     \marginpar{$\vv{c}$ е константа, докато $c \in \Nat_\bot$}

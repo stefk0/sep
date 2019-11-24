@@ -1,0 +1,173 @@
+\section{Допълнителен материал}
+\subsection{Регулярни езици}\index{език!регулярен}
+
+Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_k\}$.
+Да дефинираме полиномите над $\Sigma$ като
+\[\tau ::= \emptyset\ |\ \varepsilon\ |\ a_i \cdot X_j\ |\ \tau_1 + \tau_2.\]
+където $i = 1, \dots,k$, а $X$ е променлива.
+За всеки полином $\tau[X_1,\dots,X_n]$ дефинираме оператора 
+\[\val{\tau}: \mathcal{P}(\Sigma^\star)^n \to \mathcal{P}(\Sigma^\star)\]
+ по следния начин:
+\begin{itemize}
+\item
+    $\val{\emptyset}(L_1,\dots,L_n) = \emptyset$.
+\item 
+  $\val{\varepsilon}(L_1,\dots,L_n) = \varepsilon$.
+\item 
+  $\val{a_i \cdot X_j}(L_1,\dots,L_n) = \{a_i\} \cdot L_j$.
+\item
+  $\val{\tau_1 + \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cup \val{\tau_2}(L_1,\dots,L_n)$.
+\end{itemize}
+
+\begin{problem}
+  Докажете, че за всеки полином $\tau$ имаме, че $\val{\tau}$ е непрекъснато изображение в областта на Скот
+  $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
+\end{problem}
+
+
+\begin{example}
+  Да разгледаме системата 
+  \marginpar{$\tau_1[X_1,X_2] \equiv b \cdot X_1 + a \cdot X_2$}
+  \marginpar{$\tau_2[X_1,X_2] \equiv \varepsilon$}
+  \begin{align*}
+    & X_1 = b \cdot X_1 + a\cdot X_2\\
+    & X_2 = \varepsilon.
+  \end{align*}
+
+  % Понеже $\val{\tau}$ е непрекъснат оператор, то той има най-малка неподвижна точка.
+  Дефинираме непрекъснатия оператор 
+  \[\Gamma:\mathcal{P}(\Sigma^\star)^2 \to \mathcal{P}(\Sigma^\star)^2,\]
+  където:
+  \[\Gamma(L_1,L_2) = (\val{\tau_1}(L_1,L_2), \val{\tau_2}(L_1,L_2)).\]
+
+  От Теоремата на Клини ние знам как можем да намерим най-малката неподвижна точка на $\Gamma$,
+  която ще бъде и най-малкото решение на горната система.
+
+  \begin{itemize}
+  \item 
+    $(L_0,M_0) \df (\emptyset,\emptyset)$;
+  \item
+    $(L_1,M_1) \df \Gamma(L_0,M_0) = (\val{\tau_1}(L_0,M_0), \val{\tau_2}(L_0,M_0)) = (\emptyset, \varepsilon)$;
+  \item
+    $(L_2,M_2) \df \Gamma(L_1,M_1) = (\val{\tau_1}(L_1,M_1), \val{\tau_2}(L_1,M_1)) = (\{a\},\varepsilon)$;
+  \item
+    $(L_3,M_3) \df \Gamma(L_2,M_2) = (\val{\tau_1}(L_2,M_2), \val{\tau_2}(L_2,M_2)) = (\{ba,a\},\varepsilon)$;
+  \item
+    $(L_4,M_4) \df \Gamma(L_3,M_3) =(\val{\tau_1}(L_3,M_3), \val{\tau_2}(L_3,M_3)) = (\{bba, ba,a\},\varepsilon)$;
+  \item
+    $(L_5,M_5) \df \Gamma(L_4,M_4) = ( \val{\tau_1}(L_4,M_4), \val{\tau_2}(L_4,M_4)) = (\{bba, bba, ba,a\},\varepsilon)$.
+  \end{itemize}
+  Лесно се съобразява, че $L_n = \{ b^ka \mid k < n\}$.
+  Тогава
+  \[\lfp( \Gamma ) = (\bigcup_n L_n, \{\varepsilon\}) = (b^\star a, \{\varepsilon\} ).\]
+\end{example}
+
+
+\begin{problem}
+  Докажете, че най-малкото решение на системата 
+  \begin{align*}
+    & X_1 = a \cdot X_1 + b \cdot X_2 + \varepsilon\\
+    & X_2 = b \cdot X_2 + \varepsilon
+  \end{align*}
+  е двойката $(a^\star b^\star, b^\star)$.
+\end{problem}
+
+\begin{problem}
+  Да разгледаме системата от оператори
+  \begin{align*}
+    & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
+    & \ \ \vdots\\
+    & \val{\tau_n}(L_1,\dots,L_n) = L_n.
+  \end{align*}
+  Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
+  Докажете, че всеки от езиците $\hat{L}_i$ е регулярен.
+
+  Докажете, че всеки регулярен език е елемент от най-малкото решение 
+  на някоя система от оператори от горния вид.
+\end{problem}
+
+\subsection{Безконтекстни езици}\index{език!безконтекстен}
+
+Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_n\}$.
+Да дефинираме термове от тип 1 като
+\[\tau ::= X_i\ |\ a_j\ |\ \varepsilon\ |\ \emptyset\ |\ \tau_1 \cdot \tau_2\ |\ (\tau_1 + \tau_2),\]
+където $j = 1, \dots,n$, а $X_i$ са изброимо безкрайна редица от променливи.
+За всеки терм $\tau[X_1,\dots,X_n]$ дефинираме оператора 
+\[\val{\tau}: (\mathcal{P}(\Sigma^\star))^n \to \mathcal{P}(\Sigma^\star)\]
+ по следния начин:
+\begin{itemize}
+\item 
+  $\val{X_i}(L_1,\dots,L_n) = L_i$.
+\item 
+  $\val{a_j}(L_1,\dots,L_n) = \{a_j\}$.
+\item 
+  $\val{\varepsilon}(L_1,\dots,L_n) = \varepsilon$.
+\item 
+  $\val{\emptyset}(L_1,\dots,L_n) = \emptyset$.
+\item 
+  $\val{\tau_1 \cdot \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cdot \val{\tau_2}(L_1,\dots,L_n)$.
+\item
+  $\val{\tau_1 + \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cup \val{\tau_2}(L_1,\dots,L_n)$.
+\end{itemize}
+
+\begin{problem}
+  Докажете, че за всеки терм $\tau$, $\val{\tau}$ е непрекъснато изображение в областта на Скот
+  $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
+\end{problem}
+
+\begin{problem}
+  Докажете, че $\{a^nb^n \mid n\in \Nat\} = \lfp(\val{\tau})$, където 
+  \[\tau[X] \equiv \varepsilon + a \cdot X \cdot b.\]
+  С други думи, $\{a^nb^n \mid n \in \Nat\}$ е най-малкото решение на уравнението
+  \[X = a \cdot X \cdot b + \varepsilon.\]
+\end{problem}
+
+Нека сега да разгледаме термовете $\tau_1[X_1,\dots,X_n], \dots, \tau_n[X_1,\dots,X_n]$.
+
+\begin{problem}
+  Да разгледаме системата от оператори
+  \begin{align*}
+    & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
+    & \ \ \vdots\\
+    & \val{\tau_n}(L_1,\dots,L_n) = L_n.
+  \end{align*}
+  Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
+  Докажете, че всеки от езиците $\hat{L}_i$ е безконтекстен.
+
+  Докажете, че всеки безконтекстен език е елемент от най-малкото решение 
+  на някоя система от оператори от горния вид.
+\end{problem}
+
+\begin{problem}
+  \marginpar{Това е аналог на нормалната форма на Чомски}
+  Да дефинираме термове от тип 2 като
+  \[\tau ::= a_j\ |\ \varepsilon\ |\ \emptyset\ |\ X_i \cdot X_k\ |\ (\tau_1 + \tau_2),\]
+  където $j = 1, \dots,n$, а $X_i$ са изброимо безкрайна редица от променливи.
+  Докажете горното твърдение, като замените термовете от тип 1 с тези от тип 2.
+\end{problem}
+
+\begin{example}
+  Да разгледаме системата
+  \begin{align*}
+    & X_1 = X_3 \cdot X_2 + \varepsilon\\
+    & X_2 = X_1 \cdot X_4\\
+    & X_3 = a\\
+    & X_4 = b.
+  \end{align*}
+
+
+  % \begin{align*}
+  %   & \val{\varepsilon + X_3 \cdot X_2}(L_1, L_2, L_3, L_4) = L_1\\
+  %   & \val{X_1 \cdot X_4}(L_1, L_2, L_3, L_4) = L_2\\
+  %   & \val{a}(L_1, L_2, L_3, L_4) = L_3\\
+  %   & \val{b}(L_1, L_2, L_3, L_4) = L_4\\
+  % \end{align*}
+  Нека $(\hat{L}_1, \hat{L}_2, \hat{L}_3, \hat{L}_4)$ е най-малкото решение на системата.
+  Докажете, че $\hat{L}_1 = \{a^nb^n\mid n \in \Nat\}$ $\hat{L}_2 = \{a^nb^{n+1}\mid n \in \Nat\}$,
+  $\hat{L}_3 = \{a\}$ и $\hat{L}_4 = \{b\}$.
+\end{example}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

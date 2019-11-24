@@ -13,19 +13,24 @@
 \end{align*}
 Нека $\ov{\gamma} \in \DomOpCBN$
 е {\em най-малкото решение} на системата
+\marginpar{В тази система неизвестните са $\varphi_1,\dots,\varphi_k$.}
 \begin{align*}
-  & \Gamma_{\tau_1}(\varphi_1,\dots,\varphi_k) = \varphi_1\\
+  & \val{\tau_1}(\varphi_1,\dots,\varphi_k) = \varphi_1\\
   & \ \vdots \\
-  & \Gamma_{\tau_k}(\varphi_1,\dots,\varphi_k) = \varphi_k.
+  & \val{\tau_k}(\varphi_1,\dots,\varphi_k) = \varphi_k.
 \end{align*}
-От \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем, че такова съществува.
+От \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем, че такова най-малко решение съществува.
 
 \index{денотационна семантика!по име}
 \begin{framed}
   За дадената рекурсивна програма $\vv{P}[\varsx,\varsf]$, 
   определяме {\bf денотационната семантика с предаване на параметрите по име} 
   като изображението $\D_N\val{\vv{P}} \in \Cont{\Nat^{m_1}_\bot}{\Nat_\bot}$, където:
-  \[\D_N\val{\vv{P}}(a_1,\dots,a_{m_1}) \dff \gamma_1(a_1,\dots,a_{m_1}).\]
+  \[\D_N\val{\vv{P}}(a_1,\dots,a_{m_1}) \dff
+    \begin{cases}
+      \gamma_1(a_1,\dots,a_{m_1}), & \text{ако }\bot\not\in\{a_1,\dots,a_{m_1}\}\\
+      \bot, & \text{ако }\bot\in\{a_1,\dots,a_{m_1}\}.
+    \end{cases}\]
 \end{framed}
 
 

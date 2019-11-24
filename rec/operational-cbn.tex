@@ -1,102 +1,182 @@
-\subsection{Предаване на параметрите по име}
-\index{операционна семантика!по име}
+\subsection{Предаване на параметрите по име}\index{операционна семантика!по име}
 
-Правилата за извод с предаване на параметрите по име, които означаваме като $\mu \to^P_N c$,
-са същите като тези с предаване на параметрите по стойност като 
-единствената разлика е, че вместо правилата $(4)_\Nat$ и $(4)_\bot$ имаме правилото $(4)$.
+% Правилата за извод с предаване на параметрите по име, които означаваме като $\mu \to^P c$,
+% са същите като тези с предаване на параметрите по стойност като 
+% единствената разлика е, че вместо правилата $(4)_\Nat$ и $(4)_\bot$ имаме правилото $(4)$.
 
+
+Дефинираме релация $\to_P$ по следния начин:
 \begin{description}
 \item
-  За всяко $a \in \Nat_\bot$,
+  % За всяко $a \in \Nat$,
   \begin{figure}[h!]
     \begin{prooftree}
       \AxiomC{}
       \RightLabel{\scriptsize{(1)}}
-      \UnaryInfC{$\vv{a}\to^P_N a$}
+      \UnaryInfC{$\vv{a}\to_P a$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_1\to^P_N a_1$}
-      \AxiomC{$\mu_2\to^P_N a_2$}
+      \AxiomC{$\mu_1\to_P a_1$}
+      \AxiomC{$\mu_2\to_P a_2$}
       \AxiomC{$a = \texttt{plus}(a_1, a_2)$}
       \RightLabel{\scriptsize{$(2_+)$}}
-      \TrinaryInfC{$\mu_1 + \mu_2 \to^P_N a$}
+      \TrinaryInfC{$\mu_1 + \mu_2 \to_P a$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_1\to^P_N a_1$}
-      \AxiomC{$\mu_2\to^P_N a_2$}
+      \AxiomC{$\mu_1\to_P a_1$}
+      \AxiomC{$\mu_2\to_P a_2$}
       \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
       \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
-      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \to^P_N a$}
+      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \to_P a$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_0\to^P_N a_0$}
-      \AxiomC{$\mu_1 \to^P_N a_1$}
-      \AxiomC{$a_0 \in \Nat^+$}
+      \AxiomC{$\mu_0\to_P a_0$}
+      \AxiomC{$\mu_1 \to_P a_1$}
+      \AxiomC{$a_0 > 0$}
       \RightLabel{\scriptsize{$(3_\true)$}}
-      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^P_N a_1$}
+      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to_P a_1$}
     \end{prooftree}
   \end{figure}  
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_0\to^P_N 0$}
-      \AxiomC{$\mu_2 \to^P_N a_2$}
+      \AxiomC{$\mu_0\to_P 0$}
+      \AxiomC{$\mu_2 \to_P a_2$}
       \RightLabel{\scriptsize{$(3_\false)$}}
-      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^P_N a_2$}
+      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to_P a_2$}
     \end{prooftree}
   \end{figure}
+% \item
+  % \begin{figure}[h!]
+  %   \begin{prooftree}
+  %     \AxiomC{$\mu_0\to_P \bot$}
+  %     \RightLabel{\scriptsize{$(3_\bot)$}}
+  %     \UnaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to_P \bot$}
+  %   \end{prooftree}
+  % \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_0\to^P_N \bot$}
-      \RightLabel{\scriptsize{$(3_\bot)$}}
-      \UnaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^P_N \bot$}
-    \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to^P_N a$}
+      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to_P a$}
       \RightLabel{\scriptsize{(4)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N a$}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to_P a$}
     \end{prooftree}
   \end{figure}
 \end{description}
 
-
-\Stefan{Също както няма нужда от $(4_\bot)$, няма нужда и от $(3_\bot)$, но може би е добре да се остави, за да е по-явно какво става в този случай.}
-
 За фиксирана декларация $P$, нека за всеки {\em функционален} терм $\mu$ да дефинираме
-\[\evaln{\mu}\dff
-\begin{cases}
-  b, & \text{ ако }\mu \to^P_N b\\
-  \bot, & \text{ ако }\mu \text{ няма извод до константа}.
+\[\eval{\mu}\dff
+  \begin{cases}
+    b, & \text{ ако }\mu \to_P b\\
+    \bot, & \text{ ако }\mu \text{ няма извод до константа}.
 \end{cases}\]
 
 \begin{framed}
   Операционната семантика по име на рекурсивната програма $\vv{P}[\varsx,\varsf]$ представлява
   изображението 
-  \[\O_N\val{\vv{P}} \in \Cont{\Nat^{m_1}_\bot}{\Nat_\bot},\] където
-  \[\O_N\val{\vv{P}}(a_1,\dots,a_{m_1}) \dff \evaln{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})},\]
+  \[\O\val{\vv{P}} \in \Cont{\Nat^{m_1}_\bot}{\Nat_\bot},\] където
+  \[\O\val{\vv{P}}(a_1,\dots,a_{m_1}) \dff
+    \begin{cases}
+      \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})}, & \text{ако }\bot \not\in\{a_1,\dots,a_{m_1}\}\\
+      \bot, & \text{ако }\bot \in \{a_1,\dots,a_{m_1}\}
+    \end{cases}\]
   за произволни $a_1,\dots,a_{m_1} \in \Nat_\bot$.
 \end{framed}
 
 \begin{remark}
   Всъщност ние все още няма как да знаем, че за всяка програма $\vv{P}$,
-  $\O_N\val{\vv{P}}$ е непрекъснато изображение.
+  $\O\val{\vv{P}}$ е непрекъснато изображение.
   Този факт може да се докаже директно, но вместо това, ние ще видим, че
-  $\O_N\val{\vv{P}} = \D_N\val{\vv{P}}$ и оттам ще получим непрекъснатостта на $\O_N\val{\vv{P}}$,
-  защото от дефиницията на $\D_N\val{\vv{P}}$ е ясно, че то непрекъснато изображение.
+  $\O\val{\vv{P}} = \D\val{\vv{P}}$ и оттам ще получим непрекъснатостта на $\O\val{\vv{P}}$,
+  защото от дефиницията на $\D\val{\vv{P}}$ е ясно, че то е непрекъснато изображение.
 \end{remark}
+
+В някои доказателства ще се наложи да правим индукция по дължината на извода $\to_P$.
+Затова дефинираме релацията $\mu \to^\ell_P a$, която казва, че функционалният терм $\mu$
+се свежда до числото $a$ след $\ell$ на брой прилагания на правилата на операционната семантика.
+Формално дефиницията е следната:
+
+\begin{description}
+\item
+  % За всяко $a \in \Nat$,
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(1)}}
+      \UnaryInfC{$\vv{a}\to^0_P a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^{\ell_1}_P a_1$}
+      \AxiomC{$\mu_2\to^{\ell_2}_P a_2$}
+      \AxiomC{$a = \texttt{plus}(a_1, a_2)$}
+      \RightLabel{\scriptsize{$(2_+)$}}
+      \TrinaryInfC{$\mu_1 + \mu_2 \to^{\ell_1+\ell_2+1}_P a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\to^{\ell_1}_P a_1$}
+      \AxiomC{$\mu_2\to^{\ell_2}_P a_2$}
+      \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
+      \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
+      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \to^{\ell_1+\ell_2+1}_P a$}
+    \end{prooftree}
+  \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_0\to^{\ell_1}_P a_0$}
+      \AxiomC{$\mu_1 \to^{\ell_2}_P a_1$}
+      \AxiomC{$a_0 > 0$}
+      \RightLabel{\scriptsize{$(3_\true)$}}
+      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^{\ell_1+\ell_2+1}_P a_1$}
+    \end{prooftree}
+  \end{figure}  
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_0\to^{\ell_1}_P 0$}
+      \AxiomC{$\mu_2 \to^{\ell_2}_P a_2$}
+      \RightLabel{\scriptsize{$(3_\false)$}}
+      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to^{\ell_1+\ell_2+1}_P a_2$}
+    \end{prooftree}
+  \end{figure}
+% \item
+  % \begin{figure}[h!]
+  %   \begin{prooftree}
+  %     \AxiomC{$\mu_0\to_P \bot$}
+  %     \RightLabel{\scriptsize{$(3_\bot)$}}
+  %     \UnaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \to_P \bot$}
+  %   \end{prooftree}
+  % \end{figure}
+\item
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to^{\ell}_P a$}
+      \RightLabel{\scriptsize{(4)}}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^{\ell+1}_P a$}
+    \end{prooftree}
+  \end{figure}
+\end{description}
+
+\newpage
+
+Също така, понякога ще пишем $\mu \to^{<\ell}_P a$, когато искаме да кажем, че
+$\mu$ се свежда до $a$ след прилагане на по-малко от $\ell$ на брой правила от операционната семантика.
+
 
 
 \begin{example}

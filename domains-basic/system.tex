@@ -23,8 +23,7 @@
 % \[\prod^n_{i=1}\B_i \dff \B_1\times \B_2 \times \cdots \B_n,\]
 % което също е област на Скот, дефинирана в {\em Раздел \ref{subsect:domains:product}}.
 
-\begin{prop}
-  \label{pr:product-continuous}
+\begin{proposition}\label{pr:product-continuous}
   Нека $f_i \in \Cont{\A}{\B_i}$, за $i = 1,\dots,n$.
   \marginpar{\writedown Докажете сами!}
   Тогава
@@ -32,7 +31,7 @@
   където
   \[g(a) \dff \pair{f_1(a),f_2(a),\dots,f_n(a)}.\]
   В такъв случай ще означаваме $g = f_1\times f_2 \cdots \times f_n$.
-\end{prop}
+\end{proposition}
 Нека $\A_1,\dots,\A_n$ са области на Скот 
 и да разгледаме изображенията
 \[f_i:\prod^n_{k=1}\A_k \to \A_i,\] за $i = 1,\dots,n$.
@@ -60,7 +59,7 @@
 е изпълнено, че $\bar{a} \sqsubseteq \bar{b}$.
 
 \begin{framed}
-\begin{thm}
+\begin{theorem}
   \label{th:sep:min-solution-system}
   За произволни изображения $f_i \in \Cont{\prod^n_{k=1}\A_k}{\A_i}$, за $i = 1,\dots,n$, системата
   \begin{align*}
@@ -69,7 +68,7 @@
     & f_n(x_1,\dots,x_n) = x_n,
   \end{align*} 
   притежава най-малко решение.
-\end{thm}
+\end{theorem}
 \end{framed}
 \begin{proof}
   Първо да дефинираме както в \Prop{product-continuous} непрекъснатото изображение 
@@ -116,8 +115,7 @@
 решаването на задачи.
 
 \begin{framed}
-  \begin{prop}
-    \label{pr:system:independent}
+  \begin{proposition}\label{pr:system:independent}
     Да разгледаме две изображения
     \begin{align*}
       & f \in \Cont{\A\times\B}{\A}\\
@@ -133,7 +131,7 @@
     \end{align*}  
     Нека $b_0 = \lfp(g)$ и $a_0 = \lfp(\hat{f})$, където $\hat{f}(a) \df f(a,b_0)$.
     Тогава $\pair{a_0,b_0}$ е най-малкото решение на системата $\bigstar$.
-  \end{prop}
+  \end{proposition}
 \end{framed}
 \begin{proof}
   \begin{itemize}
@@ -315,8 +313,7 @@ ghci> phi(8)    -- phi е най-малмата неподвижна точка 
 \end{example}
 
 \begin{framed}
-  \begin{prop}
-    \label{pr:system:definition}
+  \begin{proposition}\label{pr:system:definition}
     Да разгледаме изображенията $f \in \Cont{\A}{\B}$ и $g \in \Cont{\A}{\A}$
     и системата:
     \begin{align*}
@@ -329,7 +326,7 @@ ghci> phi(8)    -- phi е най-малмата неподвижна точка 
     Нека $a_0 = \lfp(g)$.
     Тогава най-малкото решение на системата $\bigstar$ е
     \[\pair{f(a_0), a_0}.\]
-  \end{prop}
+  \end{proposition}
 \end{framed}
 \begin{proof}
   \begin{itemize}

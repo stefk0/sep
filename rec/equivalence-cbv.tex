@@ -1,16 +1,16 @@
 \subsection{Теорема за еквивалентност}
 
-\begin{prop}
+\begin{proposition}
   \label{pr:rec:op-value-inclusion1}
   \marginpar{Сравнете с \Prop{rec:op-name-inclusion1}}
-  Нека $\mu$ е {\em функционален} терм и 
+  Нека $\mu$ е {\em функционален} терм и
   \[\bar{\delta} \in \DomOpCBV\]
   е решение на системата от уравнения $\Delta_{\tau_i}$ съответстващи на програмата \vv{P}.
   \marginpar{Тук не е необходимо $\bar{\delta}$ да бъде най-малкото решение}
   Тогава 
   \marginpar{\cite[стр. 182]{ditchev-soskov}}
   \[\evalv\mu \sqsubseteq \val{\mu}(\ov{\delta}).\]
-\end{prop}
+\end{proposition}
 \begin{proof}
   \marginpar{Тук до голяма степен повтаряме същите разсъждения както в доказателството на \Prop{rec:op-name-inclusion1}}
   Ако от терма $\mu$ {\em няма извод} до елемент на $\Nat_\bot$, то
@@ -201,11 +201,11 @@
 Да напомним, че това означава, че $\ov{\delta} = \bigsqcup_r \ov{\delta}_r$, 
 където $\delta^i_{r+1} = \Delta_{\tau_i}(\ov{\delta}_r)$
 
-\begin{prop}
+\begin{proposition}
   \label{pr:rec:op-value-inclusion2}
   Тогава за всеки {\em функционален} терм $\mu[\vv{f}_1,\dots,\vv{f}_k]$ и всяко $r$,
   \[\val{\mu}(\ov{\delta}_r) \sqsubseteq \evalv{\mu}.\]
-\end{prop}
+\end{proposition}
 \begin{hint}
   \marginpar{Сравнете с \Prop{op-name-inclusion2}. Основната разлика е, че тук можем да минем само с функционални термове. Това не можем да направим при семантиката по име поради разликата в правилата за извод. Всъщност можем да го направим, ако имаме лема за симулацията, но тя сега е сложена като задача}
   
@@ -330,11 +330,11 @@
 \end{hint}
 
 \begin{framed}
-  \begin{thm}
+  \begin{theorem}
     \label{th:dv-equivalent-ov}
     За всяка рекурсивна програма $\vv{P}$ на езика $\REC$ е изпълнено:
     \[\D_V\val{\vv{P}} = \O_V\val{\vv{P}}.\]
-  \end{thm}  
+  \end{theorem}
 \end{framed}
 \begin{proof}
   От \Cor{ov-in-dv} знаем, че 

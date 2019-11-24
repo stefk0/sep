@@ -20,8 +20,9 @@
   \marginpar{Доказателството в \cite[стр. 188]{models-of-computation} е малко по-различно.}
   % \index{$Y_\A$}
   Нека $\A$ е област на Скот и нека $f \in \Cont{\A}{\A}$.
-  \marginpar{Знаем от \Th{knaster-tarski}, че най-малката неподвижна точка на $f$ е елемента $\bigsqcup_n f^n(\bot^\A)$.}
-  Тогава изображението $\texttt{fix} : \Cont{\A}{\A} \to \A$, определено като
+  \marginpar{Знаем от \Th{knaster-tarski}, че най-малката неподвижна точка на $f$ е елемента $\bigsqcup_n f^n(\bot^\A)$,
+    т.е. $\lfp(f) = \bigsqcup_n f^n(\bot^\A)$.}
+  Тогава изображението $Y : \Cont{\A}{\A} \to \A$, определено като
   \[Y(f) = \lfp(f),\]
   е непрекъснато, т.е.
   $Y \in \Cont{\Cont{\A}{\A}}{\A}$.
@@ -29,7 +30,7 @@
 \begin{proof}
   Нека да вземем една верига $\chain{f}{n}$ от непрекъснати изображения.
   Нашата цел е да докажем, че
-  \[Y(\bigsqcup_n f_n) = \bigsqcup_n \texttt{fix}(f_n).\]
+  \[Y(\bigsqcup_n f_n) = \bigsqcup_n Y(f_n).\]
   \marginpar{Записът ще стане много тромав, ако вместо $h$ използваме означението $\bigsqcup_n f_n$.}
   Да означим с $h$ точната горна граница на $\chain{f}{n}$.
   Знаем, че $h(a) = \bigsqcup_n \{f_n(a)\}$, а от \Th{continuous-domain} знаем, че $h$ е непрекъснато изображение.

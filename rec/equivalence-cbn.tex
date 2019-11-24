@@ -1,65 +1,69 @@
 \subsection{Теорема за еквивалентност}
 \marginpar{Винаги с $\mu$ ще означаваме функционални термове; с $\tau$ - произволни термове}
 
-\begin{prop}
-  \label{pr:rec:op-name-inclusion1}
-  \marginpar{В \cite[стр. 192]{ditchev-soskov}, \cite[стр. 157]{winskel} доказателството е друго}
-  \marginpar{Сравнете с \Prop{rec:op-value-inclusion1}}
+\begin{proposition}\label{pr:rec:op-name-inclusion1}
+  \marginpar{В \cite[стр. 192]{ditchev-soskov}, \cite[стр. 157]{winskel} доказателството е друго.}
+  % \marginpar{Сравнете с \Prop{rec:op-value-inclusion1}}
   Да разгледаме една програма \vv{P}.
   Нека $\mu[\vv{f}_1,\dots,\vv{f}_n]$ е {\em функционален} терм. Тогава
-  \[\evaln{\mu} \sqsubseteq \val{\mu}(\bar{\gamma}),\]
+  \[\eval{\mu} \sqsubseteq \val{\mu}(\bar{\gamma}),\]
+  където $\bar{\gamma} = (\gamma_1,\dots,\gamma_n)$ е 
+  \marginpar{Тук използваме наготово \Prop{product-continuous}.}
+  някоя неподвижна точка на непрекъснатия оператор
+  \[\Gamma \dff \val{\tau_1}\times \cdots \times \val{\tau_n},\]
+  който съответства на програмата \vv{P}.
+\end{proposition}
+\begin{proof}
   \marginpar{За това твърдение не е необходимо $\bar{\gamma}$ да бъде най-малката неподвижна точка на $\Gamma$, а просто решение.
     Само за другата посока ще е важно да е най-малкото решение.}
-  където $\bar{\gamma} = (\gamma_1,\dots,\gamma_n)$ е 
-  някоя неподвижна точка на оператора
-  \[\Gamma \dff \Gamma_{\tau_1}\times \cdots \times \Gamma_{\tau_n},\]
-  който съответства на програмата \vv{P}.
-\end{prop}
-\begin{proof}
   Ако от терма $\mu$ {\em няма извод} до елемент на $\Nat_\bot$, то
-  по дефиниция $\evaln{\mu} = \bot$ и в този случай е очевидно, че
-  \[\evaln{\mu} \sqsubseteq \val{\mu}(\ov{\gamma}).\]
+  по дефиниция $\eval{\mu} = \bot$ и в този случай е очевидно, че
+  \[\eval{\mu} \sqsubseteq \val{\mu}(\ov{\gamma}).\]
   
-  Интересният случай е когато от терма $\mu$ {\em има извод} до елемент на $\Nat_\bot$.
-  Тогава ще докажем, че за произволен функционален терм $\mu$ и елемент $a \in \Nat_\bot$, 
+  Интересният случай е когато от терма $\mu$ {\em има извод} до число.
+  Тогава ще докажем, че за произволен функционален терм $\mu$ и число $a$,
   \begin{equation}
     \label{eq:16}
-    \mu\to^{\vv{P}}_N a\ \implies \val{\mu}(\ov{\gamma}) = a.
+    \mu\to_P a\ \implies \val{\mu}(\ov{\gamma}) = a.
   \end{equation}
-  Доказателството на (\ref{eq:16}) ще проведем с индукция по дължината на извода $\mu\to^P_N a$.
+  Доказателството на (\ref{eq:16}) ще проведем с индукция по дължината $\ell$ на извода $\mu\to^\ell_P a$.
 
-  \marginpar{Константата $\vv{a}$ има стойност елементът $a$, която принадлежи на $\Nat_\bot$}
-  Нека изводът има дължина 1. Понеже $\mu$ е функционален терм, според правилата на операционната семантика, единствената възможност е $\mu \equiv \vv{a}$.
+  \marginpar{Константата $\vv{a}$ има стойност числото $a$.}
+  Нека изводът има дължина $0$. Понеже $\mu$ е функционален терм, според правилата на операционната семантика, единствената възможност е $\mu \equiv \vv{a}$.
   Тогава е очевидно, че $\val{\mu}(\bar{\gamma}) = a$. Ясно е, че в този случай,
-  \[\vv{a} \to^{\vv{P}}_N a\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
-  
-  Нека (\ref{eq:16}) е изпълнено, когато $\mu \to^P_N a$ има извод с дължина $< \ell$.
-  Ще докажем твърдението когато изводът има дължина $\ell$.
+  \[\vv{a} \to^0_P a\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
+  Нака имаме следното индукционно предположение:
+  \begin{equation}
+    \label{eq:ind-hyp}
+    \mu\to^{<\ell}_P a\ \implies \val{\mu}(\ov{\gamma}) = a.
+  \end{equation}
+  Ще докажем, че
+  \[\mu\to^{\ell}_P a\ \implies \val{\mu}(\ov{\gamma}) = a.\]
   Трябва да разгледаме различни случаи в зависимост от вида на функционалния терм $\mu$.
   \begin{itemize}
   \item
     Да разгледаме случая, когато $\mu \equiv \mu_1 + \mu_2$.
-    Нека $\mu_1 + \mu_2 \to^P_N a$ като дължината на извода е $\ell$.
+    Нека $\mu_1 + \mu_2 \to^\ell_P a$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
-      \LeftLabel{\scriptsize{(Извод с дълж. $\ell_1$)}}
-      \UnaryInfC{$\mu_1 \to^P_N a_1$}
+      % \LeftLabel{\scriptsize{(Извод с дълж. $\ell_1$)}}
+      \UnaryInfC{$\mu_1 \to^{\ell_1}_P a_1$}
       \AxiomC{$\vdots$}
-      \RightLabel{\scriptsize{(Извод с дълж. $\ell_2$)}}
-      \UnaryInfC{$\mu_2 \to^P_N a_2$}
+      % \RightLabel{\scriptsize{(Извод с дълж. $\ell_2$)}}
+      \UnaryInfC{$\mu_2 \to^{\ell_2}_P a_2$}
       \RightLabel{\scriptsize{\text{правило }($2_{+}$)}}
-      \BinaryInfC{$\mu_1 + \mu_2 \to^P_N a$}
+      \BinaryInfC{$\mu_1 + \mu_2 \to^{\ell_1+\ell_2+1}_P a$}
     \end{prooftree}
 
-    където $a = \texttt{plus}(a_1,a_2)$, и дължината на извода $\ell = \ell_1 + \ell_2 + 1$.
-    Ясно е, че изводите на $\mu_1\to^P_N a_1$ и $\mu_2 \to^P_N a_2$ са с дължини $< \ell$.
+    където $a = \texttt{plus}(a_1,a_2)$.
+    Ясно е, че изводите на $\mu_1\to^{<\ell}_P a_1$ и $\mu_2 \to^{<\ell}_P a_2$.
     Следователно можем да приложим {\bf И.П.} за $\mu_1$ и $\mu_2$, откъдето получаваме, че
     \begin{align*}
-      & \mu_1 \to^P_N a_1\ \implies \val{\mu_1}(\ov{\gamma}) =a _1\\
-      & \mu_2 \to^P_N a_2\ \implies \val{\mu_2}(\ov{\gamma}) =a _2.
+      & \mu_1 \to^{<\ell}_P a_1\ \implies \val{\mu_1}(\ov{\gamma}) =a _1\\
+      & \mu_2 \to^{<\ell}_P a_2\ \implies \val{\mu_2}(\ov{\gamma}) =a _2.
     \end{align*}
-    Тогава получаваме, че ако $\mu_1 + \mu_2 \to^P_N a$, то
+    Тогава получаваме, че ако $\mu_1 + \mu_2 \to^\ell_P a$, то
     \begin{align*}
       \val{\mu_1 + \mu_2}(\ov{\gamma}) & \dff \texttt{plus}(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
                                        & = \texttt{plus}(a_1,a_2)\\
@@ -70,30 +74,31 @@
   \item
     Случаят, когато $\mu \equiv \ifelse{\mu_0}{\mu_1}{\mu_2}$, е лесен.
   \item
-    Нека имаме функционалния терм $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и $\mu \to^P_N a$.
+    Нека имаме функционалния терм $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и $\mu \to^\ell_P a$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
-      \RightLabel{\scriptsize{Извод с дълж. $(\ell-1)$}}
-      \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to^P_N a$}
+      % \RightLabel{\scriptsize{Извод с дълж. $(\ell-1)$}}
+      \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to^{\ell-1}_P a$}
       \RightLabel{\scriptsize{\text{правило }(4)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N a$}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^{\ell}_P a$}
     \end{prooftree}
     
-    Понеже изводът $\tau_i[\varsx/\ov{\mu}] \to^P_N a$ има дължина $\ell-1 < \ell$, 
-    от {\bf И.П.} имаме, че 
-    \[\tau_i[\varsx/\ov{\mu}] \to^P_N a\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
+    
+    От {\bf И.П.} имаме, че 
+    \[\tau_i[\varsx/\ov{\mu}] \to^{<\ell}_P a\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
+    Понеже знаем, че $\tau_i[\varsx/\ov{\mu}] \to^{<\ell}_P a$, то $\val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a$.
     \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$. Единствено в този случай се използва, че $\ov{\gamma}$ е решение на системата от оператори, като не е задължително да е най-малкото решение.}
     Лесно се съобразява, че:
     \begin{align*}
       \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) & = \val{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots,\val{\mu_{m_i}}(\ov{\gamma})) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
-                                                 & \dff \Gamma_{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) \\
-                                                 & = \gamma_i(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) & \comment{\gamma_i = \Gamma_{\tau_i}(\ov{\gamma})}\\
+                                                 % & \dff \Gamma_{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) \\
+                                                 & = \gamma_i(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) & \comment{\gamma_i = \val{\tau_i}(\ov{\gamma})}\\
                                                  & \dff \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}). & \comment{\text{стойност на терм}}\\
     \end{align*}
     Обединявайки всичко, което знаем, получаваме:
     \begin{align*}
-      \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^P_N a & \implies \tau_i[\varsx/\ov{\mu}] \to^P_N a & \comment{\text{правило }(4)}\\
+      \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^\ell_P a & \implies \tau_i[\varsx/\ov{\mu}] \to^{<\ell}_P a & \comment{\text{правило }(4)}\\
                                                 & \implies \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a & \comment{\text{{\bf И.П.}}}\\
                                                 & \implies  \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}) = a.
     \end{align*}
@@ -102,17 +107,17 @@
 \end{proof}
 
 \begin{framed}
-  \begin{cor}
+  \begin{corollary}
     \label{cr:on-in-dn}
     За всяка рекурсивна програма $\vv{P}$ на езика {\bf REC} имаме, че 
     \[\O_N\val{\vv{P}} \sqsubseteq \D_N\val{\vv{P}}.\]
-  \end{cor}  
+  \end{corollary}
 \end{framed}
 \begin{proof}
   Нека $\ov{\gamma}$ е най-малкото решение на системата от непрекъснати оператори, която съответства на програмата $\vv{P}$.
   Тогава
   \begin{align*}
-    \O_N\val{\vv{P}}(a_1,\dots,a_{m_1}) & \dff \evaln{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} \\
+    \O_N\val{\vv{P}}(a_1,\dots,a_{m_1}) & \dff \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} \\
                                         & \sqsubseteq \val{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})}(\ov{\gamma}) & \comment{\text{\Prop{rec:op-name-inclusion1}}} \\
                                         & \dff \gamma_1(\val{\vv{a}_1}(\ov{\gamma}),\dots,\val{\vv{a}_{m_1}}(\ov{\gamma})) & \comment{\text{стойност на терм}}\\
                                         & = \gamma_1(a_1,\dots,a_{m_1}) & \comment \val{\vv{a}_i}(\ov{\gamma}) = a_i\\
@@ -123,30 +128,36 @@
 Така получихме едната посока на теоремата за еквивалентност.
 Сега преминаваме към доказателството на другата посока.
 
-Нека сега $\ov{\gamma}$ е най-малкото решение на системата от оператори, която съответства на програма \vv{P}
+Нека сега $\ov{\gamma} = (\gamma_1,\dots,\gamma_k)$ е най-малкото решение на системата от оператори, която съответства на програма \vv{P}
 за денотационната семантика по име.
 Да напомним, че това означава, че $\ov{\gamma} = \bigsqcup_r \ov{\gamma}_r$, 
-където $\gamma^i_{r+1} = \Gamma_{\tau_i}(\ov{\gamma}_r)$ и $\ov{\gamma}_r = ( \gamma^1_r, \dots, \gamma^k_r)$.
+където $\ov{\gamma}_0 = (\bot,\dots,\bot)$ и за всяко $r$,
+\begin{align*}
+  & \gamma^i_{r+1} = \Gamma_{\tau_i}(\ov{\gamma}_r)\\
+  & \ov{\gamma}_r = ( \gamma^1_r, \dots, \gamma^k_r).
+\end{align*}
 
-\begin{prop}
+
+
+\begin{proposition}
   \label{pr:op-name-inclusion2}
-  \marginpar{Съобразете защо не можем да докажем по-простото твърдение, че за всеки функционален терм $\mu$ и всяко $r$,
-  $\val{\mu}(\ov{\gamma}_r) \sqsubseteq \evaln{\mu}$.}
+  \marginpar{\writedown Съобразете защо не можем да докажем по-простото твърдение, че за всеки функционален терм $\mu$ и всяко $r$,
+  $\val{\mu}(\ov{\gamma}_r) \sqsubseteq \eval{\mu}$.}
   Да разгледаме една програма \vv{P} в езика $\REC$, като
   $\ov{\gamma} = \bigsqcup_r\ov{\gamma}_r$ е най-малкото решение на системата от оператори за \vv{P}.
   Тогава за произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$ и
   произволни функционални термове
   \[\mu_1[\vv{f}_1,\dots,\vv{f}_k],\dots,\mu_n[\vv{f}_1\dots,\vv{f}_k],\]
   и всяко $r$, е изпълнено, че:
-  \[\val{\tau}(\ov{\gamma}_r)(\evaln{\mu_1},\dots,\evaln{\mu_n}) \sqsubseteq \evaln{\tau[\varsx/\ov{\mu}]}.\]
-\end{prop}
+  \[\val{\tau}(\ov{\gamma}_r)(\eval{\mu_1},\dots,\eval{\mu_n}) \sqsubseteq \eval{\tau[\varsx/\ov{\mu}]}.\]
+\end{proposition}
 \begin{proof}
   За произволно естествено число $r$, нека твърдението $\texttt{Include}(r)$ да гласи следното:
 
   ,,за произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$ и
   произволни функционални термове $\mu_1[\vv{f}_1,\dots,\vv{f}_k],\dots,\mu_n[\vv{f}_1\dots,\vv{f}_k]$,
   е изпълнено, че:
-  \[\val{\tau}(\ov{\gamma}_r)(\evaln{\mu_1},\dots,\evaln{\mu_n}) \sqsubseteq \evaln{\tau[\varsx/\ov{\mu}]}.\text{''}\]
+  \[\val{\tau}(\ov{\gamma}_r)(\eval{\mu_1},\dots,\eval{\mu_n}) \sqsubseteq \eval{\tau[\varsx/\ov{\mu}]}.\text{''}\]
   
   Трябва да докажем, че $\texttt{Include}(r)$ е изпълнено за всяко $r$.
   Това ще направим с индукция по $r$.
@@ -155,21 +166,21 @@
   \item 
     Първо ще докажем $\texttt{Include}(0)$.
     Това ще направим с индукция по построението на терма $\tau$.
-    Да разгледаме произволни функционални термове $\mu_i$ и за улеснение да положим $a_i \dff \evaln{\mu_i}$.
+    Да разгледаме произволни функционални термове $\mu_i$ и за улеснение да положим $a_i \dff \eval{\mu_i}$.
     \begin{itemize}
     \item
       Нека $\tau \equiv \vv{c}$. Тогава:
       \begin{align*}
         \val{\vv{c}}(\ov{\gamma}_0)(\ov{a}) & \dff c\\
-                                            & \dff \evaln{\vv{c}} & \comment{\text{правило (1)}}\\
-                                            & = \evaln{\vv{c}[\varsx/\ov{\mu}]}.
+                                            & \dff \eval{\vv{c}} & \comment{\text{правило (1)}}\\
+                                            & = \eval{\vv{c}[\varsx/\ov{\mu}]}.
       \end{align*}
     \item
       Нека $\tau \equiv \vv{x}_i$. Тогава:
       \begin{align*}
         \val{\vv{x}_i}(\ov{\gamma}_0)(\ov{a}) & \dff a_i\\
-                                              & = \evaln{\mu_i} & \comment{a_i \dff \evaln{\mu_i}}\\
-                                              & = \evaln{\vv{x}_i[\varsx/\ov{\mu}]}.                    
+                                              & = \eval{\mu_i} & \comment{a_i \dff \eval{\mu_i}}\\
+                                              & = \eval{\vv{x}_i[\varsx/\ov{\mu}]}.                    
       \end{align*}
     \item
       Нека $\tau \equiv \tau_1 + \tau_2$.
@@ -177,14 +188,14 @@
       От {\bf И.П.} за $\tau_1$ и $\tau_2$ следва, че за $i = 1,2$ е изпълнено следното:
       \begin{equation}
         \label{eq:15}
-        \val{\tau_i}(\ov{\gamma}_0)(\ov{a}) \sqsubseteq \evaln{\tau_i[\varsx/\ov{\mu}]}.
+        \val{\tau_i}(\ov{\gamma}_0)(\ov{a}) \sqsubseteq \eval{\tau_i[\varsx/\ov{\mu}]}.
       \end{equation}
       Да напомним, че изображението $\texttt{plus}$ е непрекъснато, откъдето следва, че също така е монотонно. 
       Тогава:
       \begin{align*}
         \val{\tau_1 + \tau_2}(\ov{\gamma}_0)(\ov{a}) & \dff \texttt{plus}(\val{\tau_1}(\ov{\gamma}_0)(\ov{a}), \val{\tau_2}(\ov{\gamma}_0)(\ov{a}))\\
-                                                    & \sqsubseteq \texttt{plus}(\evaln{\tau_1[\varsx/\ov{\mu}]}, \evaln{\tau_2[\varsx/\ov{\mu}]}) & \comment{\text{от (\ref{eq:15})}}\\
-                                                    & = \evaln{\tau[\varsx/\ov{\mu}]} & \comment{\text{правило }(2_{+})}
+                                                    & \sqsubseteq \texttt{plus}(\eval{\tau_1[\varsx/\ov{\mu}]}, \eval{\tau_2[\varsx/\ov{\mu}]}) & \comment{\text{от (\ref{eq:15})}}\\
+                                                    & = \eval{\tau[\varsx/\ov{\mu}]} & \comment{\text{правило }(2_{+})}
       \end{align*}
     \item
       \marginpar{\writedown Тези два случая са за домашно!}
@@ -196,13 +207,14 @@
       \begin{align*}
         \val{\tau}(\ov{\gamma}_0)(\ov{a}) & \dff \gamma^i_0(\val{\rho_1}(\ov{\gamma}_0)(\ov{a}), \dots,\val{\rho_{m_i}}(\ov{\gamma}_0)(\ov{a}))\\
                                           & = \bot & \comment{\gamma^i_0(\ov{x}) \dff \bot}\\
-                                          & \sqsubseteq \evaln{\tau[\varsx/\ov{\mu}]}.
+                                          & \sqsubseteq \eval{\tau[\varsx/\ov{\mu}]}.
       \end{align*}
       Така доказахме, че $\texttt{Include}(0)$ е изпълнено.
     \end{itemize}
   \item
-    Нека $r > 0$. Да приемем, че $\texttt{Include}(r-1)$ е изпълнено. Ще докажем $\texttt{Include}(r)$.
-    \marginpar{\writedown Разгледайте сами останалите случаи за $\tau$ и се убедете, че те наистина се доказват по същия начин както при $r = 0$} 
+    Нека $r > 0$. Да приемем, че $\texttt{Include}(r-1)$ е изпълнено. Ще докажем $\texttt{Include}(r)$
+    отново с индукция по построението на термовете.
+    \marginpar{\writedown Разгледайте сами останалите случаи за $\tau$ и се убедете, че те наистина се доказват по същия начин както при $r = 0$.} 
     Единственият случай, който заслужава внимание е 
     \[\tau \equiv \vv{f}_i(\rho_1,\dots,\rho_{m_i}).\]
     Доказателствата на всички останали случаи за $\tau$ протичат по абсолютно същия начин както при $r = 0$.
@@ -210,14 +222,14 @@
     Понеже термът $\tau$ е построен с помощта на термовете $\rho_j$, за $j = 1, \dots, m_i$,
     можем да приложим {\bf И.П.} за тях и да получим, че 
     \begin{align*}
-      \val{\rho_{j}}(\ov{\gamma}_r)(\underbrace{\evaln{\mu_1}}_{a_1},\dots,\underbrace{\evaln{\mu_n}}_{a_n}) & = \underbrace{\val{\rho_{j}}(\ov{\gamma}_r)(a_1,\dots, a_n)}_{b_j} \\
-                                                                                                             & \sqsubseteq \underbrace{\evaln{\rho_j[\varsx/\ov{\mu}]}}_{c_j}. & \comment{\text{от {\bf И.П.}}}
+      \val{\rho_{j}}(\ov{\gamma}_r)(\underbrace{\eval{\mu_1}}_{a_1},\dots,\underbrace{\eval{\mu_n}}_{a_n}) & = \underbrace{\val{\rho_{j}}(\ov{\gamma}_r)(a_1,\dots, a_n)}_{b_j} \\
+                                                                                                             & \sqsubseteq \underbrace{\eval{\rho_j[\varsx/\ov{\mu}]}}_{c_j}. & \comment{\text{от {\bf И.П.}}}
     \end{align*}
 
     \marginpar{Обърнете внимание, че $\rho'_j$ са функционални термове}
     Нека за наше улеснение да положим $\rho'_j \dff \rho[\varsx/\ov{\mu}]$.
     Това означава, че до момента имаме следното:
-    \[\val{\tau_i}(\ov{\varphi})(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \sqsubseteq  \val{\tau_i}(\ov{\varphi})(\underbrace{\evaln{\rho'_1}}_{c_1},\dots, \underbrace{\evaln{\rho'_{m_i}}}_{c_{m_i}}),\]
+    \[\val{\tau_i}(\ov{\varphi})(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \sqsubseteq  \val{\tau_i}(\ov{\varphi})(\underbrace{\eval{\rho'_1}}_{c_1},\dots, \underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}),\]
     за произволни непрекъснати изображения $\ov{\varphi}$.
     
     Като обединим всичко от по-горе, получаваме следното:
@@ -226,48 +238,49 @@
                                         & \dff \gamma^i_r(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \\
                                         & = \gamma^i_r(b_1, \dots, b_{m_i})\\
                                         & \sqsubseteq \gamma^i_r(c_1, \dots, c_{m_i}) & \comment{\gamma^i_r\text{ е непр. и следователно мон.}}\\
-                                        & = \Gamma_{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \dff \Gamma_{\tau_i}(\ov{\gamma}_{r-1})}\\
-                                        & \dff \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots, c_{m_i})\\
-                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\evaln{\rho'_1}}_{c_1},\dots,\underbrace{\evaln{\rho'_{m_i}}}_{c_{m_i}})  \\
-                                        & \sqsubseteq \evaln{\tau_i[\vv{x}_1/\rho'_1,\dots,\vv{x}_{m_i}/\rho'_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
-                                        & = \evaln{\vv{f}_i(\rho'_1,\dots,\rho'_{m_i})} & \comment{\text{от правило (4)}}\\
-                                        & = \evaln{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \dff \rho[\varsx/\ov{\mu}]}\\
-                                        & = \evaln{\vv{f}_i(\rho_1,\dots,\rho_{m_i})[\varsx/\ov{\mu}]} & \comment{\text{правила за замяна}}\\
-                                        & = \evaln{\tau[\varsx/\ov{\mu}]}.
+                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \dff \val{\tau_i}(\ov{\gamma}_{r-1})}\\
+                                        % & \dff \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots, c_{m_i})\\
+                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\eval{\rho'_1}}_{c_1},\dots,\underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}) & \comment{c_i = \eval{\rho'_i}} \\
+                                        & \sqsubseteq \eval{\tau_i[\vv{x}_1/\rho'_1,\dots,\vv{x}_{m_i}/\rho'_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
+                                        & = \eval{\vv{f}_i(\rho'_1,\dots,\rho'_{m_i})} & \comment{\text{от правило (4)}}\\
+                                        & = \eval{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \dff \rho[\varsx/\ov{\mu}]}\\
+                                        & = \eval{\vv{f}_i(\rho_1,\dots,\rho_{m_i})[\varsx/\ov{\mu}]} & \comment{\text{правила за замяна}}\\
+                                        & = \eval{\tau[\varsx/\ov{\mu}]}.
     \end{align*}
     Заключаваме, че
-    \[\val{\tau}(\ov{\gamma}_r)(\underbrace{\evaln{\mu_1}}_{a_1},\dots,\underbrace{\evaln{\mu_n}}_{a_n}) \sqsubseteq  \evaln{\tau[\varsx/\ov{\mu}]}.\]
+    \[\val{\tau}(\ov{\gamma}_r)(\underbrace{\eval{\mu_1}}_{a_1},\dots,\underbrace{\eval{\mu_n}}_{a_n}) \sqsubseteq  \eval{\tau[\varsx/\ov{\mu}]}.\]
     Така доказахме $\texttt{Include}(r)$.
   \end{itemize}
   Най-накрая заключаваме, че $(\forall r)\texttt{Include}(r)$.
 \end{proof}
 
-\begin{cor}
-  \label{cr:rec:equivalence-cbn:inclusion2}
+\begin{corollary}\label{cr:rec:equivalence-cbn:inclusion2}
   Нека $\mu$ е функционален терм.
-  Тогава $\evaln{\mu}$ е горна граница на веригата $(\val{\mu}(\ov{\gamma}_r))^{\infty}_{r=0}$.
-\end{cor}
+  Тогава $\eval{\mu}$ е горна граница на веригата $(\val{\mu}(\ov{\gamma}_r))^{\infty}_{r=0}$.
+\end{corollary}
 
 \begin{lemma}
   За всяка рекурсивна програма $\vv{P}$,
   произволен {\em функционален} терм $\mu$,
-  \[\val{\mu}(\ov{\gamma}) \sqsubseteq \evaln{\mu},\]
-  където $\ov{\gamma} = \lfp(\Gamma)$, а $\Gamma = \Gamma_{\tau_0} \times \Gamma_{\tau_2} \times \cdots \times \Gamma_{\tau_k}$ е операторът, който съответства на програмата $\vv{P}$.
+  \[\val{\mu}(\ov{\gamma}) \sqsubseteq \eval{\mu},\]
+  където $\ov{\gamma} = \lfp(\Gamma)$, а
+  \[\Gamma = \val{\tau_0} \times \val{\tau_2} \times \cdots \times \val{\tau_k}\]
+  е операторът, който съответства на програмата $\vv{P}$.
 \end{lemma}
 \begin{hint}
 
   \begin{align*}
     \val{\mu}(\ov{\gamma}) & = \val{\mu}(\bigsqcup_r\ov{\gamma}_r) & \comment{\ov{\gamma} = \bigsqcup_r \ov{\gamma}_r}\\
                            & = \bigsqcup_r \val{\mu}(\ov{\gamma}_r) & \comment{\text{от \Lem{rec:functional:term:continuous}}}\\
-                           & \sqsubseteq \evaln{\mu}. & \comment{\text{от \Cor{rec:equivalence-cbn:inclusion2}}}
+                           & \sqsubseteq \eval{\mu}. & \comment{\text{от \Cor{rec:equivalence-cbn:inclusion2}}}
   \end{align*}
 \end{hint}
 
 \begin{framed}
-  \begin{thm}
+  \begin{theorem}
     За всяка рекурсивна програма $\vv{P}$ на езика {\bf REC} е изпълнено:
     \[\O_N\val{\vv{P}} = \D_N\val{\vv{P}}.\]
-  \end{thm}  
+  \end{theorem}
 \end{framed}
 \begin{proof}
   \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$ е най-малкото решение на системата от оператори съответстващи на програмата \vv{P} }
@@ -275,14 +288,14 @@
   \[\O_N\val{\vv{P}} \sqsubseteq \D_N\val{\vv{P}}.\]
   Остава да докажем обратната посока, а именно 
   \[\D_N\val{\vv{P}} \sqsubseteq \O_N\val{\vv{P}}.\]
-  За произволни елементи $\ov{a} \in \Nat^n_\bot$, имаме следните връзки:
+  За произволни числа $\ov{a}$, имаме следните връзки:
   \begin{align*}
     \D_N\val{\vv{P}}(\ov{a}) & \dff \gamma_1(\ov{a})\\
-                             & = \Gamma_{\tau_1}(\ov{\gamma})(\ov{a}) & \comment{\gamma_1 \dff \Gamma_{\tau_1}(\ov{\gamma})}\\
-                             & \dff \val{\tau_1}(\ov{\gamma})(\ov{a}) \\
+                             & = \val{\tau_1}(\ov{\gamma})(\ov{a}) & \comment{\gamma_1 \dff \Gamma_{\tau_1}(\ov{\gamma})}\\
+                             % & \dff \val{\tau_1}(\ov{\gamma})(\ov{a}) \\
                              & = \val{\tau_1[\varsx/\ov{\vv{a}}]}(\ov{\gamma}) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
-                             & \sqsubseteq \evaln{\tau_1[\varsx/\ov{\vv{a}}]} & \comment{\text{\Prop{op-name-inclusion2}}}\\
-                             & = \evaln{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} & \comment{\text{правило (4) на опер. сем.}}\\
+                             & \sqsubseteq \eval{\tau_1[\varsx/\ov{\vv{a}}]} & \comment{\text{\Prop{op-name-inclusion2}}}\\
+                             & = \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} & \comment{\text{правило (4) на опер. сем.}}\\
                              & \dff \O_N\val{\vv{P}}(\ov{a}).
   \end{align*}
 \end{proof}

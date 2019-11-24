@@ -72,7 +72,7 @@
 
 \subsection{Основни свойства}
 
-\begin{prop}
+\begin{proposition}
   \label{pr:continuous-property}
   Нека $\A$ и $\B$ са области на Скот и $f_1,f_2 \in \Cont{\A}{\B}$.
   Тогава следните свойства над $\A$ са непрекъснати:
@@ -82,9 +82,9 @@
   \item
     $P(a) \dfff f_1(a) = f_2(a)$;
   \end{itemize}
-\end{prop}
+\end{proposition}
 
-\begin{prop}
+\begin{proposition}
   \label{pr:fixed-element-property}
   Нека $\A$ е област на Скот.
   Да фиксираме произволен елемент $a_0 \in \A$.
@@ -95,27 +95,27 @@
   \item
     $P(a) \dfff a = a_0$;
   \end{itemize}
-\end{prop}
+\end{proposition}
 
 \subsection{Сечение}
-\begin{prop}
+\begin{proposition}
   Нека $P_1$ и $P_2$ непрекъснати свойства над областта на Скот $\A$.
   Тогава $P_1 \cap P_2$ също е непрекъснато свойство.
-\end{prop}
+\end{proposition}
 
 \subsection{Обединение}
 
-\begin{prop}
+\begin{proposition}
   Нека $P_1$ и $P_2$ непрекъснати свойства над областта на Скот $\A$.
   Тогава $P_1 \cup P_2$ също е непрекъснато свойство.
-\end{prop}
+\end{proposition}
 
 \subsection{Допълнение}
 
-\begin{prop}
+\begin{proposition}
   Съществува непрекъснато свойство $P$ над областта на Скот $\A$,
   за което $\A \setminus P$ {\bf не} е непрекъснато свойство.
-\end{prop}
+\end{proposition}
 \begin{proof}
   Да вземем $\A = \Strict{\Nat_\bot}{\Nat_\bot}$.
   Свойството $Q$ от \Problem{inclusive-property} е непрекъснато, 
@@ -260,12 +260,12 @@
 % Знаем, че ако $\A$ и $\B$ са области на Скот, то съвкупността от всички непрекъснати изображения $\Cont{\A}{\B}$ образува
 % област на Скот. Сега ще разгледаме аналог на тази теорема за непрекъснати свойства.
 
-% \begin{prop}
+% \begin{proposition}
 %   Нека $P$ и $Q$ са свойства съответно в $\A$ и $\B$.
 %   Да разгледаме свойството $R$ в $\Cont{\A}{\B}$ дефинирано като:
 %   \[R \dff \{f \in \Cont{\A}{\B} \mid (\forall a \in \A)[P(a) \implies Q(f(a))]\}.\]
 %   Докажете, че ако $Q$ е непрекъснато свойство, то $R$ е непрекъснато свойство.
-% \end{prop}
+% \end{proposition}
 
 \subsection{Частична коректност}
 
@@ -280,11 +280,11 @@
   \[P(f) \dfff (\forall a \in \A)[\ I(a)\ \&\ f(a) \neq \bot \implies O(a,f(a))\ ].\]
 \end{itemize}
 
-\begin{prop}
+\begin{proposition}
   Нека $I \subseteq \A$, а $O$ е непрекъснато свойство в $\A \times \B$.
   \[P(f) \dfff (\forall a \in \A)[\ I(a)\ \&\ f(a) \neq \bot \implies O(a,f(a))\ ].\]
   Тогава свойството $P$ е непрекъснато в областта на Скот $\Mapping{\A}{\B}$.
-\end{prop}
+\end{proposition}
 
 % \begin{example}
 %   Нека $\A = \B = \Nat_\bot$ и $I(x) \dfff x > 1$, а $O(x,y) \dfff x,y\in\Nat\ \&\ x = y^2$.
@@ -306,12 +306,12 @@
 свойство $P \subseteq \Mapping{\A}{\B}$ със следната дефиниция
 \[P(f) \dfff (\forall a \in \A)[I(a) \implies (f(a) \neq \bot\ \&\  O(a,f(a)))].\]
 
-\begin{prop}
+\begin{proposition}
   Нека $I$ е свойство в $\A$, а $O$ е непрекъснато свойство в $\A \times \B$.
   Тогава свойството
   \[P(f) \dfff (\forall a \in \A)[I(a) \implies (f(a) \neq \bot\ \&\ O(a,f(a)))]\]
   е непрекъснато в $\Mapping{\A}{\B}$.
-\end{prop}
+\end{proposition}
 
 %%% Local Variables:
 %%% mode: latex
