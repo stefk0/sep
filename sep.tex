@@ -88,9 +88,8 @@
 \newtheorem{definition}{Определение}[chapter]
 \newtheorem{problem}{{\bf Задача}}[chapter]
 \newtheorem{prb}{{\bf Задача}}[chapter]
-% \newtheorem{prop}{Твърдение}[chapter]
 \newtheorem{proposition}{Твърдение}[chapter]
-\newtheorem{cor}{Следствие}[chapter]
+\newtheorem{corollary}{Следствие}[chapter]
 \newtheorem{lemma}{Лема}[chapter]
 \newtheorem{example}{Пример}[chapter]
 \newtheorem{remark}{Забележка}[chapter]
@@ -107,15 +106,15 @@
 \newenvironment{solution}{\noindent{\bf Решение.}\hspace*{1em}}{\qed\par}
 \newcommand{\answer}{\it Отговор.\rm}
 
-\newcommand{\Ex}[1]{{\em Пример }~\ref{ex:#1}}
-\newcommand{\Alg}[1]{{\em Алгоритъм}~\ref{alg:#1}}
-\newcommand{\Th}[1]{{\em Теорема}~\ref{th:#1}}
-\newcommand{\Cor}[1]{{\em Следствие}~\ref{cr:#1}}
-\newcommand{\Lem}[1]{{\em Лема}~\ref{lem:#1}}
-\newcommand{\Prop}[1]{{\em Твърдение}~\ref{pr:#1}}
-\newcommand{\Problem}[1]{{\em Задача}~\ref{prob:#1}}
-\newcommand{\Fig}[1]{{\em Фигура}~\ref{fig:#1}}
-\newcommand{\Chapter}[1]{{\em Глава}~\ref{ch:#1}}
+\newcommand{\Ex}[1]{\emph{ Пример }~\ref{ex:#1}}
+\newcommand{\Alg}[1]{\emph{ Алгоритъм}~\ref{alg:#1}}
+\newcommand{\Th}[1]{\emph{ Теорема}~\ref{th:#1}}
+\newcommand{\Cor}[1]{\emph{ Следствие}~\ref{cr:#1}}
+\newcommand{\Lem}[1]{\emph{ Лема}~\ref{lem:#1}}
+\newcommand{\Prop}[1]{\emph{ Твърдение}~\ref{pr:#1}}
+\newcommand{\Problem}[1]{\emph{ Задача}~\ref{prob:#1}}
+\newcommand{\Fig}[1]{\emph{ Фигура}~\ref{fig:#1}}
+\newcommand{\Chapter}[1]{\emph{ Глава}~\ref{ch:#1}}
 %%\selectlanguage{bulgarian}
 
 \newcommand{\writedown}{\ding{45}\ }
@@ -123,6 +122,7 @@
 % \newcommand{\val}[1]{\llbracket{#1}\rrbracket}
 \newcommand{\evalv}[1]{\text{eval}^P_V\val{{#1}}}
 \newcommand{\evaln}[1]{\text{eval}^P_N\val{{#1}}}
+\newcommand{\eval}[1]{\text{eval}_P\val{{#1}}}
 \newcommand{\ifelse}[3]{\texttt{if}\ #1\ \texttt{then}\ #2\ \texttt{else}\ #3} 
 \newcommand{\while}[2]{\mathbf{while}\ #1\ \mathbf{do}\ #2}
 \newcommand{\rpt}[2]{\mathbf{repeat}\ #1\ \mathbf{until}\ #2}
@@ -243,8 +243,10 @@
 % \include{Operators}
 \include{domains/domains}
 % \include{domains-extra/domains-extra}
-% \include{rec/rec}
-% \include{proofs/proofs}
+\include{rec/rec}
+\include{domains-extra/problems}
+\include{pcf/pcf}
+\include{proofs/proofs}
 % \include{lists/lists}
 
 % \include{call-by-value}

@@ -1,0 +1,39 @@
+\section{Денотационна семантика}
+
+Започваме със семантика на типовете.
+
+\begin{align*}
+  & \val{\vv{nat}} \dff \Nat_\bot\\
+  & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
+\end{align*}
+
+Сега трябва да дефинираме семантика на термовете.
+
+
+$\Gamma$-среда е крайна функция $\rho$,
+за която $\rho(x) \in \val{\Gamma(x)}$ за всяко $x \in \vv{dom}(\Gamma)$.
+
+\begin{itemize}
+\item
+  $\val{\Gamma \vdash \vv{n}}\rho = n$;
+\item
+  $\val{\Gamma \vdash \type{x}{a}}\rho = \rho(x)$;
+\item
+  $\val{\Gamma \vdash \tau_1 + \tau_2}\rho = \texttt{plus}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
+\item
+  $\val{\Gamma \vdash \tau_1\ \vv{==}\ \tau_2}\rho = \texttt{eq}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
+\item
+  $\val{\Gamma \vdash \ifelse{\tau_1}{\tau_2}{\tau_3}}\rho = \texttt{if}(\val{\tau_1}\rho, \val{\tau_2}\rho, \val{\tau_3}\rho)$;
+\item
+  $\val{\Gamma \vdash \tau_1 \tau_2}\rho = \texttt{eval}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
+\item
+  $\val{\Gamma \vdash \lambda \type{x}{a}\ .\ \tau}\rho = $;
+\item
+  $\val{\Gamma \vdash \texttt{fix}(\tau)}\rho = \lfp(\val{\tau}\rho)$;
+\end{itemize}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

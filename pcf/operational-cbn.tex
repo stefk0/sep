@@ -1,0 +1,40 @@
+\section{Операционна семантика}
+
+{\bf Стойност} е затворен терм от следния вид:
+\[ \vv{val} ::= \vv{n}\ |\ \lambda x:\vv{a}\ .\ \tau\]
+
+\begin{prooftree}
+  \AxiomC{$\vv{val}$ е стойност от тип $\vv{a}$}
+  \RightLabel{\scriptsize{(const)}}
+  \UnaryInfC{$\vv{val} \to_{\vv{a}} \vv{val}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lambda x:\vv{a}\ .\ \tau'_1:\vv{b}$}
+  \AxiomC{$\tau'_1[x/\tau_2] \Downarrow_{\vv{b}} \vv{v}$}
+  \RightLabel{\scriptsize{(cbn)}}
+  \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\tau \fix(\tau) \Downarrow_{\vv{a}} \vv{val}$}
+  \RightLabel{\scriptsize{(fix)}}
+  \UnaryInfC{$\fix(\tau) \Downarrow_{\vv{a}} \vv{val} $}
+\end{prooftree}
+
+
+\begin{example}
+  \[\Omega_{\vv{a}} \equiv \fix(\lambda x:\vv{a} . x).\]
+\end{example}
+
+
+\begin{lemma}
+  Ако $\tau \Downarrow \vv{v}$ и $\tau \Downarrow \vv{u}$, то $\vv{v} \equiv \vv{u}$.
+\end{lemma}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

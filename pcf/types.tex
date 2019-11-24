@@ -1,0 +1,83 @@
+\section{Типове}
+
+\newcommand{\type}[2]{\vv{#1}:\vv{#2}}
+
+Всяка \emph{крайна} функция от вида $\Gamma : \mathcal{V} \to \mathcal{T}$
+ще наричаме {\bf типов контекст}.
+Ние искаме да работим само с коректно типизирани изрази.
+Ако в изразите имаме свободни променливи, то дали един израз е коректно типизиран ще зависи от типовия контекст.
+
+\begin{prooftree}
+  \AxiomC{}
+  \RightLabel{\scriptsize{(const)}}
+  \UnaryInfC{$\Gamma \vdash \vv{n} : \vv{nat}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\vv{x} \in \texttt{dom}(\Gamma)$}
+  \AxiomC{$\Gamma(\vv{x}) = \vv{a}$}
+  \RightLabel{\scriptsize{(var)}}
+  \BinaryInfC{$\Gamma \vdash \vv{x} : \vv{a}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \tau_1:\vv{nat}$}
+  \AxiomC{$\Gamma \vdash \tau_2:\vv{nat}$}
+  \RightLabel{\scriptsize{(plus)}}
+  \BinaryInfC{$\Gamma \vdash \tau_1 + \tau_2 : \vv{nat}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \tau_1:\vv{nat}$}
+  \AxiomC{$\Gamma \vdash \tau_2:\vv{nat}$}
+  \RightLabel{\scriptsize{(eq)}}
+  \BinaryInfC{$\Gamma \vdash \tau_1\ \vv{==}\ \tau_2 : \vv{nat}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \tau_1:\vv{nat}$}
+  \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
+  \AxiomC{$\Gamma \vdash \tau_3:\vv{a}$}
+  \RightLabel{\scriptsize{(if)}}
+  \TrinaryInfC{$\Gamma \vdash \ifelse{\tau_1}{\tau_2}{\tau_3} : \vv{a}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \tau_1:\vv{a}\to\vv{b}$}
+  \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
+  \RightLabel{\scriptsize{(app)}}
+  \BinaryInfC{$\Gamma \vdash \tau_1\tau_2 : \vv{b}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \tau:\vv{a}\to\vv{a}$}
+  \RightLabel{\scriptsize{(fix)}}
+  \UnaryInfC{$\Gamma \vdash \fix(\tau) : \vv{a}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\vv{x} \not\in\vv{dom}(\Gamma)$}
+  \AxiomC{$\Gamma, \type{x}{a} \vdash \tau:\vv{b}$}
+  \RightLabel{\scriptsize{(lambda)}}
+  \BinaryInfC{$\Gamma \vdash \lambda x:\vv{a}\ .\ \tau : \vv{a} \to \vv{b}$}
+\end{prooftree}
+
+Ако имаме затворен израз $\tau$, то ще пишем $\tau : \vv{a}$ вместо $\emptyset \vdash \tau : \vv{a}$.
+
+\begin{proposition}
+  Ако $\Gamma \vdash \tau : \vv{a}$, то $\fv(\tau) \subseteq \vv{dom}(\Gamma)$.
+  Ако $\Gamma \vdash \tau : \vv{a}$ и $\Gamma \vdash \tau : \vv{b}$, то $\vv{a} \equiv \vv{b}$.
+  В частност, всеки затворен терм има най-много един тип.
+\end{proposition}
+
+\begin{proposition}
+  Ако $\Gamma \vdash \tau : \vv{a}$ и $\Gamma, \type{x}{a} \vdash \rho : \vv{b}$,
+  то $\Gamma \vdash \rho[\vv{x}/\tau] : \vv{b}$.
+\end{proposition}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:
