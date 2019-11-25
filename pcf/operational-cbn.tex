@@ -1,29 +1,61 @@
 \section{Операционна семантика}
 
-Дефинираме релацията $\downarrow_{\vv{a}}$ върху затворените изрази и стойностите.
+Дефинираме релацията $\Downarrow_{\vv{a}}$ върху затворените изрази и стойностите.
 
 \begin{prooftree}
-  \AxiomC{$\type{val}{a}$}
-  \RightLabel{\scriptsize{(const)}}
-  \UnaryInfC{$\vv{val} \Downarrow_{\vv{a}} \vv{val}$}
+  \AxiomC{$\type{v}{a}$}
+  \RightLabel{\scriptsize{(val)}}
+  \UnaryInfC{$\vv{v} \Downarrow_{\vv{a}} \vv{v}$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lambda \type{x}{a}\ .\ \tau'_1:\vv{b}$}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
+  \AxiomC{$\tau_2 \Downarrow_{\vv{nat}} \vv{n}_2$}
+  \AxiomC{$n = \texttt{eq}(n_1,n_2)$}
+  \RightLabel{\scriptsize{(eq)}}
+  \TrinaryInfC{$\tau_1\ \vv{==}\ \tau_2 \Downarrow_{\vv{nat}} \vv{n}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
+  \AxiomC{$\tau_2 \Downarrow_{\vv{nat}} \vv{n}_2$}
+  \AxiomC{$n = n_1 + n_2$}
+  \RightLabel{\scriptsize{(plus)}}
+  \TrinaryInfC{$\tau_1\ \vv{+}\ \tau_2 \Downarrow_{\vv{nat}} \vv{n}$}
+\end{prooftree}
+
+
+\begin{prooftree}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{0}$}
+  \AxiomC{$\tau_3 \Downarrow_{\vv{a}} \vv{v}$}
+  \RightLabel{\scriptsize{(if$_0$)}}
+  \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{v}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}$}
+  \AxiomC{$\tau_2 \Downarrow_{\vv{a}} \vv{v}$}
+  \AxiomC{$\vv{n} \not\equiv \vv{0}$}
+  \RightLabel{\scriptsize{(if$^+$)}}
+  \TrinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{v}$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}:\vv{b}$}
   \AxiomC{$\tau'_1[x/\tau_2] \Downarrow_{\vv{b}} \vv{v}$}
   \RightLabel{\scriptsize{(cbn)}}
   \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau \fix(\tau) \Downarrow_{\vv{a}} \vv{val}$}
+  \AxiomC{$\tau \fix(\tau) \Downarrow_{\vv{a}} \vv{v}$}
   \RightLabel{\scriptsize{(fix)}}
-  \UnaryInfC{$\fix(\tau) \Downarrow_{\vv{a}} \vv{val} $}
+  \UnaryInfC{$\fix(\tau) \Downarrow_{\vv{a}} \vv{v} $}
 \end{prooftree}
 
 
 \begin{example}
-  \[\Omega_{\vv{a}} \equiv \fix(\lambda x:\vv{a} . x).\]
+  \[\Omega_{\vv{a}} \equiv \fix(\lamb{x}{a}{\vv{x}}).\]
 \end{example}
 
 

@@ -21,14 +21,37 @@
   Обикновено броят аргументи на $\vv{f}$ ще е ясен от контекста.
 \item
   Термовете $\tau_0,\tau_1,\dots$ в {\bf REC} имат следния синтаксис:
-  \marginpar{Тук $m_i = \#\vv{f}_i$}
-  \[\tau ::= \vv{n} \mid \vv{x} \mid \tau_1 + \tau_2 \mid \tau_1\ \vv{==}\ \tau_2 \mid \ifelse{\tau_1}{\tau_2}{\tau_3} \mid \vv{f}_i(\tau_1,\dots,\tau_{m_i}).\]
+  \marginpar{Тук $m = \#\vv{f}$}
+  \[\tau ::= \vv{n} \mid \vv{x} \mid \tau_1 + \tau_2 \mid \tau_1\ \vv{==}\ \tau_2 \mid \ifelse{\tau_1}{\tau_2}{\tau_3} \mid \vv{f}(\tau_1,\dots,\tau_{m}).\]
 \item
   Ще записваме $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$, когато искаме да означим, че променливите
   на терма $\tau$ са {\em измежду} посочените.
 \item
+  Ще наричаме един терм {\bf функционален}, ако той не съдържа обектови променливи.
+  Обикновено ще означаваме функционалните термове с $\mu$, а произволни термове с $\tau$.
+\item
   С $\tau[\vv{x}/\mu]$ ще означаваме терма получен от $\tau$, в който всяко срещане на обектовата променлива $\vv{x}$
-  е заменена с терма $\mu$.
+  е заменена с функционалния терм $\mu$. Можем да дадем формална дефиниция с индукция по построението на термовете:
+  \begin{itemize}
+  \item
+    Ако $\tau \equiv \vv{n}$, то $\vv{n}[\vv{x}/\mu] \equiv \vv{n}$.
+  \item
+    Ако $\tau \equiv \vv{x}$, то $\vv{x}[\vv{x}/\mu] \equiv \mu$.
+  \item
+    Ако $\tau \equiv \vv{y}$ и $\vv{y} \not\equiv \vv{x}$, то $\vv{y}[\vv{x}/\mu] \equiv \vv{y}$.
+  \item
+    Ако $\tau \equiv \tau_1 + \tau_2$, то
+    \[\tau[x/\mu] \equiv \tau_1[x/\mu] + \tau_2[x/\mu].\]
+  \item
+    Ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
+    \[\tau[x/\mu] \equiv \tau_1[x/\mu]\ \vv{==}\ \tau_2[x/\mu].\]
+  \item
+    Ако $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
+    \[\tau[x/\mu] = \ifelse{\tau_1[x/\mu]}{\tau_2[x/\mu]}{\tau_3[x/\mu]}.\]
+  \item
+    Ако $\tau \equiv \vv{f}(\tau_1,\dots,\tau_m)$, то
+    \[\tau[x/\mu] = \vv{f}(\tau_1[x/\mu], \dots, \tau_m[x/\mu]).\]
+  \end{itemize}  
 \end{itemize}
 
 \marginpar{\cite[стр. 141]{winskel}}
