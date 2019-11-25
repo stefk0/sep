@@ -1,16 +1,15 @@
 \section{Операционна семантика}
 
-{\bf Стойност} е затворен терм от следния вид:
-\[ \vv{val} ::= \vv{n}\ |\ \lambda x:\vv{a}\ .\ \tau\]
+Дефинираме релацията $\downarrow_{\vv{a}}$ върху затворените изрази и стойностите.
 
 \begin{prooftree}
-  \AxiomC{$\vv{val}$ е стойност от тип $\vv{a}$}
+  \AxiomC{$\type{val}{a}$}
   \RightLabel{\scriptsize{(const)}}
-  \UnaryInfC{$\vv{val} \to_{\vv{a}} \vv{val}$}
+  \UnaryInfC{$\vv{val} \Downarrow_{\vv{a}} \vv{val}$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lambda x:\vv{a}\ .\ \tau'_1:\vv{b}$}
+  \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lambda \type{x}{a}\ .\ \tau'_1:\vv{b}$}
   \AxiomC{$\tau'_1[x/\tau_2] \Downarrow_{\vv{b}} \vv{v}$}
   \RightLabel{\scriptsize{(cbn)}}
   \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
@@ -32,6 +31,12 @@
   Ако $\tau \Downarrow \vv{v}$ и $\tau \Downarrow \vv{u}$, то $\vv{v} \equiv \vv{u}$.
 \end{lemma}
 
+
+\begin{problem}
+  \marginpar{\cite[стр. 104]{types-programming-languages}}
+  Докажете или опровергайте дали е възможно да съществува контекст $\Gamma$ и тип $\vv{a}$, такива че
+  \[\Gamma \vdash \type{xx}{a}.\]
+\end{problem}
 
 
 %%% Local Variables:

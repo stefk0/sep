@@ -3,12 +3,23 @@
 \newcommand{\fix}{\texttt{fix}}
 \newcommand{\fv}{\texttt{fv}}
 
-\[\vv{a} ::= \vv{nat}\ |\ \vv{a} \to \vv{a}.\]
-
-
-Изрази
-\[\tau ::= \vv{n}\ |\ \vv{x}\ |\ \tau + \tau\ |\ \tau\ \vv{==}\ \tau\ |\ \ifelse{\tau}{\tau}{\tau}\ |\ \tau\tau\ |\ \lambda \vv{x:a}.\tau\ |\ \fix(\tau).\]
-
+\begin{itemize}
+\item
+  Типове
+  \[\vv{a} ::= \vv{nat}\ |\ \vv{a} \to \vv{a}.\]
+\item
+  Изрази
+  \[\tau ::= \vv{n}\ |\ \vv{x}\ |\ \tau + \tau\ |\ \tau\ \vv{==}\ \tau\ |\ \ifelse{\tau}{\tau}{\tau}\ |\ \tau\tau\ |\ \lambda \vv{x:a}.\tau\ |\ \fix(\tau).\]
+  Ще казваме, че един израз $\tau$ е {\bf затворен}, ако $\fv(\tau) = \emptyset$.
+  В противен случай, ще казваме, че изразът е {\bf отворен}.
+\item
+  \marginpar{или в канонична форма?}
+  Ще казваме, че един израз е {\bf стойност}, ако той е съставен по следния начин:
+  \[\vv{v} ::= \vv{n}\ |\ \lambda\type{x}{a}\ .\ \vv{v}.\]
+\item
+  Контексти
+  \[\Gamma ::= \emptyset\ |\ \Gamma,\type{x}{a}.\]
+\end{itemize}
 
 Да обърнем внимание, че ние няма да правим разлика между два израза, които са $\alpha$-еквивалентни, т.е.
 ще считаме, че $\lambda x:a. (x+1)$ е същият израз като $\lambda y:a. (y+1)$.
@@ -23,17 +34,16 @@
 \item
   $\fv(\vv{x}) = \{\vv{x}\}$;
 \item
-  $\fv(\fix(\tau)) = \fv(\tau)$;
-\item
   $\fv(\tau_1 + \tau_2) = \fv(\tau_1\ \vv{==}\ \tau_2) = \fv(\tau_1\tau_2) = \fv(\tau_1) \cup \fv(\tau_2)$;
 \item
   $\fv(\ifelse{\tau_1}{\tau_2}{\tau_3}) = \fv(\tau_1) \cup \fv(\tau_2) \cup \fv(\tau_3)$;
 \item
-  $\fv(\lambda x.a:\tau) = \fv(\tau) \setminus \{x\}$.
+  $\fv(\lambda \type{x}{a}\ .\ \tau) = \fv(\tau) \setminus \{x\}$.
+\item
+  $\fv(\fix(\tau)) = \fv(\tau)$;
 \end{itemize}
 
-Ще казваме, че един израз $\tau$ е {\bf затворен}, ако $\fv(\tau) = \emptyset$.
-В противен случай, ще казваме, че изразът е {\bf отворен}.
+
 
 %%% Local Variables:
 %%% mode: latex

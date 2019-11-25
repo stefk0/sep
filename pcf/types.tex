@@ -1,7 +1,5 @@
 \section{Типове}
 
-\newcommand{\type}[2]{\vv{#1}:\vv{#2}}
-
 Всяка \emph{крайна} функция от вида $\Gamma : \mathcal{V} \to \mathcal{T}$
 ще наричаме {\bf типов контекст}.
 Ние искаме да работим само с коректно типизирани изрази.
@@ -59,7 +57,7 @@
   \AxiomC{$\vv{x} \not\in\vv{dom}(\Gamma)$}
   \AxiomC{$\Gamma, \type{x}{a} \vdash \tau:\vv{b}$}
   \RightLabel{\scriptsize{(lambda)}}
-  \BinaryInfC{$\Gamma \vdash \lambda x:\vv{a}\ .\ \tau : \vv{a} \to \vv{b}$}
+  \BinaryInfC{$\Gamma \vdash \lambda \type{x}{a}\ .\ \tau : \vv{a} \to \vv{b}$}
 \end{prooftree}
 
 Ако имаме затворен израз $\tau$, то ще пишем $\tau : \vv{a}$ вместо $\emptyset \vdash \tau : \vv{a}$.
@@ -67,8 +65,16 @@
 \begin{proposition}
   Ако $\Gamma \vdash \tau : \vv{a}$, то $\fv(\tau) \subseteq \vv{dom}(\Gamma)$.
   Ако $\Gamma \vdash \tau : \vv{a}$ и $\Gamma \vdash \tau : \vv{b}$, то $\vv{a} \equiv \vv{b}$.
-  В частност, всеки затворен терм има най-много един тип.
 \end{proposition}
+\begin{proof}
+  Доказателството протича с индукция по построението на термовете.
+  
+\end{proof}
+
+\begin{corollary}
+  Всеки затворен терм има най-много един тип.
+\end{corollary}
+
 
 \begin{proposition}
   Ако $\Gamma \vdash \tau : \vv{a}$ и $\Gamma, \type{x}{a} \vdash \rho : \vv{b}$,
