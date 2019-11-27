@@ -1,22 +1,22 @@
 \begin{problem}
   \marginpar{\cite[стр. 187]{models-of-computation}}
   Да разгледаме следното изображение
-  \[\texttt{curry}:\Mapping{\A\times \B}{\C} \to \Mapping{\A}{\Mapping{\B}{\C}},\]
+  \[\curry:\Mapping{\A\times \B}{\C} \to \Mapping{\A}{\Mapping{\B}{\C}},\]
   дефинирано като
-  \[\texttt{curry}(f)(a)(b) \dff f(a,b).\]
+  \[\curry(f)(a)(b) \dff f(a,b).\]
   Докажете, че ако $f$ е непрекъснато изображение, то
-  $\texttt{curry}(f)$ е непрекъснато изображение,
-  т.е. $\texttt{curry}(f) \in \Cont{\A}{\Mapping{\B}{\C}}$.
+  $\curry(f)$ е непрекъснато изображение,
+  т.е. $curry(f) \in \Cont{\A}{\Mapping{\B}{\C}}$.
 \end{problem}
 \begin{proof}
   Да разгледаме произволна верига $\chain{a}{i}$ от елементи на $\A$.
   Трябва да докажем, че
-  \[\texttt{curry}(f)(\bigsqcup_i a_i) = \bigsqcup_i \texttt{curry}(f)(a_i).\]
+  \[\curry(f)(\bigsqcup_i a_i) = \bigsqcup_i \curry(f)(a_i).\]
   За целта, да разгледаме произволен елемент $b \in \B$. Тогава
   \begin{align*}
-    \texttt{curry}(f)(\bigsqcup_i a_i)(b) & = f(\bigsqcup_i a_i,b) & \comment\text{опр. на }\texttt{curry}\\
-                                          & = \bigsqcup_i f(a_i,b) & \comment\text{ $f$ е непр. по първия аргумент}\\
-                                          & = \bigsqcup_i \{\texttt{curry}(f)(a_i)(b)\}. & \comment\text{опр. на }\texttt{curry}
+    \curry(f)(\bigsqcup_i a_i)(b) & = f(\bigsqcup_i a_i,b) & \comment\text{опр. на }\curry\\
+                                  & = \bigsqcup_i f(a_i,b) & \comment\text{ $f$ е непр. по първия аргумент}\\
+                                  & = \bigsqcup_i \{\curry(f)(a_i)(b)\}. & \comment\text{опр. на }\curry
   \end{align*}
 \end{proof}
 

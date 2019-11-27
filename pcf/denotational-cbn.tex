@@ -6,30 +6,68 @@
   & \val{\vv{nat}} \dff \Nat_\bot\\
   & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
-
+За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, дефинираме
+\[\val{\Gamma} = \val{\vv{a}_1}\times\cdots\times\val{\vv{a}_n}.\]
 Сега трябва да дефинираме семантика на термовете.
-
-
-$\Gamma$-среда е крайна функция $\rho$,
-за която $\rho(x) \in \val{\Gamma(x)}$ за всяко $x \in \vv{dom}(\Gamma)$.
+Искаме да дефинираме за всеки терм, за който $\Gamma \vdash \tau : \vv{a}$,
+изборажение $\val{\tau}_\Gamma$, така че
+\[\val{\tau}_\Gamma : \Cont{\val{\Gamma}}{\val{\vv{a}}}.\]
 
 \begin{itemize}
 \item
-  $\val{\Gamma \vdash \vv{n}}\rho = n$;
+  $\val{\vv{n}}_\Gamma(\overline{u}) = n$;
 \item
-  $\val{\Gamma \vdash \type{x}{a}}\rho = \rho(x)$;
+  $\val{\vv{x}_i}_\Gamma(\overline{u}) = u_i$;
 \item
-  $\val{\Gamma \vdash \tau_1 + \tau_2}\rho = \texttt{plus}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
+  $\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) = \texttt{plus}(\val{\tau_1}(\overline{u}), \val{\tau_2}(\overline{u}))$;
 \item
   $\val{\Gamma \vdash \tau_1\ \vv{==}\ \tau_2}\rho = \texttt{eq}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
 \item
   $\val{\Gamma \vdash \ifelse{\tau_1}{\tau_2}{\tau_3}}\rho = \texttt{if}(\val{\tau_1}\rho, \val{\tau_2}\rho, \val{\tau_3}\rho)$;
 \item
-  $\val{\Gamma \vdash \tau_1 \tau_2}\rho = \texttt{eval}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
+  Щом $\Gamma \vdash \tau_1 \tau_2 : \vv{a}$, то от правилата за типизиране следва, че
+  \begin{align*}
+    & \Gamma \vdash \tau_1 : \vv{b} \to \vv{a}\\
+    & \Gamma \vdash \tau_2 : \vv{b}.
+  \end{align*}
+  От И.П. за $\tau_1$ и $\tau_2$ знаем, че
+  \begin{align*}
+    & \val{\tau_1}_\Gamma \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{a}}}} \\
+    & \val{\tau_2}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{b}}}
+  \end{align*}
+  Оттук получаваме, че за произволни $\overline{u} \in \val{\Gamma}$,
+  \begin{align*}
+    & \val{\tau_1}_\Gamma \in \Cont{\val{\vv{b}}}{\val{\vv{a}}} \\
+    & \val{\tau_2}_\Gamma \in \val{\vv{b}}.
+  \end{align*}
+  Сега дефинираме
+  \[\val{\tau_1 \tau_2}_\Gamma(\overline{u}) \dff \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
-  $\val{\Gamma \vdash \lamb{x}{a}{\tau}}\rho = $;
+  Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
+  Щом $\Gamma \vdash \lamb{y}{b}{\tau'} : \vv{a}$, то от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$
+  и 
+  \[\Gamma, \type{y}{b} \vdash \tau' : \vv{c}.\]
+
+  Нека $\Gamma' = \Gamma, \vv{y}:\vv{b}$. Тогава $\val{\Gamma'} = \val{\Gamma} \times \val{\vv{b}}$, а от И.П. имаме, че
+  \[\val{\tau'}_{\Gamma'} \in \Cont{\val{\Gamma} \times \val{\vv{b}}}{\val{\vv{c}}},\]
+  и следователно според ....
+  \[\curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}\]
+  Дефинираме 
+  \[\val{\lamb{y}{b}{\tau}}_\Gamma \dff \curry(\val{\tau'}_{\Gamma'}),\]
+  което означава, че за всяко $\overline{u} \in \val{\Gamma}$,
+  \[\val{\lamb{y}{b}{\tau}}_\Gamma(\overline{u}) = \curry(\val{\tau'}_{\Gamma'})(\overline{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
 \item
-  $\val{\Gamma \vdash \texttt{fix}(\tau)}\rho = \lfp(\val{\tau}\rho)$;
+  Нека сега $\tau \equiv \fix(\tau')$.
+  Понеже $\Gamma \vdash \fix(\tau') : \vv{a}$, то $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
+  От И.П. знаем, че
+  \[\val{\tau'}_\Gamma \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{a}}}{\val{\vv{a}}}}.\]
+  Това означава, че за произволни $\overline{u} \in \val{\Gamma}$,
+  \[\val{\tau'}_\Gamma(\overline{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}.\]
+  Това означава, че
+  $\val{\tau'}_\Gamma(\overline{u})$ е изображение, което според Теорема ...
+  притежава най-малка неподвижна точка.
+  Дефинираме
+  \[\val{\texttt{fix}(\tau')}_\Gamma(\overline{u}) \dff \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
 \end{itemize}
 
 

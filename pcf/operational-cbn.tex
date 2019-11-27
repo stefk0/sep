@@ -5,15 +5,15 @@
 \begin{prooftree}
   \AxiomC{$\type{v}{a}$}
   \RightLabel{\scriptsize{(val)}}
-  \UnaryInfC{$\vv{v} \Downarrow_{\vv{a}} \vv{v}$}
+  \UnaryInfC{$\vv{v} \Downarrow^0_{\vv{a}} \vv{v}$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
-  \AxiomC{$\tau_2 \Downarrow_{\vv{nat}} \vv{n}_2$}
+  \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{nat}} \vv{n}_1$}
+  \AxiomC{$\tau_2 \Downarrow^{\ell_2}_{\vv{nat}} \vv{n}_2$}
   \AxiomC{$n = \texttt{eq}(n_1,n_2)$}
   \RightLabel{\scriptsize{(eq)}}
-  \TrinaryInfC{$\tau_1\ \vv{==}\ \tau_2 \Downarrow_{\vv{nat}} \vv{n}$}
+  \TrinaryInfC{$\tau_1\ \vv{==}\ \tau_2 \Downarrow^{\ell_1+\ell_2+1}_{\vv{nat}} \vv{n}$}
 \end{prooftree}
 
 \begin{prooftree}
