@@ -17,41 +17,44 @@
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
-  \AxiomC{$\tau_2 \Downarrow_{\vv{nat}} \vv{n}_2$}
+  \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{nat}} \vv{n}_1$}
+  \AxiomC{$\tau_2 \Downarrow^{\ell_2}_{\vv{nat}} \vv{n}_2$}
   \AxiomC{$n = n_1 + n_2$}
   \RightLabel{\scriptsize{(plus)}}
-  \TrinaryInfC{$\tau_1\ \vv{+}\ \tau_2 \Downarrow_{\vv{nat}} \vv{n}$}
+  \TrinaryInfC{$\tau_1\ \vv{+}\ \tau_2 \Downarrow^{\ell_1+\ell_2+1}_{\vv{nat}} \vv{n}$}
 \end{prooftree}
 
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{0}$}
-  \AxiomC{$\tau_3 \Downarrow_{\vv{a}} \vv{v}$}
+  \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{nat}} \vv{0}$}
+  \AxiomC{$\tau_3 \Downarrow^{\ell_2}_{\vv{a}} \vv{v}$}
   \RightLabel{\scriptsize{(if$_0$)}}
-  \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{v}$}
+  \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow^{\ell_1+\ell_2+1}_{\vv{a}} \vv{v}$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}$}
-  \AxiomC{$\tau_2 \Downarrow_{\vv{a}} \vv{v}$}
+  \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{nat}} \vv{n}$}
+  \AxiomC{$\tau_2 \Downarrow^{\ell_2}_{\vv{a}} \vv{v}$}
   \AxiomC{$\vv{n} \not\equiv \vv{0}$}
   \RightLabel{\scriptsize{(if$^+$)}}
-  \TrinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{v}$}
+  \TrinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow^{\ell_1+\ell_2+1}_{\vv{a}} \vv{v}$}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}:\vv{b}$}
-  \AxiomC{$\tau'_1[x/\tau_2] \Downarrow_{\vv{b}} \vv{v}$}
+  \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
+  \AxiomC{$\tau'_1[x/\tau_2] \Downarrow^{\ell_2}_{\vv{b}} \vv{v}$}
   \RightLabel{\scriptsize{(cbn)}}
-  \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
+  \BinaryInfC{$\tau_1 \tau_2 \Downarrow^{\ell_1+\ell_2+1}_{\vv{b}} \vv{v} $}
 \end{prooftree}
 
 \begin{prooftree}
-  \AxiomC{$\tau\ \fix(\tau) \Downarrow_{\vv{a}} \vv{v}$}
+  \AxiomC{$\tau\ \fix(\tau) \Downarrow^{\ell}_{\vv{a}} \vv{v}$}
   \RightLabel{\scriptsize{(fix)}}
-  \UnaryInfC{$\fix(\tau) \Downarrow_{\vv{a}} \vv{v} $}
+  \UnaryInfC{$\fix(\tau) \Downarrow^{\ell+1}_{\vv{a}} \vv{v} $}
 \end{prooftree}
+
+Ще пишем $\tau \Downarrow_{\vv{a}} \vv{v}$, ако съществува $\ell$, за което $\tau \Downarrow^\ell_{\vv{a}} \vv{v}$.
+
 
 \begin{lemma}
   За произволен затворен терм $\tau$ и стойности $\vv{v}$ и $\vv{u}$,
@@ -69,10 +72,16 @@
     $\Omega_{\vv{a}} \not\Downarrow_{\vv{a}} \vv{v}$.
   \end{itemize}
 \end{example}
+\begin{proof}
+  Да допуснем, че $\Omega_{\vv{a}} \Downarrow_{\vv{a}} \vv{v}$ и нека фиксираме $\ell$
+  да бъде най-малкия брой преобразования, за които
+  \[\Omega_{\vv{a}} \Downarrow^{\ell}_{\vv{a}} \vv{v}.\]
+\end{proof}
+
 
 \begin{example}
   Нека $\vv{a} = \vv{nat} \to (\vv{nat} \to \vv{nat})$ и 
-  \[\tau \equiv \fix(\lamb{f}{a}{\lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{0}{\vv{x + (f x (y-1))} }}}}).\]
+  \[\tau \equiv \fix\vv{(}\lamb{f}{a}{\lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))} }}}}\vv{)}.\]
   Лесно се вижда, че
   \[\tau:\vv{nat} \to (\vv{nat} \to \vv{nat}).\]
   Също така за всяко $n$ и $k$, ако $m = n + k$, то
@@ -86,25 +95,15 @@
 \end{example}
 
 \begin{haskellcode}
-> tm = \f x y -> if y == 0 then 0 else x + (f x (y-1))
 > fix f = f (fix f)
-> times = fix tm
+> times = fix(\f x y -> if y == 0 then 0 else x + (f x (y-1)))
 > times 2 3
 6
->times 10 11
-110
 > fct = \g -> fix(\f x -> if x == 0 then 1 else g x (f (x-1)))
 > fact = fct times
 > fact 5
 120
 \end{haskellcode}
-
-\begin{problem}
-  \marginpar{\cite[стр. 104]{types-programming-languages}}
-  Докажете или опровергайте дали е възможно да съществува контекст $\Gamma$ и тип $\vv{a}$, такива че
-  \[\Gamma \vdash \type{xx}{a}.\]
-\end{problem}
-
 
 %%% Local Variables:
 %%% mode: latex

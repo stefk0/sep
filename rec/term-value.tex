@@ -1,4 +1,4 @@
-\subsection{Термални оператори}
+\subsection{Термални оператори}\label{subsect:rec:term-value}
 
 Нека първо да дефинираме следните {\em изображения}
 \begin{align*}
@@ -14,21 +14,14 @@
       1, & \text{ако }a = b\ \&\ a,b \in \Nat\\
       0, & \text{ако }a \neq b\ \&\ a,b \in \Nat\\
       \bot, & \text{ако }\bot \in \{a,b\}
-    \end{cases}\\
-  & \texttt{if}:\Nat^3_\bot \to \Nat_\bot\text{, където}\\
-  & \texttt{if}(a,b,c) =
-    \begin{cases}
-      b, & \text{ако } a \in \Nat^+\\
-      c, & \text{ако } a = 0\\
-      \bot, & \text{ако } a = \bot.
-  \end{cases}
+    \end{cases}
 \end{align*}
 
 \marginpar{Спестяваме си труда от въвеждането на булевия тип променливи}
 \marginpar{Озн. $\Nat^+ \dff \Nat \setminus \{0\}$}
 
 \begin{problem}\label{prob:rec:if:continuous}
-  Докажете, че изображенията $\texttt{plus}$, $\texttt{eq}$, $\texttt{if}$ са непрекъснати.
+  Докажете, че изображенията $\texttt{plus}$, $\texttt{eq}$ са непрекъснати.
 \end{problem}
 \begin{hint}
   Понеже $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$,
@@ -60,6 +53,7 @@
   ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
   \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{eq}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 \item
+  \marginpar{За $\texttt{if}$ вижте \Def{if}.}
   ако $\tau \equiv\ \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
   \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \dff \texttt{if}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
 \item

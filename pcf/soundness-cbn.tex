@@ -1,0 +1,115 @@
+\section{Коректност}
+
+
+\begin{framed}
+  \begin{theorem}
+    За всеки затворен терм $\tau \in PCF_{\vv{b}}$ и стойност $\vv{v}$,
+    ако $\tau \Downarrow_{\vv{b}} \vv{v}$, то $\val{\tau} = \val{\vv{v}} \in \val{\vv{b}}$.
+  \end{theorem}  
+\end{framed}
+\begin{proof}
+  Индукция по дължината $\ell$ на извода $\Downarrow^\ell_{\vv{c}}$ за всеки тип $\vv{c}$.
+  \begin{itemize}
+  \item
+    Нека $\tau \equiv \vv{n}$.
+    Ясно е, че от правилата на операционната семантика имаме, че:
+    \begin{prooftree}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(const)}}
+      \UnaryInfC{$\tau \Downarrow_{\vv{nat}} \vv{n}$}
+    \end{prooftree}
+    От дефиницията на семантика на терм, директно получаваме, че
+    $\val{\tau} = n = \val{\vv{n}}$.
+  \item
+    Нека $\tau \equiv \tau_1 + \tau_2$. Тогава от правилата на операционната семантика имаме, че:
+    \begin{prooftree}
+      \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
+      \AxiomC{$\tau_2 \Downarrow_{\vv{nat}} \vv{n}_2$}
+      \RightLabel{\scriptsize{(plus)}}
+      \BinaryInfC{$\tau_1 + \tau_2 \Downarrow_{\vv{nat}} \vv{n},$}
+    \end{prooftree}
+    където $n = n_1 + n_2$.
+    От И.П. получаваме, че
+    \begin{align*}
+      & \val{\tau_1} = \val{\vv{n}_1} = n_1\\
+      & \val{\tau_2} = \val{\vv{n}_2} = n_2.
+    \end{align*}
+    Тогава
+    \begin{align*}
+      \val{\tau_1 + \tau_2} & = \texttt{plus}(\val{\tau_1}, \val{\tau_2})\\
+                            & = n_1 + n_2\\
+                            & = n.
+    \end{align*}
+  \item
+    Случаят $\tau \equiv \tau_1\ \vv{==}\ \tau_2$ е аналогичен.
+  \item
+    Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Тогава от правилата на операционната семантика имаме, че:
+    \begin{prooftree}
+      \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
+      \AxiomC{$\tau_2 \Downarrow_{\vv{a}} \vv{v}_2$}
+      \RightLabel{\scriptsize{(plus)}}
+      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{n}_2,$}
+    \end{prooftree}
+    където $n_1 > 0$.
+    Тогава от И.П. получаваме, че:
+    \begin{align*}
+      & \val{\tau_1} = n_1\\
+      & \val{\tau_2} = \val{\vv{v}_2}.
+    \end{align*}
+    Тогава
+    \begin{align*}
+      \val{\ifelse{\tau_1}{\tau_2}{\tau_3}} & = \texttt{if}(\val{\tau_1}, \val{\tau_2}, \val{\tau_3})\\
+                                            & = \texttt{if}(n_1,\val{\tau_2}, \val{\tau_3}) & \comment\text{от И.П.}\\
+                                            & = \val{\tau_2} & \comment\text{от деф. на }\texttt{if}\\
+                                            & = \val{\vv{v}_2}. & \comment\text{от И.П.}
+    \end{align*}
+    
+    Случаят, когато $n_1 = 0$ е аналогичен.
+  \item
+    Нека $\tau \equiv \tau_1 \tau_2$. Тогава от правилата на операционната семантика имаме, че:
+    \begin{prooftree}
+      \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
+      \AxiomC{$\tau'_1[x/\tau_2] \Downarrow_{\vv{b}} \vv{v}$}
+      \RightLabel{\scriptsize{(cbn)}}
+      \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
+    \end{prooftree}
+    Тогава от И.П. получаваме, че:    
+    \begin{align*}
+      & \val{\tau_1} = \val{\lamb{x}{a}{\tau'_1}} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
+      & \val{\tau'_1\subst{x}{\tau_2}} = \val{\vv{v}} \in \val{\vv{b}}.
+    \end{align*}
+    Тогава
+    \begin{align*}
+      \val{\tau_1\tau_2} & = \texttt{eval}(\val{\tau_1},\val{\tau_2})\\ 
+                         & = \val{\tau_1}(\val{\tau_2}) & \comment \val{\tau_1} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
+                         & = \val{\lamb{x}{a}{\tau'_1}}(\val{\tau_2}) & \comment\text{от И.П.}\\
+                         & = \val{\tau'_1}_{\Gamma}(\val{\tau_2}) & \comment \Gamma \dff \type{x}{a}\\
+                         & = \val{\tau'_1\subst{x}{\tau_2}} & \comment\text{от \Lem{pcf:substitution}}\\
+                         & = \val{\vv{v}} & \comment\text{от И.П.}
+    \end{align*}
+  \item
+    Нека $\tau \equiv \fix(\tau')$. Тогава от правилата на операционната семантика имаме, че:
+    \begin{prooftree}
+      \AxiomC{$\tau'\ \fix(\tau') \Downarrow_{\vv{a}} \vv{v}$}
+      \RightLabel{\scriptsize{(fix)}}
+      \UnaryInfC{$\fix(\tau') \Downarrow_{\vv{a}} \vv{v} $}
+    \end{prooftree}
+    Тогава от И.П. имаме, че:
+    \[\val{\tau'\ \fix(\tau')} = \val{\vv{v}}.\]
+    Тогава
+    \begin{align*}
+      \val{\tau} & = \lfp(\val{\tau'})\\
+                 & = \val{\tau'}(\lfp(\val{\tau'}))\\
+                 & = \val{\tau'}(\val{\fix(\tau')})\\
+                 & = \val{\tau'\fix(\tau')}\\
+                 & = \val{\vv{v}}. & \comment\text{от И.П.}
+    \end{align*}
+  \end{itemize}
+\end{proof}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

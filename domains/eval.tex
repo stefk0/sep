@@ -1,12 +1,14 @@
-\begin{problem}
-  \marginpar{\cite[стр. 186]{models-of-computation}}
-  Нека са дадени областите на Скот $\D$ и $\E$ и изображението 
+\begin{definition}\label{def:eval}\index{eval}
+  Нека $\D$ и $\E$ са области на Скот. Дефинираме изображението 
   \[\texttt{eval}: \Cont{\D}{\E} \times \D \to \E,\]
-  където 
-  \[\texttt{eval}(f,d) \dff f(d).\]
-  Докажете, че $\texttt{eval}$ е непрекъснато изображение.
-  С други думи, $\texttt{eval}$ е елемент на областта на Скот
-  $\Cont{\Cont{\D}{\E} \times \D}{\E}$.
+  по следния начин:
+  \[\texttt{eval}(f,d) \dff f(d).\]  
+\end{definition}
+
+\begin{problem}\label{prob:eval}
+  \marginpar{\cite[стр. 186]{models-of-computation}}
+  Докажете, че $\texttt{eval}$ е непрекъснато изображение, т.е.
+  \[\texttt{eval} \in \Cont{\Cont{\D}{\E} \times \D}{\E}.\]
 \end{problem}
 \begin{proof}
   Според \Prop{continuous-arguments}, достатъчно е да докажем, че $\texttt{eval}$ е непрекъснато

@@ -1,5 +1,4 @@
-\section{Типове}
-
+\section{Добре типизирани термове}\index{тип}
 Всяка \emph{крайна} функция от вида $\Gamma : \mathcal{V} \to \mathcal{T}$
 ще наричаме {\bf типов контекст}.
 \marginpar{$\Gamma$ също се нарича и type environment.}
@@ -64,6 +63,10 @@
 
 Ако имаме затворен израз $\tau$, то ще пишем $\tau : \vv{a}$ вместо $\emptyset \vdash \tau : \vv{a}$.
 
+Да положим
+\[PCF_{\vv{a}} \dff \{\tau \text{ е затворен терм}\mid \emptyset \vdash \tau : \vv{a}\}.\]
+
+
 \begin{proposition}
   Ако $\Gamma \vdash \tau : \vv{a}$, то $\fv(\tau) \subseteq \vv{dom}(\Gamma)$.
 \end{proposition}
@@ -76,74 +79,81 @@
   Всеки затворен терм има най-много един тип.
 \end{corollary}
 
-\begin{proposition}
-  За всеки контекст $\Gamma$, произволни термове $\tau$, $\rho$, променлива $\vv{x}$, $\vv{x} \not \in \vv{dom}(\Gamma)$ и типове $\vv{a}$ и $\vv{b}$, е изпълнено, че:
-  \begin{prooftree}
-    \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
-    \AxiomC{$\Gamma, \type{x}{a} \vdash \tau : \vv{b}$}
-    \BinaryInfC{$\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$}
-  \end{prooftree}
-\end{proposition}
-\begin{proof}
-  Индукция по построението на термовете.
-  \begin{itemize}
-  \item
-    Нека $\tau \equiv \fix(\tau')$ и нека
-    \begin{align*}
-      & \Gamma \vdash \rho : \vv{a},\\
-      & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
-    \end{align*}
-    Трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
-    От правилата за типизиране е ясно, че
-    \begin{prooftree}
-      \AxiomC{$\Gamma, \type{x}{a} \vdash \tau':\vv{b}\to\vv{b}$}
-      \RightLabel{\scriptsize{(fix)}}
-      \UnaryInfC{$\Gamma, \type{x}{a} \vdash \fix(\tau') : \vv{b}$}
-    \end{prooftree}
-    Сега можем да приложим И.П. за терма $\tau'$. Получаваме, че
-    \begin{prooftree}
-      \AxiomC{$\Gamma \vdash \rho: \vv{a}$}
-      \AxiomC{$\Gamma, \type{x}{a} \vdash \tau':\vv{b}\to\vv{b}$}
-      \RightLabel{\scriptsize{(И.П.)}}
-      \BinaryInfC{$\Gamma \vdash \tau'\subst{x}{\rho} : \vv{b} \to \vv{b}$}
-      \RightLabel{\scriptsize{(fix)}}
-      \UnaryInfC{$\Gamma \vdash \fix(\tau'\subst{x}{\rho}) : \vv{b}$}
-    \end{prooftree}
-    Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
-    \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
-  \item
-    Нека $\tau \equiv \lamb{y}{c}{\tau'}$, където $\vv{y} \not\in \fv(\rho) \cup \{\vv{x}\}$
-    и нека
-    \begin{align*}
-      & \Gamma \vdash \rho : \vv{a},\\
-      & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
-    \end{align*}
-    Трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
+% \begin{proposition}
+%   \marginpar{Къде се използва това твърдение?}
+%   За всеки контекст $\Gamma$, произволни термове $\tau$, $\rho$, променлива $\vv{x}$, $\vv{x} \not \in \vv{dom}(\Gamma)$ и типове $\vv{a}$ и $\vv{b}$, е изпълнено, че:
+%   \begin{prooftree}
+%     \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
+%     \AxiomC{$\Gamma, \type{x}{a} \vdash \tau : \vv{b}$}
+%     \BinaryInfC{$\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$}
+%   \end{prooftree}
+% \end{proposition}
+% \begin{proof}
+%   Индукция по построението на термовете.
+%   \begin{itemize}
+%   \item
+%     Нека $\tau \equiv \fix(\tau')$ и нека
+%     \begin{align*}
+%       & \Gamma \vdash \rho : \vv{a},\\
+%       & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
+%     \end{align*}
+%     Трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
+%     От правилата за типизиране е ясно, че
+%     \begin{prooftree}
+%       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau':\vv{b}\to\vv{b}$}
+%       \RightLabel{\scriptsize{(fix)}}
+%       \UnaryInfC{$\Gamma, \type{x}{a} \vdash \fix(\tau') : \vv{b}$}
+%     \end{prooftree}
+%     Сега можем да приложим И.П. за терма $\tau'$. Получаваме, че
+%     \begin{prooftree}
+%       \AxiomC{$\Gamma \vdash \rho: \vv{a}$}
+%       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau':\vv{b}\to\vv{b}$}
+%       \RightLabel{\scriptsize{(И.П.)}}
+%       \BinaryInfC{$\Gamma \vdash \tau'\subst{x}{\rho} : \vv{b} \to \vv{b}$}
+%       \RightLabel{\scriptsize{(fix)}}
+%       \UnaryInfC{$\Gamma \vdash \fix(\tau'\subst{x}{\rho}) : \vv{b}$}
+%     \end{prooftree}
+%     Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
+%     \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
+%   \item
+%     Нека $\tau \equiv \lamb{y}{c}{\tau'}$, където $\vv{y} \not\in \fv(\rho) \cup \{\vv{x}\}$
+%     и нека
+%     \begin{align*}
+%       & \Gamma \vdash \rho : \vv{a},\\
+%       & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
+%     \end{align*}
+%     Трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
     
-    От правилата за типизиране е ясно, че щом $\Gamma, \type{x}{a} \vdash \tau : \vv{b}$, то
-    $\vv{b} = \vv{c} \to \vv{d}$ за някой тип $\vv{d}$ и
-    \begin{prooftree}
-      \AxiomC{$\vv{y} \not\in\vv{dom}(\Gamma)\cup\{\vv{x}\}$}
-      \AxiomC{$\Gamma, \type{x}{a}, \type{y}{c} \vdash \tau':\vv{d}$}
-      \RightLabel{\scriptsize{(lambda)}}
-      \BinaryInfC{$\Gamma, \type{x}{a} \vdash \lamb{y}{c}{\tau'} : \vv{c}\to\vv{d}$}
-    \end{prooftree}
-    Това означава, че можем да използваме И.П. за терма $\tau'$ и така получаваме, че
-    \begin{prooftree}
-      \AxiomC{$\vv{y} \not\in \vv{dom}(\Gamma)$}
-      \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
-      \UnaryInfC{$\Gamma,\type{y}{c} \vdash \rho : \vv{a}$}
-      \AxiomC{$\Gamma, \type{y}{c}, \type{x}{a} \vdash \tau':\vv{d}$}
-      \RightLabel{\scriptsize{(И.П.)}}
-      \BinaryInfC{$\Gamma, \type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$}
-      \RightLabel{\scriptsize{(lambda)}}
-      \BinaryInfC{$\Gamma \vdash \lamb{y}{c}{\tau'\subst{x}{\rho}}:\vv{c}\to\vv{d}$}
-    \end{prooftree}
-    Накрая, понеже $\tau\subst{x}{\rho} \equiv \lamb{y}{c}{\tau'\subst{x}{\rho}}$, то
-    заключаваме, че
-    \[\Gamma \vdash \tau\subst{x}{\rho}:\vv{b}.\]
-  \end{itemize}
-\end{proof}
+%     От правилата за типизиране е ясно, че щом $\Gamma, \type{x}{a} \vdash \tau : \vv{b}$, то
+%     $\vv{b} = \vv{c} \to \vv{d}$ за някой тип $\vv{d}$ и
+%     \begin{prooftree}
+%       \AxiomC{$\vv{y} \not\in\vv{dom}(\Gamma)\cup\{\vv{x}\}$}
+%       \AxiomC{$\Gamma, \type{x}{a}, \type{y}{c} \vdash \tau':\vv{d}$}
+%       \RightLabel{\scriptsize{(lambda)}}
+%       \BinaryInfC{$\Gamma, \type{x}{a} \vdash \lamb{y}{c}{\tau'} : \vv{c}\to\vv{d}$}
+%     \end{prooftree}
+%     Това означава, че можем да използваме И.П. за терма $\tau'$ и така получаваме, че
+%     \begin{prooftree}
+%       \AxiomC{$\vv{y} \not\in \vv{dom}(\Gamma)$}
+%       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
+%       \UnaryInfC{$\Gamma,\type{y}{c} \vdash \rho : \vv{a}$}
+%       \AxiomC{$\Gamma, \type{y}{c}, \type{x}{a} \vdash \tau':\vv{d}$}
+%       \RightLabel{\scriptsize{(И.П.)}}
+%       \BinaryInfC{$\Gamma, \type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$}
+%       \RightLabel{\scriptsize{(lambda)}}
+%       \BinaryInfC{$\Gamma \vdash \lamb{y}{c}{\tau'\subst{x}{\rho}}:\vv{c}\to\vv{d}$}
+%     \end{prooftree}
+%     Накрая, понеже $\tau\subst{x}{\rho} \equiv \lamb{y}{c}{\tau'\subst{x}{\rho}}$, то
+%     заключаваме, че
+%     \[\Gamma \vdash \tau\subst{x}{\rho}:\vv{b}.\]
+%   \end{itemize}
+% \end{proof}
+
+\begin{problem}
+  \marginpar{\cite[стр. 104]{types-programming-languages}}
+  Докажете или опровергайте дали е възможно да съществува контекст $\Gamma$ и тип $\vv{a}$, такива че
+  \[\Gamma \vdash \type{xx}{a}.\]
+\end{problem}
 
 
 

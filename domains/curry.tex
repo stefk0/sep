@@ -1,33 +1,85 @@
-\begin{problem}
-  \marginpar{\cite[стр. 187]{models-of-computation}}
-  Да разгледаме следното изображение
+\begin{definition}\label{def:curry}\index{curry}
+  Нека $\A$, $\B$ и $\C$ са области на Скот.
+  Изображението 
   \[\curry:\Mapping{\A\times \B}{\C} \to \Mapping{\A}{\Mapping{\B}{\C}},\]
-  дефинирано като
-  \[\curry(f)(a)(b) \dff f(a,b).\]
-  Докажете, че ако $f$ е непрекъснато изображение, то
+  е дефинирано като
+  \[\curry(f)(a)(b) \dff f(a,b).\]  
+\end{definition}
+
+\begin{proposition}\label{pr:curry}
+  \marginpar{\cite[стр. 187]{models-of-computation}}
+  Ако $f$ е непрекъснато изображение, то
   $\curry(f)$ е непрекъснато изображение,
-  т.е. $curry(f) \in \Cont{\A}{\Mapping{\B}{\C}}$.
-\end{problem}
+  т.е. $\curry(f) \in \Cont{\A}{\Cont{\B}{\C}}$.
+  Освен това,
+  \[\curry \in \Cont{\Cont{\A\times \B}{\C}}{\Cont{\A}{\Mapping{\B}{\C}}}.\]
+\end{proposition}
 \begin{proof}
-  Да разгледаме произволна верига $\chain{a}{i}$ от елементи на $\A$.
+  Първо да фиксираме $f \in \Cont{\A\times\B}{\C}$ и $a \in \A$.
+  Ще докажем, че $\curry(f)(a) \in \Cont{\B}{\C}$.
+  \marginpar{Ако означим $h \dff \curry(f)(a)$, то трябва да докажем, че за произволна верига $\chain{b}{i}$ в $\B$,
+  $h(\bigsqcup_i b_i) = \bigsqcup_i\{h(b_i)\}$.}
+  Нека фиксираме верига $\chain{b}{i}$ от елементи на $\B$.
+  Тогава
+  \begin{align*}
+    \curry(f)(a)(\bigsqcup_i b_i) & \dff f(a, \bigsqcup_i b_i)\\
+                                  & = \bigsqcup_i\{f(a,b_i)\} & \comment\text{ $f$ е непр. по втория си аргумент}\\
+                                  & = \bigsqcup_i \{\curry(f)(a)(b_i)\}. & \comment\text{опр. на }\curry
+  \end{align*}
+
+  Второ, сега пък за фиксирано $f \in \Cont{\A\times\B}{\C}$ трябва да докажем, че
+  $\curry(f) \in \Cont{\A}{\Cont{\B}{\C}}$.
+  За целта да разгледаме произволна верига $\chain{a}{i}$ от елементи на $\A$.
   Трябва да докажем, че
-  \[\curry(f)(\bigsqcup_i a_i) = \bigsqcup_i \curry(f)(a_i).\]
-  За целта, да разгледаме произволен елемент $b \in \B$. Тогава
+  \[\curry(f)(\bigsqcup_i a_i) = (\bigsqcup_i \curry(f))(a_i).\]
+  \marginpar{Обърнете внимание, че $\curry(f)(a_i)$ образуват верига в $\Cont{\B}{\C}$,
+  откъдето следва, че $\bigsqcup_i \{\curry(f)(a_i)\}$ е добре дефиниран елемент.}
+  Също така, да напомним, че за произволен елемент $b \in \B$,
+  \begin{equation}
+    \label{eq:7}
+    (\bigsqcup_i \{\curry(f)(a_i)\})(b) \dff \bigsqcup_i \{\curry(f)(a_i)(b)\}.
+  \end{equation}
+  Тогава
   \begin{align*}
     \curry(f)(\bigsqcup_i a_i)(b) & = f(\bigsqcup_i a_i,b) & \comment\text{опр. на }\curry\\
                                   & = \bigsqcup_i f(a_i,b) & \comment\text{ $f$ е непр. по първия аргумент}\\
-                                  & = \bigsqcup_i \{\curry(f)(a_i)(b)\}. & \comment\text{опр. на }\curry
+                                  & = \bigsqcup_i \{\curry(f)(a_i)(b)\} & \comment\text{опр. на }\curry\\
+                                  & = (\bigsqcup_i \{\curry(f)(a_i)\})(b). & \comment\text{от (\ref{eq:7})}
+  \end{align*}
+  Заключаваме, че $\curry(f)(\bigsqcup_i a_i) = (\bigsqcup_i \curry(f))(a_i)$.
+
+  Трето, остава да видим защо за произволна верига $\chain{f}{i}$ от елементи на $\Cont{\A\times\B}{\C}$ е изпълнено, че
+  \[\curry(\bigsqcup_i f_i) = \bigsqcup_i \{\curry(f_i)\}.\]
+  За произволен елемент $a \in \A$ имаме, че
+  \[(\bigsqcup_i \curry(f_i))(a) = \bigsqcup_i \{\curry(f_i)(a)\}.\]
+  \marginpar{Ако $h_i \dff \curry(f_i)(a)$, то е ясно, че $(\bigsqcup_i h_i)(b) = \bigsqcup_i\{h_i(b)\}$.}
+  За произволен елемент $b \in \B$ имаме, че
+  \[(\bigsqcup_i \curry(f_i)(a))(b) = \bigsqcup_i \{\curry(f_i)(a)(b)\}.\]
+  Комбинирайки предишните две равенства, получаваме, че за произволни $a \in \A$ и $b \in \B$,
+  \begin{align*}
+    (\bigsqcup_i \curry(f_i))(a)(b) & = \bigsqcup_i\{\curry(f_i)(a)(b)\}\\
+                                    & = \bigsqcup_i\{f_i(a,b)\} & \comment\text{от опр. на }\curry\\
+                                    & = (\bigsqcup_i f_i)(a,b)\\
+                                    & = \curry(\bigsqcup_i f_i)(a)(b). & \comment\text{от опр. на }\curry
   \end{align*}
 \end{proof}
 
-% \begin{hint}
-%   Трябва да докажем, че
-%   \[\texttt{curry}(\bigsqcup_i f_i)(a)(b) = \bigsqcup_i \{\texttt{curry}(f_i)(a,b)\}.\]
-%   \begin{align*}
-%     \texttt{curry}(\bigsqcup_i f_i)(a)(b) = (\bigsqcup_i f_i)(a,b)
-%   \end{align*}
-% \end{hint}
+\begin{definition}\label{def:uncurry}\index{uncurry}
+  Нека $\A$, $\B$ и $\C$ са области на Скот.
+  Изображението 
+  \[\texttt{uncurry}:\Mapping{\Mapping{\A}{\Mapping{\B}{\C}}}{\Mapping{\A\times \B}{\C}},\]
+  е дефинирано като
+  \[\texttt{uncurry}(f)(a,b) \dff f(a)(b).\]  
+\end{definition}
 
+\begin{problem}\label{prob:uncurry}
+  % \marginpar{\cite[стр. 187]{models-of-computation}}
+  Докажете, че ако $f$ е непрекъснато изображение, то
+  $\texttt{uncurry}(f)$ е непрекъснато изображение,
+  т.е. $\texttt{uncurry}(f) \in \Cont{\A \times \B}{\C}$.
+  Освен това, докажете, че
+  \[\texttt{uncurry} \in \Cont{\Cont{\A}{\Cont{\B}{\C}}}{\Cont{\A\times \B}{\C}}.\]
+\end{problem}
 
 %%% Local Variables:
 %%% mode: latex

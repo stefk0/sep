@@ -6,69 +6,160 @@
   & \val{\vv{nat}} \dff \Nat_\bot\\
   & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
-За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, дефинираме
-\[\val{\Gamma} = \val{\vv{a}_1}\times\cdots\times\val{\vv{a}_n}.\]
+За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
+\marginpar{$\val{\emptyset} = ?$}
+\[\val{\Gamma} \dff \val{\vv{a}_1}\times\cdots\times\val{\vv{a}_n}.\]
 Сега трябва да дефинираме семантика на термовете.
-Искаме да дефинираме за всеки терм, за който $\Gamma \vdash \tau : \vv{a}$,
-изборажение $\val{\tau}_\Gamma$, така че
-\[\val{\tau}_\Gamma : \Cont{\val{\Gamma}}{\val{\vv{a}}}.\]
+% Искаме да дефинираме за всеки терм, за който $\Gamma \vdash \tau : \vv{a}$,
+% изборажение $\val{\tau}_\Gamma$, така че
+% \[\val{\tau}_\Gamma : \Cont{\val{\Gamma}}{\val{\vv{a}}}.\]
 
+
+За всеки терм, за който $\fv(\tau) \subseteq \texttt{dom}(\Gamma)$ и
+за произволни $\overline{u} \in \val{\Gamma}$, дефинираме неговата стойност $\val{\tau}_\Gamma(\overline{u})$ по следния начин:
 \begin{itemize}
 \item
-  $\val{\vv{n}}_\Gamma(\overline{u}) = n$;
+  Нека $\tau \equiv \vv{n}$. Тогава
+  \[\val{\vv{n}}_\Gamma(\overline{u}) \dff n.\]
 \item
-  $\val{\vv{x}_i}_\Gamma(\overline{u}) = u_i$;
+  Нека $\tau \equiv \vv{x}_i$. Тогава
+  \[\val{\vv{x}_i}_\Gamma(\overline{u}) \dff u_i.\]
 \item
-  $\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) = \texttt{plus}(\val{\tau_1}(\overline{u}), \val{\tau_2}(\overline{u}))$;
+  \marginpar{За $\texttt{plus}$ вижте Раздел~\ref{subsect:rec:term-value}.}
+  Нека $\tau \equiv \tau_1 + \tau_2$. Тогава
+  \[\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) \dff \texttt{plus}(\val{\tau_1}(\overline{u}), \val{\tau_2}(\overline{u})).\]
 \item
-  $\val{\Gamma \vdash \tau_1\ \vv{==}\ \tau_2}\rho = \texttt{eq}(\val{\tau_1}\rho, \val{\tau_2}\rho)$;
+  \marginpar{За $\texttt{eq}$ вижте Раздел~\ref{subsect:rec:term-value}.}
+  Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Тогава
+  \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \dff \texttt{eq}(\val{\tau_1}(\overline{u}), \val{\tau_2}(\overline{u})).\]
 \item
-  $\val{\Gamma \vdash \ifelse{\tau_1}{\tau_2}{\tau_3}}\rho = \texttt{if}(\val{\tau_1}\rho, \val{\tau_2}\rho, \val{\tau_3}\rho)$;
+  \marginpar{За $\texttt{if}$ вижте \Def{if}.}
+  Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Тогава
+  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}_\Gamma(\overline{u}) \dff \texttt{if}(\val{\tau_1}(\overline{u}),
+  \val{\tau_2}(\overline{u}), \val{\tau_3}(\overline{u})).\]
 \item
-  Щом $\Gamma \vdash \tau_1 \tau_2 : \vv{a}$, то от правилата за типизиране следва, че
-  \begin{align*}
-    & \Gamma \vdash \tau_1 : \vv{b} \to \vv{a}\\
-    & \Gamma \vdash \tau_2 : \vv{b}.
-  \end{align*}
-  От И.П. за $\tau_1$ и $\tau_2$ знаем, че
-  \begin{align*}
-    & \val{\tau_1}_\Gamma \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{a}}}} \\
-    & \val{\tau_2}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{b}}}
-  \end{align*}
-  Оттук получаваме, че за произволни $\overline{u} \in \val{\Gamma}$,
-  \begin{align*}
-    & \val{\tau_1}_\Gamma \in \Cont{\val{\vv{b}}}{\val{\vv{a}}} \\
-    & \val{\tau_2}_\Gamma \in \val{\vv{b}}.
-  \end{align*}
-  Сега дефинираме
+  \marginpar{За $\texttt{eval}$ вижте \Def{eval}.}
+  Нека $\tau \equiv \tau_1 \tau_2$. Тогава
   \[\val{\tau_1 \tau_2}_\Gamma(\overline{u}) \dff \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
-  Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
-  Щом $\Gamma \vdash \lamb{y}{b}{\tau'} : \vv{a}$, то от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$
-  и 
-  \[\Gamma, \type{y}{b} \vdash \tau' : \vv{c}.\]
-
-  Нека $\Gamma' = \Gamma, \vv{y}:\vv{b}$. Тогава $\val{\Gamma'} = \val{\Gamma} \times \val{\vv{b}}$, а от И.П. имаме, че
-  \[\val{\tau'}_{\Gamma'} \in \Cont{\val{\Gamma} \times \val{\vv{b}}}{\val{\vv{c}}},\]
-  и следователно според ....
-  \[\curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}\]
-  Дефинираме 
-  \[\val{\lamb{y}{b}{\tau}}_\Gamma \dff \curry(\val{\tau'}_{\Gamma'}),\]
-  което означава, че за всяко $\overline{u} \in \val{\Gamma}$,
-  \[\val{\lamb{y}{b}{\tau}}_\Gamma(\overline{u}) = \curry(\val{\tau'}_{\Gamma'})(\overline{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
+  \marginpar{За $\lfp$ вижте Раздел~\ref{sect:lfp}.}
+  Нека $\tau \equiv \fix(\tau')$. Тогава 
+  \[\val{\fix(\tau')}_\Gamma(\overline{u}) \dff \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
 \item
-  Нека сега $\tau \equiv \fix(\tau')$.
-  Понеже $\Gamma \vdash \fix(\tau') : \vv{a}$, то $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
-  От И.П. знаем, че
-  \[\val{\tau'}_\Gamma \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{a}}}{\val{\vv{a}}}}.\]
-  Това означава, че за произволни $\overline{u} \in \val{\Gamma}$,
-  \[\val{\tau'}_\Gamma(\overline{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}.\]
-  Това означава, че
-  $\val{\tau'}_\Gamma(\overline{u})$ е изображение, което според Теорема ...
-  притежава най-малка неподвижна точка.
-  Дефинираме
-  \[\val{\texttt{fix}(\tau')}_\Gamma(\overline{u}) \dff \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
+  \marginpar{За $\curry$ вижте \Def{curry}.}
+  Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
+  Нека $\Gamma' \df \Gamma, \type{y}{b}$. Тогава
+  \[\val{\lamb{y}{b}{\tau'}}_\Gamma(\overline{u}) \dff \curry(\val{\tau'}_{\Gamma'})(\overline{u}).\]
 \end{itemize}
+
+Не е ясно дали винаги горните дефиниции имат смисъл.
+Сега ще докажем, че винаги, когато един терм е добре типизиран, то горната дефиниция има смисъл.
+
+\begin{framed}
+  \begin{lemma}
+    Ако $\Gamma \vdash \tau : \vv{a}$, то $\val{\tau}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{a}}}$.
+  \end{lemma}  
+\end{framed}
+\begin{proof}
+  Доказателството протича с индукция по построението на термовете
+  като съществено използваме \Prop{composition} според което, ако $f \in \Cont{\A}{\B}$ и $g \in \Cont{\B}{\C}$, то
+  $g \circ f \in \Cont{\A}{\C}$.
+  \marginpar{Изображението $f \times g$ е дефинирано в \Prop{cartesian-continuous}.}
+  \begin{itemize}
+  \item
+    Нека $\tau \equiv \vv{n}$. Щом $\Gamma \vdash \tau : \vv{a}$, то
+    по правилата за типизиране следва, че $\vv{a} = \vv{nat}$.
+    Сега лесно се съобразява, че изображението $\val{\vv{n}}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}}$, където
+    $\val{\vv{n}}_\Gamma(\overline{u}) = n$.
+    Това е така, защото за всяка верига $\chain{\overline{u}}{i}$ от елементи на $\val{\Gamma}$,
+    \[\val{\vv{n}}_\Gamma(\bigsqcup_i\overline{u}_i) = n = \bigsqcup_i\{ \val{\vv{n}}(\overline{u}_i)\}.\]
+  \item
+    Нека $\tau \equiv \vv{x}_i$. Щом $\Gamma \vdash \tau : \vv{a}$, то
+    по правилата за типизиране следва, че $\vv{a} = \vv{a}_i$.
+    Сега лесно се съобразява, че изображението $\val{\vv{n}}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{a}_i}}$, където
+    $\val{\vv{n}}_\Gamma(\overline{u}) = u_i$.
+    \marginpar{$\overline{u}_k = (u_{1,k},\dots,u_{n,k})$.}
+    Това е така, защото за всяка верига $\chain{\overline{u}}{n}$ от елементи на $\val{\Gamma}$,
+    \[\val{\vv{x}_i}_\Gamma(\bigsqcup_n\overline{u}_n) = \bigsqcup_n u_{i,n} = \bigsqcup_i\{ \val{\vv{x}_i}(\overline{u}_n)\}.\]
+  \item
+    Нека $\tau \equiv \tau_1 + \tau_2$. Щом $\Gamma \vdash \tau : \vv{a}$, то
+    по правилата за типизиране следва, че $\vv{a} = \vv{nat}$, а също и $\Gamma \vdash \tau_1 : \vv{nat}$ и $\Gamma \vdash \tau_2
+    : \vv{nat}$.
+    От И.П. имаме, че $\val{\tau_1}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}}$ и
+    $\val{\tau_2}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}}$.
+    Това означава, че $(\val{\tau_1} \times \val{\tau_2}) \in \Cont{\val{\Gamma}}{\val{\vv{nat}} \times \val{\vv{nat}}}$.
+    Тогава имаме следното равенство
+    \[\val{\tau_1 + \tau_2}_\Gamma = \texttt{plus} \circ (\val{\tau_1} \times \val{\tau_2}) \in \Cont{\val{\Gamma}}{\val{\vv{a}}},\]
+    защото за произволни $\overline{u} \in \val{\Gamma}$,
+    \begin{align*}
+      (\texttt{plus} \circ (\val{\tau_1} \times \val{\tau_2}))(\overline{u}) & = \texttt{plus}((\val{\tau_1} \times \val{\tau_2})(\overline{u}))\\ 
+                                                                             & = \texttt{plus}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u}))\\
+                                                                             & \dff \val{\tau}_\Gamma(\overline{u}).
+    \end{align*}
+  \item
+    Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Съобразете сами, че 
+    \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma = \texttt{eq} \circ (\val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma) \in \Cont{\val{\Gamma}}{\val{\vv{a}}}.\]
+  \item
+    Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Съобразете сами, че 
+    \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}_\Gamma = \texttt{if} \circ (\val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma \times \val{\tau_3}_\Gamma)  \in \Cont{\val{\Gamma}}{\val{\vv{a}}}.\]
+  \item
+    Нека $\tau \equiv \tau_1 \tau_2$.
+    Щом $\Gamma \vdash \tau_1 \tau_2 : \vv{a}$, то от правилата за типизиране следва, че
+    \begin{align*}
+      & \Gamma \vdash \tau_1 : \vv{b} \to \vv{a}\\
+      & \Gamma \vdash \tau_2 : \vv{b}.
+    \end{align*}
+    От И.П. за $\tau_1$ и $\tau_2$ знаем, че
+    \begin{align*}
+      & \val{\tau_1}_\Gamma \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{a}}}} \\
+      & \val{\tau_2}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{b}}}
+    \end{align*}
+    Оттук получаваме, че за произволни $\overline{u} \in \val{\Gamma}$,
+    \begin{align*}
+      & \val{\tau_1}_\Gamma(\overline{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{a}}} \\
+      & \val{\tau_2}_\Gamma(\overline{u}) \in \val{\vv{b}}.
+    \end{align*}
+    Тогава 
+    \[\val{\tau_1 \tau_2}_\Gamma = \texttt{eval} \circ (\val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma) \in \Cont{\val{\Gamma}}{\val{\vv{a}}},\]
+    защото за произволни $\overline{u} \in \val{\Gamma}$,
+    \begin{align*}
+      (\texttt{eval} \circ \val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma)(\overline{u}) & = \texttt{eval}((\val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma)(\overline{u}))\\
+                                                                                         & = \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u}))\\
+                                                                                         & = \val{\tau_1\tau_2}_\Gamma(\overline{u}).
+    \end{align*}
+    
+  \item
+    Нека сега $\tau \equiv \fix(\tau')$.
+    Понеже $\Gamma \vdash \fix(\tau') : \vv{a}$, то от правилата за типизиране имаме, че
+    $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
+    От И.П. знаем, че
+    \[\val{\tau'}_\Gamma \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{a}}}{\val{\vv{a}}}}.\]
+    Това означава, че за произволни $\overline{u} \in \val{\Gamma}$,
+    \[\val{\tau'}_\Gamma(\overline{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}.\]
+    Следователно
+    $\val{\tau'}_\Gamma(\overline{u})$ е изображение, което според Теорема ...
+    притежава най-малка неподвижна точка.
+    \marginpar{Изображението $Y$ е дефинирано \Th{Y}.}
+    Тогава
+    \[\val{\texttt{fix}(\tau')}_\Gamma = Y \circ \val{\tau'}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{a}}},\]
+    защото за произволни $\overline{u} \in \val{\Gamma}$,
+    \begin{align*}
+      (Y \circ \val{\tau'}_\Gamma)(\overline{u}) & = Y(\val{\tau'}_\Gamma(\overline{u}))\\
+                                                 & = \lfp(\val{\tau'}_\Gamma(\overline{u}))\\
+                                                 & = \val{\fix(\tau')}_\Gamma.
+    \end{align*}
+  \item
+    Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
+    Щом $\Gamma \vdash \lamb{y}{b}{\tau'} : \vv{a}$, то от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$
+    и 
+    \[\Gamma, \type{y}{b} \vdash \tau' : \vv{c}.\]
+    
+    Нека $\Gamma' = \Gamma, \vv{y}:\vv{b}$. Тогава $\val{\Gamma'} = \val{\Gamma} \times \val{\vv{b}}$, а от И.П. имаме, че
+    \[\val{\tau'}_{\Gamma'} \in \Cont{\val{\Gamma} \times \val{\vv{b}}}{\val{\vv{c}}}.\]
+    Тогава от \Prop{curry} следва, че
+    \[\val{\lamb{y}{b}{\tau}}_\Gamma \dff \curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}.\]
+  \end{itemize}
+\end{proof}
 
 
 %%% Local Variables:
