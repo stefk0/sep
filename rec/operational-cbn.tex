@@ -4,77 +4,87 @@
 % са същите като тези с предаване на параметрите по стойност като 
 % единствената разлика е, че вместо правилата $(4)_\Nat$ и $(4)_\bot$ имаме правилото $(4)$.
 
+\marginpar{Това се нарича cost dynamics в \cite[стр. 58]{practical-foundations}.}
+% В някои доказателства ще се наложи да правим индукция по дължината на извода $\to_P$.
+% Затова дефинираме релацията $\mu \to^\ell_P \vv{a}$, която казва, че функционалният терм $\mu$
+% се свежда до константата $\vv{a}$ след $\ell$ на брой прилагания на правилата на операционната семантика.
+% Формално дефиницията е следната:
 
-Дефинираме релация $\Downarrow_P$ по следния начин:
+
+Дефинираме релация $\Downarrow^\ell_P$, която ни казва как един функционален терм $\mu$
+се свежда до константата $\vv{a}$ след $\ell$ на брой стъпки следвайки следните правила:
 \begin{description}
 \item
   % За всяко $a \in \Nat$,
   \begin{figure}[h!]
     \begin{prooftree}
       \AxiomC{}
-      \RightLabel{\scriptsize{(1)}}
-      \UnaryInfC{$\vv{a}\Downarrow_P a$}
+      \RightLabel{\scriptsize{(const)}}
+      \UnaryInfC{$\vv{a}\Downarrow^0_P \vv{a}$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_1\Downarrow_P a_1$}
-      \AxiomC{$\mu_2\Downarrow_P a_2$}
+      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
+      \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
       \AxiomC{$a = \texttt{plus}(a_1, a_2)$}
-      \RightLabel{\scriptsize{$(2_+)$}}
-      \TrinaryInfC{$\mu_1 + \mu_2 \Downarrow_P a$}
+      \RightLabel{\scriptsize{(plus)}}
+      \TrinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_1\Downarrow_P a_1$}
-      \AxiomC{$\mu_2\Downarrow_P a_2$}
+      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
+      \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
       \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
-      \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
-      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \Downarrow_P a$}
+      \RightLabel{\scriptsize{(eq)}}
+      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_0\Downarrow_P a_0$}
-      \AxiomC{$\mu_1 \Downarrow_P a_1$}
+      \AxiomC{$\mu_0\Downarrow^{\ell_0}_P \vv{a}_0$}
+      \AxiomC{$\mu_1 \Downarrow^{\ell_1}_P \vv{a}_1$}
       \AxiomC{$a_0 > 0$}
-      \RightLabel{\scriptsize{$(3_\true)$}}
-      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \Downarrow_P a_1$}
+      \RightLabel{\scriptsize{(if$^+$)}}
+      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \Downarrow^{\ell_0+\ell_1+1}_P \vv{a}_1$}
     \end{prooftree}
   \end{figure}  
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_0\Downarrow_P 0$}
-      \AxiomC{$\mu_2 \Downarrow_P a_2$}
-      \RightLabel{\scriptsize{$(3_\false)$}}
-      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \Downarrow_P a_2$}
+      \AxiomC{$\mu_0\Downarrow^{\ell_0}_P \vv{0}$}
+      \AxiomC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
+      \RightLabel{\scriptsize{(if$_0$)}}
+      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \Downarrow^{\ell_0+\ell_2+1}_P \vv{a}_2$}
     \end{prooftree}
   \end{figure}
 \item
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow_P a$}
-      \RightLabel{\scriptsize{(4)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow_P a$}
+      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow^{\ell}_P \vv{a}$}
+      \RightLabel{\scriptsize{(cbn)}}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^{\ell+1}_P \vv{a}$}
     \end{prooftree}
   \end{figure}
 \end{description}
 
+Ще пишем $\mu \Downarrow_{\vv{P}} \vv{a}$, ако съществува $\ell$, за което $\mu \Downarrow^\ell_{\vv{P}} \vv{a}$.
+Също така, понякога ще пишем $\mu \Downarrow^{<\ell}_P \vv{a}$, когато искаме да кажем, че
+$\mu$ се свежда до $\vv{a}$ след прилагане на по-малко от $\ell$ на брой правила от операционната семантика.
+
 \begin{lemma}
   Докажете, че за всеки затворен терм $\mu$,
-  ако $\mu \Downarrow_P a$ и $\mu \Downarrow_P a'$, то $a = a'$.
+  ако $\mu \Downarrow_P \vv{a}$ и $\mu \Downarrow_P \vv{a}'$, то $\vv{a} \equiv \vv{a}'$.
 \end{lemma}
-
 
 За фиксирана декларация $P$, нека за всеки {\em функционален} терм $\mu$ да дефинираме
 \[\eval{\mu}\dff
   \begin{cases}
-    b, & \text{ ако }\mu \Downarrow_P b\\
+    b, & \text{ ако }\mu \Downarrow_P \vv{b}\\
     \bot, & \text{ ако }\mu \text{ няма извод до константа}.
 \end{cases}\]
 
@@ -98,76 +108,67 @@
   защото от дефиницията на $\D\val{\vv{P}}$ е ясно, че то е непрекъснато изображение.
 \end{remark}
 
-В някои доказателства ще се наложи да правим индукция по дължината на извода $\to_P$.
-Затова дефинираме релацията $\mu \to^\ell_P \vv{a}$, която казва, че функционалният терм $\mu$
-се свежда до константата $\vv{a}$ след $\ell$ на брой прилагания на правилата на операционната семантика.
-Формално дефиницията е следната:
 
-\marginpar{Това се нарича cost dynamics в \cite[стр. 58]{practical-foundations}.}
+% \begin{description}
+% \item
+%   % За всяко $a \in \Nat$,
+%   \begin{figure}[h!]
+%     \begin{prooftree}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{a} \Downarrow^0_P \vv{a}$}
+%     \end{prooftree}
+%   \end{figure}
+% \item
+%   \begin{figure}[h!]
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
+%       \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
+%       \AxiomC{$a = a_1 + a_2$}
+%       \RightLabel{\scriptsize{(plus)}}
+%       \TrinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
+%     \end{prooftree}
+%   \end{figure}
+% \item
+%   \begin{figure}[h!]
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
+%       \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
+%       \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
+%       \RightLabel{\scriptsize{$(eq)$}}
+%       \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
+%     \end{prooftree}
+%   \end{figure}
+% \item
+%   \begin{figure}[h!]
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
+%       \AxiomC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
+%       \AxiomC{$\vv{a}_1 \not\equiv \vv{0}$}
+%       \RightLabel{\scriptsize{(if$_\true$)}}
+%       \TrinaryInfC{$\ifelse{\mu_1}{\mu_2}{\mu_3} \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}_2$}
+%     \end{prooftree}
+%   \end{figure}  
+% \item
+%   \begin{figure}[h!]
+%     \begin{prooftree}
+%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{0}$}
+%       \AxiomC{$\mu_3 \Downarrow^{\ell_3}_P \vv{a}_3$}
+%       \RightLabel{\scriptsize{(if$_\false$)}}
+%       \BinaryInfC{$\ifelse{\mu_1}{\mu_2}{\mu_3} \Downarrow^{\ell_1+\ell_3+1}_P \vv{a}_3$}
+%     \end{prooftree}
+%   \end{figure}
+% \item
+%   \begin{figure}[h!]
+%     \begin{prooftree}
+%       \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow^{\ell}_P \vv{a}$}
+%       \RightLabel{\scriptsize{(cbn)}}
+%       \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^{\ell+1}_P \vv{a}$}
+%     \end{prooftree}
+%   \end{figure}
+% \end{description}
 
-\begin{description}
-\item
-  % За всяко $a \in \Nat$,
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{a} \Downarrow^0_P \vv{a}$}
-    \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-      \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
-      \AxiomC{$a = a_1 + a_2$}
-      \RightLabel{\scriptsize{(plus)}}
-      \TrinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
-    \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-      \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
-      \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
-      \RightLabel{\scriptsize{$(eq)$}}
-      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
-    \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-      \AxiomC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
-      \AxiomC{$\vv{a}_1 \not\equiv \vv{0}$}
-      \RightLabel{\scriptsize{(if$_\true$)}}
-      \TrinaryInfC{$\ifelse{\mu_1}{\mu_2}{\mu_3} \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}_2$}
-    \end{prooftree}
-  \end{figure}  
-\item
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{0}$}
-      \AxiomC{$\mu_3 \Downarrow^{\ell_3}_P \vv{a}_3$}
-      \RightLabel{\scriptsize{(if$_\false$)}}
-      \BinaryInfC{$\ifelse{\mu_1}{\mu_2}{\mu_3} \Downarrow^{\ell_1+\ell_3+1}_P \vv{a}_3$}
-    \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
-    \begin{prooftree}
-      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow^{\ell}_P \vv{a}$}
-      \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^{\ell+1}_P \vv{a}$}
-    \end{prooftree}
-  \end{figure}
-\end{description}
-
-\newpage
-
-Също така, понякога ще пишем $\mu \Downarrow^{<\ell}_P \vv{a}$, когато искаме да кажем, че
-$\mu$ се свежда до $\vv{a}$ след прилагане на по-малко от $\ell$ на брой правила от операционната семантика.
+% \newpage
 
 \begin{example}
   Нека за програмата \vv{P}:

@@ -1,1 +1,34 @@
 \section{Пълна абстракция}
+
+\begin{proposition}
+  Не съществува затворен PCF терм $P$, за който
+  \[\val{P} = \texttt{por}.\]
+\end{proposition}
+
+\begin{verbatim}
+  if f 1 O then 
+     if f O 1 then
+        if f 0 0 then O else i
+     else O
+  else O
+\end{verbatim}
+
+За $i = 0,1$, нека
+\[T_i \dff \ifelse{f\ 1\ \Omega}{\ifelse{f\ \Omega\ 1}{\ifelse{f\ 0\ 0}{\Omega}{i}}{\Omega}}{\Omega}\]
+
+\begin{proposition}
+  За $i = 0,1$ е изпълнено, че
+  \[\val{T_i}(\texttt{por}) = i.\]
+\end{proposition}
+
+\begin{proposition}
+  Нека $\vv{a} \dff (\vv{nat}\to(\vv{nat}\to\vv{nat}))\to\vv{nat}$. Тогава
+  \[T_1 \cong_{ctx} T_2 : \vv{a}.\]
+\end{proposition}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

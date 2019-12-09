@@ -1,4 +1,4 @@
-\section{Денотационна семантика}
+\section{Денотационна семантика с предаване на параметрите по име}
 
 Започваме със семантика на типовете.
 
@@ -6,15 +6,20 @@
   & \val{\vv{nat}} \dff \Nat_\bot\\
   & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
-За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
-\marginpar{$\val{\emptyset} = ?$}
-\[\val{\Gamma} \dff \val{\vv{a}_1}\times\cdots\times\val{\vv{a}_n}.\]
+% За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
+% \marginpar{$\val{\emptyset} = ?$}
+% \[\val{\Gamma} \dff \val{\vv{a}_1}\times\cdots\times\val{\vv{a}_n}.\]
+Сега дефинираме семантиката на типовия контекст.
+\begin{itemize}
+\item
+  Нека $\Gamma = \type{x}{a}$. Тогава $\val{\Gamma} = \val{\vv{a}}$.
+\item
+  Нека $\Gamma = \Gamma', \type{x}{a}$. Тогава $\val{\Gamma} = \val{\Gamma'} \times \val{\vv{a}}$.
+\end{itemize}
+Например, ако $\Gamma = \vv{x}_1 : \vv{a}_1,\ \vv{x}_2 : \vv{a}_2,\ \vv{x}_3 : \vv{a}_3$, то
+\[\val{\Gamma} = (\val{\vv{a}_1} \times \val{\vv{a}_2})\times \val{\vv{a}_3}.\]
+
 Сега трябва да дефинираме семантика на термовете.
-% Искаме да дефинираме за всеки терм, за който $\Gamma \vdash \tau : \vv{a}$,
-% изборажение $\val{\tau}_\Gamma$, така че
-% \[\val{\tau}_\Gamma : \Cont{\val{\Gamma}}{\val{\vv{a}}}.\]
-
-
 За всеки терм, за който $\fv(\tau) \subseteq \texttt{dom}(\Gamma)$ и
 за произволни $\overline{u} \in \val{\Gamma}$, дефинираме неговата стойност $\val{\tau}_\Gamma(\overline{u})$ по следния начин:
 \begin{itemize}
@@ -160,6 +165,14 @@
     \[\val{\lamb{y}{b}{\tau}}_\Gamma \dff \curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}.\]
   \end{itemize}
 \end{proof}
+
+
+\begin{problem}
+  Нека $\Omega_{\vv{a}} \dff \fix(\lamb{x}{a}{\vv{x}})$.
+  Докажете, че $\val{\Omega_{\vv{a}}} = \bot \in \val{\vv{a}}$.
+  Заключете, че
+  \[\val{\lamb{x}{a}{\Omega_{\vv{a}}}} = \val{\Omega_{\vv{a}\to\vv{a}}}.\]
+\end{problem}
 
 
 %%% Local Variables:

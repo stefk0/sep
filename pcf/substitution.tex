@@ -11,15 +11,16 @@
     $\Gamma \vdash \tau\subst{x}{\rho} : \vv{b}$;
   \item
     за всяко $\overline{u} \in \val{\Gamma}$,
-    \[\val{\tau\subst{x}{\rho}}_\Gamma(\overline{u}) = \val{\tau}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma),\]
+    \[\val{\tau\subst{x}{\rho}}_\Gamma(\overline{u}) = \val{\tau}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma(\overline{u})),\]
     където $\Gamma' = \Gamma, \type{x}{a}$.  
   \end{enumerate}
 \end{lemma}
 \end{framed}
 \begin{proof}
   Индукция по построението на термовете.
-  
   \begin{itemize}
+  \item
+    Нека $\tau \equiv \tau_1 + \tau_2$.
   \item
     Нека $\tau \equiv \tau_1 \tau_2$.
     Тук първата част е лесна. Понеже имаме, че
@@ -32,23 +33,23 @@
     \begin{prooftree}
       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_1: \vv{c} \to \vv{b}$}
-      \LeftLabel{(И.П.)}
+      \LeftLabel{\scriptsize{(И.П.)}}
       \BinaryInfC{$\Gamma \vdash \tau_1\subst{\vv{x}}{\rho} : \vv{b}$}
       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_2: \vv{c} \to \vv{b}$}
-      \RightLabel{(И.П.)}
+      \RightLabel{\scriptsize{(И.П.)}}
       \BinaryInfC{$\Gamma \vdash \tau_2\subst{x}{\rho} : \vv{c}$}
-      \RightLabel{(app)}
+      \RightLabel{\scriptsize{(app)}}
       \BinaryInfC{$\Gamma \vdash \tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho}) : \vv{c}$}
-      \RightLabel{(правила на замяна)}
+      \RightLabel{\scriptsize{(правила на замяна)}}
       \UnaryInfC{$\Gamma \vdash \tau\subst{x}{\rho} : \vv{c}$}
     \end{prooftree}
     Втората част също е лесна.
     \begin{align*}
-      \val{\tau_1\tau_2}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma) & \dff \texttt{eval}(\val{\tau_1}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma), \val{\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma)) & \comment\text{\Def{eval}}\\
+      \val{\tau_1\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & \dff \texttt{eval}(\val{\tau_1}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})), \val{\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{\Def{eval}}\\
                                                                    & = \texttt{eval}(\val{\tau_1\subst{x}{\rho}}_\Gamma(\ov{u}), \val{\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{И.П.}\\
-                                                                   & = \val{\tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho})}_\Gamma\\
-                                                                   & = \val{\tau\subst{x}{\rho}}_\Gamma
+                                                                   & = \val{\tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho})}_\Gamma(\ov{u})\\
+                                                                   & = \val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})
     \end{align*}
   \item
     Нека $\tau \equiv \fix(\tau')$.
@@ -71,6 +72,8 @@
     Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
     \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
   \item
+    \marginpar{Тук е важно, че $\val{\Delta} = \val{\Gamma} \times \val{\vv{a}_n}$}
+
     Нека $\tau \equiv \lamb{y}{c}{\tau'}$, където $\vv{y} \not\in \vv{dom}(\Gamma) \cup \{\vv{x}\}$.
     Първо трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
     
@@ -101,22 +104,21 @@
     Понеже имаме, че $\Delta \vdash \tau'\subst{x}{\rho} : \vv{d}$,
     то можем да приложим И.П. за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Delta}$,
     \begin{align*}
-      \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\overline{u})(v) & \dff \val{\tau'\subst{x}{\rho}}_\Delta(\overline{u},v) & \comment\text{\Def{curry}}\\
-                                                                 & \stackrel{\text{И.П.}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta) & \comment \Delta' \dff \Gamma, \type{y}{c}, \type{x}{a}\\
-                                                        & = \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Gamma) & \comment \fv(\rho) \subseteq \vv{dom}(\Gamma)\\
-                                                        & = \val{\tau'}_{\Delta''}(\overline{u},\val{\rho}_\Gamma,v) & \comment \Delta'' \dff \Gamma, \type{x}{a}, \type{y}{c}\\
-                                                        & = \curry(\val{\tau'}_{\Delta''})(\overline{u},\val{\rho}_\Gamma)(v) \\
-                                                        & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma)(v). & \comment \Gamma' \dff \Gamma, \type{x}{a}
+      \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})(v) & \dff \val{\tau'\subst{x}{\rho}}_\Delta(\overline{u},v) & \comment\text{\Def{curry}}\\
+                                                                 & \stackrel{\text{И.П.}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta(\ov{u},v)) & \comment \Delta' \dff \Gamma, \type{y}{c}, \type{x}{a}\\
+                                                                 & = \val{\tau'}_{\Delta'}(\ov{u},v,\val{\rho}_\Gamma(\ov{u})) & \comment \fv(\rho) \subseteq \vv{dom}(\Gamma)\\
+                                                                 & = \val{\tau'}_{\Delta''}(\ov{u},\val{\rho}_\Gamma(\ov{u}),v) & \comment \Delta'' \dff \Gamma, \type{x}{a}, \type{y}{c}\\
+                                                                 & = \curry(\val{\tau'}_{\Delta''})(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v) \\
+                                                                 & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v). & \comment \Gamma' \dff \Gamma, \type{x}{a}
     \end{align*}    
     Така получихме, че
     \begin{align*}
-      \val{\lamb{y}{c}{\tau'\subst{x}{\rho}}}_\Gamma(\overline{u}) & \dff \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\overline{u})\\
-                                                                   & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma).
+      \val{\lamb{y}{c}{\tau'\subst{x}{\rho}}}_\Gamma(\ov{u}) & \dff \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})\\
+                                                                   & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
     \end{align*}
     
   \end{itemize}
 \end{proof}
-
 
 %%% Local Variables:
 %%% mode: latex

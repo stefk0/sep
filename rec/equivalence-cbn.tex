@@ -21,49 +21,49 @@
   \[\eval{\mu} \sqsubseteq \val{\mu}(\ov{\gamma}).\]
   
   Интересният случай е когато от терма $\mu$ {\em има извод} до число.
-  Тогава ще докажем, че за произволен функционален терм $\mu$ и число $a$,
+  Тогава ще докажем, че за произволен функционален терм $\mu$ и число $\vv{a}$,
   \begin{equation}
     \label{eq:16}
-    \mu\to_P a\ \implies \val{\mu}(\ov{\gamma}) = a.
+    \mu\Downarrow_P \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.
   \end{equation}
-  Доказателството на (\ref{eq:16}) ще проведем с индукция по дължината $\ell$ на извода $\mu\to^\ell_P a$.
+  Доказателството на (\ref{eq:16}) ще проведем с индукция по дължината $\ell$ на извода $\mu\Downarrow^\ell_P a$.
 
   \marginpar{Константата $\vv{a}$ има стойност числото $a$.}
   Нека изводът има дължина $0$. Понеже $\mu$ е функционален терм, според правилата на операционната семантика, единствената възможност е $\mu \equiv \vv{a}$.
   Тогава е очевидно, че $\val{\mu}(\bar{\gamma}) = a$. Ясно е, че в този случай,
-  \[\vv{a} \to^0_P a\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
+  \[\vv{a} \Downarrow^0_P \vv{a}\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
   Нака имаме следното индукционно предположение:
   \begin{equation}
     \label{eq:ind-hyp}
-    \mu\to^{<\ell}_P a\ \implies \val{\mu}(\ov{\gamma}) = a.
+    \mu\Downarrow^{<\ell}_P \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.
   \end{equation}
   Ще докажем, че
-  \[\mu\to^{\ell}_P a\ \implies \val{\mu}(\ov{\gamma}) = a.\]
+  \[\mu\Downarrow^{\ell}_P \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.\]
   Трябва да разгледаме различни случаи в зависимост от вида на функционалния терм $\mu$.
   \begin{itemize}
   \item
     Да разгледаме случая, когато $\mu \equiv \mu_1 + \mu_2$.
-    Нека $\mu_1 + \mu_2 \to^\ell_P a$.
+    Нека $\mu_1 + \mu_2 \Downarrow^\ell_P \vv{a}$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
       % \LeftLabel{\scriptsize{(Извод с дълж. $\ell_1$)}}
-      \UnaryInfC{$\mu_1 \to^{\ell_1}_P a_1$}
+      \UnaryInfC{$\mu_1 \Downarrow^{\ell_1}_P \vv{a}_1$}
       \AxiomC{$\vdots$}
       % \RightLabel{\scriptsize{(Извод с дълж. $\ell_2$)}}
-      \UnaryInfC{$\mu_2 \to^{\ell_2}_P a_2$}
-      \RightLabel{\scriptsize{\text{правило }($2_{+}$)}}
-      \BinaryInfC{$\mu_1 + \mu_2 \to^{\ell_1+\ell_2+1}_P a$}
+      \UnaryInfC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
+      \RightLabel{\scriptsize{правило (plus)}}
+      \BinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
     \end{prooftree}
 
     където $a = \texttt{plus}(a_1,a_2)$.
-    Ясно е, че изводите на $\mu_1\to^{<\ell}_P a_1$ и $\mu_2 \to^{<\ell}_P a_2$.
+    Ясно е, че изводите на $\mu_1\Downarrow^{<\ell}_P \vv{a}_1$ и $\mu_2 \Downarrow^{<\ell}_P \vv{a}_2$.
     Следователно можем да приложим {\bf И.П.} за $\mu_1$ и $\mu_2$, откъдето получаваме, че
     \begin{align*}
-      & \mu_1 \to^{<\ell}_P a_1\ \implies \val{\mu_1}(\ov{\gamma}) =a _1\\
-      & \mu_2 \to^{<\ell}_P a_2\ \implies \val{\mu_2}(\ov{\gamma}) =a _2.
+      & \mu_1 \Downarrow^{<\ell}_P \vv{a}_1\ \implies \val{\mu_1}(\ov{\gamma}) = \vv{a}_1\\
+      & \mu_2 \Downarrow^{<\ell}_P \vv{a}_2\ \implies \val{\mu_2}(\ov{\gamma}) = \vv{a}_2.
     \end{align*}
-    Тогава получаваме, че ако $\mu_1 + \mu_2 \to^\ell_P a$, то
+    Тогава получаваме, че ако $\mu_1 + \mu_2 \Downarrow^\ell_P \vv{a}$, то
     \begin{align*}
       \val{\mu_1 + \mu_2}(\ov{\gamma}) & \dff \texttt{plus}(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
                                        & = \texttt{plus}(a_1,a_2)\\
@@ -74,31 +74,29 @@
   \item
     Случаят, когато $\mu \equiv \ifelse{\mu_0}{\mu_1}{\mu_2}$, е лесен.
   \item
-    Нека имаме функционалния терм $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и $\mu \to^\ell_P a$.
+    Нека имаме функционалния терм $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и $\mu \Downarrow^\ell_P a$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
       % \RightLabel{\scriptsize{Извод с дълж. $(\ell-1)$}}
-      \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \to^{\ell-1}_P a$}
-      \RightLabel{\scriptsize{\text{правило }(4)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^{\ell}_P a$}
+      \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow^{\ell-1}_P \vv{a}$}
+      \RightLabel{\scriptsize{правило (cbn)}}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^{\ell}_P \vv{a}$}
     \end{prooftree}
-    
-    
+        
     От {\bf И.П.} имаме, че 
-    \[\tau_i[\varsx/\ov{\mu}] \to^{<\ell}_P a\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
-    Понеже знаем, че $\tau_i[\varsx/\ov{\mu}] \to^{<\ell}_P a$, то $\val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a$.
+    \[\tau_i[\varsx/\ov{\mu}] \Downarrow^{<\ell}_P \vv{a}\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
+    Понеже знаем, че $\tau_i[\varsx/\ov{\mu}] \Downarrow^{<\ell}_P \vv{a}$, то $\val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a$.
     \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$. Единствено в този случай се използва, че $\ov{\gamma}$ е решение на системата от оператори, като не е задължително да е най-малкото решение.}
     Лесно се съобразява, че:
     \begin{align*}
       \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) & = \val{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots,\val{\mu_{m_i}}(\ov{\gamma})) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
-                                                 % & \dff \Gamma_{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) \\
                                                  & = \gamma_i(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) & \comment{\gamma_i = \val{\tau_i}(\ov{\gamma})}\\
                                                  & \dff \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}). & \comment{\text{стойност на терм}}\\
     \end{align*}
     Обединявайки всичко, което знаем, получаваме:
     \begin{align*}
-      \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \to^\ell_P a & \implies \tau_i[\varsx/\ov{\mu}] \to^{<\ell}_P a & \comment{\text{правило }(4)}\\
+      \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^\ell_P \vv{a} & \implies \tau_i[\varsx/\ov{\mu}] \Downarrow^{<\ell}_P \vv{a} & \comment{\text{правило (cbn)}}\\
                                                 & \implies \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a & \comment{\text{{\bf И.П.}}}\\
                                                 & \implies  \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}) = a.
     \end{align*}

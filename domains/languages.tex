@@ -6,13 +6,14 @@
 \[\tau ::= \emptyset\ |\ \varepsilon\ |\ a_i \cdot X_j\ |\ \tau_1 + \tau_2.\]
 където $i = 1, \dots,k$, а $X$ е променлива.
 За всеки полином $\tau[X_1,\dots,X_n]$ дефинираме оператора 
+\marginpar{Тук за променливите използваме главни букви за да се сещаме, че те приемат стойности множества от думи.}
 \[\val{\tau}: \mathcal{P}(\Sigma^\star)^n \to \mathcal{P}(\Sigma^\star)\]
  по следния начин:
 \begin{itemize}
 \item
     $\val{\emptyset}(L_1,\dots,L_n) = \emptyset$.
 \item 
-  $\val{\varepsilon}(L_1,\dots,L_n) = \varepsilon$.
+  $\val{\varepsilon}(L_1,\dots,L_n) = \{\varepsilon\}$.
 \item 
   $\val{a_i \cdot X_j}(L_1,\dots,L_n) = \{a_i\} \cdot L_j$.
 \item
@@ -101,7 +102,7 @@
 \item 
   $\val{a_j}(L_1,\dots,L_n) = \{a_j\}$.
 \item 
-  $\val{\varepsilon}(L_1,\dots,L_n) = \varepsilon$.
+  $\val{\varepsilon}(L_1,\dots,L_n) = \{\varepsilon\}$.
 \item 
   $\val{\emptyset}(L_1,\dots,L_n) = \emptyset$.
 \item 
