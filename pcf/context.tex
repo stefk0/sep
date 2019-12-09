@@ -1,0 +1,95 @@
+\section{Контексти}
+
+
+\[\C ::= -\ |\ \vv{n}\ |\ \vv{x}\ |\ \C + \C\ |\ \C\ \vv{==}\ \C\ |\ \ifelse{\C}{\C}{\C}\ |\ \C\C\ |\ \lamb{x}{a}{\C}\ |\ \fix(\C).\]
+Контекстите са като изразите, но имаме специален символ $-$.
+За произволен израз $\tau$, с $\C[\tau]$ означаваме израза, който се получава като
+заменим всички срещания на $-$ с $\tau$. Заместването, което правим е директно, т.е.
+ако $\C = \lamb{x}{a}{-}$, то $\C[x] = \lamb{x}{a}{\vv{x}}$.
+
+\begin{proposition}
+  \marginpar{$\equiv$ е $\alpha$-еквивалентност.} 
+  Ако $\tau \equiv \tau'$, то $\C[\tau] \equiv \C[\tau']$.
+\end{proposition}
+
+
+
+\begin{definition}
+  $\Gamma \vdash \tau_1 \leq_{ctx} \tau_2 : \vv{a}$, ако
+  \begin{enumerate}[1)]
+  \item
+    $\Gamma \vdash \tau_1 : \vv{a}$ и $\Gamma \vdash \tau_2 : \vv{a}$
+  \item
+    За всички контексти $C[-]$, за които $\emptyset \vdash C[\tau_1] : \vv{nat}$ и $\emptyset \vdash C[\tau_2] : \vv{nat}$, то
+    \[C[\tau_1] \Downarrow_{\vv{nat}} \vv{n} \implies C[\tau_2] \Downarrow_{\vv{nat}} \vv{n}.\]
+  \end{enumerate}  
+\end{definition}
+
+\marginpar{Някои наричат тази релация observational equivalence. Тук наричаме релацията contextual equivalence.}
+Ще пишем $\Gamma \vdash \tau_1 \cong_{ctx} \tau_2 : \vv{a}$, ако
+$\Gamma \vdash \tau_1 \leq_{ctx} \tau_2 : \vv{a}$ и $\Gamma \vdash \tau_2 \leq_{ctx} \tau_1 : \vv{a}$.
+Ако $\Gamma = \emptyset$, то ще пишем $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$ вместо $\emptyset \vdash \tau_1 \cong_{ctx} \tau_2 : \vv{a}$.
+
+\begin{proposition}\label{pr:pcf:compositionality}
+  \marginpar{Това твърдение ни казва, че нашата денотационна семантика е композиционална.}
+  Нека $\tau_1$ и $\tau_2$ са термове, за които $\Gamma \vdash \tau_1 : \vv{a}$ и $\Gamma \vdash \tau_2 : \vv{a}$,
+  като също така $\val{\tau_1}_\Gamma = \val{\tau_2}_\Gamma$.
+  и нека $\C[-]$ е контекст, за който $\Gamma' \vdash \C[\tau_1] : \vv{b}$ и $\Gamma' \vdash \C[\tau_2] : \vv{b}$.
+  Тогава
+  \[\val{\C[\tau_1]}_{\Gamma'} = \val{\C[\tau_2]}_{\Gamma'}.\]
+\end{proposition}
+\begin{proof}
+  Преобразуваме $\C[-]$ в терм $\mu$ като заместваме всяко срещане на $-$ с новата променлива $z$
+  и нека $\Gamma,\ \type{z}{a} \vdash \mu : \vv{b}$.
+  Сега използваме \Lem{pcf:substitution}, защото $\C[\tau_i] \equiv \mu\subst{z}{\tau_i}$, защото
+  \begin{align*}
+    \val{\mu\subst{z}{\tau_1}}_{\Gamma'}(\ov{u}) & = \val{\mu}_{\Gamma''}(\ov{u},\val{\tau_1}_\Gamma)\\
+                                                 & = \val{\mu}_{\Gamma''}(\ov{u},\val{\tau_2}_\Gamma)\\
+                                                 & = \val{\mu\subst{z}{\tau_2}}_{\Gamma'}(\ov{u}).
+  \end{align*}
+\end{proof}
+
+
+\begin{proposition}
+  За произволни затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$,
+  \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff \val{\tau_1} \triangleleft_{\vv{a}} \tau_2.\]
+\end{proposition}
+\begin{proof}
+  
+\end{proof}
+
+
+\begin{proposition}\label{pr:pcf:extensionality}
+  \begin{enumerate}[1)]
+  \item
+    $\tau_1 \leq_{ctx} \tau_2 : \vv{nat} \iff (\forall \vv{v})[\tau_1 \Downarrow_{\vv{nat}} \vv{v} \implies \tau_2    
+    \Downarrow_{\vv{nat}} \vv{v}]$;
+  \item
+    $\tau_1 \leq_{ctx} \tau_2 : \vv{a}\to\vv{b} \iff (\forall \rho:\vv{a})[\tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{b}]$.
+  \end{enumerate}
+\end{proposition}
+
+
+\begin{framed}
+  \begin{theorem}
+    За произволни $\tau_1, \tau_2 \in PCF_{\vv{a}}$,
+    \[\val{\tau_1} = \val{\tau_2} \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}.\]
+  \end{theorem}  
+\end{framed}
+\begin{proof}
+  Достатъчно е да докажем, че
+  \[\val{\tau_1} = \val{\tau_2} \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
+  Нека $\C[-]$ е контекст, за който $\C[\tau_1] : \vv{nat}$ и $\C[\tau_2] : \vv{nat}$.
+  Нека $\val{\tau_1} = \val{\tau_2}$. Тогава
+  \begin{align*}
+    \C[\tau_1] \Downarrow_{\vv{nat}} \vv{n} & \implies \val{\C[\tau_1]} = \val{\vv{n}} & \comment\text{\Th{pcf:soundness}}\\
+                                            & \implies \val{\C[\tau_2]} = \val{\vv{n}} & \comment\text{\Prop{pcf:compositionality}}\\
+                                            & \implies \C[\tau_2] \Downarrow_{\vv{nat}} \vv{n}. & \comment\text{\Th{pcf:adequacy}}
+  \end{align*}
+\end{proof}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:
