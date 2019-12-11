@@ -1,24 +1,41 @@
 \section{Коректност}
 
 \begin{framed}
-  \begin{theorem}\label{th:pcf:soundness}
-    За всеки затворен терм $\tau \in PCF_{\vv{b}}$ и стойност $\vv{v}$,
-    ако $\tau \Downarrow_{\vv{b}} \vv{v}$, то $\val{\tau} = \val{\vv{v}} \in \val{\vv{b}}$.
+  \begin{theorem}[Теорема за коректност]\label{th:pcf:soundness}
+    За всеки затворен терм $\tau : \vv{b}$ и стойност $\vv{v}$, е изпълнено:
+    \[\tau \Downarrow_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
   \end{theorem}  
 \end{framed}
 \begin{proof}
-  Индукция по дължината $\ell$ на извода $\Downarrow^\ell_{\vv{c}}$ за всеки тип $\vv{c}$.
+  Индукция по дължината $\ell$ на извода $\Downarrow^\ell_{\vv{b}}$ за всеки тип $\vv{b}$.
+  Нека $\ell = 0$. Имаме два случая.
   \begin{itemize}
   \item
     Нека $\tau \equiv \vv{n}$.
-    Ясно е, че от правилата на операционната семантика имаме, че:
+    Ясно е, че $\vv{b} = \vv{nat}$ и от правилата на операционната семантика имаме, че:
     \begin{prooftree}
       \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\tau \Downarrow_{\vv{nat}} \vv{n}$}
+      \RightLabel{\scriptsize{(val)}}
+      \UnaryInfC{$\tau \Downarrow^0_{\vv{nat}} \vv{n}$}
     \end{prooftree}
     От дефиницията на семантика на терм, директно получаваме, че
-    $\val{\tau} = n = \val{\vv{n}}$.
+    $\val{\tau} = n = \val{\vv{n}}$.    
+  \item
+    Нека $\tau \equiv \lamb{x}{c}{\tau'}$. Тогава $\vv{b} = \vv{a}\to\vv{c}$ и от правилата на операционната семантика имаме, че:
+    \begin{prooftree}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(val)}}
+      \UnaryInfC{$\tau \Downarrow^0_{\vv{a}\to\vv{c}} \tau$}
+    \end{prooftree}
+    Ясно е, че $\val{\tau} = \val{\tau} \in \val{b}$.
+  \end{itemize}
+  Така доказахме, че
+  \[\tau \Downarrow^{0}_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+  Нека сега $\ell > 0$ и да приемем, че имаме следното индукционно предположение:
+  \[\tau \Downarrow^{<\ell}_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+  Ще докажем, че
+  \[\tau \Downarrow^{\ell}_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+  \begin{itemize}
   \item
     Нека $\tau \equiv \tau_1 + \tau_2$. Тогава от правилата на операционната семантика имаме, че:
     \begin{prooftree}
@@ -35,8 +52,8 @@
     \end{align*}
     Тогава
     \begin{align*}
-      \val{\tau_1 + \tau_2} & = \texttt{plus}(\val{\tau_1}, \val{\tau_2})\\
-                            & = n_1 + n_2\\
+      \val{\tau_1 + \tau_2} & = \texttt{plus}(\val{\tau_1}, \val{\tau_2}) & \comment\text{от деф.}\\
+                            & = n_1 + n_2 & \comment\text{от И.П.}\\
                             & = n.
     \end{align*}
   \item
@@ -46,8 +63,8 @@
     \begin{prooftree}
       \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
       \AxiomC{$\tau_2 \Downarrow_{\vv{a}} \vv{v}_2$}
-      \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{n}_2,$}
+      \RightLabel{\scriptsize{(if$^+$)}}
+      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{v}_2,$}
     \end{prooftree}
     където $n_1 > 0$.
     Тогава от И.П. получаваме, че:

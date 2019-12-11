@@ -90,10 +90,14 @@
     Нека $\tau \equiv \tau_1 + \tau_2$. Щом $\Gamma \vdash \tau : \vv{a}$, то
     по правилата за типизиране следва, че $\vv{a} = \vv{nat}$, а също и $\Gamma \vdash \tau_1 : \vv{nat}$ и $\Gamma \vdash \tau_2
     : \vv{nat}$.
-    От И.П. имаме, че $\val{\tau_1}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}}$ и
-    $\val{\tau_2}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}}$.
+    От И.П. имаме, че
+    \begin{align*}
+      & \val{\tau_1}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}};\\
+        & \val{\tau_2}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{nat}}}.
+    \end{align*}
     Това означава, че $(\val{\tau_1} \times \val{\tau_2}) \in \Cont{\val{\Gamma}}{\val{\vv{nat}} \times \val{\vv{nat}}}$.
     Тогава имаме следното равенство
+    \marginpar{Използваме, че композиция на непрекъснати изображения е непрекъснато изображение.}
     \[\val{\tau_1 + \tau_2}_\Gamma = \texttt{plus} \circ (\val{\tau_1} \times \val{\tau_2}) \in \Cont{\val{\Gamma}}{\val{\vv{a}}},\]
     защото за произволни $\overline{u} \in \val{\Gamma}$,
     \begin{align*}
@@ -130,7 +134,7 @@
     \begin{align*}
       (\texttt{eval} \circ \val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma)(\overline{u}) & = \texttt{eval}((\val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma)(\overline{u}))\\
                                                                                          & = \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u}))\\
-                                                                                         & = \val{\tau_1\tau_2}_\Gamma(\overline{u}).
+                                                                                         & \dff \val{\tau_1\tau_2}_\Gamma(\overline{u}).
     \end{align*}
     
   \item
@@ -142,16 +146,16 @@
     Това означава, че за произволни $\overline{u} \in \val{\Gamma}$,
     \[\val{\tau'}_\Gamma(\overline{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}.\]
     Следователно
-    $\val{\tau'}_\Gamma(\overline{u})$ е изображение, което според Теорема ...
+    $\val{\tau'}_\Gamma(\overline{u})$ е изображение, което според \Th{knaster-tarski}
     притежава най-малка неподвижна точка.
-    \marginpar{Изображението $Y$ е дефинирано \Th{Y}.}
+    \marginpar{Непрекъснатото изображението $Y$ е дефинирано \Th{Y}.}
     Тогава
     \[\val{\texttt{fix}(\tau')}_\Gamma = Y \circ \val{\tau'}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{a}}},\]
     защото за произволни $\overline{u} \in \val{\Gamma}$,
     \begin{align*}
       (Y \circ \val{\tau'}_\Gamma)(\overline{u}) & = Y(\val{\tau'}_\Gamma(\overline{u}))\\
                                                  & = \lfp(\val{\tau'}_\Gamma(\overline{u}))\\
-                                                 & = \val{\fix(\tau')}_\Gamma.
+                                                 & \dff \val{\fix(\tau')}_\Gamma(\ov{u}).
     \end{align*}
   \item
     Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
@@ -166,12 +170,32 @@
   \end{itemize}
 \end{proof}
 
+\begin{proposition}
+  \marginpar{Ясно е, че това твърдение се обобщава за произволна пермутация на индекстите $1,\dots,n$.}
+  Нека имаме следните типови контексти:
+  \begin{align*}
+    &\Gamma = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_i:\vv{a}_i, \dots, \vv{x}_j:\vv{a}_j, \dots, \vv{x}_n:\vv{a}_n;\\
+    &\Delta = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_j:\vv{a}_j, \dots, \vv{x}_i:\vv{a}_i, \dots, \vv{x}_n:\vv{a}_n,
+  \end{align*}
+  т.е. $\Delta$ се получава от $\Gamma$ като разменим местата на $i$-тата и $j$-тата двойка.
+  Тогава за всеки терм $\tau$, такъв че $\Gamma \vdash \tau : \vv{a}$, е изпълено, че за всеки $(u_1,\dots,u_n) \in \val{\Gamma}$,
+  \[\val{\tau}_\Gamma(u_1,\dots,u_i,\dots,u_j,\dots,u_n) = \val{\tau}_\Delta(u_1,\dots,u_j,\dots,u_i,\dots,u_n).\]
+\end{proposition}
+\begin{proof}
+  Индукция по построението на терма $\tau$.
+\end{proof}
+
 
 \begin{problem}
   Нека $\Omega_{\vv{a}} \dff \fix(\lamb{x}{a}{\vv{x}})$.
-  Докажете, че $\val{\Omega_{\vv{a}}} = \bot \in \val{\vv{a}}$.
-  Заключете, че
-  \[\val{\lamb{x}{a}{\Omega_{\vv{a}}}} = \val{\Omega_{\vv{a}\to\vv{a}}}.\]
+  \marginpar{Вече знаем, че $\Omega_{\vv{a}}$ има тип $\vv{a}$.}
+  Докажете, че:
+  \begin{enumerate}[1)]
+  \item
+    $\val{\Omega_{\vv{a}}} = \bot \in \val{\vv{a}}$;
+  \item
+    $\val{\lamb{x}{a}{\Omega_{\vv{a}}}} = \val{\Omega_{\vv{a}\to\vv{a}}}$.
+  \end{enumerate}
 \end{problem}
 
 

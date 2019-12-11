@@ -16,11 +16,22 @@
   \end{enumerate}
 \end{lemma}
 \end{framed}
+\marginpar{Защо да не взема $\rho$ да бъде затворен терм ?}
 \begin{proof}
   Индукция по построението на термовете.
   \begin{itemize}
   \item
+    Нека $\tau \equiv \vv{x}_i$, където $\vv{x}_i \not\equiv \vv{x}$.
+  \item
+    Нека $\tau \equiv \vv{x}$.
+  \item
+    Нека $\tau \equiv \vv{n}$.
+  \item
+    Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$.
+  \item
     Нека $\tau \equiv \tau_1 + \tau_2$.
+  \item
+    Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
   \item
     Нека $\tau \equiv \tau_1 \tau_2$.
     Тук първата част е лесна. Понеже имаме, че

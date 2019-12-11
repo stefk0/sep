@@ -16,7 +16,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
 \begin{itemize}
 \item
   Нека $\vv{a} = \vv{nat}$. Тогава дефинираме
-  \[d \triangleleft_{\vv{nat}} \tau \iff ( d\neq\bot \implies \tau \Downarrow_{\vv{nat}} \vv{d}).\]
+  \[n \triangleleft_{\vv{nat}} \tau \iff ( n\neq\bot^{\val{\vv{nat}}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}).\]
 \item
   Нека $\vv{a} = \vv{b} \to \vv{c}$. Тогава дефинираме
   \[f \triangleleft_{\vv{b}\to\vv{c}} \tau \iff (\forall e\in \val{\vv{b}})(\forall \mu \in PCF_{\vv{b}})[\ e \triangleleft_{\vv{b}} \mu \implies f(e) \triangleleft_{\vv{c}} \tau(\mu)\ ].\]
@@ -35,14 +35,38 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
   \item
     $D = \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \tau\}$ е непрекъснато свойство в областта на Скот $\val{\vv{a}}$;
   \item
+    \marginpar{За какво ми е това $u \sqsubseteq d$ ?}
     Ако $u \sqsubseteq d$, $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
     \Downarrow_{\vv{a}} \vv{v}]$, то $u \triangleleft_{\vv{a}} \rho$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
   Индукция по построението на типовете $\vv{a}$.
+
+  Нека $\vv{a} = \vv{nat}$. Да напомним, че $\val{\vv{nat}} \dff \Nat_\bot$.
+  \begin{enumerate}[1)]
+  \item
+    Да фиксираме произволен терм $\tau$.
+    По тривиални съображения имаме, че $\bot^{\val{\vv{nat}}} \triangleleft_{\vv{nat}} \tau$.
+  \item
+    Да фиксираме произволен терм $\tau$.
+    Нека $\chain{d}{i}$ е верига от елементи на $\Nat_\bot$ и за всяко $i$, $d_i \triangleleft_{\vv{nat}} \tau$.
+    Ако за всяко $i$, $d_i = \bot$, то $\bigsqcup_i d_i = \bot^{\val{\vv{nat}}}$ и следователно $\bigsqcup_i d_i
+    \triangleleft_{\vv{nat}} \tau$.
+    Ако съществува $i_0$, за което $d_{i_0} = n \neq \bot$, то е ясно, че за всяко $i > i_0$, $d_i = n$.
+    Оттук следва, че $\bigsqcup_i d_i = n = d_{i_0}$.
+    Понеже $d_{i_0} \triangleleft_{\vv{nat}} \tau$, то директно следва, че $\bigsqcup_i d_i \triangleleft_{\vv{nat}} \tau$.
+  \item
+    Нека $u \sqsubseteq d$, $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
+    \Downarrow_{\vv{a}} \vv{v}]$. Понеже $\sqsubseteq$ е плоската наредба в $\Nat_\bot$, то имаме два случая.
+    Ако $u = \bot^{\val{\vv{nat}}}$, то е ясно от 1), че $u \triangleleft_{\vv{nat}} \rho$.
+    Нека $u \neq \bot^{\val{\vv{nat}}}$. Тогава $u = d$.
+    Понеже $d \neq \bot$ и $d \triangleleft_{\vv{nat}} \tau$, то $\tau \Downarrow_{\vv{nat}} \vv{d}$.
+    Оттук следва, че $\rho \Downarrow_{\vv{nat}} \vv{d}$ и понеже $\vv{d} \equiv \vv{u}$, то
+    $\rho \Downarrow_{\vv{nat}} \vv{u}$. Заключаваме, че $u \triangleleft_{\vv{nat}} \rho$.    
+  \end{enumerate}
   
-  Нека $\vv{a} = \vv{b} \to \vv{c}$.
+  Нека $\vv{a} = \vv{b} \to \vv{c}$. Да напомним, че $\val{\vv{b} \to \vv{c}} \dff \Cont{\val{\vv{b}}}{\val{\vv{c}}}$.
   \begin{enumerate}[1)]
   \item
     Тук имаме, че $\bot^{\val{\vv{a}}} \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}$ е изображение,
@@ -100,7 +124,17 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
   Индукция по построението на термовете.
   \begin{itemize}
   \item
-    Нека $\tau = \tau_1\tau_2$. От правилата за типизиране имаме, че
+    Нека $\tau \equiv \vv{c}$.
+  \item
+    Нека $\tau \equiv \vv{x}_i$.
+  \item
+    Нека $\tau \equiv \tau_1 + \tau_2$.
+  \item
+    Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
+  \item
+    Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$.
+  \item
+    Нека $\tau \equiv \tau_1\tau_2$. От правилата за типизиране имаме, че
     \begin{prooftree}
       \AxiomC{$\Gamma \vdash \tau_1 : \vv{b} \to \vv{a}$}
       \AxiomC{$\Gamma \vdash \tau_2 : \vv{b}$}
@@ -120,7 +154,8 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     $\Gamma' \vdash \tau' : \vv{c}$, където $\Gamma' = \Gamma, \type{y}{b}$.
     Да напомним, че
     \[\val{\tau}_\Gamma(\ov{u}) \dff \texttt{curry}(\val{\tau'}_{\Gamma'})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
-    Да положим $f \dff \val{\tau}_\Gamma(\ov{u})$.
+    Да положим $f \dff \val{\tau}_\Gamma(\ov{u})$. Тогава $f(e) = \val{\tau'}(\ov{u},e)$.
+    
     Трябва да докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \tau[\ov{x}/\ov{\mu}]$.
     Това означава, че за произволни $e \in \val{\vv{b}}$ и $\rho : \vv{b}$, за които $e \triangleleft_{\vv{b}} \rho$,
     трябва да докажем, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
@@ -132,10 +167,9 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
       \BinaryInfC{$\val{\tau'}(\ov{u},e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
       \UnaryInfC{$f(e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
     \end{prooftree}
-    % Нека сега за улеснение да положим $\tau'' \dff \tau'[\ov{x}/\ov{\mu}]$.
     От правилата на операционната семантика имаме следното:
     \begin{prooftree}
-      \AxiomC{$\rho : \vv{b}$}
+      \AxiomC{$\emptyset \vdash \rho : \vv{b}$}
       \AxiomC{$\tau'[\ov{x}/\ov{\mu}][y/\rho] \Downarrow_{\vv{c}} \vv{v}$}
       \BinaryInfC{$(\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]})(\rho) \Downarrow_{\vv{c}} \vv{v}$}
       \UnaryInfC{$\tau[\ov{x}/\ov{\mu}](\rho) \Downarrow_{\vv{c}} \vv{v}$}
@@ -148,33 +182,36 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     \[\val{\tau'}(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
     Нека за улеснение да положим $f \dff \val{\tau'}(\ov{u})$.
     Да напомним, че
-    \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f) = \bigsqcup_i f^{(i)}(\bot^{\val{\vv{a}}}).\]
-    Сега ще докажем, че за всяко $i$,
-    \[f^{(i)}(\bot^{\val{\vv{a}}}) \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}]).\]
+    \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\] % = \bigsqcup_i f^{(i)}(\bot^{\val{\vv{a}}}).\]
+    От 2) на \Lem{pcf:relation} знаем, че
+    \[D = \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}])\}\]
+    е непрекъснато свойство. Целта ни е да докажем, че
+    $\lfp(f) \in D$. Ще направим това като приложим правилото на Скот.
+    Да напомним, че
+    \begin{prooftree}
+      \AxiomC{$\bot^{\val{\vv{a}}} \in D$}
+      \AxiomC{$d \in D \implies f(d) \in D$}
+      \BinaryInfC{$\lfp(f) \in D$}
+    \end{prooftree}
+    Понеже от 1) на \Lem{pcf:relation} имаме, че $\bot^{\val{\vv{a}}} \in D$, то
+    нека вземем произволен елемент $d \in D$. Ще докажем, че $f(d) \in D$.
+
     Понеже $f \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}]$, то
     за произволно $e \triangleleft_{\vv{a}} \rho$ е изпълнено, че
     $f(e) \triangleleft_{\vv{a}} \tau'[\ov{x}/\ov{\mu}](\rho)$.
-    Нека $e = f^{(i)}(\bot^{\val{\vv{a}}})$ и $\rho = \fix(\tau'[\ov{x}/\ov{\mu}])$.
-    Тогава \[f^{(i+1)}(\bot^{\val{\vv{a}}}) \triangleleft_{\vv{a}} \tau'[\ov{x}/\ov{\mu}](\fix(\tau'[\ov{x}/\ov{\mu}])).\]
+    Нека изберем $\rho = \fix(\tau'[\ov{x}/\ov{\mu}])$. Щом $d \in D$, то $d \triangleleft_{\vv{a}} \rho$ и следователно
+    \[f(d) \triangleleft_{\vv{a}} \tau'[\ov{x}/\ov{\mu}](\underbrace{\fix(\tau'[\ov{x}/\ov{\mu}])}_{\rho}).\]
     От правилата на операционната семантика имаме, че:
     \begin{prooftree}
       \AxiomC{$\tau'[\ov{x}/\ov{\mu}](\fix(\tau'[\ov{x}/\ov{\mu}])) \Downarrow_{\vv{a}} \vv{v}$}
+      \RightLabel{\scriptsize{(fix)}}
       \UnaryInfC{$\fix(\tau'[\ov{x}/\ov{\mu}]) \Downarrow_{\vv{a}} \vv{v}$}
     \end{prooftree}
     Тогава от 3) на \Lem{pcf:relation} следва, че
-    \[f^{(i+1)}(\bot^{\val{\vv{a}}}) \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}]).\]
-    
-    Сега от 2) на \Lem{pcf:relation} следва, че
+    \[f(d) \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}]).\]
+    Така доказахме, че $f(d) \in D$.
+    Заключаваме, че $\lfp(f) \in d$, т.е.
     \[\val{\fix(\tau')}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}])\]
-
-    % Получаваме, че
-    % \[\texttt{eval}(\val{\tau'}_\Gamma(\ov{u}), \val{\fix(\tau')}_\Gamma(\ov{u})) \triangleleft_{\vv{a}}
-    %   \tau'[\ov{x}/\ov{\mu}](\fix(\tau'[\ov{x}/\ov{\mu}])).\]
-    % От правилата на операционната семантика имаме, че:
-    % \begin{prooftree}
-    %   \AxiomC{$\tau' \fix(\tau') \Downarrow_{\vv{a}} \vv{v}$}
-    %   \UnaryInfC{$\fix(\tau') \Downarrow_{\vv{a}} \vv{v}$}
-    % \end{prooftree}
   \end{itemize}
 \end{proof}
 
