@@ -8,23 +8,22 @@
   \end{theorem}
 \end{framed}
 
-
-Сега дефинираме за всеки тип $\vv{a}$ релацията 
-$\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
+Дефинираме за всеки тип $\vv{a}$ релацията 
+$\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
 с индукция по построението на типовете.
 
 \begin{itemize}
 \item
+  \marginpar{Съобразете, че теоремата за адекватност на практика гласи, че $\val{\tau} \triangleleft_{\vv{nat}} \tau$.}
   Нека $\vv{a} = \vv{nat}$. Тогава дефинираме
   \[n \triangleleft_{\vv{nat}} \tau \iff ( n\neq\bot^{\val{\vv{nat}}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}).\]
 \item
   Нека $\vv{a} = \vv{b} \to \vv{c}$. Тогава дефинираме
-  \[f \triangleleft_{\vv{b}\to\vv{c}} \tau \iff (\forall e\in \val{\vv{b}})(\forall \mu \in PCF_{\vv{b}})[\ e \triangleleft_{\vv{b}} \mu \implies f(e) \triangleleft_{\vv{c}} \tau(\mu)\ ].\]
+  \[f \triangleleft_{\vv{b}\to\vv{c}} \tau \iff (\forall e\in \val{\vv{b}})(\forall \mu \in \vv{PCF}_{\vv{b}})[\ e \triangleleft_{\vv{b}} \mu \implies f(e) \triangleleft_{\vv{c}} \tau(\mu)\ ].\]
 \item
   Нека $\Gamma = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_n:\vv{a}_n$. Тогава дефинираме 
   \[(u_1,\dots,u_n) \triangleleft_\Gamma (\tau_1,\dots,\tau_n) \iff u_1 \triangleleft_{\vv{a}_1} \tau_1\ \&\ \cdots\ \&\ u_n \triangleleft_{\vv{a}_n} \tau_n.\]
 \end{itemize}
-
 
 \begin{lemma}\label{lem:pcf:relation}
   \marginpar{\cite[стр. 197]{gunter}}
@@ -36,8 +35,8 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     $D = \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \tau\}$ е непрекъснато свойство в областта на Скот $\val{\vv{a}}$;
   \item
     \marginpar{За какво ми е това $u \sqsubseteq d$ ?}
-    Ако $u \sqsubseteq d$, $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
-    \Downarrow_{\vv{a}} \vv{v}]$, то $u \triangleleft_{\vv{a}} \rho$.
+    Ако $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
+    \Downarrow_{\vv{a}} \vv{v}]$, то $d \triangleleft_{\vv{a}} \rho$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -57,13 +56,12 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     Оттук следва, че $\bigsqcup_i d_i = n = d_{i_0}$.
     Понеже $d_{i_0} \triangleleft_{\vv{nat}} \tau$, то директно следва, че $\bigsqcup_i d_i \triangleleft_{\vv{nat}} \tau$.
   \item
-    Нека $u \sqsubseteq d$, $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
-    \Downarrow_{\vv{a}} \vv{v}]$. Понеже $\sqsubseteq$ е плоската наредба в $\Nat_\bot$, то имаме два случая.
-    Ако $u = \bot^{\val{\vv{nat}}}$, то е ясно от 1), че $u \triangleleft_{\vv{nat}} \rho$.
-    Нека $u \neq \bot^{\val{\vv{nat}}}$. Тогава $u = d$.
-    Понеже $d \neq \bot$ и $d \triangleleft_{\vv{nat}} \tau$, то $\tau \Downarrow_{\vv{nat}} \vv{d}$.
-    Оттук следва, че $\rho \Downarrow_{\vv{nat}} \vv{d}$ и понеже $\vv{d} \equiv \vv{u}$, то
-    $\rho \Downarrow_{\vv{nat}} \vv{u}$. Заключаваме, че $u \triangleleft_{\vv{nat}} \rho$.    
+    Нека $d \triangleleft_{\vv{nat}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{nat}} \vv{v} \implies \rho
+    \Downarrow_{\vv{nat}} \vv{v}]$. Понеже $\sqsubseteq$ е плоската наредба в $\Nat_\bot$, то имаме два случая.
+    Ако $d = \bot^{\val{\vv{nat}}}$, то е ясно от 1), че $d \triangleleft_{\vv{nat}} \rho$.
+    Нека сега $d \neq \bot^{\val{\vv{nat}}}$. 
+    Понеже $d \triangleleft_{\vv{nat}} \tau$, то $\tau \Downarrow_{\vv{nat}} \vv{d}$.
+    Оттук следва, че $\rho \Downarrow_{\vv{nat}} \vv{d}$. Заключаваме, че $d \triangleleft_{\vv{nat}} \rho$.    
   \end{enumerate}
   
   Нека $\vv{a} = \vv{b} \to \vv{c}$. Да напомним, че $\val{\vv{b} \to \vv{c}} \dff \Cont{\val{\vv{b}}}{\val{\vv{c}}}$.
@@ -83,13 +81,14 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     Щом $f_i \triangleleft_{\vv{b}\to\vv{c}} \tau$, то за разглежданите $e$ и $\mu$ имаме, че $f_i(e) \triangleleft_{\vv{c}} \tau(\mu)$.
     Ние знаем, че ${(f_i(e))}^\infty_{i=0}$ е верига и от И.П. следва, че $\bigsqcup_i\{f_i(e)\} \triangleleft_{\vv{c}} \tau(\mu)$.
   \item
-    Нека $g \sqsubseteq f$, $f \triangleleft_{\vv{b}\to\vv{c}} \tau$ и $\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho
-    \Downarrow_{\vv{b}\to\vv{c}} \vv{v}$. Ще докажем, че $g \triangleleft_{\vv{b} \to \vv{c}} \rho$.
+    Нека $f \triangleleft_{\vv{b}\to\vv{c}} \tau$ и $\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho
+    \Downarrow_{\vv{b}\to\vv{c}} \vv{v}$. Ще докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \rho$.
     За целта, нека $e \in \val{\vv{b}}$, $\mu : \vv{b}$ и $e \triangleleft_{\vv{b}} \mu$.
-    Ще докажем, че $g(e) \triangleleft_{\vv{c}} \rho(\mu)$.
+    Ще докажем, че $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
     За момента знаем само, че $f(e) \triangleleft_{\vv{c}} \tau(\mu)$.
-    Щом $g \sqsubseteq f$, то $g(e) \sqsubseteq f(e)$ в областта на Скот $\val{\vv{c}}$.
     Понеже имаме следното правило в операционната семантика:
+    \marginpar{Имаме по условие, че 
+      \[\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho \Downarrow_{\vv{b}\to\vv{c}} \vv{v},\] а тук $\vv{v} \equiv \lamb{x}{b}{\tau'}$.}
     \begin{prooftree}
       \AxiomC{$\tau \Downarrow_{\vv{b}\to\vv{c}} \lamb{x}{b}{\tau'}$}
       \AxiomC{$\tau'\subst{x}{\mu} \Downarrow_{\vv{c}} \vv{v}'$}
@@ -105,10 +104,14 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     \end{prooftree}
     Оттук следва, че
     \[(\forall \vv{v}')[\tau(\mu) \Downarrow_{\vv{c}} \vv{v}' \implies \rho(\mu) \Downarrow_{\vv{c}} \vv{v}'].\]
-    Сега от И.П. директно следва, че $g(e) \triangleleft_{\vv{c}} \rho(\mu)$.
+    Сега от И.П. директно следва, че $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
   \end{enumerate}
 \end{proof}
 
+За да докажем, че $\val{\tau} \triangleleft_{\vv{nat}} \tau$, то трябва да докажем, че за всеки тип $\vv{a}$ и всеки $\tau \in \vv{PCF}_{\vv{a}}$
+$\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построението на термовете.
+Тук обаче имаме проблем. Ако $\tau \equiv \lamb{y}{b}{\tau_1}$, то трябва да използваме индукционно предположение за $\tau_1$,
+в който вече има свободна променлива $\vv{y}$. Поради тази причина, ние трябва да разгледаме едно по-общо твърдение.
 
 \begin{framed}
   \begin{theorem}[Фундаментално свойство на $\triangleleft_{\vv{a}}$]\label{th:pcf:fundamental}
@@ -124,13 +127,29 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
   Индукция по построението на термовете.
   \begin{itemize}
   \item
-    Нека $\tau \equiv \vv{c}$.
+    Нека $\tau \equiv \vv{n}$. Тук директно от дефиницията на релацията $\triangleleft_{\vv{nat}}$ имаме, че
+    \[n \triangleleft_{\vv{nat}} \vv{n}.\]
   \item
-    Нека $\tau \equiv \vv{x}_i$.
+    Нека $\tau \equiv \vv{x}_i$. Този случай също е много лесен.
+    Имаме, че $\tau[\ov{x}/\ov{\mu}] \equiv \mu_i$ и $\val{\tau}_\Gamma(\ov{u}) = u_i$.
+    Тогава, понеже $(u_1,\dots,u_n) \triangleleft_\Gamma (\mu_1,\dots,\mu_n)$,
+    то директно получаваме, че
+    \[\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{x}/\ov{\mu}].\]
   \item
-    Нека $\tau \equiv \tau_1 + \tau_2$.
+    Нека $\tau \equiv \tau_1 + \tau_2$. Тогава $\vv{a} = \vv{nat}$. Имаме също, че
+    \begin{align*}
+      & \tau[\ov{x}/\ov{\mu}] \equiv \tau_1[\ov{x}/\ov{\mu}] + \tau_2[\ov{x}/\ov{\mu}];\\
+      & \val{\tau}_\Gamma(\ov{u}) = \texttt{plus}(\underbrace{\val{\tau_1}_\Gamma(\ov{u})}_{n_1},\underbrace{\val{\tau_2}_\Gamma(\ov{u})}_{n_2}) = n.
+    \end{align*}
+    Можем да приемем, че $n \neq \bot$, защото в противен случай този случай е тривиален заради дефиницията на $\triangleleft_{\vv{nat}}$.
+    От И.П. имаме, че $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_1[\ov{x}/\ov{\mu}]$
+    и $\val{\tau_2}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_2[\ov{x}/\ov{\mu}]$.
+    Това означава, че $\tau_1[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}} \vv{n}_1$ и $\tau_2[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}}
+    \vv{n}_2$.
+    От правилата на операционната семантика е ясно, че $\tau[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}} \vv{n}$ и следователно
+    \[\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{\vv{x}}/\ov{\mu}].\]
   \item
-    Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
+    Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. 
   \item
     Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$.
   \item
@@ -177,12 +196,11 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times PCF_{\vv{a}}$
     От 3) на \Lem{pcf:relation} веднага заключаваме, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
   \item
     Нека $\tau \equiv \fix(\tau')$. Тогава от правилата за типизиране имаме, че $\tau' : \vv{a} \to \vv{a}$.
-    \marginpar{По-лесно става като се позовем на правилото на Скот ?}
     От И.П. имаме, че
     \[\val{\tau'}(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
     Нека за улеснение да положим $f \dff \val{\tau'}(\ov{u})$.
     Да напомним, че
-    \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\] % = \bigsqcup_i f^{(i)}(\bot^{\val{\vv{a}}}).\]
+    \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\]
     От 2) на \Lem{pcf:relation} знаем, че
     \[D = \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}])\}\]
     е непрекъснато свойство. Целта ни е да докажем, че

@@ -1,21 +1,21 @@
 \section{Денотационна семантика с предаване на параметрите по име}
 
-Започваме със семантика на типовете.
-
+Семантиката на всеки тип ще бъде област на Скот както следва:
 \begin{align*}
   & \val{\vv{nat}} \dff \Nat_\bot\\
   & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
-% За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
+За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
 % \marginpar{$\val{\emptyset} = ?$}
-% \[\val{\Gamma} \dff \val{\vv{a}_1}\times\cdots\times\val{\vv{a}_n}.\]
-Сега дефинираме семантиката на типовия контекст.
-\begin{itemize}
-\item
-  Нека $\Gamma = \type{x}{a}$. Тогава $\val{\Gamma} = \val{\vv{a}}$.
-\item
-  Нека $\Gamma = \Gamma', \type{x}{a}$. Тогава $\val{\Gamma} = \val{\Gamma'} \times \val{\vv{a}}$.
-\end{itemize}
+\marginpar{От Раздел~\ref{subsect:domains:product} знаем, че $\val{\Gamma}$ е област на Скот.}
+\[\val{\Gamma} \dff \prod^n_{i=1}\val{\vv{a}_i}.\]
+% Сега дефинираме семантиката на типовия контекст.
+% \begin{itemize}
+% \item
+%   Нека $\Gamma = \type{x}{a}$. Тогава $\val{\Gamma} = \val{\vv{a}}$.
+% \item
+%   Нека $\Gamma = \Gamma', \type{x}{a}$. Тогава $\val{\Gamma} = \val{\Gamma'} \times \val{\vv{a}}$.
+% \end{itemize}
 Например, ако $\Gamma = \vv{x}_1 : \vv{a}_1,\ \vv{x}_2 : \vv{a}_2,\ \vv{x}_3 : \vv{a}_3$, то
 \[\val{\Gamma} = (\val{\vv{a}_1} \times \val{\vv{a}_2})\times \val{\vv{a}_3}.\]
 
@@ -32,16 +32,16 @@
 \item
   \marginpar{За $\texttt{plus}$ вижте Раздел~\ref{subsect:rec:term-value}.}
   Нека $\tau \equiv \tau_1 + \tau_2$. Тогава
-  \[\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) \dff \texttt{plus}(\val{\tau_1}(\overline{u}), \val{\tau_2}(\overline{u})).\]
+  \[\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) \dff \texttt{plus}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\texttt{eq}$ вижте Раздел~\ref{subsect:rec:term-value}.}
   Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Тогава
-  \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \dff \texttt{eq}(\val{\tau_1}(\overline{u}), \val{\tau_2}(\overline{u})).\]
+  \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \dff \texttt{eq}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\texttt{if}$ вижте \Def{if}.}
   Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Тогава
-  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}_\Gamma(\overline{u}) \dff \texttt{if}(\val{\tau_1}(\overline{u}),
-  \val{\tau_2}(\overline{u}), \val{\tau_3}(\overline{u})).\]
+  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}_\Gamma(\overline{u}) \dff \texttt{if}(\val{\tau_1}_\Gamma(\overline{u}),
+  \val{\tau_2}_\Gamma(\overline{u}), \val{\tau_3}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\texttt{eval}$ вижте \Def{eval}.}
   Нека $\tau \equiv \tau_1 \tau_2$. Тогава

@@ -1,5 +1,26 @@
 \section{Пълна абстракция}
 
+\begin{definition}
+  \marginpar{\cite[стр. 179]{gunter}}
+  Денотационната семантика $\val{.}$ се нарича {\bf напълно абстрактна}, ако
+  операционата и денотационната наредба съвпадат, т.е.
+  за произволни термове $\tau_1,\tau_2 : \vv{a}$,
+  \[\val{\tau_1} \sqsubseteq \val{\tau_2} \iff \tau_1 \leq_{ctx} \tau_2.\]
+\end{definition}
+
+\begin{framed}
+  \begin{theorem}
+    Денотационната семантика $\val{.}$ за езика PCF {\bf не е} напълно абстрактна.
+  \end{theorem}
+\end{framed}
+
+\begin{lemma}
+  Съществуват термове $\tau_1$ и $\tau_2$,
+  за които $\tau_1 \cong_{ctx} \tau_2$, но $\val{\tau_1} \neq \val{\tau_2}$.
+\end{lemma}
+
+
+
 \begin{proposition}
   Не съществува затворен PCF терм $P$, за който
   \[\val{P} = \texttt{por}.\]
@@ -27,6 +48,12 @@
 \end{proposition}
 
 
+\begin{framed}
+  \begin{theorem}
+    Денотационната семантика $\val{.}$ за езика PCF+\texttt{por} е напълно абстрактна.
+  \end{theorem}
+\end{framed}
+\marginpar{\cite[стр. 188]{gunter}}
 
 %%% Local Variables:
 %%% mode: latex

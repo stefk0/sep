@@ -72,11 +72,12 @@ $\Gamma \vdash \tau_1 \leq_{ctx} \tau_2 : \vv{a}$ и $\Gamma \vdash \tau_2 \leq_
 
 \begin{framed}
   \begin{theorem}
-    За произволни $\tau_1, \tau_2 \in PCF_{\vv{a}}$,
-    \[\val{\tau_1} = \val{\tau_2} \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}.\]
+    За произволни $\tau_1, \tau_2 \in \vv{PCF}_{\vv{a}}$,
+    \[\val{\tau_1} \sqsubseteq \val{\tau_2} \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
   \end{theorem}  
 \end{framed}
 \begin{proof}
+  \marginpar{\cite[стр. 179]{gunter}}
   Достатъчно е да докажем, че
   \[\val{\tau_1} = \val{\tau_2} \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
   Нека $\C[-]$ е контекст, за който $\C[\tau_1] : \vv{nat}$ и $\C[\tau_2] : \vv{nat}$.

@@ -3,53 +3,55 @@
 \index{област на Скот!крайно произведение}
 \marginpar{\cite[стр. 125]{winskel}}
 
-Да разгледаме тройките $\A_i = (A_i, \sqsubseteq_i, \bot_i)$, където $i = 1,\dots,n$. Дефинираме тройката 
-$\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ като:
+Нека $\A$ и $\B$ са области на Скот.
+Тогава $\A \times \B \dff (A \times B,\sqsubseteq,\bot)$, където
 \begin{itemize}
 \item
-  $A \df A_1\times\dots\times A_n$, декартовото произведение на множествата $A_1,\dots,A_n$;
-\item 
-  $\pair{a_1,\dots,a_n} \sqsubseteq \pair{b_1,\dots,b_n} \dfff a_1 \sqsubseteq_1 b_1\ \&\ \dots\ \&\ a_n \sqsubseteq_n b_n$,
-  която ще наричаме {\em поточкова наредба};
+  $A \times B = \{\pair{a,b} \mid a \in A\ \&\ b \in B\}$;
 \item
-  $\bot \df \pair{\bot_1,\dots,\bot_n}$.
+  $\pair{a,b} \sqsubseteq \pair{a',b'} \iff a \sqsubseteq^\A a'\ \&\ b \sqsubseteq^\B b'$;
+\item
+  $\bot = \pair{\bot^\A,\bot^\B}$.
 \end{itemize}
 
 \begin{framed}
   \begin{proposition}
     \label{pr:cartesian}
-    Ако $\A_1,\dots,\A_n$ са области на Скот, то $\prod^n_{i=1}\A_i$ е област на Скот.
+    Ако $\A,\B$ са области на Скот, то $\A \times \B$ е област на Скот.
   \end{proposition}  
 \end{framed}
 \begin{hint}
   Лесно се съобразява, че $\sqsubseteq$ е частична наредба и че $\bot$ е най-малкият елемент.
-  Да разгледаме една верига $\chain{\ov{a}}{i}$ в $\prod^n_{i=1}\A_i$,
-  където $\bar{a}_i = \pair{a^i_1,\dots,a^i_n}$.
-  Да положим \[\bar{a} \df \pair{\bigsqcup_i a^i_1,\bigsqcup_i a^i_2,\ldots,\bigsqcup_i a^i_n,}.\]
-  Ще докажем, че $\bar{a}$ е точната горна граница на верига $\chain{\ov{a}}{i}$, т.е.
-  \[\bigsqcup_i\bar{a}_i = \pair{\bigsqcup_i a^i_1,\bigsqcup_i a^i_2,\ldots,\bigsqcup_i a^i_n,}.\]
-  Това ще направим на две стъпки.
+  Да разгледаме една верига $\{\pair{a_i,b_i}\}^\infty_{i=1}$ в $\A \times \B$.
+  Лесно се вижда, че
+  \[\bigsqcup_i\pair{a_i,b_i} = \pair{\bigsqcup_ia_i,\bigsqcup_ib_i}.\]
   \begin{itemize}
-  \item 
-    Първо ще докажем, че $\bar{a}$ е горна граница на $\chain{\bar{a}}{i}$.
-    За всеки индекс $j$, имаме, че $\bar{a}_j = (a^j_1,\dots,a^j_n)$.
-    Да разгледаме $1 \leq k \leq n$.
-    Ясно е, че $a^j_k \sqsubseteq_k \bigsqcup_i a^i_k$.
-    Оттук веднага следва, че
-    \[\bar{a}_j = \pair{a^j_1,\dots,a^j_n} \sqsubseteq \pair{\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n} = \bar{a}.\]
   \item
-    Нека $\bar{b} = \pair{b_1,\dots,b_n}$ е произволна горна граница на $\chain{\bar{a}}{i}$.
-    Ще докажем, че $\bar{a} \sqsubseteq \bar{b}$.
-    Знаем, че за всеки индекс $j$, $\bar{a}_j \sqsubseteq \bar{b}$.
-    Да разгледаме произволен индекс $k$, за който $1 \leq k \leq n$.
-    Знаем, че в областта на Скот $\A_k$ е изпълнено, че $a^j_k \sqsubseteq_k b_k$, за всеки индекс $j$.
-    Оттук следва, че $b_k$ е горна граница за веригата $(a^j_k)^\infty_{j=0}$ в $\A_k$.
-    Следователно
-    \[\bigsqcup_j a^k_j \sqsubseteq_k b_k.\]
-    Заключаваме, че
-    \[\bar{a} = \pair{\bigsqcup_i a^i_1,\dots,\bigsqcup_i a^i_n} \sqsubseteq \pair{b_1,\dots,b_n} = \bar{b}.\]
+    За произволен елемент $\pair{a_i,b_i}$ от веригата е ясно, че $a_i \sqsubseteq^\A \bigsqcup_ia_i$ и $b_i \sqsubseteq^\B \bigsqcup_i b_i$.
+    Следователно, $\pair{\bigsqcup_ia_i,\bigsqcup_ib_i}$ е горна граница на веригата.
+  \item
+    Нека $\pair{c,d}$ е горна граница на веригата, т.е. за всяко $i$,
+    $a_i \sqsubseteq^\A c$ и $b_i \sqsubseteq^\B d$.
+    Но тогава $c$ е горна граница на веригата $\chain{a}{i}$ и следователно $\bigsqcup_ia_i \sqsubseteq^\A c$.
+    Също така, $d$ е горна граница на веригата $\chain{b}{i}$ и следователно $\bigsqcup_i b_i \sqsubseteq^\B d$.
+    Заключаваме, че $\pair{\bigsqcup_ia_i,\bigsqcup_ib_i} \sqsubseteq \pair{c,d}$, т.е. $\pair{\bigsqcup_ia_i,\bigsqcup_ib_i}$
+    е точна горна граница на веригата.
   \end{itemize}
 \end{hint}
+
+Нека $\A_1,\dots,\A_n$, $n \geq 2$, са области на Скот. Дефинираме 
+$\prod^n_{i=1}\A_i = (A, \sqsubseteq, \bot)$ по следния начин:
+\begin{itemize}
+\item
+  Ако $n = 2$, то $\prod^2_{i=1} \A_i \dff \A_1 \times \A_2$.
+\item
+  Ако $n > 2$, то $\prod^n_{i=1} \A_i \dff (\prod^{n-1}_{i=1}\A_i) \times \A_n$.
+\end{itemize}
+
+Използвайки \Prop{cartesian}, лесно се съобразява следното твърдение.
+\begin{proposition}
+  Ако $\A_1,\dots,\A_n$, $n \geq 2$, са области на Скот, то $\prod^n_{i=1}\A_i$ е област на Скот.
+\end{proposition}
 
 \begin{framed}
   \begin{figure}[H]
