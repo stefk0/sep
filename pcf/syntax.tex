@@ -1,17 +1,18 @@
 \section{Синтаксис}
 
-\newcommand{\rename}[2]{\{\vv{#1}/\vv{#2}\}}
+\newcommand{\rename}[2]{\{\vv{#1}/{#2}\}}
 
+\newcommand{\var}{\texttt{var}}
 \newcommand{\fv}{\texttt{fv}}
 
 \begin{itemize}
-\item
+\item\index{тип}
   Типове
   \[\vv{a} ::= \vv{nat}\ |\ \vv{a} \to \vv{a}.\]
   Когато пишем 
   $\vv{a} \to \vv{b} \to \vv{c}$, то имаме предвид, че
   $\vv{a} \to (\vv{b} \to \vv{c})$.
-\item
+\item\index{израз}
   Изрази
   \[\tau ::= \vv{n}\ |\ \vv{x}\ |\ \tau + \tau\ |\ \tau\ \vv{==}\ \tau\ |\ \ifelse{\tau}{\tau}{\tau}\ |\ \tau\tau\ |\ \lamb{x}{a}{\tau}\ |\ \fix(\tau).\]
   Ще означаваме съвкупоността от всички изрази с $\mathcal{E}$, а съвкупността от всички променливи с $\mathcal{V}$.
@@ -48,35 +49,48 @@
   но $\lamb{x}{nat}{\vv{5+6}}$ е стойност.
 \end{itemize}
 
-С $\tau\rename{x}{u}$ ще означаваме изразът получен от $\tau$, в който всяко \emph{свободно} срещане на променливата $\vv{x}$
-е заменена с променливата $\vv{u}$. Можем да дадем формална дефиниция с индукция по построението на изразите:
+С $\tau\rename{x}{\rho}$ ще означаваме изразът получен от $\tau$, в който всяко \emph{свободно} срещане на променливата $\vv{x}$
+е заменена с израза $\rho$. Можем да дадем формална дефиниция с индукция по построението на изразите:
 \begin{itemize}
 \item
-  Ако $\tau$ е константата $\vv{n}$, то $\tau\rename{x}{u}$ e израза $\vv{n}$.
+  Ако $\tau$ е константата $\vv{n}$, то $\tau\rename{x}{\rho}$ e израза $\vv{n}$.
 \item
-  Ако $\tau$ е променливата $\vv{x}$, то $\tau\rename{x}{u}$ е израза $\vv{u}$.
+  Ако $\tau$ е променливата $\vv{x}$, то $\tau\rename{x}{\rho}$ е израза $\rho$.
 \item
-  Ако $\tau$ е променливата $\vv{y}$, където $\vv{y}$ не е променливата $\vv{x}$, то $\tau\rename{x}{u}$ е израза $\vv{y}$.
+  Ако $\tau$ е променливата $\vv{y}$, където $\vv{y}$ не е променливата $\vv{x}$, то $\tau\rename{x}{\rho}$ е израза $\vv{y}$.
 \item
   Ако $\tau$ е израза $\tau_1 + \tau_2$, то $\tau\rename{x}{y}$ е израза
-  \[\tau_1\rename{x}{u} + \tau_2\rename{x}{u}.\]
+  \[\tau_1\rename{x}{\rho} + \tau_2\rename{x}{\rho}.\]
 \item
-  Ако $\tau$ е израза $\tau_1\ \vv{==}\ \tau_2$, то $\tau\rename{x}{u}$ е израза
-  \[\tau_1\rename{x}{u}\ \vv{==}\ \tau_2\rename{x}{u}.\]
+  Ако $\tau$ е израза $\tau_1\ \vv{==}\ \tau_2$, то $\tau\rename{x}{\rho}$ е израза
+  \[\tau_1\rename{x}{\rho}\ \vv{==}\ \tau_2\rename{x}{\rho}.\]
 \item
-  Ако $\tau$ е израза $\ifelse{\tau_1}{\tau_2}{\tau_3}$, то $\tau\rename{x}{u}$ е израза
-  \[\ifelse{\tau_1\rename{x}{u}}{\tau_2\rename{x}{u}}{\tau_3\rename{x}{u}}.\]
+  Ако $\tau$ е израза $\ifelse{\tau_1}{\tau_2}{\tau_3}$, то $\tau\rename{x}{\rho}$ е израза
+  \[\ifelse{\tau_1\rename{x}{\rho}}{\tau_2\rename{x}{\rho}}{\tau_3\rename{x}{\rho}}.\]
 \item
   Ако $\tau$ е израза $\lamb{x}{a}{\tau'}$, то
-  $\tau\rename{x}{u}$ е израза $\tau$;
+  $\tau\rename{x}{\rho}$ е израза $\tau$;
 \item
   Ако $\tau$ е израза $\lamb{y}{a}{\tau'}$ и $\vv{y}$ е променлива различна от $\vv{x}$, то
-  $\tau\rename{x}{u}$ е израза
-  \[\lamb{y}{a}{\tau'\rename{x}{u}}.\]
+  $\tau\rename{x}{\rho}$ е израза
+  \[\lamb{y}{a}{\tau'\rename{x}{\rho}}.\]
 \end{itemize}
 
+Нека $\tau$ е израза $\lamb{x}{a}{\vv{x+y}}$.
+Обърнете внимание, че $\tau\rename{y}{\vv{x}}$ е израза $\lamb{x}{a}{\vv{x+x}}$,
+т.е. тук получаваме израз, който ,,смислово'' е доста различен от първоначалния израз $\tau$.
+Проблемът се състои в това, че някоя свободна променлива на $\rho$ може да попадне под обхвата на някоя свързана
+променлива на $\tau$.
+
+\index{$\alpha$-еквивалентност}
 Сега ще дефинираме бинарна релация между изрази, която ще наричаме $\alpha$-еквивалентност.
+Интуитивно, всеки два $\alpha$-еквивалентни израза трябва да бъдат смислово неотличими.
 Това е най-малката релация $\equiv$ между изрази, за която са изпълнени свойствата:
+\marginpar{
+  В тази дефиниция единствено последният случай е интересен.
+  Например,
+  \[(\lamb{x}{a}{\vv{x+z}})\vv{x} \equiv (\lamb{y}{a}{\vv{y+z}})\vv{x},\]
+  но \[(\lamb{x}{a}{\vv{x+y}})\vv{x} \not\equiv (\lamb{y}{a}{\vv{x+y}})\vv{x}.\]}
 \begin{itemize}
 \item
   $\vv{x} \equiv \vv{x}$;
@@ -95,54 +109,49 @@
 \item
   ако $\tau \equiv \rho$, то $\fix(\tau) \equiv \fix(\rho)$;
 \item
-  \marginpar{
-    В тази дефиниция единствено последният случай е интересен.
-    Например,
-    \[(\lamb{x}{a}{\vv{x+z}})\vv{x} \equiv (\lamb{y}{a}{\vv{y+z}})\vv{x}.\]}
-  ако $\tau\rename{x}{z} \equiv \rho\rename{y}{z}$, където $\vv{z} \not\in \fv(\tau) \cup \fv(\rho)$, то
+  
+  ако $\tau\rename{x}{\vv{z}} \equiv \rho\rename{y}{\vv{z}}$, където $\vv{z} \not\in \var(\tau) \cup \var(\rho)$, то
   \[\lamb{x}{a}{\tau} \equiv \lamb{y}{a}{\rho}.\]
 \end{itemize}
-
-Сега трябва да обобщим операцията преименуване на една променлива с друга с
-операцията замяна на една променлива с израз.
-Трябва да внимаваме как правим това, защото можем да получим
-израз с различен смисъл.
+\index{терм}
+\begin{framed}
+  PCF терм е клас на еквивалентност от PCF изрази относно релацията $\alpha$-еквивалентност.
+\end{framed}
 
 С $\tau\subst{x}{\rho}$ ще означаваме изразът получен от израза $\tau$, в който всяко \emph{свободно} срещане на променливата $\vv{x}$
-е заменена с терма $\rho$. Можем да дадем формална дефиниция с индукция по построението на изразите:
+е заменена с терма $\rho$, но искаме да направим тази замяна по такъв начин, че свободни променливи на $\rho$
+да не попаднат под обхвата на свързани променливи от $\tau$. За да направим това, операцията $\subst{x}{\rho}$
+трябва да работи не върху отделни изрази, а върху термове.
+\index{субституция}
+Можем да дадем формална дефиниция с индукция по построението на термовете:
 \begin{itemize}
 \item
-  $\vv{n}\subst{x}{\rho}$ e израза $\vv{n}$.
+  Ако $\tau \equiv \vv{n}$, то $\tau\subst{x}{\rho} \equiv \vv{n}$.
 \item
-  Ако $\tau$ е израза $\vv{x}$, то $\tau\subst{x}{\rho}$ е израза $\rho$.
+  Ако $\tau \equiv \vv{x}$, то $\tau\subst{x}{\rho} \equiv \rho$.
 \item
-  Ако $\tau$ е израза $\vv{y}$ и $\vv{y}$ различна променлива от $\vv{x}$, то $\tau\subst{x}{\rho}$ е израза $\vv{y}$.
+  Ако $\tau \equiv \vv{y}$ и $\vv{y}$ е променлива различна от $\vv{x}$, то $\tau\subst{x}{\rho} \equiv \vv{y}$.
 \item
-  Ако $\tau$ е израза $\tau_1 + \tau_2$, то
-  $\tau\subst{x}{y}$ е израза $\tau_1\subst{x}{\rho} + \tau_2\subst{x}{\rho}$.
+  Ако $\tau \equiv \tau_1 + \tau_2$, то
+  \[\tau\subst{x}{y} \equiv \tau_1\subst{x}{\rho} + \tau_2\subst{x}{\rho}.\]
 \item
-  Ако $\tau$ е израза $\tau_1\ \vv{==}\ \tau_2$, то $\tau\subst{x}{\rho}$ е израза
-  \[\tau_1\subst{x}{\rho}\ \vv{==}\ \tau_2\subst{x}{\rho}.\]
+  Ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
+  \[\tau\subst{x}{\rho} \equiv \tau_1\subst{x}{\rho}\ \vv{==}\ \tau_2\subst{x}{\rho}.\]
 \item
-  Ако $\tau$ е израза $\ifelse{\tau_1}{\tau_2}{\tau_3}$, то $\tau\subst{x}{\rho}$ е израза
-  \[\ifelse{\tau_1\subst{x}{\rho}}{\tau_2\subst{x}{\rho}}{\tau_3\subst{x}{\rho}}.\]
+  Ако $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
+  \[\tau\subst{x}{\rho} \equiv \ifelse{\tau_1\subst{x}{\rho}}{\tau_2\subst{x}{\rho}}{\tau_3\subst{x}{\rho}}.\]
+% \item
+%   Ако $\tau \equiv \lamb{x}{a}{\tau'}$, то
+%   $\tau\subst{x}{\rho} \equiv \tau$;
 \item
-  Ако $\tau$ е израза $\lamb{x}{a}{\tau'}$, то
-  $\tau\subst{x}{\rho}$ е израза $\tau$;
-\item
-  Ако $\tau$ е израза $\lamb{y}{a}{\tau'}$ и $\vv{y}$ е променлива различна от $\vv{x}$, то
-  $\tau\subst{x}{\rho}$ е израза
-  \[\lamb{z}{a}{(\tau'\rename{y}{z}\subst{x}{\rho})},\]
-  където $\vv{z} \not\in \fv(\tau') \cup \fv(\rho) \cup \{x\}$.
+  Ако $\tau \equiv \lamb{y}{a}{\tau'}$, то
+  \[\tau\subst{x}{\rho} \equiv \lamb{z}{a}{(\tau'\subst{y}{\vv{z}}\subst{x}{\rho})},\]
+  където $\vv{z} \not\in \fv(\tau') \cup \fv(\rho) \cup \{\vv{x}\}$.
 \end{itemize}
 
 В тази дефиниция отново единствено последният случай е интересен.
 Обърнете внимание, че според него заместването на $\vv{x}$ с $\rho$ дава като резултат безкрайно много
 изрази, всички от които са $\alpha$-еквивалентни.
-
-\begin{framed}
-  PCF терм е клас на еквивалентност от PCF изрази относно релацията $\alpha$-еквивалентност.
-\end{framed}
 
 Това означава, че няма значение дали ще говорим за $\lamb{x}{a}{\vv{x+y}}$ или за $\lamb{y}{a}{\vv{y+z}}$.
 Тези два израза описват един и същи терм.

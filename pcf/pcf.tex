@@ -1,10 +1,12 @@
-\chapter{Езикът {\bf PCF}}\label{ch:pcf}
+\chapter{Езикът PCF}\label{ch:pcf}
 \marginpar{Plotkin’s language PCF is often called the \emph{E. coli} of programming languages, the  subject  of  countless  studies  of  language  concept.}
 
-\marginpar{\cite[Глава 19]{practical-foundations}}
+\marginpar{Тази глава се оповава основно на \cite[Глава 19]{practical-foundations} и \cite{cambridge-den-sem}.}
 
+\newcommand{\nat}{\vv{nat}}
 \newcommand{\type}[2]{\vv{#1}:\vv{#2}}
 \newcommand{\lamb}[3]{\lambda\type{#1}{#2}\ .\ {#3}}
+
 
 \input{pcf/syntax}
 
@@ -18,10 +20,10 @@
 \input{pcf/soundness-cbn}
 \newpage
 \input{pcf/adequacy}
-% \newpage
-% \input{pcf/context}
-% \newpage
-% \input{pcf/full-abstraction}
+\newpage
+\input{pcf/context}
+\newpage
+\input{pcf/full-abstraction}
 
 
 %%% Local Variables:

@@ -6,16 +6,10 @@
   & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
 За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
-% \marginpar{$\val{\emptyset} = ?$}
+\marginpar{Формално погледнато, трябва да се обясни какво е $\val{\emptyset}$.
+Например може да се дефинира $\emptyset_\bot = (\{\bot\},\sqsubseteq,\bot)$ и $\val{\emptyset} \dff \emptyset_\bot$.}
 \marginpar{От Раздел~\ref{subsect:domains:product} знаем, че $\val{\Gamma}$ е област на Скот.}
 \[\val{\Gamma} \dff \prod^n_{i=1}\val{\vv{a}_i}.\]
-% Сега дефинираме семантиката на типовия контекст.
-% \begin{itemize}
-% \item
-%   Нека $\Gamma = \type{x}{a}$. Тогава $\val{\Gamma} = \val{\vv{a}}$.
-% \item
-%   Нека $\Gamma = \Gamma', \type{x}{a}$. Тогава $\val{\Gamma} = \val{\Gamma'} \times \val{\vv{a}}$.
-% \end{itemize}
 Например, ако $\Gamma = \vv{x}_1 : \vv{a}_1,\ \vv{x}_2 : \vv{a}_2,\ \vv{x}_3 : \vv{a}_3$, то
 \[\val{\Gamma} = (\val{\vv{a}_1} \times \val{\vv{a}_2})\times \val{\vv{a}_3}.\]
 
@@ -181,22 +175,10 @@
   Тогава за всеки терм $\tau$, такъв че $\Gamma \vdash \tau : \vv{a}$, е изпълено, че за всеки $(u_1,\dots,u_n) \in \val{\Gamma}$,
   \[\val{\tau}_\Gamma(u_1,\dots,u_i,\dots,u_j,\dots,u_n) = \val{\tau}_\Delta(u_1,\dots,u_j,\dots,u_i,\dots,u_n).\]
 \end{proposition}
-\begin{proof}
+\begin{hint}
   Индукция по построението на терма $\tau$.
-\end{proof}
+\end{hint}
 
-
-\begin{problem}
-  Нека $\Omega_{\vv{a}} \dff \fix(\lamb{x}{a}{\vv{x}})$.
-  \marginpar{Вече знаем, че $\Omega_{\vv{a}}$ има тип $\vv{a}$.}
-  Докажете, че:
-  \begin{enumerate}[1)]
-  \item
-    $\val{\Omega_{\vv{a}}} = \bot \in \val{\vv{a}}$;
-  \item
-    $\val{\lamb{x}{a}{\Omega_{\vv{a}}}} = \val{\Omega_{\vv{a}\to\vv{a}}}$.
-  \end{enumerate}
-\end{problem}
 
 
 %%% Local Variables:

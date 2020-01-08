@@ -2,10 +2,11 @@
 \subsection{Регулярни езици}\index{език!регулярен}
 
 Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_k\}$.
-Да дефинираме полиномите над $\Sigma$ като
-\[\tau ::= \emptyset\ |\ \varepsilon\ |\ a_i \cdot X_j\ |\ \tau_1 + \tau_2.\]
+Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
+Дефинираме термовете над $\Sigma$ като
+\[\tau ::= \emptyset\ |\ \varepsilon\ |\ a_i \cdot X_j\ |\ \tau + \tau.\]
 където $i = 1, \dots,k$, а $X$ е променлива.
-За всеки полином $\tau[X_1,\dots,X_n]$ дефинираме оператора 
+За всеки терм $\tau[X_1,\dots,X_n]$ дефинираме оператора 
 \marginpar{Тук за променливите използваме главни букви за да се сещаме, че те приемат стойности множества от думи.}
 \[\val{\tau}: \mathcal{P}(\Sigma^\star)^n \to \mathcal{P}(\Sigma^\star)\]
  по следния начин:
@@ -21,7 +22,7 @@
 \end{itemize}
 
 \begin{problem}
-  Докажете, че за всеки полином $\tau$ имаме, че $\val{\tau}$ е непрекъснато изображение в областта на Скот
+  Докажете, че за всеки терм $\tau$ имаме, че $\val{\tau}$ е непрекъснато изображение в областта на Скот
   $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
 \end{problem}
 
@@ -74,7 +75,7 @@
 \end{problem}
 
 \begin{problem}
-  Да разгледаме системата от оператори
+  Да разгледаме системата от непрекъснати оператори
   \begin{align*}
     & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
     & \ \ \vdots\\
@@ -87,6 +88,54 @@
   на някоя система от оператори от горния вид.
 \end{problem}
 
+Да разгледаме програмата $P$
+\begin{align*}
+  & X_1 = \tau_1[X_1,\dots,X_n]\\
+  & \vdots\\
+  & X_n = \tau_n[X_1,\dots,X_n].
+\end{align*}
+
+% \marginpar{Няма как да дефинираме операционна семантика, която да разпознава целия език, защото за това ще са ни необходими безкрайно много стъпки.}
+
+% Тогава можем да дефинираме релацията $\rho \Downarrow^\ell_P \alpha$, за терм $\rho$, който съдържа променливи измежду $X_1,\dots,X_n$,
+% по следния начин:
+% % \begin{prooftree}
+% %   \AxiomC{}
+% %   \UnaryInfC{$\emptyset \Downarrow^0_P \emptyset$}
+% % \end{prooftree}
+
+% \begin{prooftree}
+%   \AxiomC{}
+%   \UnaryInfC{$\varepsilon \Downarrow^0_P \varepsilon$}
+% \end{prooftree}
+
+% \begin{prooftree}
+%   \AxiomC{$\tau_i \Downarrow^\ell_P \alpha$}
+%   \UnaryInfC{$a \cdot X_i \Downarrow^{\ell+1}_P a \cdot \alpha$}
+% \end{prooftree}
+
+% \begin{prooftree}
+%   \AxiomC{$\rho_1 \Downarrow^{\ell_1}_P \alpha_1$}
+%   % \AxiomC{$\rho_2 \Downarrow^{\ell_2}_P \alpha_2$}
+%   \UnaryInfC{$\rho_1 + \rho_2 \Downarrow^{\ell_1+1}_P \alpha_1$}
+% \end{prooftree}
+
+% \begin{prooftree}
+%   % \AxiomC{$\rho_1 \Downarrow^{\ell_1}_P \alpha_1$}
+%   \AxiomC{$\rho_2 \Downarrow^{\ell_2}_P \alpha_2$}
+%   \UnaryInfC{$\rho_1 + \rho_2 \Downarrow^{\ell_2+1}_P \alpha_2$}
+% \end{prooftree}
+
+
+% \begin{problem}
+%   Нека $P$ е програма и $\tau$ е терм с променливи измежду тези, които се срещат в $P$.
+%   Нека $(L_1,\dots,L_n)$ е най-малкото решение на системата $P$.
+%   Докажете, че
+%   \[\alpha \in \val{\tau}(L_1,\dots,L_n) \iff \tau \Downarrow_P \alpha.\]
+% \end{problem}
+
+
+
 \subsection{Безконтекстни езици}\index{език!безконтекстен}
 
 Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_n\}$.
@@ -95,7 +144,7 @@
 където $j = 1, \dots,n$, а $X_i$ са изброимо безкрайна редица от променливи.
 За всеки терм $\tau[X_1,\dots,X_n]$ дефинираме оператора 
 \[\val{\tau}: (\mathcal{P}(\Sigma^\star))^n \to \mathcal{P}(\Sigma^\star)\]
- по следния начин:
+по следния начин:
 \begin{itemize}
 \item 
   $\val{X_i}(L_1,\dots,L_n) = L_i$.
@@ -126,7 +175,7 @@
 Нека сега да разгледаме термовете $\tau_1[X_1,\dots,X_n], \dots, \tau_n[X_1,\dots,X_n]$.
 
 \begin{problem}
-  Да разгледаме системата от оператори
+  Да разгледаме системата от непрекъснати оператори
   \begin{align*}
     & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
     & \ \ \vdots\\

@@ -1,7 +1,7 @@
-\section{Операционна семантика с предаване на параметрите по име}
+\section{Операционна семантика с предаване на параметрите по име}\label{pcf:sect:operational-cbn}
 
 Дефинираме релацията $\Downarrow^\ell_{\vv{a}}$ върху затворените изрази и стойностите.
-
+\marginpar{Да напомним, че с $\vv{v}$ означаваме стойности, които биват или константи или затворени термове от вида $\lamb{x}{a}{\mu}$.}
 \begin{prooftree}
   \AxiomC{$\type{v}{a}$}
   \RightLabel{\scriptsize{(val)}}
@@ -53,30 +53,17 @@
   \UnaryInfC{$\fix(\tau) \Downarrow^{\ell+1}_{\vv{a}} \vv{v} $}
 \end{prooftree}
 
-Ще пишем $\tau \Downarrow_{\vv{a}} \vv{v}$, ако съществува $\ell$, за което $\tau \Downarrow^\ell_{\vv{a}} \vv{v}$.
-
+\begin{itemize}
+\item 
+  Ще пишем $\tau \Downarrow_{\vv{a}} \vv{v}$, ако съществува $\ell$, за което $\tau \Downarrow^\ell_{\vv{a}} \vv{v}$.  
+\item
+  Също така, ще пишем $\tau \not\Downarrow_{\vv{a}}$, ако не съществува стойност $\vv{v}$, за която $\tau \Downarrow_{\vv{a}} \vv{v}$.  
+\end{itemize}
 
 \begin{lemma}
   За произволен затворен терм $\tau$ и стойности $\vv{v}$ и $\vv{u}$,
-  ако $\tau \Downarrow_{\vv{a}} \vv{v}$ и $\tau \Downarrow_{\vv{a}} \vv{u}$, то $\vv{v} \equiv \vv{u}$.
+  \[\tau \Downarrow_{\vv{a}} \vv{v}\ \&\ \tau \Downarrow_{\vv{a}} \vv{u}\ \implies\ \vv{v} \equiv \vv{u}.\]
 \end{lemma}
-
-\begin{example}
-  \[\Omega_{\vv{a}} \equiv \fix(\lamb{x}{a}{\vv{x}}).\]
-  Лесно се вижда, че:
-  \begin{itemize}
-  \item
-    $\emptyset \vdash \Omega_{\vv{a}} : \vv{a}$.
-  \item
-    За всяка стойност $\vv{v}$,
-    $\Omega_{\vv{a}} \not\Downarrow_{\vv{a}} \vv{v}$.
-  \end{itemize}
-\end{example}
-\begin{proof}
-  Да допуснем, че $\Omega_{\vv{a}} \Downarrow_{\vv{a}} \vv{v}$ и нека фиксираме $\ell$
-  да бъде най-малкия брой преобразования, за които
-  \[\Omega_{\vv{a}} \Downarrow^{\ell}_{\vv{a}} \vv{v}.\]
-\end{proof}
 
 
 \begin{example}
@@ -94,6 +81,8 @@
   \[ \rho\ \tau\ \vv{n} \Downarrow_{\vv{nat}} \vv{k}.\]
 \end{example}
 
+
+Можем да напишем директно горния пример и на хаскел:
 \begin{haskellcode}
 > fix f = f (fix f)
 > times = fix(\f x y -> if y == 0 then 0 else x + (f x (y-1)))

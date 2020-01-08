@@ -7,8 +7,10 @@
     \[\val{\tau} = n \neq \bot \implies \tau \Downarrow_{\vv{nat}} \vv{n}.\]
   \end{theorem}
 \end{framed}
+\marginpar{Тук $n$ е число, а $\vv{n}$ е константа.}
 
-Дефинираме за всеки тип $\vv{a}$ релацията 
+Оказва се, че доказателството на тази теорема не е леко.
+Ще започнем като дефинираме за всеки тип $\vv{a}$ релацията 
 $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
 с индукция по построението на типовете.
 
@@ -34,21 +36,20 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   \item
     $D = \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \tau\}$ е непрекъснато свойство в областта на Скот $\val{\vv{a}}$;
   \item
-    \marginpar{За какво ми е това $u \sqsubseteq d$ ?}
+    \marginpar{Не ми трябва $u \sqsubseteq d$.}
     Ако $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
     \Downarrow_{\vv{a}} \vv{v}]$, то $d \triangleleft_{\vv{a}} \rho$.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
   Индукция по построението на типовете $\vv{a}$.
-
-  Нека $\vv{a} = \vv{nat}$. Да напомним, че $\val{\vv{nat}} \dff \Nat_\bot$.
+  Първо, нека $\vv{a} = \vv{nat}$ и да фиксираме произволен терм $\tau : \vv{nat}$.
+  \marginpar{Да напомним, че $\val{\vv{nat}} \dff \Nat_\bot$.}
   \begin{enumerate}[1)]
   \item
-    Да фиксираме произволен терм $\tau$.
-    По тривиални съображения имаме, че $\bot^{\val{\vv{nat}}} \triangleleft_{\vv{nat}} \tau$.
+    По тривиални съображения имаме, че
+    \[\bot^{\val{\vv{nat}}} \triangleleft_{\vv{nat}} \tau.\]
   \item
-    Да фиксираме произволен терм $\tau$.
     Нека $\chain{d}{i}$ е верига от елементи на $\Nat_\bot$ и за всяко $i$, $d_i \triangleleft_{\vv{nat}} \tau$.
     Ако за всяко $i$, $d_i = \bot$, то $\bigsqcup_i d_i = \bot^{\val{\vv{nat}}}$ и следователно $\bigsqcup_i d_i
     \triangleleft_{\vv{nat}} \tau$.
@@ -64,7 +65,8 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
     Оттук следва, че $\rho \Downarrow_{\vv{nat}} \vv{d}$. Заключаваме, че $d \triangleleft_{\vv{nat}} \rho$.    
   \end{enumerate}
   
-  Нека $\vv{a} = \vv{b} \to \vv{c}$. Да напомним, че $\val{\vv{b} \to \vv{c}} \dff \Cont{\val{\vv{b}}}{\val{\vv{c}}}$.
+  Второ, ека $\vv{a} = \vv{b} \to \vv{c}$ и да фиксираме произволен терм $\tau : \vv{b} \to \vv{c}$.
+  \marginpar{Да напомним, че \[\val{\vv{b} \to \vv{c}} \dff \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]}
   \begin{enumerate}[1)]
   \item
     Тук имаме, че $\bot^{\val{\vv{a}}} \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}$ е изображение,
@@ -114,14 +116,14 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
 в който вече има свободна променлива $\vv{y}$. Поради тази причина, ние трябва да разгледаме едно по-общо твърдение.
 
 \begin{framed}
-  \begin{theorem}[Фундаментално свойство на $\triangleleft_{\vv{a}}$]\label{th:pcf:fundamental}
+  \begin{lemma}[Фундаментално свойство на $\triangleleft_{\vv{a}}$]\label{lem:pcf:fundamental}
     Нека $\Gamma = \vv{x}_1:\vv{a}_1,\dots,\vv{x}_n:\vv{a}_n$. Тогава
     \begin{prooftree}
       \AxiomC{$\Gamma \vdash \tau : \vv{a}$}
       \AxiomC{$(u_1,\dots,u_n) \triangleleft_\Gamma (\mu_1,\dots,\mu_n)$}
       \BinaryInfC{$\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{\vv{x}}/\ov{\mu}]$}
     \end{prooftree}
-  \end{theorem}  
+  \end{lemma}  
 \end{framed}
 \begin{proof}
   Индукция по построението на термовете.
@@ -195,10 +197,10 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     \end{prooftree}
     От 3) на \Lem{pcf:relation} веднага заключаваме, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
   \item
-    Нека $\tau \equiv \fix(\tau')$. Тогава от правилата за типизиране имаме, че $\tau' : \vv{a} \to \vv{a}$.
-    От И.П. имаме, че
+    Нека $\tau \equiv \fix(\tau')$. Тогава от правилата за типизиране имаме, че $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
+    От И.П., приложено за $\tau'$, имаме, че
     \[\val{\tau'}(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
-    Нека за улеснение да положим $f \dff \val{\tau'}(\ov{u})$.
+    Нека за улеснение да положим $f \dff \val{\tau'}(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
     Да напомним, че
     \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\]
     От 2) на \Lem{pcf:relation} знаем, че
@@ -233,11 +235,12 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   \end{itemize}
 \end{proof}
 
-\begin{framed}
-  \begin{corollary}\label{cr:pcf:fundamental}
-    Ако $\tau : \vv{a}$, то $\val{\tau} \triangleleft_{\vv{a}} \tau$.
-  \end{corollary}
-\end{framed}
+\begin{corollary}\label{cr:pcf:fundamental}
+  За всеки тип $\vv{a}$,
+  \[\tau \in \text{PCF}_{\vv{a}} \implies \val{\tau} \triangleleft_{\vv{a}} \tau.\]
+\end{corollary}
+
+Вече на практика доказахме теоремата за адекватност.
 
 \begin{framed}
   \begin{theorem}[Теорема за адекватност]\label{th:pcf:adequacy}
@@ -252,6 +255,15 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   Тогава от дефиницията на $\triangleleft_{\vv{nat}}$ получаваме, че $\tau \Downarrow_{\vv{nat}} \vv{n}$.
 \end{proof}
 
+\begin{corollary}
+  За всеки $\tau \in \text{PCF}_{\vv{nat}}$,
+  \[\tau \not\Downarrow_{\vv{nat}}\ \implies\ \val{\tau} = \bot^{\val{\vv{nat}}}.\]  
+\end{corollary}
+
+
+Но както видяхме в Пример~\ref{pcf:ex:no-adequacy-high-types} не можем да обобщим тази импликация за по-високи типове.
+Това означава, че нашата семантика не е напълно ,,добра'' в смисъл, че $\bot^{\val{\vv{a}}}$ елементът не
+отговаря на нашата интуиция за безкрайно изчисление за всеки тип $\vv{a}$.
 
 
 %%% Local Variables:
