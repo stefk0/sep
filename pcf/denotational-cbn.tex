@@ -5,11 +5,15 @@
   & \val{\vv{nat}} \dff \Nat_\bot\\
   & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
-За един типов контекст $\Gamma = \vv{x}_1\ :\ \vv{a}_1,\dots,\vv{x}_n\ :\ \vv{a}_n$, нека
-\marginpar{Формално погледнато, трябва да се обясни какво е $\val{\emptyset}$.
-Например може да се дефинира $\emptyset_\bot = (\{\bot\},\sqsubseteq,\bot)$ и $\val{\emptyset} \dff \emptyset_\bot$.}
+\marginpar{Да напомним, че \[\emptyset_\bot = (\{\bot\},\sqsubseteq,\bot).\]}
 \marginpar{От Раздел~\ref{subsect:domains:product} знаем, че $\val{\Gamma}$ е област на Скот.}
-\[\val{\Gamma} \dff \prod^n_{i=1}\val{\vv{a}_i}.\]
+За един типов контекст $\Gamma$, дефинираме $\val{\Gamma}$ по следния начин:
+\begin{itemize}
+\item
+  Ако $\Gamma = \emptyset$, то $\val{\Gamma} = \emptyset_\bot$;
+\item
+  Ако $\Gamma = \Gamma', \vv{x:a}$, то $\val{\Gamma} = \val{\Gamma'} \times \val{\vv{a}}$.
+\end{itemize}
 Например, ако $\Gamma = \vv{x}_1 : \vv{a}_1,\ \vv{x}_2 : \vv{a}_2,\ \vv{x}_3 : \vv{a}_3$, то
 \[\val{\Gamma} = (\val{\vv{a}_1} \times \val{\vv{a}_2})\times \val{\vv{a}_3}.\]
 
@@ -50,6 +54,10 @@
   Нека $\Gamma' \df \Gamma, \type{y}{b}$. Тогава
   \[\val{\lamb{y}{b}{\tau'}}_\Gamma(\overline{u}) \dff \curry(\val{\tau'}_{\Gamma'})(\overline{u}).\]
 \end{itemize}
+
+\begin{remark}
+  За $\Gamma = \emptyset$, ще пишем $\val{\tau}$ вместо $\val{\tau}_\emptyset$.
+\end{remark}
 
 Не е ясно дали винаги горните дефиниции имат смисъл.
 Сега ще докажем, че винаги, когато един терм е добре типизиран, то горната дефиниция има смисъл.
@@ -163,6 +171,15 @@
     \[\val{\lamb{y}{b}{\tau}}_\Gamma \dff \curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}.\]
   \end{itemize}
 \end{proof}
+
+\begin{remark}
+  В случая $\Gamma = \emptyset$, формално погледнато,
+  $\val{\tau}_\emptyset \in \Cont{\emptyset_\bot}{\A}$, за някоя област на Скот $\A$.
+  Но ние знаем, че $\Cont{\emptyset_\bot}{\A} \cong \A$.
+  Следователно, можем да считаме, че $\val{\tau} \in \A$.
+  В противен случай, трябва винаги да пишем $\val{\tau}(\bot)(a)$ вместо $\val{\tau}(a)$.
+\end{remark}
+
 
 \begin{proposition}
   \marginpar{Ясно е, че това твърдение се обобщава за произволна пермутация на индекстите $1,\dots,n$.}
