@@ -1,5 +1,5 @@
 \section{Пълна абстракция}\label{pcf:sect:full-abstraction}
-
+\marginpar{Full abstraction на англ.}
 \begin{definition}
   \marginpar{\cite[стр. 179]{gunter}}
   Денотационната семантика $\val{.}$ се нарича {\bf напълно абстрактна}, ако
@@ -13,27 +13,28 @@
     Денотационната семантика $\val{.}$ за езика PCF {\bf не е} напълно абстрактна.
   \end{theorem}
 \end{framed}
-Да напомним, че винаги имаме следното:
+Да напомним, че от \Th{pcf:context:connection} винаги имаме следното:
 \[ \val{\tau_1} = \val{\tau_2} \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}.\]
-Това означава, че трябва да термове $\tau_1$ и $\tau_2$, за които
+Сега ще се захванем с търсенето на термове $\tau_1$ и $\tau_2$, за които
 $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 
-Да дефинираме функцията $sor:\Nat_\bot \to (\Nat_\bot \to \Nat_\bot)$ по следния начин:
-\marginpar{$sor$ идва от sequential or.}
-
-\begin{tabular}{|c|c|c|c|}
-  \hline
-  $sor$ & $\bot$ & $0$ & $y>0$ \\
-  \hline
-  $\bot$ & $\bot$ & $\bot$ & $\bot$\\
-  \hline
-  $0$ & $\bot$ & $0$ & $1$\\
-  \hline
-  $x>0$ & $1$ & $1$ & $1$\\
-  \hline
-\end{tabular}
 
 \begin{problem}
+  Да дефинираме функцията $sor:\Nat_\bot \to (\Nat_\bot \to \Nat_\bot)$ по следния начин:
+  \marginpar{$sor$ идва от sequential or.}
+  
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    $sor$ & $\bot$ & $0$ & $y>0$ \\
+    \hline
+    $\bot$ & $\bot$ & $\bot$ & $\bot$\\
+    \hline
+    $0$ & $\bot$ & $0$ & $1$\\
+    \hline
+    $x>0$ & $1$ & $1$ & $1$\\
+    \hline
+  \end{tabular}
+  
   Докажете, че $sor$ е определима в PCF.
 \end{problem}
 \begin{hint}
@@ -42,7 +43,10 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   Докажете, че $\val{\tau} = sor$.
 \end{hint}
 
-Сега дефинираме функция $por:\Nat_\bot\to(\Nat_\bot \to \Nat_\bot)$ по следния начин:
+
+\begin{problem}
+
+Да дефинираме изображението $por:\Nat_\bot\to(\Nat_\bot \to \Nat_\bot)$ по следния начин:
 
 \begin{tabular}{|c|c|c|c|}
   \hline
@@ -57,7 +61,6 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 \end{tabular}
 \marginpar{$por$ идва от parallel or.}
 
-\begin{problem}
   Докажете, че $por$ е непрекъснато изображение.
 \end{problem}
 \begin{hint}
@@ -70,6 +73,16 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
     за който $\val{\rho} = por$.
   \end{lemma}
 \end{framed}
+
+\begin{example}
+Да видим, че операторът ,,или'' в хаскел не е паралелен.
+\begin{haskellcode}
+ghci> True || undefined
+True
+ghci> undefined || True
+*** Exception: Prelude.undefined
+\end{haskellcode}
+\end{example}
 
 \begin{problem}\label{prob:pcf:full-abstraction:por}
   Да разгледаме $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което имаме ограниченията:
@@ -93,9 +106,9 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   Използвайте монотонността на $f$.
 \end{hint}
 
-\begin{problem}\label{prob:pcf:full-abstraction:not-definble}
+\begin{problem}\label{prob:pcf:full-abstraction:not-definable}
   Да разгледаме изображението $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което
-  \[f(0)(0) = 0\text{ и } f(1)(0) = f(0)(1) = 1.\]
+  \[f(0)(0) = 0\text{ и } f(1)(\bot) = f(\bot)(1) = 1.\]
   Докажете, че $f$ не е определима в PCF.
 \end{problem}
 \begin{hint}
@@ -109,37 +122,33 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
     \tau' & \dff \tau\rho_{\vv{x}};\\
     \tau'' & \dff \tau'\rho_{\vv{y}}.
   \end{align*}
-  Нека също така $\Gamma \dff \type{x}{nat}$, $\Delta = \type{y}{nat}$.
-  Тогава е ясно, че $\val{\tau'}_\Gamma \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$ и
+  Нека също така $\Gamma \dff \type{x}{nat}$ и $\Delta = \type{y}{nat}$.
+  Ясно, че $\val{\tau'}_\Gamma \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$ и
   \begin{align*} 
-    \val{\tau'}_\Gamma  & = \val{\tau\rho_{\vv{x}}}_\Gamma\\
-                       & = \texttt{eval}(\val{\tau}, \val{\rho_{\vv{x}}}_\Gamma)\\
-                       & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma)
+    \val{\tau'}_\Gamma(u)  & = \val{\tau\rho_{\vv{x}}}_\Gamma(u)\\
+                       & = \texttt{eval}(\val{\tau}, \val{\rho_{\vv{x}}}_\Gamma(u))\\
+                       & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))
   \end{align*}
-  
   Нека $f' = \val{\tau'}_\Gamma$. Получаваме следното за $f'$.
   \[f'(u) = f(\val{\rho_{\vv{x}}}_\Gamma(u)) =
     \begin{cases}
       f(u), & \text{ако } u = \bot \text{ или } u = 0\\
       f(1), & \text{ако } u > 0.
     \end{cases}\]
-  
-  Аналогично, ясно е, че $\val{\tau''}_{\Delta,\Gamma} \in \Cont{\Nat_\bot\times\Nat_\bot}{\Nat_\bot}$ и
+  Аналогично, ясно е, че $\val{\tau''}_{\Gamma,\Delta} \in \Cont{\Nat_\bot\times\Nat_\bot}{\Nat_\bot}$ и
   \begin{align*} 
-    \val{\tau''}_{\Gamma,\Delta}  & = \val{\tau'\rho_{\vv{y}}}_{\Gamma,\Delta}\\
-                                  & = \texttt{eval}(\val{\tau'}_\Gamma, \val{\rho_{\vv{y}}}_\Delta)\\
-                                  & = \val{\tau'}_\Gamma(\val{\rho_{\vv{y}}}_\Delta)\\
-                                  & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma)(\val{\rho_{\vv{y}}}_\Delta).
+    \val{\tau''}_{\Gamma,\Delta}(u,v)  & = \val{\tau'\rho_{\vv{y}}}_{\Gamma,\Delta}(u,v)\\
+                                  & = \texttt{eval}(\val{\tau'}_\Gamma(u), \val{\rho_{\vv{y}}}_\Delta(v))\\
+                                  & = \val{\tau'}_\Gamma(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
+                                  & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))(\val{\rho_{\vv{y}}}_\Delta(v)).
   \end{align*}
-  Тогава
-  \[\val{\tau''}_{\Gamma,\Delta}(u,v) =  \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))(\val{\rho_{\vv{y}}}_\Delta(v)).\]
   Нека сега $f'' = \val{\tau''}_{\Gamma,\Delta}$. Тогава
   \begin{align*}
     f''(u,v) & = f'(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
              & = \begin{cases}
                f'(u)(v), & \text{ако } v = \bot\text{ или } v = 0\\
                f'(u)(1), & \text{ако } v > 0
-             \end{cases}.
+             \end{cases}
   \end{align*}
   Така получаваме следната характеризация на $f''$:
 
@@ -158,20 +167,26 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   Нека сега $\rho \dff \lamb{x}{nat}{\lamb{y}{nat}{\tau''}}$.
   Тогава за $g = \val{\rho}$ имаме, че
   \[g(x)(y) = f''(x,y).\]
-  От \Prob{pcf:full-abstraction:por} получаваме, че $g = por$.
+  От \Problem{pcf:full-abstraction:por} получаваме, че $g = por$.
   Достигаме до противоречие, защото $por$ не е определимо изображение.
 \end{hint}
 
 В следващите твърдения ще използваме типовете
 \begin{align*}
-  & \vv{a} \dff \vv{nat} \to (\vv{nat} \to \vv{nat})\\
-  & \vv{b} \dff (\vv{nat} \to (\vv{nat} \to \vv{nat}))\to\vv{nat}.
+  & \vv{a} \dff \nat \to (\nat \to \nat)\\
+  & \vv{b} \dff (\nat \to (\nat \to \nat))\to\nat.
 \end{align*}
-
 За $n = 0,1$, нека дефинираме затворените термове
-\begin{align*}
-  \tau_n \dff \lamb{f}{a}{\ifelse{(\vv{f}\ \vv{1}\ \Omega_{\vv{nat}}) \vv{ == 1}}{\ifelse{(\vv{f}\ \Omega_{\vv{nat}}\ \vv{1}) \vv{ == 1}}{\ifelse{(\vv{f\ 0\ 0}) \vv{ == 1}}{\Omega_{\vv{nat}}}{\vv{n}}}{\Omega_{\vv{nat}}}}{\Omega_{\vv{nat}}}}.
-\end{align*}
+
+\begin{lstlisting}
+  $\tau_n \equiv \lambda \vv{f:a}$.if (f 1 $\Omega_\nat$) == 1 then
+              if (f $\Omega_\nat$ 1) == 1 then
+                if (f 0 0) == 0 then n
+                  else $\Omega_\nat$
+                else $\Omega_\nat$
+              else $\Omega_\nat$
+\end{lstlisting}
+
 Лесно се съобразява, че $\tau_0$ и $\tau_1$ са добре типизирани термове от тип $\vv{b}$.
 
 \begin{problem}
@@ -187,20 +202,20 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$.
 \end{proposition}
 \begin{proof}
-  Понеже $\vv{b} = \vv{a} \to \vv{nat}$, от \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
+  Понеже $\vv{b} = \vv{a} \to \nat$, от \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
   за всеки затворен терм $\rho:\vv{a}$ е изпълнено, че
-  \[\tau_1\rho \Downarrow_{\vv{nat}} \vv{n} \iff \tau_2\rho \Downarrow_{\vv{nat}} \vv{n}.\]
-  Да видим какво означава по принцип $\tau_i \rho \Downarrow_{\vv{nat}}$ за $i = 0,1$.
+  \[\tau_1\rho \Downarrow_{\nat} \vv{n} \iff \tau_2\rho \Downarrow_{\nat} \vv{n}.\]
+  Да видим какво означава $\tau_i \rho \Downarrow_{\nat}$ за $i = 0,1$.
   Това означава, че трябва да са изпълнени и трите свойства:
   \begin{itemize}
   \item
-    $\rho\ \vv{1}\ \Omega_{\vv{nat}} \Downarrow_{\vv{nat}} \vv{1}$;% , за някое $\vv{k} \not\equiv \vv{0}$;
+    $\rho\ \vv{1}\ \Omega_{\nat} \Downarrow_{\nat} \vv{1}$;% , за някое $\vv{k} \not\equiv \vv{0}$;
   \item
-    $\rho\ \Omega_{\vv{nat}}\ \vv{1} \Downarrow_{\vv{nat}} \vv{1}$;% , за някое $\vv{m} \not\equiv \vv{0}$;
+    $\rho\ \Omega_{\nat}\ \vv{1} \Downarrow_{\nat} \vv{1}$;% , за някое $\vv{m} \not\equiv \vv{0}$;
   \item
-    $\rho\ \vv{0}\ \vv{0} \Downarrow_{\vv{nat}} \vv{0}$.
+    $\rho\ \vv{0}\ \vv{0} \Downarrow_{\nat} \vv{0}$.
   \end{itemize}
-  Понеже $\val{\Omega_{\vv{nat}}} = \bot$, от \hyperref[th:pcf:soundness]{теоремата за коректност} получаваме, че са трябва да са изпълнени следните три свойства:
+  Понеже $\val{\Omega_{\nat}} = \bot$, от \hyperref[th:pcf:soundness]{теоремата за коректност} получаваме, че трябва да са изпълнени следните три свойства:
   \begin{itemize}
   \item
     $\val{\rho}(1)(\bot) = 1$;
@@ -209,10 +224,11 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   \item
     $\val{\rho}(0)(0) = 0$.
   \end{itemize}
-  Но тогава $\val{\rho} = por$, което е противоречие с \Prop{pcf:full-abstraction:not-definble}.
+  Но тогава $\val{\rho} = por$, което е противоречие с \Problem{pcf:full-abstraction:not-definable}.
 \end{proof}
 
 Доказателството на следващата теорема излиза извън обхата на този курс.
+\index{Плоткин}
 \begin{framed}
   \begin{theorem}[Плоткин 1977]
     Денотационната семантика $\val{.}$ за езика PCF+\texttt{por} е напълно абстрактна.
@@ -220,9 +236,11 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 \end{framed}
 \marginpar{\cite[стр. 188]{gunter}}
 
-\begin{theorem}[Милнър,Плоткин]
-  A continuous, order-extensional model of PCF is fully abstract if and only if for every type $\sigma$, $\val{\sigma}$ is a domain whose finite elements are definable.
-\end{theorem}
+% \index{Плоткин}
+% \index{Милнър}
+% \begin{theorem}[Милнър,Плоткин]
+%   A continuous, order-extensional model of PCF is fully abstract if and only if for every type $\sigma$, $\val{\sigma}$ is a domain whose finite elements are definable.
+% \end{theorem}
 
 %%% Local Variables:
 %%% mode: latex

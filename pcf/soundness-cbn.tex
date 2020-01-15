@@ -99,11 +99,11 @@
     \end{align*}
     Тогава
     \begin{align*}
-      \val{\tau_1\tau_2} & = \texttt{eval}(\val{\tau_1},\val{\tau_2})\\ 
+      \val{\tau_1\tau_2} & = \texttt{eval}(\val{\tau_1},\val{\tau_2}) & \comment\text{от деф.}\\ 
                          & = \val{\tau_1}(\val{\tau_2}) & \comment \val{\tau_1} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
                          & = \val{\lamb{x}{a}{\tau'_1}}(\val{\tau_2}) & \comment\text{от И.П.}\\
                          & = \val{\tau'_1}_{\Gamma}(\val{\tau_2}) & \comment \Gamma \dff \type{x}{a}\\
-                         & = \val{\tau'_1\subst{x}{\tau_2}} & \comment\text{от \Lem{pcf:substitution}}\\
+                         & = \val{\tau'_1\subst{x}{\tau_2}} & \comment\text{от \hyperref[lem:pcf:substitution]{Лема за замяната}}\\
                          & = \val{\vv{v}} & \comment\text{от И.П.}
     \end{align*}
   \item
