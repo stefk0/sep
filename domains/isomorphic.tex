@@ -1,0 +1,285 @@
+\section{Изоморфни области на Скот}
+\index{изоморфизъм}
+
+Нека $\A_1 = (A_1,~\sqsubseteq_1,~\bot_1)$ и $\A_2 = (A_2,~\sqsubseteq_2~,~\bot_2)$ 
+са области на Скот.
+Ще казваме, че $\A_1$ е {\bf изоморфна} на $\A_2$, което ще означаваме като 
+\[\A_1 \cong \A_2,\]
+ако съществува {\em биективна} функция $F:A_1 \to A_2$ със свойството:
+\[(\forall a,b\in A_1)[\ a \sqsubseteq_1 b \iff F(a) \sqsubseteq_2 F(b)\ ].\]
+В такъв случай ще казваме, че $F$ задава изоморфизъм между $\A_1$ и $\A_2$.
+
+Когато искаме да означим, че $\A_1$ е изоморфна на $\A_2$ чрез $F$,
+то понякога ще пишем $\A_1 \cong_F \A_2$.
+
+\begin{problem}
+  Докажете, че ако $\A_1 \cong_F \A_2$, то $F(\bot_1) = \bot_2$.
+\end{problem}
+
+
+\begin{proposition}
+  \label{pr:isomorphism-is-continuous}
+  Ако $\A_1 \cong_F \A_2$ , то $F \in \Cont{\A_1}{\A_2}$.
+\end{proposition}
+\begin{hint}
+  Да разгледаме произволна верига $\chain{a}{i}$ от елементи на $\A_1$.
+  Ще докажем, че 
+  \[F(\bigsqcup_i a_i) = \bigsqcup_iF(a_i).\]
+  
+  \begin{itemize}
+  \item 
+    Първо, от дефиницията веднага следва, че $F$ е монотонно изображение, защото
+    \[a \sqsubseteq_1 b \implies F(a) \sqsubseteq_2 F(b).\]
+    Това означава, че $(F(a_i))^\infty_{i=0}$ е монотонно растяща верига от елементи на $\A_2$.
+    От \Prop{monotone-chain} получаваме, че 
+    \[\bigsqcup_i F(a_i) \sqsubseteq_2 F(\bigsqcup_i a_i).\]
+  \item
+    За другата посока, нека $b \in \A_2$ е горна граница на веригата $(F(a_i))^\infty_{i=0}$, т.е. 
+    \[(\forall i)[\ F(a_i) \sqsubseteq_2 b\ ].\]
+    Ще докажем, че $F(\bigsqcup_i a_i) \sqsubseteq_2 b$.
+    Понеже $F$ е {\em върху} $A_2$, то съществува елемент $a \in A_1$, такъв че $F(a) = b$.
+    Тогава:
+    \begin{align*}
+      (\forall i)[\ F(a_i) \sqsubseteq_2 F(a)\ ] & \implies (\forall i)[\ a_i \sqsubseteq_1 a\ ] & \comment{F \text{ е изоморфизъм }}\\
+                                                 & \implies \bigsqcup_i a_i \sqsubseteq_1 a & \comment{a\text{ е горна граница}}\\
+                                                 & \implies F(\bigsqcup_i a_i) \sqsubseteq_1 F(a). & \comment{F\text{ е изоморфизъм }}
+    \end{align*}
+    Понеже $b = F(a)$, заключаваме, че
+    \[F(\bigsqcup_i a_i) \sqsubseteq_2 b.\]
+  \end{itemize}
+\end{hint}
+
+\begin{proposition}
+  \label{pr:isomorphic-pair}
+  Нека $f \in \Mon{\A_1}{\A_2}$ и $g \in \Mon{\A_2}{\A_1}$,
+  като 
+  \begin{itemize}
+  \item 
+    $f \circ g = \texttt{id}_2$;
+  \item
+    $g \circ f = \texttt{id}_1$.
+  \end{itemize}
+  \marginpar{$\texttt{id}_i(a) \dff a$ за вс. $a \in \A_i$}
+  Тогава са изпълнени свойствата:
+  \begin{enumerate}[(1)]
+  \item
+    $\A_1 \cong_f \A_2$;
+  \item
+    $\A_2 \cong_g \A_1$;
+  \end{enumerate}
+\end{proposition}
+% \begin{hint}
+%   За Свойство $(1)$ трябва да проверим, че $f$ отговаря на дефиницията за изоморфизъм.
+%   \begin{itemize}
+%   \item
+%     Ще докажем, че $f$ е инективна като покажем, че за произволни $a, b\in A_1$,
+%     ако $f(a) = f(b)$, то $a = b$.
+%     Но това е лесно, защото
+%     \[a = \texttt{id}_1(a) = g(f(a)) = g(f(b)) = \texttt{id}_1(b) = b.\]
+%   \item
+%     Нека сега $b \in \A_2$.
+%     Знаем, че $f(g(b)) = \texttt{id}_2(b) = b$. Това означава, че $f$ е {\em сюрективна},
+%     защото за всеки елемент $b \in A_2$ съществува елемент $a \in A_1$, а именно $a = g(b)$,
+%     за който $f(a) = b$.
+%   \item
+%     Понеже $f$ е монотонно изображение, то директно имаме, че
+%     \[a \sqsubseteq_1 b \implies f(a) \sqsubseteq_2 f(b).\]
+%   \item
+%     Нека $f(a) \sqsubseteq_2 f(b)$.
+%     Сега пък понеже $g$ е монотонно изображение, 
+%     \[a = \texttt{id}_1(a) = g(f(a)) \sqsubseteq_1 g(f(b)) = \texttt{id}_1(b) = b.\]
+%     Така показахме, че
+%     \[f(a) \sqsubseteq_2 f(b)\ \implies\ a \sqsubseteq_1 b.\]
+%   \end{itemize}
+%   Доказахме Свойство $(1)$, т.е. $\A_1 \cong_f \A_2$.
+%   Разсъжденията за Свойство $(2)$ са аналогични.
+% \end{hint}
+
+
+\begin{proposition}
+  \label{pr:isomorphic-higher-order}
+  Нека $\A_1 \cong_F \A_2$. Тогава:
+  \begin{enumerate}[(1)]
+  \item 
+    $\Cont{\A_1}{\A_1} \cong_G \Cont{\A_2}{\A_2}$, където 
+    \[G(f) \dff F \circ f \circ F^{-1};\]
+    Графично това може да се изобрази така:
+
+    \shorthandoff{"}%
+    \begin{center}
+    \begin{tikzcd}[sep=large]
+      \A_1 \arrow[r, "f"] & \A_1 \arrow[d, "F"]\\
+      \A_2 \arrow[u, "F^{-1}"]\arrow[r, dashed, "G(f)"] & \A_2 
+    \end{tikzcd}
+    \end{center}
+    \shorthandon{"}%
+  \item
+    ако $f \in \Cont{\A_1}{\A_1}$, то 
+    \[F(\lfp(f)) = \lfp(G(f)).\]
+  \end{enumerate}
+\end{proposition}
+\begin{hint}
+  Ще докажем $(1)$ като използвме \Prop{isomorphic-pair}.
+
+  \begin{itemize}
+  \item 
+    Ще докажем, че $G$ е монотонно изображение.
+    Нека $f,h \in \Cont{\A_1}{\A_1}$ и $f \sqsubseteq h$, т.е.
+    \[(\forall a \in \A_1)[\ f(a) \sqsubseteq_1 h(a)\ ].\]
+    Ще докажем, че $G(f) \sqsubseteq G(h)$, т.е.
+    \[(\forall b \in \A_2)[\ G(f)(b) \sqsubseteq_1 G(h)(b)\ ].\]
+    Да разгледаме произволен елемент $b \in \A_2$. 
+    Понеже $F$ е биекция, то съществува елемент $a \in A_1$, такъв че $F(a) = b$,
+    т.е. $F^{-1}(b) = a$. Тогава:
+    \begin{align*}
+      G(f)(b) & \dff F(f(F^{-1}(b)))\\
+              & = F(f(a)) & \comment{F^{-1}(b) = a}\\
+              & \sqsubseteq_2 F(h(a)) & \comment{f(a) \sqsubseteq h(a)\text{ и $F$ е изом.}}\\
+              & = F(h(F^{-1}(b))) & \comment{F^{-1}(b) =a}\\
+              & \dff G(h)(b).
+    \end{align*}
+  \item
+    Нека $G(f) \sqsubseteq G(h)$. Ще докажем, че $f \sqsubseteq h$.
+    За целта, нека $a \in A_1$.
+    Понеже $F$ е сюрективна, то съществува $b \in A_2$, за който $F^{-1}(b) =a$.
+    Понеже
+    \[G(f) \dff F \circ f \circ F^{-1} \sqsubseteq F \circ h \circ F^{-1} = G(h),\]
+    то получаваме, че
+    \[F(f(F^{-1}(b))) \sqsubseteq_2 F(h(F^{-1}(b))).\]
+    Оттук,
+    \[F(f(a)) \sqsubseteq_2 F(h(a)) \implies f(a) \sqsubseteq_1 h(a),\]
+    защото $F$ е изоморфизъм.
+  \end{itemize}
+  Сега преминаваме към доказателството на $(2)$.
+  Да напомним, че за $f \in \Cont{\A_1}{\A_1}$, означаваме
+  \begin{align*}
+    f^0  & = \lambda x. \bot_1\\
+    f^{n+1} & = f \circ f^n.
+  \end{align*}
+  Понеже $f$ е непрекъснато изображение е ясно, че $(f^n(\bot_1))^{\infty}_{n=0}$ е верига.
+  Също така знаем, че
+  \[\lfp(f) = \bigsqcup_n f^n(\bot_1).\]
+  След аналогични разсъждения можем да съобразим, че
+  \[\lfp(G(f)) = \bigsqcup_n G(f)^n(\bot_2).\]
+  Първо ще докажем с индукция по $n$, че 
+  \begin{equation}
+    \label{eq:2}
+    (\forall n)[\ (G(f))^n = G(f^n)\ ].
+  \end{equation}
+  \begin{itemize}
+  \item 
+    За $n = 0$ имаме, че за произволен елемент $b \in \A_2$,
+    \begin{align*}
+      (G(f))^{0}(b) & \dff \bot_2\\
+                    & = F(\bot_1) & \comment{F \text{ е изом.}}\\
+                    & = F(f^{0}(F^{-1}(b))) & \comment{f^{0}(F^{-1}(b)) \dff \bot_1}\\
+                    & = (F \circ f^{0} \circ F^{-1})(b) \\
+                    & \dff G(f^{0})(b).
+    \end{align*} 
+  \item
+    Нека да приемем, че твърдението е вярно за $n$.
+    Тогава за $n+1$ имаме, че:
+    \begin{align*}
+      (G(f))^{n+1} & \dff G(f) \circ (G(f))^n\\
+                   & = G(f) \circ G(f^n) & \comment{\text{ от И.П.}}\\
+                   & \dff (F \circ f \circ F^{-1}) \circ (F\circ f^n \circ F^{-1})\\
+                   & = F \circ f \circ (F^{-1} \circ F)\circ f^n \circ F^{-1} \\
+                   & = F \circ f \circ f^{n} \circ F^{-1} & \comment{F^{-1}\circ F = id}\\
+                   & = F \circ f^{n+1} \circ F^{-1} & \comment{f\circ f^n = f^{n+1}}\\
+                   & \dff G(f^{n+1}).
+    \end{align*}
+  \end{itemize}
+  Тогава:
+  \begin{align*}
+    F(\lfp(f)) & = F(\bigsqcup_n f^n(\bot_1)) & \comment{\lfp(f) = \bigsqcup_n f^n(\bot_1)}\\
+               & = \bigsqcup_n F(f^n(\bot_1))& \comment{F\text{ е непр.}}\\
+               & = \bigsqcup_n F(f^n(F^{-1}(\bot_2))) & \comment{F^{-1}(\bot_2) = \bot_1}\\
+               & = \bigsqcup_n (F \circ f^n \circ F^{-1})(\bot_2) \\
+               & \dff \bigsqcup_n G(f^n)(\bot_2)\\
+               & = \bigsqcup_n G(f)^n(\bot_2) & \comment{\text{от }(\ref{eq:2})}\\
+               & = \lfp(G(f)).
+  \end{align*}
+\end{hint}
+
+\begin{framed}
+  \begin{proposition}
+    За произволни области на Скот $\A$, $\B$ и $\C$ е изпълнено, че
+    \[\Cont{\A}{\Cont{\B}{\C}}\ \cong\ \Cont{\A\times\B}{\C}.\]
+  \end{proposition}  
+\end{framed}
+\begin{hint}
+  % \begin{itemize}
+  % \item 
+    Докажете, че изображението
+    \[\texttt{curry}:\Cont{\A\times \B}{\C} \to \Cont{\A}{\Cont{\B}{\C}},\]
+    където
+    \[\texttt{curry}(f)(a)(b) \dff f(a,b)\]
+    задава изоморфизъм.
+  % \item
+  %   Докажете, че изображението
+  %   \[\texttt{uncurry}:\Cont{\A}{\Cont{\B}{\C}} \to \Cont{\A\times \B}{\C},\]
+  %   където
+  %   \[\texttt{uncurry}(f)(a,b) \dff f(a)(b)\]
+  %   е монотонно.
+  % \item
+  %   Лесно се съобразява, че
+  %   \[\texttt{curry} \circ \texttt{uncurry} = \texttt{id}\]
+  %   \[\texttt{uncurry} \circ \texttt{curry} = \texttt{id}.\]    
+  % \item
+  %   Приложете \Prop{isomorphic-pair}.
+  % \end{itemize}
+\end{hint}
+
+\begin{remark}
+  Когато на хаскел пишем типовата сигнатура на някоя функция като 
+  \mint{haskell}|f :: a -> b -> c|
+  в действителност се има предвид следното
+  \mint{haskell}|f :: a -> (b -> c)|
+  
+  На практика тези две задачи ни казват, че няма значение дали използваме {\em curried}
+  или {\em uncurried} версията на една функция. На хаскел е по-удобно да използваме {\em curried}
+  версията, защото като фиксираме първия аргумент на една функция получаваме нова функция наготово.
+  Например, 
+  \begin{haskellcode}
+ghci> let plus x y = x + y
+ghci> :t plus
+plus :: Num a => a -> a -> a
+ghci> let plus1 = plus 1
+ghci> :t plus1
+plus1 :: Num a => a -> a
+   \end{haskellcode}
+
+  Всъщност, хаскел има функциите \texttt{curry} и \texttt{uncurry} вградени в стандартната библиотека:
+  \begin{haskellcode}
+ghci> :t curry
+curry :: ((a, b) -> c) -> a -> b -> c
+ghci> :t uncurry
+uncurry :: (a -> b -> c) -> (a, b) -> c
+  \end{haskellcode}
+\end{remark}
+
+Нека да дефинираме
+\[\emptyset_\bot = (\{\bot\}, \sqsubseteq, \bot).\]
+\begin{problem}
+  Докажете, че за произволна област на Скот $\A$ е изпълнено:
+  \begin{align*}
+    & \Mapping{\emptyset_\bot}{\A} \cong \A\\
+    & \Mapping{\A}{\emptyset_\bot} \cong \emptyset_\bot.
+  \end{align*}
+\end{problem}
+
+\begin{problem}
+  Докажете, че съществуват области на Скот $\A$, $\B$ и $\C$, за които
+  \[\Cont{\Cont{\A}{\B}}{\C} \not\cong \Cont{\A}{\Cont{\B}{\C}}.\]  
+\end{problem}
+\begin{hint}
+  Нека изберем $\A = \C = \Nat_\bot$, а $\B = \emptyset_\bot$. Тогава
+  \[\Cont{\Cont{\Nat_\bot}{\emptyset_\bot}}{\Nat_\bot} \cong \Cont{\emptyset_\bot}{\Nat_\bot} \cong \Nat_\bot,\]
+  но
+  \[\Cont{\Nat_\bot}{\Cont{\emptyset_\bot}{\Nat_\bot}} \cong \Cont{\Nat_\bot}{\Nat_\bot}.\]
+\end{hint}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:
