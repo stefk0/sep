@@ -4,22 +4,19 @@
 \marginpar{Обърнете внимание, че нямаме звездата на Клини в дефиницията на термовете.}
 Следната абстрактна граматика 
 \[\tau ::= \varepsilon\ |\ a \cdot X\ |\ \tau_1 + \tau_2.\]
-описват термовете на езика $REG$, където $a$ означава буква от азбуката $\Sigma$, а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$. Ще използваме малките гръцки букви $\tau,\rho,\mu$, евентуално с индекси, за да означаваме термовете. Думите над азбуката $\Sigma$ ще означаваме с малките гръцки букви $\alpha$, $\beta$, $\gamma$.
-
-Програма на езика езика $REG$ представляват системи от следния вид:
+описва термовете на езика $REG$, където $a$ означава буква от азбуката $\Sigma$, а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
+\marginpar{Ще използваме малките гръцки букви $\tau,\rho,\mu$, евентуално с индекси, за да означаваме термовете. Думите над азбуката $\Sigma$ ще означаваме с малките гръцки букви $\alpha$, $\beta$, $\gamma$.}
+Програмите на езика езика $REG$ имат следния вид:
 \begin{align*}
   & X_1 = \tau_1[X_1,\dots,X_n]\\
   & \ \vdots\\
   & X_n = \tau_n[X_1,\dots,X_n].
 \end{align*}
-
-\begin{example}
-  Нека $\Sigma = \{a,b\}$. Да разгледаме програмата $R$:
-  \begin{align*}
-    & X_1 = a \cdot X_1 + b \cdot X_2\\
-    & X_2 = \varepsilon + b \cdot X_1.
-  \end{align*}
-\end{example}
+Ето един пример за програма:
+\begin{align*}
+  & X_1 = a \cdot X_1 + b \cdot X_2\\
+  & X_2 = \varepsilon + b \cdot X_1.
+\end{align*}
 
 
 \subsection{Операционна семантика}
@@ -32,12 +29,9 @@
   \item 
     Тук е важно да се отбележи, че тази дефиниция не можем да я дадем с индукция по построението на термовете.
   \item
-    Обърнете внимание, че за всяка дума $\alpha$, $\emptyset \not\Downarrow \alpha$.     
-  \item
     Тук няма как да дефинираме релация $\tau \Downarrow L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
   \end{itemize}
 }
-
 
 \begin{prooftree}
   \AxiomC{}
@@ -67,13 +61,13 @@
 Ще пишем $\tau \Downarrow \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \Downarrow^\ell \alpha$.
 
 \begin{example}
+  \marginpar{На всяка променлива от програмата $R$ съответства състояние на автомата.}
   Нека $\Sigma = \{a,b\}$. Да разгледаме програмата $R$, където:
   \begin{align*}
     & X_1 = \overbrace{a \cdot X_1 + b \cdot X_2 + \varepsilon}^{\tau_1[X_1,X_2]}\\
     & X_2 = \underbrace{b \cdot X_2 + \varepsilon}_{\tau_2[X_1,X_2]}.
   \end{align*}
   Съобразете, че за всеки две естествени числа $n$ и $k$ е изпълнено, че $\tau_1~\Downarrow~a^k b^n$ и $\tau_2~\Downarrow~b^n$.
-  \marginpar{На всяка променлива от програмата $R$ съответства състояние на автомата.}
   \begin{figure}[H]
       \centering
       \begin{tikzpicture}[->,>=stealth,thick,node distance=65pt]
@@ -127,16 +121,16 @@
     & X_1 = \overbrace{b \cdot X_1 + a\cdot X_2}^{\tau_1[X_1,X_2]}\\
     & X_2 = \underbrace{\varepsilon}_{\tau_2[X_1,X_2]}.
   \end{align*}
-  Според горната дефиниция на семантика на термове, на програмата $R$ съотвества следната система от непректснати изображения:
+  Според горната дефиниция на семантика на термове, на програмата $R$ съотвества следната система от непрекъснати изображения:
   \begin{align*}
-    & L = \overbrace{\{b\} \cdot L \cup \{a\} \cdot М}^{\val{\tau_1}(L,М)}\\
-    & М = \underbrace{\{\varepsilon\}}_{\val{\tau_2}(L_1,L_2)}.
+    & L = \overbrace{\{b\} \cdot L \cup \{a\} \cdot M}^{\val{\tau_1}(L,M)}\\
+    & M = \underbrace{\{\varepsilon\}}_{\val{\tau_2}(L,M)}.
   \end{align*}
   От \Th{sep:min-solution-system} знаем, че тази система има най-малко решение. Нека да го намерим.
   За тази цел, да дефинираме непрекъснатото изображение $\Gamma:\mathcal{P}(\Sigma^\star)^2 \to \mathcal{P}(\Sigma^\star)^2$ като
   \marginpar{От \ref{} знаем, че $\Gamma$ е непрекъснато изображение.}
   \[\Gamma \df \val{\tau_1} \times \val{\tau_2},\]
-  т.е. за произволни езици $L$ и $М$ над азбуката $\Sigma$ е изпълнено, че:
+  т.е. за произволни езици $L$ и $M$ над азбуката $\Sigma$ е изпълнено, че:
   \[\Gamma(L,M) = (\val{\tau_1}(L,M), \val{\tau_2}(L,M)).\]
 
   От \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем как можем да намерим най-малката неподвижна точка на $\Gamma$,
@@ -157,10 +151,8 @@
     $(L_5,M_5) \df \Gamma(L_4,M_4) = ( \val{\tau_1}(L_4,M_4), \val{\tau_2}(L_4,M_4)) = (\{bba, bba, ba,a\},\{\varepsilon\})$.
   \end{itemize}
   Лесно се съобразява, че $L_n = \{ b^ka \mid k < n\}$, а $M_n = \{\varepsilon\}$. Тогава
-  \[\lfp( \Gamma ) = (\bigcup_n L_n, \bigsqcup_n M_n) = (\{b\}^\star \cdot \{a\}, \{\varepsilon\} ).\]
+  \[\lfp( \Gamma ) = (\bigcup_n L_n, \bigcup_n M_n) = (\{b\}^\star \cdot \{a\}, \{\varepsilon\} ).\]
 \end{example}
-
-
 
 \begin{example}
   Да разгледаме следния краен детерминиран автомат:
@@ -207,8 +199,8 @@
 \begin{example}
   Да разгледаме системата от само едно уравнение
   \[L = \{a\} \cdot L.\]
-  Най-малкото решение на тази система е езикa $\emptyset$,
-  но тази система има за решение и езика $\{a\}^\star$.
+  Най-малкото решение на тази система е езикът $\emptyset$,
+  но тази система има за решение и езикът $\{a\}^\star$.
 \end{example}
 
   
@@ -236,54 +228,7 @@
   на някоя система от непрекъснати изображения от горния вид.
 \end{problem}
 
-% Да разгледаме програмата $P$
-% \begin{align*}
-%   & X_1 = \tau_1[X_1,\dots,X_n]\\
-%   & \vdots\\
-%   & X_n = \tau_n[X_1,\dots,X_n].
-% \end{align*}
-
-% \marginpar{Няма как да дефинираме операционна семантика, която да разпознава целия език, защото за това ще са ни необходими безкрайно много стъпки.}
-
-% Тогава можем да дефинираме релацията $\rho \Downarrow^\ell_P \alpha$, за терм $\rho$, който съдържа променливи измежду $X_1,\dots,X_n$,
-% по следния начин:
-% % \begin{prooftree}
-% %   \AxiomC{}
-% %   \UnaryInfC{$\emptyset \Downarrow^0_P \emptyset$}
-% % \end{prooftree}
-
-% \begin{prooftree}
-%   \AxiomC{}
-%   \UnaryInfC{$\varepsilon \Downarrow^0_P \varepsilon$}
-% \end{prooftree}
-
-% \begin{prooftree}
-%   \AxiomC{$\tau_i \Downarrow^\ell_P \alpha$}
-%   \UnaryInfC{$a \cdot X_i \Downarrow^{\ell+1}_P a \cdot \alpha$}
-% \end{prooftree}
-
-% \begin{prooftree}
-%   \AxiomC{$\rho_1 \Downarrow^{\ell_1}_P \alpha_1$}
-%   % \AxiomC{$\rho_2 \Downarrow^{\ell_2}_P \alpha_2$}
-%   \UnaryInfC{$\rho_1 + \rho_2 \Downarrow^{\ell_1+1}_P \alpha_1$}
-% \end{prooftree}
-
-% \begin{prooftree}
-%   % \AxiomC{$\rho_1 \Downarrow^{\ell_1}_P \alpha_1$}
-%   \AxiomC{$\rho_2 \Downarrow^{\ell_2}_P \alpha_2$}
-%   \UnaryInfC{$\rho_1 + \rho_2 \Downarrow^{\ell_2+1}_P \alpha_2$}
-% \end{prooftree}
-
-
-% \begin{problem}
-%   Нека $P$ е програма и $\tau$ е терм с променливи измежду тези, които се срещат в $P$.
-%   Нека $(L_1,\dots,L_n)$ е най-малкото решение на системата $P$.
-%   Докажете, че
-%   \[\alpha \in \val{\tau}(L_1,\dots,L_n) \iff \tau \Downarrow_P \alpha.\]
-% \end{problem}
-
-
-\subsection{Еквивалентност на денотационната и операционната семантики}
+\subsection{Еквивалентност на денотационната и операционната семантика}
 
 Нека тук да фиксираме една програма $R$
 \begin{align*}
@@ -293,7 +238,7 @@
 \end{align*}
 Нека $(L_1,\dots,L_n)$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$. Целта ни е да докажем, че за всяко $i = 1,\dots,n$ е изпълнено, че:
 \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]
-\marginpar{Да напомним, че $L_i = \bigcup_k L^k_i$, където $L^0_i = \emptyset$ и $L^{k+1}_i = \val{\tau_i}(L^k_1,\dots,L^k_n)$.}
+Да напомним, че $L_i = \bigcup_k L^k_i$, където $L^0_i = \emptyset$ и $L^{k+1}_i = \val{\tau_i}(L^k_1,\dots,L^k_n)$.
 Този резултат ще наречем теорема за еквивалентност.
 Това ще направим на две стъпки.
 
@@ -308,7 +253,7 @@
   \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}".\]
   Целта ни е да докажем, че $(\forall r\in\Nat)\textbf{Include}(r)$. Това ще направим с индукция по $r$.
   
-  Нека $r = 0$. Тук знаем, че $L^0_i = \emptyset$ за всеки индекс $i$ измежду $1,\dots,n$. Тук ще направим вътрешна индукция по построението на термовете $\tau$ за да докажем, че:
+  Нека $r = 0$. Знаем, че $L^0_i = \emptyset$ за всеки индекс $i$ измежду $1,\dots,n$. Тук ще направим вътрешна индукция по построението на термовете $\tau$ за да докажем, че:
   \begin{equation}
     \label{eq:17}
     \val{\tau}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}
@@ -352,12 +297,18 @@
       \end{subfigure}
     \end{figure}
     Оттук веднага получаваме, че:
-    \[\{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\} \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
-    Заключаваме, че Свойство~\ref{eq:17} е изпълнено.
+    \[\{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\} = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
+    Заключаваме, че:
+    \begin{align*}
+      \val{\tau}(L^0_1,\dots,L^0_n) & = \val{\rho}(L^0_1,\dots,L^0_n) \cup \val{\mu}(L^0_1,\dots,L^0_n)\\
+                                    & \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}\\
+                                    & = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
+    \end{align*}
+    Свойство~\ref{eq:17} е изпълнено за всеки терм $\tau$.
   \end{itemize}
 
-  Нека $r > 0$ и да приемем, че е изпълнено $\textbf{Include}(r-1)$. Ще докажем, че е изпълнено $\textbf{Include}(r)$.
-  Тук знаем, че $L^r_i = \val{\tau_i}(L^{r-1}_1,\dots,L^{r-1}_n)$.
+  Нека $r > 0$ и като индукционно предположение да приемем, че е изпълнено $\textbf{Include}(r-1)$. Ще докажем, че е изпълнено $\textbf{Include}(r)$.
+  \marginpar{Тук знаем, че \[L^r_i = \val{\tau_i}(L^{r-1}_1,\dots,L^{r-1}_n).\]}
   Ще направим вътрешна индукция по построението на термовете $\tau$ за да докажем, че:
   \begin{equation}
     \label{eq:18}
@@ -371,8 +322,8 @@
     то от правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
     Заключаваме, че Свойство~\ref{eq:18} е изпълнено.
   \item
-    Нека $\tau \equiv a \cdot X_j$ за някой индекс $j$ измежду $1,\dots,n$.
-    Тогава $\val{\tau}(L^r_1,\dots,L^r_n) = \{a\}\cdot L^r_j$.
+    Нека $\tau \equiv a \cdot X_j$ за някой индекс $j$ измежду $1,\dots,n$. Тогава
+    \[\val{\tau}(L^r_1,\dots,L^r_n) = \{a\}\cdot L^r_j.\]
     Понеже сме приели, че $\textbf{Include}(r-1)$ е изпълено, то имаме автоматично, че:
     \[L^r_j = \val{\tau_j}(L^{r-1}_1,\dots,L^{r-1}_n) \subseteq \{\beta \in \Sigma^\star \mid \tau_j \Downarrow \beta\}.\]
     От правилата на операционната семантика имаме, че:
@@ -395,9 +346,11 @@
   \item
     Нека $\tau \equiv \rho + \mu$. Тук имаме, че
     \[\val{\tau}(L^r_1,\dots,L^r_n) = \val{\rho}(L^r_1,\dots,L^r_n) \cup \val{\mu}(L^r_1,\dots,L^r_n).\]
-    Понеже $\rho$ и $\mu$ са по-прости термове от $\tau$, от вътрешното индукционно предположение за построението на термовете, имаме, че
-    $\val{\rho}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\}$ и
-    $\val{\mu}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}$.
+    Понеже $\tau$ е построен с помощта на $\rho$ и $\mu$, можем да използваме вътрешното индукционно предположение за $\rho$ и $\mu$, откъдето имаме, че:
+    \begin{align*}
+      & \val{\rho}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\}\\
+      & \val{\mu}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}.
+    \end{align*}
     От правилата на операционната семантика имаме, че
     \[\{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\} = \{\alpha \in \Sigma^\star \mid \rho + \mu \Downarrow \alpha\}.\]
     Заключаваме, че:
@@ -407,6 +360,7 @@
                                     & = \{\alpha \in \Sigma^\star \mid \mu+\rho \Downarrow \alpha\}\\
       & = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
     \end{align*}
+    Свойство~\ref{eq:18} е изпълнено за всеки терм $\tau$.
   \end{itemize}
 \end{proof}
 
@@ -493,7 +447,7 @@
 \end{framed}
 
 
-\subsubsection{Как ще представим $\emptyset$?}
+\subsubsection{Как ще представим празния език?}
 
 
 Да разгледаме програмата
