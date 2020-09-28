@@ -4,9 +4,9 @@
 \marginpar{Обърнете внимание, че нямаме звездата на Клини в дефиницията на термовете.}
 Следната абстрактна граматика 
 \[\tau ::= \varepsilon\ |\ a \cdot X\ |\ \tau_1 + \tau_2.\]
-описва термовете на езика $REG$, където $a$ означава буква от азбуката $\Sigma$, а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
+описва термовете на езика $\texttt{REG}$, където $a$ означава буква от азбуката $\Sigma$, а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
 \marginpar{Ще използваме малките гръцки букви $\tau,\rho,\mu$, евентуално с индекси, за да означаваме термовете. Думите над азбуката $\Sigma$ ще означаваме с малките гръцки букви $\alpha$, $\beta$, $\gamma$.}
-Програмите на езика езика $REG$ имат следния вид:
+Програмите на езика езика $\texttt{REG}$ имат следния вид:
 \begin{align*}
   & X_1 = \tau_1[X_1,\dots,X_n]\\
   & \ \vdots\\
@@ -21,7 +21,7 @@
 
 \subsection{Операционна семантика}
 
-С индукция по $\ell$, дефинираме релацията $\tau \Downarrow^\ell L$,
+С индукция по $\ell$, дефинираме релацията $\tau \Downarrow^\ell \alpha$,
 където $\tau$ е терм на езика $REG$ със свободни променливи измежду $X_1,\dots, X_n$.
 
 \marginpar{
@@ -214,7 +214,7 @@
   
 \end{problem}
 
-\begin{problem}
+\begin{problem}[Теорема за характеризация]
   Да разгледаме системата от непрекъснати оператори
   \begin{align*}
     & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
@@ -228,6 +228,13 @@
   на някоя система от непрекъснати изображения от горния вид.
 \end{problem}
 
+\begin{remark}
+  Да разгледаме програмата
+  \[X = \underbrace{a \cdot X}_{\tau[X]}.\]
+  Тогава лесно се съобразява, че $\emptyset = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}$.
+  Освен това, най-малката неподвижна точка на $\val{\tau}$ e $\emptyset$.
+\end{remark}
+
 \subsection{Еквивалентност на денотационната и операционната семантика}
 
 Нека тук да фиксираме една програма $R$
@@ -238,9 +245,9 @@
 \end{align*}
 Нека $(L_1,\dots,L_n)$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$. Целта ни е да докажем, че за всяко $i = 1,\dots,n$ е изпълнено, че:
 \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]
-Да напомним, че $L_i = \bigcup_k L^k_i$, където $L^0_i = \emptyset$ и $L^{k+1}_i = \val{\tau_i}(L^k_1,\dots,L^k_n)$.
-Този резултат ще наречем теорема за еквивалентност.
-Това ще направим на две стъпки.
+Този резултат ще наречем теорема за еквивалентност. Това ще направим на две стъпки.
+
+\marginpar{Да напомним, че $L_i = \bigcup_k L^k_i$, където $L^0_i = \emptyset$ и $L^{k+1}_i = \val{\tau_i}(L^k_1,\dots,L^k_n)$. }
 
 \begin{lemma}
   \marginpar{Тук раборим при фиксирана програма $R$.}
@@ -259,9 +266,9 @@
     \val{\tau}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}
   \end{equation}
   \begin{itemize}
-  \item
+  % \item
     \marginpar{Тук е важно, че дефиницията на денотационната семантика следва индуктивното построение на термовете.}
-    Нека $\tau \equiv \emptyset$. Понеже $\val{\tau}(L^0_1,\dots,L^0_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:17} е изпълнено.
+    % Нека $\tau \equiv \emptyset$. Понеже $\val{\tau}(L^0_1,\dots,L^0_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:17} е изпълнено.
   \item
     Нека $\tau \equiv \varepsilon$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \{\varepsilon\}$.
     От правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
@@ -365,7 +372,7 @@
 \end{proof}
 
 \begin{corollary}
-  Нека $L_1,\dots,L_n$ е най-малкото решение на изображението $\Gamma \df \val{\tau_1}\times\cdots\times\val{\tau_n}$. Тогава за произволен терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
+  Нека $L_1,\dots,L_n$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times\cdots\times\val{\tau_n}$. Тогава за произволен терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
   \[\val{\tau}(L_1,\dots,L_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
 \end{corollary}
 \begin{proof}
@@ -403,13 +410,16 @@
       \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} = \{\alpha \in \Sigma^\star \mid \tau \Downarrow^{\ell} \alpha\}
     \end{equation}
     Знаем, че $\val{\tau}(L_1,\dots,L_n) = \{a\} \cdot L_j = \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n)$,
-    защото $L_1,\dots,L_n$ е неподвижна точка на $\Gamma$.
+    защото $L_1,\dots,L_n$ е \emph{неподвижна точка} на изображението $\Gamma$.
     От $\textbf{Include}(\ell-1)$ имаме следното:
-    \[\{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} \subseteq \val{\tau_j}(L_1,\dots,L_n).\]
+    \begin{equation}
+      \label{eq:11}
+      \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} \subseteq \val{\tau_j}(L_1,\dots,L_n).
+    \end{equation}
     Заключаваме, че:
     \begin{align*}
-      \{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} & \comment\text{от \ref{eq:22}}\\
-                                                                   & \subseteq \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n) & \comment\text{от }\textbf{Include}(\ell-1)\\
+      \{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} & \comment\text{от (\ref{eq:22})}\\
+                                                                   & \subseteq \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n) & \comment\text{от (\ref{eq:11})}\\
                                                                    & = \{a\} \cdot L_j & \comment L_1,\dots,L_n\text{ е неподв. точка}\\
       & = \val{\tau}(L_1,\dots,L_n) & \comment\text{деф. на денот. сем.}
     \end{align*}
@@ -439,6 +449,8 @@
   \end{itemize}
 \end{proof}
 
+Така доказахме теоремата за еквивалентност на денотационната и операционната семантика.
+
 \begin{framed}
   \begin{theorem}[Теорема за еквивалентност]
     Нека $L_1,\dots,L_n$ е най-малката неподвижна точка на $\Gamma$. Тогава за всеки индекс $i$ измежду $1,\dots,n$ е изпълнено, че:
@@ -446,15 +458,115 @@
   \end{theorem}
 \end{framed}
 
+\subsection{Задачи}
 
-\subsubsection{Как ще представим празния език?}
+Нека тук с $\alpha,\beta,\gamma$ да означаваме произволни регулярни изрази.
+Да въведем означението $\alpha \leq \beta$, ако $\mathcal{L}(\alpha) \subseteq \mathcal{L}(\beta)$.
+
+\begin{problem}
+  Докажете, че ако $\alpha \cdot \gamma + \beta \leq \gamma$, то $\alpha^\star \beta \leq \gamma$.
+\end{problem}
+
+Да разгледаме следното обобщение на езика $\texttt{REG}$, който да наречем $\texttt{REG++}$:
+\[\tau ::= \alpha\ |\ \alpha \cdot X\ |\ \tau_1 + \tau_2,\]
+където $\alpha$ е произволен регулярен израз.
+
+\begin{problem}[Правило на Ардън \cite{arden}]
+  Да разгледаме следната програма на езика $\texttt{REG++}$:
+  \[X = \alpha \cdot X + \beta.\]
+  Докажете, че най-малкото решение на системата за тази програма е езикът с регулярен израз $\alpha^\star \cdot \beta$. Докажете, че ако $\varepsilon \not \in \mathcal{L}(\alpha)$, то това решение е и едиствено.
+\end{problem}
+
+\begin{example}
+  Да разгледаме следния краен детерминиран автомат:
+  \marginpar{Означаваме с $\abs{\omega}_a$ броя на срещанията на $a$ в думата $\omega$.}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,>=stealth,thick,node distance=65pt]
+      \tikzstyle{every state}=[circle,minimum size=20pt,auto]
+      
+      \node[initial, state, accepting]         (0) {$q_1$};
+      \node[state]                             (1) [right of=0]{$q_2$};
+      \node[state]                             (2) [right of=1]{$q_3$};
+      
+      \path 
+      (0) edge [loop above]   node   [above] {$b$}    (0)
+      (0) edge [bend left=15] node   [above] {$a$}    (1)
+      (1) edge [loop above]   node   [above] {$b$}    (1)
+      (1) edge [bend left=15] node   [above] {$a$}    (2)
+      (2) edge [loop above]   node   [above] {$b$}    (2)
+      (2) edge [bend left=45] node   [below] {$a$}    (0);
+    \end{tikzpicture}
+    \caption{Автомат разпознаващ $\{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}$}
+  \end{figure}
+  На този автомат съответства следната програма $R$, която е програма и на езика $\texttt{REG++}$:
+  \marginpar{Тук $\Sigma = \{a,b\}$.}
+  \begin{align*}
+    & X_1 = a \cdot X_2 + b \cdot X_1 + \varepsilon \\
+    & X_2 = a \cdot X_3 + b \cdot X_2\\
+    & X_3 = a \cdot X_1 + b \cdot X_3.
+  \end{align*}
+
+  Да видим как можем да намерим най-малкото решение на тази система като използваме само правилото на Ардън. Първо разгледаме само последния ред на системата като си мислим, че имаме азбука $\Sigma_3 = \{a,b,X_1,X_2\}$. Тогава получаваме следното:
+  \[X_3 = \underbrace{b}_{\alpha} \cdot X_3 + \underbrace{a \cdot X_1}_{\beta}.\]
+  Според правилото на Ардън, най-малкото решение на тази система е $b^\star a X_1$.
+  Заместваме $X_3$ с този израз в горните две уравнения и получаваме следното:
+  \begin{align*}
+    & X_1 = b \cdot X_1 + a \cdot X_2 + \varepsilon \\
+    & X_2 = b \cdot X_2 + a b^\star a X_1.
+  \end{align*}
+  Ако позволим да имаме регулярни изрази по ребрата на автомат, то новият автомат би бил този:
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,>=stealth,thick,node distance=65pt]
+      \tikzstyle{every state}=[circle,minimum size=20pt,auto]
+      
+      \node[initial, state, accepting]         (0) {$q_1$};
+      \node[state]                             (1) [right of=0]{$q_2$};
+      % \node[state]                             (2) [right of=1]{$q_3$};
+      
+      \path 
+      (0) edge [loop above]   node   [above] {$b$}    (0)
+      (0) edge [bend left=35] node   [above] {$a$}    (1)
+      (1) edge [loop above]   node   [above] {$b$}    (1)
+      (1) edge [bend left=35] node   [below] {$ab^\star a$}    (0);
+      % (2) edge [loop above]   node   [above] {$b$}    (2)
+      % (2) edge [bend left=45] node   [below] {$a$}    (0);
+    \end{tikzpicture}
+    \caption{Автомат разпознаващ $\{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}$}
+  \end{figure}
+
+  
+
+  
+  Сега разглеждаме втория ред като си мислим, че имаме азбуката $\Sigma_2 = \{a,b,X_1,X_3\}$. Тогава получаваме следното:
+  \[X_2 = \underbrace{b}_{\alpha} \cdot X_2 + \underbrace{a b^\star a X_1}_{\beta}.\]
+  Според правилото на Ардън, най-малкото решение на тази система е $b^\star a b^\star a X_1$.
+  Заместваме $X_2$ с израза $b^\star a b^\star a X_1$ в първия ред и получаваме:
+  \[X_1 = b \cdot X_1 + ab^\star a b^\star a X_1  + \varepsilon.\]
+  Оттук имаме, че:
+  \[X_1 = \underbrace{(b + ab^\star a b^\star a)}_{\alpha} \cdot X_1 + \underbrace{\varepsilon}_{\beta}.\]
+  Така получаваме, че най-малкото решение на първия ред е $(b + ab^\star a b^\star a)^\star$.
+  Заключаваме, че най-малкото решение на системата е тройката от езици:
+  \begin{align*}
+    \hat{L}_1 & = (b + ab^\star a b^\star a)^\star\\
+    \hat{L}_2 & = b^\star a b^\star a (b + ab^\star a b^\star a)^\star\\
+    \hat{L}_3 & = b^\star a (b + ab^\star a b^\star a)^\star.
+  \end{align*}
+  
+  Да напомним, че вече намерихме следното представяне на най-малкото решение на системата:
+  \begin{align*}
+    \hat{L}_1 & = \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}\\
+    \hat{L}_2 & = \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 2 \bmod\ 3\}\\
+    \hat{L}_3 & = \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 1 \bmod\ 3\}.
+  \end{align*}
+
+  
+\end{example}
 
 
-Да разгледаме програмата
-\[X = \underbrace{a \cdot X}_{\tau[X]}.\]
 
-Тогава лесно се съобразява, че $\emptyset = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}$.
-Освен това, най-малката неподвижна точка на $\val{\tau}$ e $\emptyset$.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../sep"
