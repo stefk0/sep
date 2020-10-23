@@ -1,0 +1,104 @@
+\subsection*{Намиране на НОД}
+
+Да дефинираме функцията $\texttt{gcd}:\Nat\times\Nat \to \Nat$, където
+\[\texttt{gcd}(x,y) = (\max z)[\ z\ |\ x\ \&\ z\ |\ y\ ].\]
+\begin{itemize}
+\item 
+  Понеже $0\ |\ 0$, то $\text{НОД}(0,0) = 0$.
+\item
+  Понеже всяко естествено число дели $0$, то $\text{НОД}(0,z) = z$;
+\item
+  Ясно е от дефиницията, че $\text{НОД}(x,y) = \text{НОД}(y,x)$;
+\end{itemize}
+
+\begin{prop}
+  \label{pr:gcd}
+  $(\forall x,y\in\Nat)[\text{НОД}(x,y) = \text{НОД}(y, x \bmod y)]$.
+\end{prop}
+\begin{proof}
+  Ще разгледаме няколко случая.
+  \begin{itemize}
+  \item 
+    Ако $x = y$, то всичко е ясно, защото $x \bmod x = x$.
+  \item
+    Ако $x < y$, то всичко е ясно, защото $x \bmod y = x$ и
+    \[\texttt{gcd}(x,y) = \texttt{gcd}(y,x) = \texttt{gcd}(y, x \bmod y).\]
+  \item
+    Нека $x > y$ и $z = \texttt{gcd}(x,y)$.
+    Тогава $z$ е най-голямото естествено число, което $z\ |\ x$ и $z\ |\ y$.
+    Нека $r = x \bmod y$. Тогава $x = ky + r$, $0 \leq r < y$.
+    Щом $z$ дели $x$ и $y$, то е ясно, че $z$ дели $r$.
+    Остана да съобразим защо $z = \texttt{gcd}(y,r)$.
+    Да допуснем, че съществува естествено число $z'$, такова че $z < z'$ и $z'$ дели $y$ и $r$.
+    Тогава $z'$ също дели и $x = ky + r$. Достигнахме до противоречие с факта, че $z = \texttt{gcd}(x,y)$.
+    Следователно,
+    \[z = \texttt{gcd}(x,y) = \texttt{gcd}(y,x \bmod y).\]
+  \end{itemize}
+\end{proof}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \begin{tikzpicture}[node distance = 3cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $x,y$};
+    \node [label, below of=init, node distance=1.5cm] (n1) {\scriptsize{1}};
+    \node [tallblock, below of=init] (identify) {$z := x$\\$t := y$};
+    \node [label, below of=identify,node distance=1.5cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify] (evaluate) {$t = 0$};
+    \node [bigblock, below of=evaluate, node distance=2cm] (ji) {$v := t$\\$t := z \bmod t$\\$z := v$};
+    \coordinate[right of=evaluate,node distance=2cm] (inc);
+    \node [label, left of=evaluate, node distance=2cm] (n3) {\scriptsize{3}};
+    \node [cloud, left of=n3] (exit) {изход: $z$};
+
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {не} (ji);
+    \draw [-] (ji) -| node {} (inc);
+    \path [line] (inc) |- node  {} (n2);
+    \path [line] (evaluate) -- node {да} (n3);
+    \path [line] (n3) -- node {} (exit);
+  \end{tikzpicture}
+  \caption{Алгоритъм за намиране на $\text{НОД}(x,y)$}
+  \label{fig:gcd}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.6\textwidth}
+    \footnotesize{
+      Да разгледаме свойствата:
+      \begin{align*}
+        A_1(x,y,z,t,v) \dfff & x,y \in \Nat\\
+        A_2(x,y,z,t,v) \dfff & \text{НОД}(x,y) = \text{НОД}(z,t)\ \&\\
+        & x,y,z,t,v\in\Nat\\
+        A_3(x,y,z,t,v) \dfff & z = \text{НОД}(x,y)
+      \end{align*}
+      Докажете, че за всеки преход $(k) \to (l)$ имаме
+      \[(\forall x,y,z,t,v)[A_k(x,y,z,t,v) \implies A_l(x,y,f_{kl}(z,t,v))].\]
+    }
+    \end{subfigure}
+\end{figure}
+
+\begin{prop}
+  Докажете, че програмата на Фигура \ref{fig:gcd} е тотално коректна относно входното условие $x,y\in\Nat$
+  и изходното условие $z = \text{НОД}(x,y)$.
+\end{prop}
+\begin{hint}
+  Доказателството на $A_2(x,y,z,t,v) \implies A_2(x,y,f_{22}(z,t,v))$ следва директно от \Prop{gcd}.
+  За доказателството на $A_2(x,y,z,t,v) \implies A_3(x,y,f_{23}(z,t,v))$ е достатъчно да съобразим, че ако имаме $A_2(x,y,z,t,v)$ и $t = 0$, то
+  $\text{НОД}(x,y) = \text{НОД}(z,0) = z$.
+  
+  Остана да докажем, че програмата винаги завършва при входни данни $x,y \in \Nat$.
+  Да означим с $t_i$ стойността на променливата $t$ след $i$-тото преминаване през етикет $(2)$.
+  Това означава, че $t_0 = y$ и $t_{i+1} = z \bmod t_i$, за някое $z$.
+  Следователно, $t_{i+1} < t_i$. От $A_2$ имаме, че всички $t_i \geq 0$.
+  Така получаваме строго монотонно намаляваща редица $t_0 > t_1 > \cdots > t_i > \cdots \geq 0$, която е ограничена отдолу от $0$.
+  Заключаваме, че съществува $i$, за което $t_i = 0$. Следователно, програмата завършва.
+\end{hint}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:

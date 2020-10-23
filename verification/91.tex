@@ -1,0 +1,69 @@
+\subsection*{Функцията 91 на Макарти}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \begin{tikzpicture}[node distance = 3cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $x$};
+    \node [label, below of=init, node distance=1.5cm] (n1) {\scriptsize{1}};
+    \node [tallblock, below of=init] (identify) {$y := x$\\$t := 1$};
+    \node [label, below of=identify,node distance=1.5cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify] (evaluate) {$y \geq 101$};
+    \node [bigblock, below of=evaluate, node distance=2cm] (min) {$y := y - 10$\\$t := t - 1$};
+    \node [label, below of=min, node distance=1.5cm] (n3) {\scriptsize{3}};
+    \node [bigblock, right of=evaluate] (pls) {$y := y + 11$\\$t := t + 1$};
+    \node [decision, below of=n3, node distance=1.5cm] (ready) {$t = 0$};
+    \node [label, right of=ready, node distance=2cm] (n4) {\scriptsize{4}};
+    \node [cloud, right of=n4] (exit) {изход: $y$};
+    % \coordinate[left of=ready] (dummy);
+
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {да} (min);
+    \path [line] (evaluate) -- node {не} (pls);
+    \path [line] (pls) |- node {} (n2);
+    \path [line] (min) -- node  {} (n3);
+    \path [line] (n3) -- node  {} (ready);
+    \path [line] (ready) -- node {да} (n4);
+    \path [line] (n4) -- node {} (exit);
+    % \path [line] (ready) -- node {} ();
+    % \path [line] (dummy) |- node {} (n2);
+    \path [line] (ready) -- node [above] {не} (-3,-16.5) -- (-3,-6.75) -- (n2);
+  \end{tikzpicture}
+  \caption{Итеративна версия на функцията 91 на Макарти}
+  \label{fig:gcd}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.6\textwidth}
+    \footnotesize{
+      Да разгледаме свойствата:
+      \begin{align*}
+        A_1(x,y,t) \dfff & x \in \Nat\ \&\ x \leq 100\\
+        A_2(x,y,t) \dfff & (t \geq 2 \implies y \leq 111)\ \&\\
+                         & (t = 1 \implies y \leq 101)\\
+        A_3(x,y,t) \dfff & (t \geq 1 \implies y \leq 101)\ \&\\
+                         & (t = 0 \implies y = 91)\ \& \\
+        & 91 \leq y \leq 101\\
+        A_4(x,y,t) \dfff & y = 91.
+      \end{align*}
+      Докажете, че за всеки преход $(k) \to (l)$ имаме
+      \[(\forall x,y,z,t,v)[A_k(x,y,z,t,v) \implies A_l(x,y,f_{kl}(z,t,v))].\]
+    }
+  \end{subfigure}
+\end{figure}
+
+Нека да означим $y_i$, $t_i$ стойностите на променливите $y$ и $t$ точно след $i$-тото преминаване през $(2)$.
+За да докажете тотална коректност, използвайте, че редицата
+\[\{(101 - y_i + 10t_i, t_i) \mid i = 0,1,\dots\}\]
+е строго намаляваща относно лексикографската наредба.
+
+% С други думи, $(\Nat\times\Nat, \prec)$ е фундирана наредба, където 
+% \[(a,b) \prec (a',b') \iff \]
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:

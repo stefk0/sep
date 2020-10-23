@@ -1,0 +1,182 @@
+\chapter{Верификация на програми по метода на Флойд}
+
+\tikzstyle{decision} = [diamond, draw, fill=green!10, text width=4em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=red!10, text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{tallblock} = [rectangle, draw, fill=red!10, text width=4em, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{bigblock} = [rectangle, draw, fill=red!10, text width=7em, rounded corners, minimum height=3em]
+\tikzstyle{label} = [draw,circle,fill=yellow!20,node distance=3.2cm]
+\tikzstyle{cloud} = [draw, ellipse, text width=4em, text centered, fill=blue!10, node distance=2cm, minimum height=2em]
+
+
+Верификация на итеративни програми по метода на индуктивните твърдения на Флойд \cite{floyd-verification}.
+
+% \section{Метод на Флойд}
+
+\marginpar{Този метод е описан за първи път от Робърт Флойд \cite{floyd-verification}}
+\marginpar{Тук на практика следваме \cite[Глава 3]{manna} и \cite[Глава 1]{nikolova-soskova}}
+
+\section{Програми с един цикъл}
+
+\subsection{Решени задачи}
+
+\input{verification/gcd}
+
+\input{verification/maxsum}
+
+\subsection{Задачи с упътване}
+
+\input{verification/sqrt}
+
+\section{Програми с два цикъла}
+
+% \subsection*{Сортиране на масив}
+\subsection{Решени задачи}
+
+\input{verification/insertion-sort}
+
+\subsection{Задачи с упътване}
+
+\input{verification/selection-sort}
+\input{verification/inverse-array}
+\input{verification/91}
+
+% \begin{problem}
+%   Нека е дадена програмата на езика хаскел:
+
+%   \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2]{haskell}
+%     rev :: [a] -> [a]
+%     rev x = f(x, []) where 
+%       f([], y) = y
+%       f(x:xs, y) = f(xs, x:y)
+%   \end{minted}
+
+%   \noindent 
+%   Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item 
+%     $rev:\Sigma^\star \to \Sigma^\star$ е тотална.
+%   \item
+%     $(\forall x \in \Sigma^\star)[rev(rev(x)) = x]$.
+%   \item
+%     $(\forall x \in \Sigma^\star)[rev(x) = x^R]$.
+%   \end{enumerate}
+% \end{problem}
+% \begin{hint}
+%   % Ще използваме следното правило:
+%   % \begin{prooftree}
+%   %   \AxiomC{$P(\varepsilon)$}
+%   %   \AxiomC{$(\forall x \in \Sigma^\star)[x\neq\varepsilon\ \&\ P(cdr(x)) \to P(x)]$}
+%   %   \RightLabel{\scriptsize(1)}
+%   %   \BinaryInfC{$(\forall x\in\Sigma^\star)[P(x)]$}
+%   % \end{prooftree}
+%   % % \item
+%   %   Докажете валидността на правилото $(1)$. % е еквивалентно на структурна индукция върху фундираната наредба
+%     % $(\Sigma^\star,\prec)$, където $x \prec y \iff (\exists z\in\Sigma^\star)[z\cdot x = y]$, т.е.
+%     % $x$ е суфикс на $y$.
+%   Да разгледаме фундираната наредба $L = (\Sigma^\star, \prec)$, където
+%   $x \prec y \iff \abs{x} < \abs{y}$.
+%   \begin{enumerate}[a)]
+%   \item 
+%     Да разгледаме свойството 
+%     \[P(x) \equiv (\forall y\in \Sigma^\star)[f(x,y)\text{ е дефинирана}].\]
+%     Докажете със структурна индукция по $L$, че $(\forall x\in\Sigma^\star)[P(x)]$.
+%   \item
+%     Да разгледаме свойството 
+%     \[P(x) \equiv (\forall y\in \Sigma^\star)[rev(f(x,y)) = f(y,x)].\]
+%     Докажете със структурна индукция по $L$, че $(\forall x\in\Sigma^\star)[P(x)]$.
+%     Тогава в частния случай $y = \varepsilon$, 
+%     \[rev(rev(x)) = rev(f(x,\varepsilon)) = f(\varepsilon,x) = x.\]
+%   \item
+%     Разгледайте свойството
+%     \[P(x) \equiv (\forall y\in\Sigma^\star)[f(x,y) = x^R \cdot y].\]
+%   \end{enumerate}
+% \end{hint}
+
+% \begin{problem}
+%   Нека е дадена програмата на езика хаскел:
+
+%   \begin{minted}[]{haskell}
+%     concat :: ([a], [a]) -> [a]
+%     concat([], y) = y
+%     concat(x:xs, y) = x:concat(xs, y)
+%   \end{minted}
+%   \noindent Докажете, че:
+%   \begin{enumerate}[a)]
+%   \item
+%     $(\forall x,y\in\Sigma^\star)[concat(x, y) = x \cdot y]$;
+%   \item 
+%     $(\forall x,y,z\in\Sigma^\star)[concat(concat(x, y), z) = concat(x, concat(y, z))]$;
+%   \item
+%     $(\forall x,y\in\Sigma^\star)[concat(x, y)^R = concat(y^R, x^R)]$.
+%   \end{enumerate}
+% \end{problem}
+% \begin{hint}
+%   Да разгледаме фундираната наредба $L = (\Sigma^\star, \prec)$, където
+%   $x \prec y \iff \abs{x} < \abs{y}$.
+%   \begin{enumerate}[a)]
+%   \item
+%     Разгледайте
+%     \[P(x) \equiv (\forall y\in\Sigma^\star)[concat(x, y) = x \cdot y].\]
+%   \item 
+%     Разгледайте 
+%     \[P(x) \equiv (\forall y,z\in\Sigma^\star)[concat(concat(x, y), z) = concat(x, concat(y, z))].\]
+%   \item
+%     Разгледайте
+%     \[P(x) \equiv (\forall y\in\Sigma^\star)[concat(x, y)^R = concat(y^R, x^R)].\]
+%   \end{enumerate}
+% \end{hint}
+
+% \begin{problem}
+%   Да разгледаме следната програма
+%   \begin{haskellcode}
+%     f :: Int -> Int
+%     f(x) = if x > 100 then x - 10
+%              else f(f(x + 11))
+%   \end{haskellcode}
+%   Докажете, че 
+%   \[f(x) = \begin{cases}
+%     x - 10, & x > 100\\
+%     91, & x \leq 100.
+%   \end{cases}\]
+% \end{problem}
+% \begin{hint}
+%   Разгледайте строгата частична наредба $\A = (\{x \in \Int \mid x \leq 100\}, \prec)$, където
+%   \[x \prec y \iff y < x.\]
+%   Лесно се съобразява, че наредбата $\A$ е фундирана.
+%   Да разгледаме свойството \[P(x) \equiv f(x) = 91.\]
+%   \begin{itemize}
+%   \item 
+%     Лесно се вижда, че $P(100)$.
+%   \item
+%     Нека $x < 100$. 
+%     Да приемем, че $(\forall z \prec x)[P(z)]$. Ще докажем, че $P(x)$.
+%     Тук трябва да разгледаме два подслучая в зависимост от това дали $x+11 \leq 100$ или $x+11 > 100$.
+%   \end{itemize}
+% \end{hint}
+
+% \begin{problem}
+%   Да разгледаме следната програма:
+%   \begin{minted}[]{haskell}
+%     f :: (Int, Int) -> Int
+%     f(x, y) = if x == y then 1
+%              else (y+2)*(y+1)*f(x, y + 2)
+%   \end{minted}
+%   Докажете, че \[(\forall x,y\in\Nat)[x \geq y\ \&\ (x-y) \equiv 0 \bmod 2 \implies f(x,y) = \frac{x!}{y!}].\]
+% \end{problem}
+% \begin{hint}
+%   Ще използваме структурна индукция върху $(\Nat, <)$.
+%   Да разгледаме свойството
+%   \[P(z) \equiv (\forall x,y\in\Nat)[z = x - y \geq 0\ \&\ z \equiv 0 \bmod 2 \implies f(x,y) = \frac{x!}{y!}].\]
+% \end{hint}
+
+
+
+% \input{verification/induction}
+% \input{verification/permutations}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "sep-problems"
+%%% End: 

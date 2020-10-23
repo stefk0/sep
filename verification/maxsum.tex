@@ -1,0 +1,151 @@
+\subsection*{Търсене на максимална сума}
+
+\begin{problem}
+  % Да разгледаме следния алгоритъм:
+  % \begin{algorithm}[H]
+  %   \caption{}
+  %   \label{alg:useless}
+  %   \begin{algorithmic}[1]
+  %     \State $y := x[0]$
+  %     \State $z := x[0]$
+  %     \State $i := 1$
+  %     \For{$i := 1; i < n; i++$}
+  %     \State $z := \max\{x[i], z + x[i]\}$
+  %     \State $y := \max\{x[i], z + x[i]\}$
+  %     \EndFor
+  %     \State \Return $y$
+  %   \end{algorithmic}
+  % \end{algorithm}
+  
+
+  Докажете, че програмата $P$, описана с блок-схемата на \Fig{max-sum}, 
+  пресмята $\max\{\sum^l_{i=k}x_i \mid 0 \leq k \leq l \leq n\}$.
+\end{problem}
+
+\begin{figure}[H]
+  \begin{tikzpicture}[node distance = 3cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $x_0,\dots,x_n$};
+    \node [label, below of=init, node distance=1.5cm] (n1) {\scriptsize{1}};
+    \node [tallblock, below of=init] (identify) {$y := x_0$\\$z := x_0$\\$i := 1$};
+    \node [label, below of=identify,node distance=1.5cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify] (evaluate) {$i \leq n$};
+    \node [bigblock, below of=evaluate, node distance=2cm] (ji) {$\scriptstyle{z := \max\{x_i,z+x_i\}}$\\$\scriptstyle{y := \max\{y,z\}}$};
+    \node [block, right of=evaluate, node distance=2.5cm] (inc) {$i := i+1$};
+    \node [label, left of=evaluate, node distance=2cm] (n3) {\scriptsize{3}};
+    \node [cloud, left of=n3] (exit) {изход: $y$};
+
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {да} (ji);
+    \path [line] (ji) -| node {} (inc);
+    \path [line] (inc) |- node  {} (n2);
+    \path [line] (evaluate) -- node {не} (n3);
+    \path [line] (n3) -- node {} (exit);
+  \end{tikzpicture}
+  \caption{Ще докажем, че $y = \max\{\sum^l_{i=k}x_i \mid 0 \leq k \leq l \leq n\}$}
+% \end{wrapfigure}
+  \label{fig:max-sum}
+\end{figure}
+
+Първо ще разгледаме две твърдения, които ще ни подскажат какво представляват междинните стойности на променливите $z$ и $y$ в програмата на \Fig{max-sum}.
+
+\begin{prop}
+  \label{pr:Z}
+  Нека е дадена редицата $x_0,\dots,x_n \in \Int$.
+  Да дефинираме:
+  \begin{itemize}
+  \item
+    $Z(\bar{x},0) = x_0$;
+  \item
+    $Z(\bar{x},i+1) = \max\{x_{i+1}, Z(\bar{x},i)+x_{i+1}\}$.
+  \end{itemize}
+  Тогава за всяко $i \leq n$, $Z(\bar{x},i) = \max\{\sum^i_{j  = k}x_j \mid 0 \leq k \leq i\}$.
+\end{prop}
+\begin{proof}
+  Индукция по $i$.
+  За $i = 0$ е ясно, защото 
+  \[Z(\bar{x},0) = x_0 = \max\{\sum^0_{j=k}x_j \mid 0\leq k\leq 0\}.\]
+  Ще докажем твърдението за $i+1$.
+  \begin{align*}
+    Z(\bar{x},i+1) & = \max\{Z(\bar{x},i)+x_{i+1},x_{i+1}\} & (\text{от деф.})\\
+    & = \max\{\max\{\sum^{i}_{j  = k}x_j \mid 0 \leq k \leq i\}+x_{i+1}, x_{i+1}\} & (\text{от И.П.})\\
+    & = \max\{\max\{\sum^{i+1}_{j  = k}x_j \mid 0 \leq k \leq i\}, \sum^{i+1}_{j=i+1}x_j\}\\
+    & = \max\{\sum^{i+1}_{j  = k}x_j \mid 0 \leq k \leq i+1\}.
+  \end{align*}
+\end{proof}
+
+\begin{prop}
+  \label{pr:Y}
+  Нека е дадена редицата $x_0,\dots,x_n \in \Int$.
+  Да дефинираме:
+  \begin{itemize}
+  \item 
+    $Y(\bar{x},0) = x_0$;
+  \item
+    $Y(\bar{x},i+1) = \max\{Y(\bar{x},i), Z(\bar{x},i+1)\}$.
+  \end{itemize}
+  Тогава за всяко $i \leq n$, $Y(\bar{x},i) = \max\{Z(\bar{x},l) \mid 0 \leq l \leq i\}$.
+\end{prop}
+\begin{proof}
+  Отново индукция по $i$.
+  За $i = 0$ е очевидно, защото
+  \[Y(\bar{x},0) = x_0 = Z(\bar{x},0) = \max\{Z(\bar{x},l) \mid 0 \leq l \leq 0\}.\]
+  Ще докажем твърдението за $i+1$.
+  \begin{align*}
+    Y(\bar{x},i+1) & = \max\{Y(\bar{x},i), Z(\bar{x},i+1)\} & (\text{от деф.})\\
+    & = \max\{\max\{Z(\bar{x},l) \mid 0 \leq l \leq i\}, Z(\bar{x},i+1)\} & (\text{от И.П.})\\
+    & = \max\{Z(\bar{x},l) \mid 0 \leq l \leq i+1\}.
+  \end{align*}
+\end{proof}
+
+\begin{cor}
+  \label{cr:Y}
+  $Y(\bar{x},n) = \max\{\sum^l_{i=k}x_i \mid 0\leq k \leq l \leq n\}$.
+\end{cor}
+
+Сега сме готови да дефинираме свойствата $A_l$ за етикетите $l = 1,2,3$:
+\begin{align*}
+  & A_1(\bar{x},i,y,z,n) \equiv \bar{x} \in \Int^{n+1};\\
+  & A_2(\bar{x},i,y,z,n) \equiv y = Y(\bar{x},i-1)\ \&\ z = Z(\bar{x},i-1)\ \&\ 1 \leq i \leq n+1;\\
+  & A_3(\bar{x},i,y,z,n) \equiv y = Y(\bar{x},n).
+\end{align*}  
+
+За всеки директен преход $(k) \to (l)$ между етикети в блок схемата, асоциираме функция $f_{kl}$,
+която показва как се изменят стойностите на променливите участващи в програмата на \Fig{max-sum}:
+\begin{align*}
+  & f_{12}(\bar{x},i,y,z,n) = (\bar{x},1,x_0,x_0,n);\\
+  & f_{22}(\bar{x},i,y,z,n) = (\bar{x},i+1,max\{x_i,z+x_i\},\max\{y,z\},n);\\
+  & f_{23}(\bar{x},i,y,z,n) = (\bar{x},i,y,z,n).
+\end{align*}
+
+\begin{prop}
+  За всеки директен преход между етикети $(k) \to (l)$ е изпълнена импликацията:
+  \[(\forall\bar{x}\in\Int^{n+1})(\forall i,j\in\Int)[A_k(\bar{x},i,j,n) \implies A_l(f_{kl}(\bar{x},i,j,n))].\]
+\end{prop}
+\begin{proof}
+  \begin{description}
+  \item[($1 \to 2$)] 
+    Следва директно от дефинициите на $Y(\bar{x},0)$ и $Z(\bar{x},0)$.
+  \item[($2 \to 2$)] 
+    Следва директно от \Prop{Z} и \Prop{Y}.
+    Ясно е също, щом преминаваме $2 \to 2$, то $1 \leq i+1 \leq n+1$.
+  \item[($2 \to 3$)] 
+    Понеже $i \leq n+1$ и прехода $2\to 3$ ни дава, че $i > n$, 
+    то следва, че $i = n+1$. Тогава $Y(i-1) = Y(n)$.
+    Сега прилагаме \Cor{Y}.
+  \end{description}
+\end{proof}
+\begin{cor}
+  Програмата от \Fig{max-sum} е частично коректна относно 
+  входното условие $I(\bar{x},n) \equiv \bar{x} \in \Int^{n+1}$ и изходното условие $O(\bar{x},n,y) \equiv y = \max\{\sum^l_{i=k}x_i \mid 0\leq k \leq l \leq n\}$.
+\end{cor}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:

@@ -1,0 +1,56 @@
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \begin{tikzpicture}[node distance = 3cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $n$};
+    \node [label, below of=init, node distance=1.5cm] (n1) {\scriptsize{1}};
+    \node [tallblock, below of=init] (identify) {$x := 0$\\$y := 1$\\$s := 1$};
+    \node [label, below of=identify,node distance=1.5cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify] (evaluate) {$s \leq n$};
+    \node [bigblock, below of=evaluate, node distance=2cm] (ji) {$x := x + 1$\\$y := y + 2$\\$s := s + y$};
+    \coordinate[right of=evaluate,node distance=2cm] (inc);
+    \node [label, left of=evaluate, node distance=2cm] (n3) {\scriptsize{3}};
+    \node [cloud, left of=n3] (exit) {изход: $x$};
+
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {да} (ji);
+    \draw [-] (ji) -| node {} (inc);
+    \path [line] (inc) |- node  {} (n2);
+    \path [line] (evaluate) -- node {не} (n3);
+    \path [line] (n3) -- node {} (exit);
+  \end{tikzpicture}
+  \caption{Алгоритъм за намиране на $\lfloor{\sqrt{n}}\rfloor$}
+  \label{fig:sqrt}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.6\textwidth}
+    \footnotesize{
+      Да разгледаме свойствата:
+      \begin{align*}
+        A_1(x,y,s,n) \dfff & n \in \Nat\\
+        A_2(x,y,s,n) \dfff & x,n\in\Nat\ \&\ x^2 \leq n\ \&\\
+        & y = 2x+1\ \&\ s = (x+1)^2\\
+        A_3(x,y,s,n) \dfff & x^2 \leq n < (x+1)^2
+      \end{align*}
+      Съобразете, че $A_3(x,y,s,n) \implies x = \lfloor{\sqrt{n}}\rfloor$.
+      Докажете, че за всеки преход $(k) \to (l)$ имаме
+      \[(\forall x,y,s,n)[A_k(x,y,s,n) \implies A_l(f_{kl}(x,y,s),n)].\]
+    }
+    \end{subfigure}
+\end{figure}
+
+\begin{problem}
+  Докажете, че програмата $P$ описана с блок-схемата на Фигура \ref{fig:sqrt} е тотално коректна относно входното 
+  условие $n \in \Nat$ и изходното условие $\lfloor{\sqrt{n}}\rfloor$.
+\end{problem}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:

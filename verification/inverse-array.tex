@@ -1,0 +1,74 @@
+\subsection*{Обръщане на масив}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \begin{tikzpicture}[node distance = 2.5cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $z_0,\dots,z_n$};
+    \node [label, below of=init, node distance=1.5cm] (n1) {\scriptsize{1}};
+    \node [block, below of=init] (identify) {$\scriptsize{\bar{x}:=\bar{z}}$\\$\scriptstyle{i := 0}$};
+    \node [label, below of=identify,node distance=1.2cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify,node distance=2.7cm] (evaluate) {$i = n+1$};
+    \node [block, below of=evaluate, node distance=2cm] (ji) {$\scriptstyle{y := x_0}$\\$\scriptstyle{j := 0}$};
+    \node [label, below of=evaluate] (n3) {\scriptsize{3}};
+    \node [decision, below of=ji] (loop) {$j = n - i$};
+    \node [block, right of=loop] (jinc) {$\scriptstyle{x_j := x_{j+1}}$\\$\scriptstyle{j++}$};
+    \node [block, left of=loop] (mset) {$\scriptstyle{x_{n-i} := y}$\\$\scriptstyle{i++}$};
+    \node [label, right of=evaluate, node distance=1.8cm] (n4) {\scriptsize{4}};
+    \node [cloud, right of=n6, node distance=2cm] (exit) {изход: $x_0,\dots,x_n$};
+
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {не} (ji);
+    \path [line] (ji) -- node {} (n3);
+    \path [line] (n3) -- node {} (loop);
+    \path [line] (loop) -- node {не} (jinc);
+    \path [line] (loop) -- node [above] {да} (mset);
+    \path [line] (mset) |- node {} (n2);
+    \path [line] (jinc) |- node {} (n3);
+    \path [line] (evaluate) -- node {да} (n4);
+    \path [line] (n4) -- node {} (exit);
+  \end{tikzpicture}
+  \caption{Ще докажем, че по даден входен масив, програмата го обръща}
+  \end{subfigure}
+  ~
+  \qquad
+  \begin{subfigure}[b]{0.6\textwidth}
+    \footnotesize{
+      Да положим предикатите:
+      \begin{align*}
+        \texttt{Shift}(\bar{x},\bar{z},i,j,s) & \dfff  (\forall k)[i \leq k \leq j \to x_k = z_{k+s}];\\
+        \texttt{Inv}(\bar{x},\bar{z},i,j) & \dfff (\forall k)[i \leq k \leq j \to x_k = z_{n-k}].
+      \end{align*}
+      Трябва да докажем, че програмата е частично коректна относно 
+      \begin{align*}
+        & I(\bar{z},n) \dfff \bar{z} \in \Int^{n+1}\ \&\ n \geq 0;\\
+        & O(\bar{z},\bar{x},n) \dfff \texttt{Inv}(\bar{x},\bar{z},0,n).
+      \end{align*}
+      Разгледайте свойствата:
+      \begin{align*}
+        A_1(\bar{z},\bar{x},i,j,y,n) \dfff & \bar{z} \in \Int^{n+1}\ \&\ n \geq 0\\
+        A_2(\bar{z},\bar{x},i,j,y,n) \dfff & 0 \leq i \leq n+1\ \&\\
+        & \texttt{Inv}(\bar{x},\bar{z},n+1-i,n)\ \&\\
+        & \texttt{Shift}(\bar{x},0,n-i,i);\\
+        A_3(\bar{z},\bar{x},i,j,y,n) \dfff & y = z_i\ \&\ 0 \leq j \leq n-i\ \&\ 0 \leq i\\
+        & \texttt{Inv}(\bar{x},\bar{z},n+1-i,n)\ \&\\
+        & \texttt{Shift}(\bar{x},0,j-1,i+1)\ \&\\
+        & \texttt{Shift}(\bar{x},j,n-i,i);\\
+        A_4(\bar{z},\bar{x},i,j,y,n) \dfff & \texttt{Inv}(\bar{x},\bar{z},0,n).
+      \end{align*}
+      Докажете, че за всеки преход $(k) \to (l)$ имаме
+      \[A_k(\bar{z},\bar{x},i,j,y,n) \implies A_l(\bar{z},f_{kl}(\bar{x},i,j,y),n).\]
+    }
+  \end{subfigure}
+% \end{wrapfigure}
+\end{figure}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:

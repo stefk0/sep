@@ -1,0 +1,184 @@
+
+\subsection*{Сортиране чрез вмъкване}
+\begin{problem}
+  Докажете, че програмата, описана с блок-схемата на \Fig{insertion-sort}, 
+  сортира входния масив във възходящ ред.
+\end{problem}
+
+%\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{figure}[H]
+  \begin{tikzpicture}[node distance = 2.75cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $z_0,\dots,z_n$};
+    \node [label, below of=init, node distance=1.25cm] (n1) {\scriptsize{1}};
+    \node [block, below of=init, node distance=2.25cm] (identify) {$\bar{x} := \bar{z}$\\$i := 1$};
+    \node [label, below of=identify,node distance=1.5cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify] (evaluate) {$i \leq n$};
+    \node [block, below of=evaluate, node distance=2cm] (ji) {$j := i$};
+    \node [block, right of=ji, node distance=2.5cm] (inc) {$i := i+1$};
+    \node [label, below of=evaluate] (n3) {\scriptsize{3}};
+    \node [decision, below of=ji] (loop) {$\scriptstyle{j\geq 1\ \&}$\\$\scriptstyle{x_j < x_{j-1}}$};
+    \node [block, left of=loop] (swap) {$\scriptstyle{swap(x_j,x_{j-1})}$\\$\scriptstyle{j := j-1}$};
+    \node [cloud, left of=evaluate, node distance=4cm] (exit) {изход: $x_0,\dots,x_n$};
+    \node [label, left of=evaluate, node distance=2cm] (n4) {\scriptsize{4}};
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {да} (ji);
+    \path [line] (ji) -- node {} (n3);
+    \path [line] (n3) -- node {} (loop);
+    \path [line] (loop) -- node {да} (swap);
+    \path [line] (swap) |- node {} (n3);
+    \path [line] (loop) -| node [below] {не} (inc);
+    \path [line] (inc) |- node  {} (n2);
+    \path [line] (evaluate) -- node {не} (n4);
+    \path [line] (n4) -- node {} (exit);
+  \end{tikzpicture}
+  \caption{По даден входен масив $\bar{x}\in\Int^{n+1}$, програмата го сортира във възходящ ред (\href{http://en.wikipedia.org/wiki/Insertion_sort}{insertion sort})}
+% \end{wrapfigure}
+  \label{fig:insertion-sort}
+\end{figure}
+
+\noindent Удобно е да означим:
+\[\texttt{Ord}(\bar{x},i,j) \dfff (\forall k)[i \leq k < j \implies x_k \leq x_{k+1}],\]
+което ни казва, че елемените в интервала $[i,j]$ на масива $\bar{x}$ са подредени във възходящ ред.
+Също така, да означим:
+\begin{align*}
+  \texttt{Perm}(\bar{z},\bar{x},n) \dfff \bar{z},\bar{x} \in \Int^{n+1}\ \&\ (\exists f)[&f:\{0,\dots,n\}\to\{0,\dots,n\} \text{ е биекция }\&\\
+  & (\forall i)[0\leq i \leq n \implies z_i = x_{f(i)}]].
+\end{align*}
+Това означава, че $\bar{z}$ е пермутация на елементите на $\bar{x}$.
+
+\marginpar{Понеже масивът $\bar{z}$ и $n$ са константни, то няма нужда да описваме как се променят с функциите $f_{kl}$}
+За всеки директен преход $(k) \to (l)$ между етикети в блок схемата, асоциираме функция $f_{kl}$,
+която показва как се изменят стойностите на променливите участващи в програмата.
+\begin{align*}
+  & f_{12}(\bar{x},i,j) \dff (\bar{x},1,j)\\
+  & f_{23}(\bar{x},i,j) \dff (\bar{x}, i, i)\\
+  & f_{24}(\bar{x},i,j) \dff (\bar{x}, i, j)\\
+  & f_{32}(\bar{x},i,j) \dff (\bar{x}, i+1, j)\\
+  & f_{33}(\bar{x},i,j) \dff (\bar{x}',i,j-1),
+\end{align*}
+където $\bar{x}' = (x'_0,\dots,x'_n)$ е променения масив, за който
+$x'_{j-1} = x_{j}$, $x'_j = x_{j-1}$, а $x'_k = x_k$ за всеки индекс $k$ в интервала $[0,n] \setminus\{j-1,j\}$.
+
+Към всеки етикет $(l)$ в блок схемата на програмата $P$ на \Fig{insertion-sort}, асоциираме предиката $A_l$, където:
+\begin{align*}
+  A_1(\bar{z},\bar{x},i,j,n) \dfff\ & \bar{z} \in \Int^{n+1}\ \&\ n \geq 0\\
+  A_2(\bar{z},\bar{x},i,j,n) \dfff\ & \texttt{Perm}(\bar{z},\bar{x},n)\ \&\ \texttt{Ord}(\bar{x},0,i-1)\ \&\ 0 \leq i \leq n+1\\
+  A_3(\bar{z},\bar{x},i,j,n) \dfff\ & \texttt{Perm}(\bar{z},\bar{x},n)\ \&\ \texttt{Ord}(\bar{x},0,j-1)\ \&\ \texttt{Ord}(\bar{x},j,i)\ \&\\
+  & 0\leq j \leq i \leq n\ \&\ (0 < j < i \implies x_{j-1} \leq x_{j+1})\\
+  A_4(\bar{z},\bar{x},i,j,n) \dfff\ & \texttt{Perm}(\bar{z},\bar{x},n)\ \&\ \texttt{Ord}(\bar{x},0,n).
+\end{align*}
+
+\begin{prop}
+  За всеки директен преход между етикети $(k) \to (l)$ е изпълнена импликацията:
+  \[(\forall\bar{z},\bar{x},i,j,n)[A_k(\bar{z},\bar{x},i,j,n) \implies A_l(\bar{z},f_{kl}(\bar{x},i,j),n)].\]
+\end{prop}
+\begin{proof}
+  \begin{description}
+  \item[($1\to 2$)]
+    Очевидно е, че имаме $A_2(\bar{z},\bar{x},1,j,n)$, т.е. $\texttt{Ord}(\bar{x},0,1-1)$ и $1 \leq n+1$.
+  \item[($2 \to 3$)]
+    Нека $A_2(\bar{z},\bar{x},i,j,n)$.
+    Ще докажем, че имаме $A_3(\bar{z},\bar{x},i,i,n)$. Това е съвсем лесно:
+    \begin{itemize}
+    \item 
+      От $A_2$ е ясно, че имаме $\texttt{Ord}(\bar{x},0,i-1)$.
+    \item
+      Очевидно е, че имаме $\texttt{Ord}(\bar{x},i,i)$.
+    \item
+      От $A_2$ имаме, че $i < n+1$. Но понеже от етикет 2 сме отишли в етикет 3, 
+      то $i \neq n+1$. Следователно, $0 \leq i \leq i \leq n$.
+    \item
+      Импликацията $0 < i < i \implies x_{i-1}\leq x_{i+1}$  
+      е изпълнена по тривиални причини.
+    \end{itemize}
+  \item[($3\to 3$)]
+  Нека $A_3(\bar{z},\bar{x},i,j,n)$.
+  Ще докажем, че $A_3(\bar{z},\bar{x}',i,j-1,n)$.
+  Понеже сме направили преход $3 \to 3$,
+  то имаме също свойството, че $j \geq 1$ и $x_{j} < x_{j-1}$.
+  Това означава, че:
+  \begin{align*}
+    \bar{x} =\ & \overbrace{x_0 \leq \dots \leq x_{j-2}\leq x_{j-1}}^{\texttt{Ord}} > \overbrace{x_j \leq x_{j+1} \leq \cdots \leq x_i}^{\texttt{Ord}}\\
+    \bar{x}' =\ & \underbrace{x_0 \leq \dots \leq x_{j-2}}_{\texttt{Ord}} \square \underbrace{x'_{j-1}}_{x_j} < \underbrace{x'_j}_{x_{j-1}} \square \underbrace{x_{j+1} \leq \cdots \leq x_i}_{\texttt{Ord}}
+  \end{align*}
+  
+  \begin{itemize}
+  \item 
+    Ясно е, че $0 \leq j-1 \leq i$;
+  \item
+    От $\texttt{Ord}(\bar{x},0,j-1)$ следва, че $\texttt{Ord}(\bar{x}',0,j-2)$,
+    защото единствената промяна в масива е размяната на стойностите
+    на $x_{j-1}$ и $x_j$.
+  \item
+    За да докажем, че $\texttt{Ord}(\bar{x}',j-1,i)$, трябва да разгледаме два случая.
+    \begin{itemize}
+    \item
+      Ако $j = i$, тогава $x_i < x_{i-1}$. Да проверим, че $\texttt{Ord}(\bar{x}',i-1,i)$.
+      Имаме, че:
+      \[\texttt{Ord}(\bar{x}',i-1,i)\ \iff\ x'_{i-1} \leq x'_{i}.\]
+      Ние имаме дясната страна на еквивалентността, защото от размяната на елементите $x_{i-1}$ и $x_{i}$
+      имаме \[x'_{i-1} = x_i < x_{i-1} = x'_{i}.\]
+    \item
+      Ако $j < i$, тогава от $A_3(\bar{x},i,j,n)$ имаме, че $\texttt{Ord}(\bar{x},j,i)$,
+      и  $x_{j-1} \leq x_{j+1}$, защото $0 < j < i$.
+      % а от последния конюнкт на $A_3$ е изпълнено, че $x_{j-1} \leq x_{j+1}$.
+      Щом имаме $\texttt{Ord}(\bar{x},j,i)$, за да докажем, че $\texttt{Ord}(\bar{x}',j-1,i)$ e достатъчно да проверим, че
+      $x'_{j-1}\leq x'_{j}$ и $x'_j \leq x'_{j+1}$. Понеже сме извършили размяна на стойностите на $x_{j-1}$ и $x_j$,
+      а останалите елементи на $\bar{x}$ остават непроменени, получаваме:
+      \begin{itemize}
+      \item 
+        $ x'_{j-1} = x_j < x_{j-1} = x'_j$,
+      \item
+        $x'_{j} = x_{j-1} \leq x_{j+1} = x'_{j+1}$.
+      \end{itemize}
+    \end{itemize}
+  \item
+    Остана да проверим, че ако $0 < j - 1 < i$, то $x'_{j-2} \leq x'_{j}$, т.е. дали
+    \[x'_{j-2} = x_{j-2} \leq x_{j-1} = x'_{j}.\] Това е изпълнено, защото от 
+    $A_3(\bar{x},i,j,n)$ имаме, че $\texttt{Ord}(\bar{x},0,j-1)$ и следователно $x_{j-2} \leq x_{j-1}$.
+  \end{itemize}
+  
+\item[($3\to 2$)]
+  Нека $A_3(\bar{z},\bar{x},i,j,n)$.
+  Щом сме отишли в етикет 2, значи имаме \[\neg(1 \leq j\ \&\ x_j < x_{j-1}).\]
+  Ще докажем $A_2(\bar{z},\bar{x},i+1,j,n)$.
+  \begin{itemize}
+  \item 
+    $A_3(\bar{z},\bar{x},i,j,n) \implies i \leq n \implies i+1 \leq n+1$.
+  \item
+    Трябва да проверим, че $\texttt{Ord}(\bar{x},0,i+1-1)$.
+    Да видим защо сме преминали от 3 към 2.
+    \begin{itemize}
+    \item 
+      Ако $j < 1$, то $j = 0$, защото от $A_3$ имаме, че $0\leq j$.
+      Освен това, от $A_3$ имаме $\texttt{Ord}(\bar{x},0,i)$.
+      Оттук ведната следва, че $\texttt{Ord}(\bar{x},0,i-1)$
+    \item
+      Ако $j \geq 1$, но $x_{j-1} \leq x_j$.
+      От $A_3$ имаме, че $\texttt{Ord}(\bar{x},0,j-1)$ и $\texttt{Ord}(\bar{x},j,i)$.
+      От всичко това имаме, че 
+      \[x_0 \leq \dots \leq x_{j-1} \leq x_j \leq x_{j+1} \leq \dots \leq x_i.\]
+      Заключаваме, че $\texttt{Ord}(\bar{x},0,i)$.
+    \end{itemize}
+  \end{itemize}
+\item[($2 \to 4$)]
+  Нека $A_2(\bar{z},\bar{x},i,j,n)$ е изпълнено. Щом се достигнали етикета 4, значи имаме и $i > n$.
+  От $A_2$ пък имаме $i \leq n+1$.
+  Следователно, $i = n+1$ и тогава $A_2(\bar{z},\bar{x},i,j,n) \implies \texttt{Ord}(\bar{x},0,n+1-1)$.
+\end{description}
+\end{proof}
+
+\begin{cor}
+  Програмата $P$ от \Fig{insertion-sort} 
+  е частично коректна относно входното условие $I(\bar{z},n) \dff \bar{z}\in\Int^{n+1}$ и изходното условие $O(\bar{z},\bar{x},n) \equiv \texttt{Ord}(\bar{x},0,n)\ \&\ \texttt{Perm}(\bar{z},\bar{x},n)$.
+\end{cor}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:

@@ -1,0 +1,82 @@
+\subsection*{Сортиране с избор}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.6\textwidth}
+  \begin{tikzpicture}[node distance = 2.5cm,auto,scale=0.6, every node/.style={scale=0.9}]
+    % Place nodes
+    \node [cloud] (init) {вход: $z_0,\dots,z_n$};
+    \node [label, below of=init, node distance=1.5cm] (n1) {\scriptsize{1}};
+    \node [block, below of=init] (identify) {$\scriptsize{\bar{x}:=\bar{z}}$\\$\scriptstyle{i := 0}$};
+    \node [label, below of=identify,node distance=1.2cm] (n2) {\scriptsize{2}};
+    \node [decision, below of=identify,node distance=2.7cm] (evaluate) {$i < n$};
+    \node [block, below of=evaluate, node distance=2cm] (ji) {$\scriptstyle{m := i}$\\$\scriptstyle{j := i+1}$};
+    \node [label, below of=evaluate] (n3) {\scriptsize{3}};
+    \node [decision, below of=ji] (loop) {$j > n$};
+    \node [decision, below of=loop,node distance=2.5cm] (comp) {$x_j < x_m$};
+    \node [label, right of=comp, node distance=1.8cm] (n4) {\scriptsize{4}};
+    \node [block, right of=n4,node distance=1.8cm] (jinc) {$\scriptstyle{j++}$};
+    \node [block, below of=jinc] (mset) {$\scriptstyle{m := j}$};
+    \node [label, above of=mset, node distance=1.3cm] (n5) {\scriptsize{5}};
+    \node [block, left of=loop] (swap) {$\scriptstyle{swap(x_i,x_m)}$\\$\scriptstyle{i++}$};
+    \node [label, right of=evaluate, node distance=1.8cm] (n6) {\scriptsize{6}};
+    \node [cloud, right of=n6, node distance=2cm] (exit) {изход: $x_0,\dots,x_n$};
+
+  % Draw edges
+    \path [line] (init) -- (n1);
+    \path [line] (n1) -- (identify);
+    \path [line] (identify) -- (n2);
+    \path [line] (n2) -- (evaluate);
+    \path [line] (evaluate) -- node {да} (ji);
+    \path [line] (ji) -- node {} (n3);
+    \path [line] (n3) -- node {} (loop);
+    \path [line] (loop) -- node {не} (comp);
+    \path [line] (comp) -- node {не} (n4);
+    \path [line] (n4) -- node {} (jinc);
+    \path [line] (comp) |- node [left] {да} (mset);
+    \path [line] (mset) -- node {} (n5);
+    \path [line] (n5) -- node {} (jinc);
+    \path [line] (jinc) |- node {} (n3);
+    x\path [line] (loop) -- node [below] {да} (swap);
+    \path [line] (swap) |- node  {} (n2);
+    \path [line] (evaluate) -- node {не} (n6);
+    \path [line] (n6) -- node {} (exit);
+  \end{tikzpicture}
+  \caption{Блок схема за алгоритъм, който сортира входния масив възходящ ред (\href{https://en.wikipedia.org/wiki/Selection_sort}{Selection sort})}
+  \end{subfigure}
+  ~
+  \qquad
+  \begin{subfigure}[b]{0.6\textwidth}
+    \footnotesize{
+      Трябва да докажем, че програмата е частично коректна относно
+      \begin{align*}
+        & I(\bar{z},n) \dfff \bar{z} \in \Int^{n+1}\\
+        & O(\bar{z},\bar{x},n) \dfff \texttt{Ord}(\bar{x},0,n)\ \&\ \texttt{Perm}(\bar{z},\bar{x},n).
+      \end{align*}     
+      За да направим това, разгледайте свойствата:
+      \begin{itemize}
+      \item 
+        $A_1(\bar{z},\bar{x},i,j,m,n) \dfff \bar{z} \in \Int^{n+1}\ \&\ n \geq 0$;
+      \item
+        $A_2(\bar{z},\bar{x},i,j,m,n)~\dfff~\texttt{Perm}(\bar{z},\bar{x},n)\ \&\ \texttt{Ord}(\bar{x},0,i)\ \&$\\
+        $i\leq n\ \&\ (0 < i \implies x_{i-1} = \min\{x_{i-1},\dots,x_n\})$;
+      \item
+        $A_3(\bar{z},\bar{x},i,j,m,n) \dfff A_2(\bar{z},\bar{x},i,j,m,n)\ \&\ x_m = \min\{x_i,\dots,x_{j-1}\}\ \&\ i \leq m \leq j \leq n+1$;
+      \item
+        $A_4(\bar{z},\bar{x},i,j,m,n) \dfff A_3(\bar{z},\bar{x},i,j+1,m,n)$;
+      \item
+        $A_5(\bar{z},\bar{x},i,j,m,n) \dfff A_4(\bar{z},\bar{x},i,j,m,n)$;
+      \item
+        $A_6(\bar{z},\bar{x},i,j,m,n) \dfff \texttt{Ord}(\bar{x},0,n)\ \&\ \texttt{Perm}(\bar{z},\bar{x},n)$.
+      \end{itemize}
+      Докажете, че за всеки преход $(k) \to (l)$ имаме
+      \[A_k(\bar{z},\bar{x},i,j,m,n) \implies A_l(\bar{z},f_{kl}(\bar{x},i,j,m),n).\]
+    }
+    % \caption{}
+  \end{subfigure}
+  % \end{wrapfigure}
+\end{figure}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep-problems"
+%%% End:
