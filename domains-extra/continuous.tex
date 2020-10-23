@@ -2,7 +2,7 @@
 
 Следващата теорема е важна, защото с нейна помощ се доказват много свойства на непрекъснатите изображения.
 
-\begin{thm}
+\begin{theorem}
   \label{th:double-chain}
   \marginpar{\cite[стр. 127]{winskel}}
   \marginpar{\cite[стр. 178]{models-of-computation}}
@@ -12,7 +12,7 @@
   \[n \leq n^\prime\ \&\ m \leq m^\prime\ \Rightarrow\ a_{n,m} \sqsubseteq a_{n^\prime,m^\prime}.\]
   Тогава множеството $E$ има точна горна граница, която означаваме с $\bigsqcup E$, и са изпълнени равенствата
   \[\bigsqcup E = \bigsqcup_m(\bigsqcup_n a_{n,m}) = \bigsqcup_n(\bigsqcup_{m} a_{n,m}) = \bigsqcup_n a_{n,n}.\]
-\end{thm}
+\end{theorem}
 \begin{proof}
   Първо ще въведем някои означения.
   \begin{itemize}
@@ -20,11 +20,11 @@
     Да фиксираме произволно $m$. Тогава можем да подредим елементите на множеството $\{a_{n,m} \mid n \in \Nat\}$ във възходящ ред: 
     \[a_{0,m} \sqsubseteq a_{1,m} \sqsubseteq a_{2,m} \sqsubseteq \cdots\]
     \marginpar{По дефиниция, всяка монотонно растяща редица в област на Скот притежава точна горна граница.}
-    Следователно тя има точна горна граница $b_m \dff \bigsqcup \{a_{n,m} \mid n \in \Nat\}$.
+    Следователно тя има точна горна граница $b_m \df \bigsqcup \{a_{n,m} \mid n \in \Nat\}$.
   \item
     Аналогично, при фиксирано $n$, можем да подредим елементите на множеството $\{a_{n,m} \mid m \in \Nat\}$ в монотонно растяща редица:
     \[a_{n,0} \sqsubseteq a_{n,1} \sqsubseteq a_{n,2} \sqsubseteq \ldots,\]
-    която притежава точна горна граница $c_n \dff \bigsqcup \{a_{n,m} \mid m \in \Nat\}$.
+    която притежава точна горна граница $c_n \df \bigsqcup \{a_{n,m} \mid m \in \Nat\}$.
   \end{itemize}
   Това означава, че трябва да докажем следното:
   \[\bigsqcup E = \bigsqcup_mb_m = \bigsqcup_n c_n = \bigsqcup_n a_{n,n}.\]
@@ -102,7 +102,7 @@
     Нека $\A$ и $\B$ са области на Скот.
     Нека $\chain{f}{k}$ е верига от елементи на $\Cont{\A}{\B}$.
     Да дефинираме изображението $h$ на $\A$ в $\B$ по следния начин
-    \[h(a) \dff \bigsqcup\{f_k(a) \mid k \in \Nat\}.\]
+    \[h(a) \df \bigsqcup\{f_k(a) \mid k \in \Nat\}.\]
     Изображението $h$ е {\em непрекъснато} и е {\em точна горна граница} на веригата $\chain{f}{k}$,
     т.е. $h = \bigsqcup_k f_k$.
   \end{lemma}
@@ -118,7 +118,7 @@
     Това е така, защото всяко непрекъснато изображение е също така и монотонно.
 
     \marginpar{$\bigsqcup_n f_n(a)$ е съкратен запис за $\bigsqcup\{f_n(a) \mid n \in \Nat\}$.}
-    Получаваме, че за всяко $k$, $f_k(a) \sqsubseteq^\B \bigsqcup_n f_n(a) \dff h(a)$.
+    Получаваме, че за всяко $k$, $f_k(a) \sqsubseteq^\B \bigsqcup_n f_n(a) \df h(a)$.
     Понеже това е вярно за произволно $a \in A$, $(\forall k)[f_k \sqsubseteq h]$,
     което означава, че $h$ е горна граница на веригата.
   \item
@@ -135,7 +135,7 @@
   Да вземем една монотонно растяща редица $\chain{a}{k}$ от елементи на $A$.
   \marginpar{За момента дори не е ясно дали $\{h(a_k) \mid k \in \Nat\}$ е верига в $\B$}
   Ще докажем, че \[h(\bigsqcup_k a_k) = \bigsqcup_k \{h(a_k)\}.\]
-  Нека $e_{n,m} \dff f_n(a_m)$.
+  Нека $e_{n,m} \df f_n(a_m)$.
   Понеже всяко $f_n$ е непрекъснато и следователно монотонно изображение, то имаме
   \[n \leq n^\prime\ \&\ m \leq m^\prime\ \Rightarrow\ e_{n,m} \sqsubseteq^{\B} e_{n^\prime,m^\prime}.\]
   Следователно,
@@ -151,9 +151,9 @@
 Да напомним, че релацията $\sqsubseteq$ между две изображения е дефинирана като
 \[f \sqsubseteq g \dfff (\forall a\in A)[f(a) \sqsubseteq^\B g(a)].\]
 \begin{framed}
-  \begin{cor}
+  \begin{corollary}
     Ако $\A$ и $\B$ са области на Скот, то $(\Cont{\A}{\B}, \sqsubseteq, \bm{\bot} )$ е област на Скот.
-  \end{cor}
+  \end{corollary}
 \end{framed}
 
 
@@ -169,7 +169,7 @@
 %   Определяме $\A^X = (A^X,\sqsubseteq^X,\bot^X)$ като:
 %   \begin{itemize}
 %   \item 
-%     $A^X \dff \{f:X \to A\mid f\mbox{ е тотална}\}$;
+%     $A^X \df \{f:X \to A\mid f\mbox{ е тотална}\}$;
 %   \item
 %     $f \sqsubseteq^X g\ \iff\ (\forall x \in X)[f(x) \sqsubseteq^\A g(x)]$;
 %   \item
@@ -219,11 +219,11 @@
 за всяка верига $\chain{a}{k}$ в $\A_i$, то
 \[f(b_1,\dots, b_{i-1}, \bigsqcup_k a_k, b_{i+1},\dots,b_n) = \bigsqcup_kf(b_1,\dots, b_{i-1}, a_k, b_{i+1},\dots,b_n).\]
 
-\begin{prop}
+\begin{proposition}
   Нека $\A_1,\dots,\A_n$ и $\A$ са области на Скот.
   Едно изображение $f: \A_1\times \dots \times \A_n \to \A$ 
   е непрекъснато точно тогава, когато $f$ е непрекъснато по всеки от аргументите си.
-\end{prop}
+\end{proposition}
 \Stefan{Интересно е, че това твърдение не е вярно за непрекъснати свойства. Добре е да се обясни някъде.}
 
 \begin{proof}

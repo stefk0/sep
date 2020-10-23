@@ -7,7 +7,7 @@
 \begin{problem}
   Да разгледаме операторите \[\Gamma,\Delta \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}}.\]
   Знаем, че операторът $\Gamma \circ \Delta$ е непрекъснат, където
-  \[(\Gamma\circ\Delta)(f) \dff \Gamma(\Delta(f)).\]
+  \[(\Gamma\circ\Delta)(f) \df \Gamma(\Delta(f)).\]
   Вярно ли е, че
   \[\lfp(\Gamma \circ \Delta) \sqsubseteq \lfp(\Gamma) \circ \lfp(\Delta)?\]
   Обосновете се!
@@ -17,14 +17,14 @@
   Нека $\A = \Nat_\bot$.
   Нека например да разгледаме
   \begin{align*}
-    & \Delta(f)(x) \dff f(x+1)\\
-    & \Gamma(f)(x) \dff
+    & \Delta(f)(x) \df f(x+1)\\
+    & \Gamma(f)(x) \df
       \begin{cases}
         0, & x \neq \bot\\
         \bot, & x = \bot.
       \end{cases}
   \end{align*}
-  Да положим $f_\Gamma \dff \lfp(\Gamma)$ и $f_\Delta \dff \lfp(\Delta)$.
+  Да положим $f_\Gamma \df \lfp(\Gamma)$ и $f_\Delta \df \lfp(\Delta)$.
   Ясно е, че 
   \begin{align*}
     & f_\Delta(x) = \bot\\
@@ -58,7 +58,7 @@
 \begin{problem}
   Да разгледаме операторите \[\Gamma,\Delta \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}}.\]
   Знаем, че операторът $\Gamma \circ \Delta$ е непрекъснат, където
-  \[(\Gamma\circ\Delta)(f) \dff \Gamma(\Delta(f)).\]
+  \[(\Gamma\circ\Delta)(f) \df \Gamma(\Delta(f)).\]
   Вярно ли е, че
   \[\lfp(\Gamma \circ \Delta) \sqsupseteq \lfp(\Gamma) \circ \lfp(\Delta)?\]
   Обосновете се!
@@ -68,14 +68,14 @@
   Нека $\A = \Nat_\bot$.
   Нека например да разгледаме
   \begin{align*}
-    & \Delta(f)(x) \dff 0\\
-    & \Gamma(f)(x) \dff
+    & \Delta(f)(x) \df 0\\
+    & \Gamma(f)(x) \df
       \begin{cases}
         0, & x = 0\\
         \bot, & \text{ иначе}.
       \end{cases}
   \end{align*}
-  Да положим $f_\Gamma \dff \lfp(\Gamma)$ и $f_\Delta \dff \lfp(\Delta)$.
+  Да положим $f_\Gamma \df \lfp(\Gamma)$ и $f_\Delta \df \lfp(\Delta)$.
   Ясно е, че 
   \begin{align*}
     & f_\Delta(x) = 0\\
@@ -118,9 +118,9 @@
 \begin{problem}
   Да разгледаме едно изображение $f: \A \times \B \to \C$.
   За произволно $a \in \A$, дефинираме изображението $g_a: \B \to \C$, където
-  \[g_a(b) \dff f(a,b).\]
+  \[g_a(b) \df f(a,b).\]
   Аналогично, за произволно $b \in \B$, дефинираме изображението $h_b: \A \to \C$, където
-  \[h_b(a) \dff f(a,b).\]
+  \[h_b(a) \df f(a,b).\]
   Докажете, че следните твърдения са еквивалентни:
   \begin{enumerate}[1)]
   \item 
@@ -133,10 +133,10 @@
 \begin{problem}
   Да разгледаме $f \in \Cont{\A \times \B}{\C}$.
   За произволно $a \in \A$, дефинираме изображението $g_a: \B \to \C$, където
-  \[g_a(b) \dff f(a,b).\]
+  \[g_a(b) \df f(a,b).\]
   Вече знаем, че $g_a \in \Cont{\B}{\C}$, за всяко $a \in \A$.
   Да разгледаме изображението $h:\A \to \Cont{\B}{\C}$, където
-  \[h(a) \dff g_a.\]
+  \[h(a) \df g_a.\]
   Докажете, че $h$ е непрекъснато изображение.
 \end{problem}
 
@@ -144,11 +144,11 @@
   \marginpar{\cite[стр. 129]{nikolova-soskova}}
   Да разгледаме $f \in \Cont{\A \times \B}{\B}$.
   За произволно $a \in \A$, дефинираме изображението $g_a: \B \to \B$, където
-  \[g_a(b) \dff f(a,b).\]
+  \[g_a(b) \df f(a,b).\]
   Вече знаем, че $g_a \in \Cont{\B}{\B}$, за всяко $a \in \A$,
   следователно $\lfp(g_a)$ съществува.
   Да разгледаме изображението $h:\A \to \B$, където
-  \[h(a) \dff \lfp(g_a).\]
+  \[h(a) \df \lfp(g_a).\]
   Докажете, че $h$ е непрекъснато изображение.
 \end{problem}
 
@@ -156,9 +156,9 @@
 \begin{problem}
   Да разгледаме $f \in \Cont{\A}{\Cont{\B}{\C}}$.
   За произволно $a \in \A$, дефинираме изображението $g_a \in \Cont{\B}{\C}$, където
-  \[g_a(b) \dff f(a).\]
+  \[g_a(b) \df f(a).\]
   Да разгледаме изображението $h:\A\times \B \to \C$, където
-  \[h(a,b) \dff g_a(b).\]
+  \[h(a,b) \df g_a(b).\]
   Докажете, че $h$ е непрекъснато изображение.
 \end{problem}
 
@@ -166,7 +166,7 @@
 %   Нека са дадени областите на Скот $\D$ и $\E$ и изображението 
 %   \[\texttt{eval}: \Cont{\D}{\E} \times \D \to \E,\]
 %   където 
-%   \[\texttt{eval}(f,d) \dff f(d).\]
+%   \[\texttt{eval}(f,d) \df f(d).\]
 %   Докажете, че $\texttt{eval}$ е непрекъснато изображение.
 % \end{problem}
 % \ifhints
@@ -198,7 +198,7 @@
 % \begin{problem}
 %   Нека изображението \[\texttt{comp}:(\Cont{\B}{\C} \times \Cont{\A}{\B}) \to \Cont{\A}{\C}\]
 %   е определено като 
-%   \[\texttt{comp}(g,f) \dff g\circ f.\]
+%   \[\texttt{comp}(g,f) \df g\circ f.\]
 %   \marginpar{$(g \circ f)(a) = g(f(a))$}
 %   Докажете, че $\texttt{comp}$ е непрекъснато изображение.
 % \end{problem}
@@ -307,7 +307,7 @@
   Вярно ли е, че 
   \[\B = (B,\ \sqsubseteq,\ \lambda x.\bot^\A)\] е област на Скот,
   където 
-  \[f \sqsubseteq g \dfff (\forall a\in\A)[f(a) \sqsubseteq^\A g(a)] ?\]
+  \[f \sqsubseteq g \df (\forall a\in\A)[f(a) \sqsubseteq^\A g(a)] ?\]
   Обосновете се!
 \end{problem}
 
@@ -317,7 +317,7 @@
 %   Вярно ли е, че 
 %   \[\B = (B,\ \sqsubseteq,\ \lambda x.\bot^\A)\] е област на Скот,
 %   където 
-%   \[f \sqsubseteq g \dfff (\forall a\in\A)[f(a) \sqsubseteq^\A g(a)] ?\]
+%   \[f \sqsubseteq g \df (\forall a\in\A)[f(a) \sqsubseteq^\A g(a)] ?\]
 %   Обосновете се!
 % \end{problem}
 
@@ -327,7 +327,7 @@
   Вярно ли е, че 
   \[\B = (B,\ \sqsubseteq,\ \lambda x.\bot)\] е област на Скот,
   където 
-  \[f \sqsubseteq g \dfff (\forall a\in\Nat_\bot)[f(a) \sqsubseteq g(a)] ?\]
+  \[f \sqsubseteq g \df (\forall a\in\Nat_\bot)[f(a) \sqsubseteq g(a)] ?\]
   Обосновете се!
 \end{problem}
 
@@ -353,7 +353,7 @@
   \begin{enumerate}[a)]
   \item
     $f_a:\A \to \O$, където
-    \[f_a(x) \dff
+    \[f_a(x) \df
     \begin{cases}
       \top, & a \sqsubseteq x\\
       \bot, & a \not\sqsubseteq x.
@@ -361,7 +361,7 @@
     Вярно ли е, че $f_a$ е точно непрекъснато изображение? Обосновете се!
   \item
     $\hat{f}_a:\A \to \O$, където
-    \[\hat{f}_a(x) \dff
+    \[\hat{f}_a(x) \df
     \begin{cases}
       \bot, & a \sqsubseteq x\\
       \top, & a \not\sqsubseteq x.
@@ -369,7 +369,7 @@
     Вярно ли е, че $\hat{f}_a$ е точно непрекъснато изображение? Обосновете се!
   \item 
     $g_a:\A \to \O$, където
-    \[g_a(x) \dff
+    \[g_a(x) \df
     \begin{cases}
       \bot, & x \sqsubseteq a\\
       \top, & x \not\sqsubseteq a.
@@ -377,7 +377,7 @@
     Вярно ли е, че $g_a$ е точно непрекъснато изображение? Обосновете се!
   \item 
     $\hat{g}_a:\A \to \O$, където
-    \[\hat{g}_a(x) \dff
+    \[\hat{g}_a(x) \df
     \begin{cases}
       \top, & x \sqsubseteq a\\
       \bot, & x \not\sqsubseteq a.
@@ -392,7 +392,7 @@
 \begin{problem}
   Да разгледаме изображението
   \[\Gamma: \Cont{\A}{\B} \times \Cont{\A}{\C} \to \Cont{\A}{\B\times\C},\]
-  където $\Gamma(f,g)(a) \dff \pair{f(a),g(b)}$.
+  където $\Gamma(f,g)(a) \df \pair{f(a),g(b)}$.
   \begin{itemize}
   \item
     Докажете, че $\Gamma$ е добре дефинирано изображение, т.е. за всеки непрекъснати $f$ и $g$,
@@ -407,7 +407,7 @@
   Докажете, че изображението
   \[\texttt{uncurry}:\Cont{\A}{\Cont{\B}{\C}} \to \Cont{\A\times \B}{\C},\]
   дефинирано като
-  \[\texttt{uncurry}(f)(a,b) \dff f(a)(b),\]
+  \[\texttt{uncurry}(f)(a,b) \df f(a)(b),\]
   е непрекъснато.
 \end{problem}
 
@@ -415,7 +415,7 @@
 %   Докажете, че изображението
 %   \[\texttt{curry}:\Cont{\A\times \B}{\C} \to \Cont{\A}{\Cont{\B}{\C}},\]
 %   дефинирано като
-%   \[\texttt{curry}(f)(a)(b) \dff f(a,b),\]
+%   \[\texttt{curry}(f)(a)(b) \df f(a,b),\]
 %   е непрекъснато.
 % \end{problem}
 

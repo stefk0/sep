@@ -18,10 +18,10 @@
 \end{align*}
 
 \marginpar{Спестяваме си труда от въвеждането на булевия тип променливи}
-\marginpar{Озн. $\Nat^+ \dff \Nat \setminus \{0\}$}
+\marginpar{Озн. $\Nat^+ \df \Nat \setminus \{0\}$}
 
 \begin{problem}\label{prob:rec:if:continuous}
-  Докажете, че изображенията $\texttt{plus}$, $\texttt{eq}$ са непрекъснати.
+  Докажете, че изображенията $\texttt{plus}$ и $\texttt{eq}$ са непрекъснати.
 \end{problem}
 \begin{hint}
   Понеже $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$,
@@ -41,30 +41,30 @@
 \begin{itemize}
 \item
   ако $\tau \equiv \vv{c}$, за някоя константа, то 
-  \[\val{\vv{c}}(\ov{\varphi})(\ov{a}) \dff c.\]
+  \[\val{\vv{c}}(\ov{\varphi})(\ov{a}) \df c.\]
 \item
   ако $\tau \equiv \vv{x}_i$, за някоя обектова променлива, то 
-  \[\val{\vv{x}_i}(\ov{\varphi})(\ov{a}) \dff a_i.\]
+  \[\val{\vv{x}_i}(\ov{\varphi})(\ov{a}) \df a_i.\]
 \item
   ако $\tau \equiv \tau_1 + \tau_2$, то
-  \[\val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a}) \df \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 \item
-  \marginpar{Знаем, че изображенията $\texttt{plus}$, $\texttt{eq}$ и $\texttt{if}$ са непрекъснати.}
+  \marginpar{От \Problem{rec:if:continuous} знаем, че изображенията $\texttt{plus}$, $\texttt{eq}$ са непрекъснати.}
   ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
-  \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \dff \texttt{eq}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \df \texttt{eq}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 \item
-  \marginpar{За $\texttt{if}$ вижте \Def{if}.}
+  \marginpar{За $\texttt{if}$ вижте \Def{if}. От \Problem{if} знаем, че $\texttt{if}$ е непрекъснато изображение.}
   ако $\tau \equiv\ \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
-  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \dff \texttt{if}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \df \texttt{if}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
 \item
   ако $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$, то
   \marginpar{Термовете $\tau_j$ може да имат различен брой променливи. Ако се наложи, разширяваме ги с фиктивни променливи}
-  \[\val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a}) \dff \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a}) \df \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{a})).\]
 \end{itemize}
 
 \begin{example}
   Да разгледаме следния терм:
-  \[\tau[\vv{x},\vv{y},\vv{z}] \dfff \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
+  \[\tau[\vv{x},\vv{y},\vv{z}] \df \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
   Да видим каква е негова стойност при произволни стойности $a,b,c \in \Nat_\bot$:
   \begin{align*}
     \val{\tau}(a,b,c) & =
@@ -112,9 +112,9 @@ ghci> f(2)
     Нека $\tau \equiv \vv{c}$, за някоя константа.
     Тогава $\tau[\ov{\vv{x}}/\ov{\mu}] \equiv \vv{c}$.
     Това означава, че 
-    \[\val{\tau[\ov{\vv{x}}/\ov{\mu}]}(\ov{\varphi}) = \val{\vv{c}}(\ov{\varphi}) \dff c.\]
+    \[\val{\tau[\ov{\vv{x}}/\ov{\mu}]}(\ov{\varphi}) = \val{\vv{c}}(\ov{\varphi}) \df c.\]
     От друга страна, имаме също, че 
-    \[\val{\vv{c}}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) \dff c.\]
+    \[\val{\vv{c}}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) \df c.\]
   \item
     Нека $\tau \equiv \vv{x}_i$. Тогава $\vv{x}_i[\varsx/\bar{\mu}] \equiv \mu_i$
     и следователно 
@@ -128,11 +128,11 @@ ghci> f(2)
     Тогава
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\tau_1[\varsx/\ov{\mu}] + \tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})\\
-                                                & \dff \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
+                                                & \df \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
                                                 % & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})),\val{\tau_2}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi}))) & \comment{\text{от {\bf И.П.}}}\\
                                                 & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
-                                                & \dff \val{\tau}(\ov{\varphi})(b_1,\dots,b_n)\\
-                                                & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \dff \val{\mu_j}(\ov{\varphi})}
+                                                & \df \val{\tau}(\ov{\varphi})(b_1,\dots,b_n)\\
+                                                & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \df \val{\mu_j}(\ov{\varphi})}
     \end{align*}
   \item
     \marginpar{\writedown Докажете сами останалите два случая. Те не крият изненади.}
@@ -146,20 +146,20 @@ ghci> f(2)
       \label{eq:1}
       \tau[\varsx/\bar{\mu}] \equiv \vv{f}_i(\tau_1[\varsx/\bar{\mu}],\dots,\tau_{m_i}[\varsx/\bar{\mu}]).
     \end{equation}
-    Нека за улеснение да означим $b_i \dff \val{\mu_i}(\bar{\varphi})$, за $i = 1,\dots,n$.
+    Нека за улеснение да означим $b_i \df \val{\mu_i}(\bar{\varphi})$, за $i = 1,\dots,n$.
     Прилагаме {\bf И.П.} за термовете $\tau_1,\dots,\tau_{m_i}$ и получаваме за $j = 1, \dots, m_i$,
     \begin{align*}
       \val{\tau_j[\varsx /\bar{\mu}]}(\bar{\varphi}) & = \val{\tau_j}(\ov{\varphi})(\underbrace{\val{\mu_1}(\bar{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_{n}}(\bar{\varphi})}_{b_{n}}) & \comment{\text{от {\bf И.П.}}}\\
-      & = \val{\tau_j}(\ov{\varphi})(b_1,\dots,b_{n}) & \comment{b_i \dff \val{\mu_i}(\bar{\varphi})}.
+      & = \val{\tau_j}(\ov{\varphi})(b_1,\dots,b_{n}) & \comment{b_i \df \val{\mu_i}(\bar{\varphi})}.
     \end{align*}
     Следователно,
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\vv{f}_i(\tau_1[\varsx/\ov{\mu}],\dots,\tau_{m_i}[\varsx/\ov{\mu}])}(\ov{\varphi}) & \comment{\text{от (\ref{eq:1})}}\\
-                                                & \dff \varphi_i(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}),\dots,\val{\tau_{m_i}[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
+                                                & \df \varphi_i(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}),\dots,\val{\tau_{m_i}[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
                                                 & = \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от {\bf И.П.}}} \\
-                                                & \dff \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{b})\\
+                                                & \df \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{b})\\
                                                 & = \val{\tau}(\ov{\varphi})(\ov{b}) & \comment{\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})}\\
-      & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) & \comment{b_i \dff \val{\mu_i}(\ov{\varphi})}.
+      & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) & \comment{b_i \df \val{\mu_i}(\ov{\varphi})}.
     \end{align*}
   \end{itemize}
 \end{proof}

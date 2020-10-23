@@ -82,7 +82,7 @@ $\mu$ се свежда до $\vv{a}$ след прилагане на по-ма
 \end{lemma}
 
 За фиксирана декларация $P$, нека за всеки {\em функционален} терм $\mu$ да дефинираме
-\[\eval{\mu}\dff
+\[\eval{\mu}\df
   \begin{cases}
     b, & \text{ ако }\mu \Downarrow_P \vv{b}\\
     \bot, & \text{ ако }\mu \text{ няма извод до константа}.
@@ -92,7 +92,7 @@ $\mu$ се свежда до $\vv{a}$ след прилагане на по-ма
   Операционната семантика по име на рекурсивната програма $\vv{P}[\varsx,\varsf]$ представлява
   изображението 
   \[\O\val{\vv{P}} \in \Cont{\Nat^{m_1}_\bot}{\Nat_\bot},\] където
-  \[\O\val{\vv{P}}(a_1,\dots,a_{m_1}) \dff
+  \[\O\val{\vv{P}}(a_1,\dots,a_{m_1}) \df
     \begin{cases}
       \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})}, & \text{ако }\bot \not\in\{a_1,\dots,a_{m_1}\}\\
       \bot, & \text{ако }\bot \in \{a_1,\dots,a_{m_1}\}

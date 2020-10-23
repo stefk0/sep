@@ -10,7 +10,7 @@
   където $\bar{\gamma} = (\gamma_1,\dots,\gamma_n)$ е 
   \marginpar{Тук използваме наготово \Prop{product-continuous}.}
   някоя неподвижна точка на непрекъснатия оператор
-  \[\Gamma \dff \val{\tau_1}\times \cdots \times \val{\tau_n},\]
+  \[\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n},\]
   който съответства на програмата \vv{P}.
 \end{proposition}
 \begin{proof}
@@ -65,7 +65,7 @@
     \end{align*}
     Тогава получаваме, че ако $\mu_1 + \mu_2 \Downarrow^\ell_P \vv{a}$, то
     \begin{align*}
-      \val{\mu_1 + \mu_2}(\ov{\gamma}) & \dff \texttt{plus}(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
+      \val{\mu_1 + \mu_2}(\ov{\gamma}) & \df \texttt{plus}(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
                                        & = \texttt{plus}(a_1,a_2)\\
                                        & = a.
     \end{align*}
@@ -92,7 +92,7 @@
     \begin{align*}
       \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) & = \val{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots,\val{\mu_{m_i}}(\ov{\gamma})) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
                                                  & = \gamma_i(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) & \comment{\gamma_i = \val{\tau_i}(\ov{\gamma})}\\
-                                                 & \dff \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}). & \comment{\text{стойност на терм}}\\
+                                                 & \df \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}). & \comment{\text{стойност на терм}}\\
     \end{align*}
     Обединявайки всичко, което знаем, получаваме:
     \begin{align*}
@@ -115,11 +115,11 @@
   Нека $\ov{\gamma}$ е най-малкото решение на системата от непрекъснати оператори, която съответства на програмата $\vv{P}$.
   Тогава
   \begin{align*}
-    \O_N\val{\vv{P}}(a_1,\dots,a_{m_1}) & \dff \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} \\
+    \O_N\val{\vv{P}}(a_1,\dots,a_{m_1}) & \df \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} \\
                                         & \sqsubseteq \val{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})}(\ov{\gamma}) & \comment{\text{\Prop{rec:op-name-inclusion1}}} \\
-                                        & \dff \gamma_1(\val{\vv{a}_1}(\ov{\gamma}),\dots,\val{\vv{a}_{m_1}}(\ov{\gamma})) & \comment{\text{стойност на терм}}\\
+                                        & \df \gamma_1(\val{\vv{a}_1}(\ov{\gamma}),\dots,\val{\vv{a}_{m_1}}(\ov{\gamma})) & \comment{\text{стойност на терм}}\\
                                         & = \gamma_1(a_1,\dots,a_{m_1}) & \comment \val{\vv{a}_i}(\ov{\gamma}) = a_i\\
-                                        & \dff \D_N\val{\vv{P}}(a_1,\dots,a_{m_1}).
+                                        & \df \D_N\val{\vv{P}}(a_1,\dots,a_{m_1}).
   \end{align*}
 \end{proof}
 
@@ -164,20 +164,20 @@
   \item 
     Първо ще докажем $\texttt{Include}(0)$.
     Това ще направим с индукция по построението на терма $\tau$.
-    Да разгледаме произволни функционални термове $\mu_i$ и за улеснение да положим $a_i \dff \eval{\mu_i}$.
+    Да разгледаме произволни функционални термове $\mu_i$ и за улеснение да положим $a_i \df \eval{\mu_i}$.
     \begin{itemize}
     \item
       Нека $\tau \equiv \vv{c}$. Тогава:
       \begin{align*}
-        \val{\vv{c}}(\ov{\gamma}_0)(\ov{a}) & \dff c\\
-                                            & \dff \eval{\vv{c}} & \comment{\text{правило (1)}}\\
+        \val{\vv{c}}(\ov{\gamma}_0)(\ov{a}) & \df c\\
+                                            & \df \eval{\vv{c}} & \comment{\text{правило (1)}}\\
                                             & = \eval{\vv{c}[\varsx/\ov{\mu}]}.
       \end{align*}
     \item
       Нека $\tau \equiv \vv{x}_i$. Тогава:
       \begin{align*}
-        \val{\vv{x}_i}(\ov{\gamma}_0)(\ov{a}) & \dff a_i\\
-                                              & = \eval{\mu_i} & \comment{a_i \dff \eval{\mu_i}}\\
+        \val{\vv{x}_i}(\ov{\gamma}_0)(\ov{a}) & \df a_i\\
+                                              & = \eval{\mu_i} & \comment{a_i \df \eval{\mu_i}}\\
                                               & = \eval{\vv{x}_i[\varsx/\ov{\mu}]}.                    
       \end{align*}
     \item
@@ -191,7 +191,7 @@
       Да напомним, че изображението $\texttt{plus}$ е непрекъснато, откъдето следва, че също така е монотонно. 
       Тогава:
       \begin{align*}
-        \val{\tau_1 + \tau_2}(\ov{\gamma}_0)(\ov{a}) & \dff \texttt{plus}(\val{\tau_1}(\ov{\gamma}_0)(\ov{a}), \val{\tau_2}(\ov{\gamma}_0)(\ov{a}))\\
+        \val{\tau_1 + \tau_2}(\ov{\gamma}_0)(\ov{a}) & \df \texttt{plus}(\val{\tau_1}(\ov{\gamma}_0)(\ov{a}), \val{\tau_2}(\ov{\gamma}_0)(\ov{a}))\\
                                                     & \sqsubseteq \texttt{plus}(\eval{\tau_1[\varsx/\ov{\mu}]}, \eval{\tau_2[\varsx/\ov{\mu}]}) & \comment{\text{от (\ref{eq:15})}}\\
                                                     & = \eval{\tau[\varsx/\ov{\mu}]} & \comment{\text{правило }(2_{+})}
       \end{align*}
@@ -203,8 +203,8 @@
     \item
       Нека $\tau \equiv \vv{f}_i(\rho_1,\dots,\rho_{m_i})$. Тогава
       \begin{align*}
-        \val{\tau}(\ov{\gamma}_0)(\ov{a}) & \dff \gamma^i_0(\val{\rho_1}(\ov{\gamma}_0)(\ov{a}), \dots,\val{\rho_{m_i}}(\ov{\gamma}_0)(\ov{a}))\\
-                                          & = \bot & \comment{\gamma^i_0(\ov{x}) \dff \bot}\\
+        \val{\tau}(\ov{\gamma}_0)(\ov{a}) & \df \gamma^i_0(\val{\rho_1}(\ov{\gamma}_0)(\ov{a}), \dots,\val{\rho_{m_i}}(\ov{\gamma}_0)(\ov{a}))\\
+                                          & = \bot & \comment{\gamma^i_0(\ov{x}) \df \bot}\\
                                           & \sqsubseteq \eval{\tau[\varsx/\ov{\mu}]}.
       \end{align*}
       Така доказахме, че $\texttt{Include}(0)$ е изпълнено.
@@ -225,7 +225,7 @@
     \end{align*}
 
     \marginpar{Обърнете внимание, че $\rho'_j$ са функционални термове}
-    Нека за наше улеснение да положим $\rho'_j \dff \rho[\varsx/\ov{\mu}]$.
+    Нека за наше улеснение да положим $\rho'_j \df \rho[\varsx/\ov{\mu}]$.
     Това означава, че до момента имаме следното:
     \[\val{\tau_i}(\ov{\varphi})(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \sqsubseteq  \val{\tau_i}(\ov{\varphi})(\underbrace{\eval{\rho'_1}}_{c_1},\dots, \underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}),\]
     за произволни непрекъснати изображения $\ov{\varphi}$.
@@ -233,15 +233,15 @@
     Като обединим всичко от по-горе, получаваме следното:
     \begin{align*}
       \val{\tau}(\ov{\gamma}_r)(\ov{a}) & = \val{\vv{f}_i(\rho_1,\dots,\rho_{m_i})}(\ov{\gamma}_r)(\ov{a})\\
-                                        & \dff \gamma^i_r(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \\
+                                        & \df \gamma^i_r(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \\
                                         & = \gamma^i_r(b_1, \dots, b_{m_i})\\
                                         & \sqsubseteq \gamma^i_r(c_1, \dots, c_{m_i}) & \comment{\gamma^i_r\text{ е непр. и следователно мон.}}\\
-                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \dff \val{\tau_i}(\ov{\gamma}_{r-1})}\\
-                                        % & \dff \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots, c_{m_i})\\
+                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \df \val{\tau_i}(\ov{\gamma}_{r-1})}\\
+                                        % & \df \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots, c_{m_i})\\
                                         & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\eval{\rho'_1}}_{c_1},\dots,\underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}) & \comment{c_i = \eval{\rho'_i}} \\
                                         & \sqsubseteq \eval{\tau_i[\vv{x}_1/\rho'_1,\dots,\vv{x}_{m_i}/\rho'_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
                                         & = \eval{\vv{f}_i(\rho'_1,\dots,\rho'_{m_i})} & \comment{\text{от правило (4)}}\\
-                                        & = \eval{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \dff \rho[\varsx/\ov{\mu}]}\\
+                                        & = \eval{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \df \rho[\varsx/\ov{\mu}]}\\
                                         & = \eval{\vv{f}_i(\rho_1,\dots,\rho_{m_i})[\varsx/\ov{\mu}]} & \comment{\text{правила за замяна}}\\
                                         & = \eval{\tau[\varsx/\ov{\mu}]}.
     \end{align*}
@@ -288,13 +288,13 @@
   \[\D_N\val{\vv{P}} \sqsubseteq \O_N\val{\vv{P}}.\]
   За произволни числа $\ov{a}$, имаме следните връзки:
   \begin{align*}
-    \D_N\val{\vv{P}}(\ov{a}) & \dff \gamma_1(\ov{a})\\
-                             & = \val{\tau_1}(\ov{\gamma})(\ov{a}) & \comment{\gamma_1 \dff \Gamma_{\tau_1}(\ov{\gamma})}\\
-                             % & \dff \val{\tau_1}(\ov{\gamma})(\ov{a}) \\
+    \D_N\val{\vv{P}}(\ov{a}) & \df \gamma_1(\ov{a})\\
+                             & = \val{\tau_1}(\ov{\gamma})(\ov{a}) & \comment{\gamma_1 \df \Gamma_{\tau_1}(\ov{\gamma})}\\
+                             % & \df \val{\tau_1}(\ov{\gamma})(\ov{a}) \\
                              & = \val{\tau_1[\varsx/\ov{\vv{a}}]}(\ov{\gamma}) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
                              & \sqsubseteq \eval{\tau_1[\varsx/\ov{\vv{a}}]} & \comment{\text{\Prop{op-name-inclusion2}}}\\
                              & = \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} & \comment{\text{правило (4) на опер. сем.}}\\
-                             & \dff \O_N\val{\vv{P}}(\ov{a}).
+                             & \df \O_N\val{\vv{P}}(\ov{a}).
   \end{align*}
 \end{proof}
 

@@ -59,7 +59,7 @@
   \item
     $g \circ f = \texttt{id}_1$.
   \end{itemize}
-  \marginpar{$\texttt{id}_i(a) \dff a$ за вс. $a \in \A_i$}
+  \marginpar{$\texttt{id}_i(a) \df a$ за вс. $a \in \A_i$}
   Тогава са изпълнени свойствата:
   \begin{enumerate}[(1)]
   \item
@@ -102,7 +102,7 @@
   \begin{enumerate}[(1)]
   \item 
     $\Cont{\A_1}{\A_1} \cong_G \Cont{\A_2}{\A_2}$, където 
-    \[G(f) \dff F \circ f \circ F^{-1};\]
+    \[G(f) \df F \circ f \circ F^{-1};\]
     Графично това може да се изобрази така:
 
     \shorthandoff{"}%
@@ -132,18 +132,18 @@
     Понеже $F$ е биекция, то съществува елемент $a \in A_1$, такъв че $F(a) = b$,
     т.е. $F^{-1}(b) = a$. Тогава:
     \begin{align*}
-      G(f)(b) & \dff F(f(F^{-1}(b)))\\
+      G(f)(b) & \df F(f(F^{-1}(b)))\\
               & = F(f(a)) & \comment{F^{-1}(b) = a}\\
               & \sqsubseteq_2 F(h(a)) & \comment{f(a) \sqsubseteq h(a)\text{ и $F$ е изом.}}\\
               & = F(h(F^{-1}(b))) & \comment{F^{-1}(b) =a}\\
-              & \dff G(h)(b).
+              & \df G(h)(b).
     \end{align*}
   \item
     Нека $G(f) \sqsubseteq G(h)$. Ще докажем, че $f \sqsubseteq h$.
     За целта, нека $a \in A_1$.
     Понеже $F$ е сюрективна, то съществува $b \in A_2$, за който $F^{-1}(b) =a$.
     Понеже
-    \[G(f) \dff F \circ f \circ F^{-1} \sqsubseteq F \circ h \circ F^{-1} = G(h),\]
+    \[G(f) \df F \circ f \circ F^{-1} \sqsubseteq F \circ h \circ F^{-1} = G(h),\]
     то получаваме, че
     \[F(f(F^{-1}(b))) \sqsubseteq_2 F(h(F^{-1}(b))).\]
     Оттук,
@@ -170,23 +170,23 @@
   \item 
     За $n = 0$ имаме, че за произволен елемент $b \in \A_2$,
     \begin{align*}
-      (G(f))^{0}(b) & \dff \bot_2\\
+      (G(f))^{0}(b) & \df \bot_2\\
                     & = F(\bot_1) & \comment{F \text{ е изом.}}\\
-                    & = F(f^{0}(F^{-1}(b))) & \comment{f^{0}(F^{-1}(b)) \dff \bot_1}\\
+                    & = F(f^{0}(F^{-1}(b))) & \comment{f^{0}(F^{-1}(b)) \df \bot_1}\\
                     & = (F \circ f^{0} \circ F^{-1})(b) \\
-                    & \dff G(f^{0})(b).
+                    & \df G(f^{0})(b).
     \end{align*} 
   \item
     Нека да приемем, че твърдението е вярно за $n$.
     Тогава за $n+1$ имаме, че:
     \begin{align*}
-      (G(f))^{n+1} & \dff G(f) \circ (G(f))^n\\
+      (G(f))^{n+1} & \df G(f) \circ (G(f))^n\\
                    & = G(f) \circ G(f^n) & \comment{\text{ от И.П.}}\\
-                   & \dff (F \circ f \circ F^{-1}) \circ (F\circ f^n \circ F^{-1})\\
+                   & \df (F \circ f \circ F^{-1}) \circ (F\circ f^n \circ F^{-1})\\
                    & = F \circ f \circ (F^{-1} \circ F)\circ f^n \circ F^{-1} \\
                    & = F \circ f \circ f^{n} \circ F^{-1} & \comment{F^{-1}\circ F = id}\\
                    & = F \circ f^{n+1} \circ F^{-1} & \comment{f\circ f^n = f^{n+1}}\\
-                   & \dff G(f^{n+1}).
+                   & \df G(f^{n+1}).
     \end{align*}
   \end{itemize}
   Тогава:
@@ -195,7 +195,7 @@
                & = \bigsqcup_n F(f^n(\bot_1))& \comment{F\text{ е непр.}}\\
                & = \bigsqcup_n F(f^n(F^{-1}(\bot_2))) & \comment{F^{-1}(\bot_2) = \bot_1}\\
                & = \bigsqcup_n (F \circ f^n \circ F^{-1})(\bot_2) \\
-               & \dff \bigsqcup_n G(f^n)(\bot_2)\\
+               & \df \bigsqcup_n G(f^n)(\bot_2)\\
                & = \bigsqcup_n G(f)^n(\bot_2) & \comment{\text{от }(\ref{eq:2})}\\
                & = \lfp(G(f)).
   \end{align*}
@@ -213,13 +213,13 @@
     Докажете, че изображението
     \[\texttt{curry}:\Cont{\A\times \B}{\C} \to \Cont{\A}{\Cont{\B}{\C}},\]
     където
-    \[\texttt{curry}(f)(a)(b) \dff f(a,b)\]
+    \[\texttt{curry}(f)(a)(b) \df f(a,b)\]
     задава изоморфизъм.
   % \item
   %   Докажете, че изображението
   %   \[\texttt{uncurry}:\Cont{\A}{\Cont{\B}{\C}} \to \Cont{\A\times \B}{\C},\]
   %   където
-  %   \[\texttt{uncurry}(f)(a,b) \dff f(a)(b)\]
+  %   \[\texttt{uncurry}(f)(a,b) \df f(a)(b)\]
   %   е монотонно.
   % \item
   %   Лесно се съобразява, че

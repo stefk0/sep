@@ -13,10 +13,10 @@
 Когато искаме да означим, че $\A_1$ е изоморфна на $\A_2$ чрез $F$,
 то понякога ще пишем $\A_1 \cong_F \A_2$.
 
-\begin{prop}
+\begin{proposition}
   \label{pr:isomorphism-is-continuous}
   Ако $\A_1 \cong_F \A_2$ , то $F \in \Cont{\A_1}{\A_2}$.
-\end{prop}
+\end{proposition}
 \begin{hint}
   Да разгледаме произволна верига $\chain{a}{i}$ от елементи на $\A_1$.
   Ще докажем, че 
@@ -45,7 +45,7 @@
   \end{itemize}
 \end{hint}
 
-\begin{prop}
+\begin{proposition}
   \label{pr:isomorphic-pair}
   Нека $f \in \Mon{\A_1}{\A_2}$ и $g \in \Mon{\A_2}{\A_1}$,
   като 
@@ -55,7 +55,7 @@
   \item
     $g \circ f = \texttt{id}_1$.
   \end{itemize}
-  \marginpar{$\texttt{id}_i(a) \dff a$ за вс. $a \in \A_i$}
+  % \marginpar{$\texttt{id}_i(a) \dff a$ за вс. $a \in \A_i$}
   Тогава са изпълнени свойствата:
   \begin{enumerate}[(1)]
   \item
@@ -63,7 +63,7 @@
   \item
     $\A_2 \cong_g \A_1$;
   \end{enumerate}
-\end{prop}
+\end{proposition}
 % \begin{hint}
 %   За Свойство $(1)$ трябва да проверим, че $f$ отговаря на дефиницията за изоморфизъм.
 %   \begin{itemize}
@@ -92,13 +92,13 @@
 % \end{hint}
 
 
-\begin{prop}
+\begin{proposition}
   \label{pr:isomorphic-higher-order}
   Нека $\A_1 \cong_F \A_2$. Тогава:
   \begin{enumerate}[(1)]
   \item 
     $\Cont{\A_1}{\A_1} \cong_G \Cont{\A_2}{\A_2}$, където 
-    \[G(f) \dff F \circ f \circ F^{-1};\]
+    \[G(f) \df F \circ f \circ F^{-1};\]
     Графично това може да се изобрази така:
 
     \shorthandoff{"}%
@@ -113,7 +113,7 @@
     ако $f \in \Cont{\A_1}{\A_1}$, то 
     \[F(\lfp(f)) = \lfp(G(f)).\]
   \end{enumerate}
-\end{prop}
+\end{proposition}
 \begin{hint}
   Ще докажем $(1)$ като използвме \Prop{isomorphic-pair}.
 
@@ -128,18 +128,18 @@
     Понеже $F$ е биекция, то съществува елемент $a \in A_1$, такъв че $F(a) = b$,
     т.е. $F^{-1}(b) = a$. Тогава:
     \begin{align*}
-      G(f)(b) & \dff F(f(F^{-1}(b)))\\
+      G(f)(b) & \df F(f(F^{-1}(b)))\\
               & = F(f(a)) & \comment{F^{-1}(b) = a}\\
               & \sqsubseteq_2 F(h(a)) & \comment{f(a) \sqsubseteq h(a)\text{ и $F$ е изом.}}\\
               & = F(h(F^{-1}(b))) & \comment{F^{-1}(b) =a}\\
-              & \dff G(h)(b).
+              & \df G(h)(b).
     \end{align*}
   \item
     Нека $G(f) \sqsubseteq G(h)$. Ще докажем, че $f \sqsubseteq h$.
     За целта, нека $a \in A_1$.
     Понеже $F$ е сюрективна, то съществува $b \in A_2$, за който $F^{-1}(b) =a$.
     Понеже
-    \[G(f) \dff F \circ f \circ F^{-1} \sqsubseteq F \circ h \circ F^{-1} = G(h),\]
+    \[G(f) \df F \circ f \circ F^{-1} \sqsubseteq F \circ h \circ F^{-1} = G(h),\]
     то получаваме, че
     \[F(f(F^{-1}(b))) \sqsubseteq_2 F(h(F^{-1}(b))).\]
     Оттук,
@@ -166,23 +166,23 @@
   \item 
     За $n = 0$ имаме, че за произволен елемент $b \in \A_2$,
     \begin{align*}
-      (G(f))^{0}(b) & \dff \bot_2\\
+      (G(f))^{0}(b) & \df \bot_2\\
                     & = F(\bot_1) & \comment{F \text{ е изом.}}\\
-                    & = F(f^{0}(F^{-1}(b))) & \comment{f^{0}(F^{-1}(b)) \dff \bot_1}\\
+                    & = F(f^{0}(F^{-1}(b))) & \comment{f^{0}(F^{-1}(b)) \df \bot_1}\\
                     & = (F \circ f^{0} \circ F^{-1})(b) \\
-                    & \dff G(f^{0})(b).
+                    & \df G(f^{0})(b).
     \end{align*} 
   \item
     Нека да приемем, че твърдението е вярно за $n$.
     Тогава за $n+1$ имаме, че:
     \begin{align*}
-      (G(f))^{n+1} & \dff G(f) \circ (G(f))^n\\
+      (G(f))^{n+1} & \df G(f) \circ (G(f))^n\\
                    & = G(f) \circ G(f^n) & \comment{\text{ от И.П.}}\\
-                   & \dff (F \circ f \circ F^{-1}) \circ (F\circ f^n \circ F^{-1})\\
+                   & \df (F \circ f \circ F^{-1}) \circ (F\circ f^n \circ F^{-1})\\
                    & = F \circ f \circ (F^{-1} \circ F)\circ f^n \circ F^{-1} \\
                    & = F \circ f \circ f^{n} \circ F^{-1} & \comment{F^{-1}\circ F = id}\\
                    & = F \circ f^{n+1} \circ F^{-1} & \comment{f\circ f^n = f^{n+1}}\\
-                   & \dff G(f^{n+1}).
+                   & \df G(f^{n+1}).
     \end{align*}
   \end{itemize}
   Тогава:
@@ -191,17 +191,17 @@
                & = \bigsqcup_n F(f^n(\bot_1))& \comment{F\text{ е непр.}}\\
                & = \bigsqcup_n F(f^n(F^{-1}(\bot_2))) & \comment{F^{-1}(\bot_2) = \bot_1}\\
                & = \bigsqcup_n (F \circ f^n \circ F^{-1})(\bot_2) \\
-               & \dff \bigsqcup_n G(f^n)(\bot_2)\\
+               & \df \bigsqcup_n G(f^n)(\bot_2)\\
                & = \bigsqcup_n G(f)^n(\bot_2) & \comment{\text{от }(\ref{eq:2})}\\
                & = \lfp(G(f)).
   \end{align*}
 \end{hint}
 
 \begin{framed}
-  \begin{prop}
+  \begin{proposition}
     За произволни области на Скот $\A$, $\B$ и $\C$ е изпълнено, че
     \[\Cont{\A}{\Cont{\B}{\C}}\ \cong\ \Cont{\A\times\B}{\C}.\]
-  \end{prop}  
+  \end{proposition}  
 \end{framed}
 \begin{hint}
   % \begin{itemize}
@@ -209,13 +209,13 @@
     Докажете, че изображението
     \[\texttt{curry}:\Cont{\A\times \B}{\C} \to \Cont{\A}{\Cont{\B}{\C}},\]
     където
-    \[\texttt{curry}(f)(a)(b) \dff f(a,b)\]
+    \[\texttt{curry}(f)(a)(b) \df f(a,b)\]
     задава изоморфизъм.
   % \item
   %   Докажете, че изображението
   %   \[\texttt{uncurry}:\Cont{\A}{\Cont{\B}{\C}} \to \Cont{\A\times \B}{\C},\]
   %   където
-  %   \[\texttt{uncurry}(f)(a,b) \dff f(a)(b)\]
+  %   \[\texttt{uncurry}(f)(a,b) \df f(a)(b)\]
   %   е монотонно.
   % \item
   %   Лесно се съобразява, че
@@ -263,7 +263,7 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
 
 За еднa частична функция $f:\Nat^n \to \Nat$, определяме изображението $f^\star \in \Strict{\Nat^n_\bot}{\Nat_\bot}$ по следния начин:
 \begin{align*}
-  f^\star(\ov{a}) \dff
+  f^\star(\ov{a}) \df
   \begin{cases}
     f(\ov{a}), & \text{ако }\bot\not\in\{a_1,\dots,a_n\}\ \&\ f(\ov{a})\text{ е деф.}\\
     \bot, & \text{иначе}.
@@ -286,11 +286,11 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
 Ще наричаме $\Sigma^\star_n$ {\bf продължаващ} оператор, защото на всяка частична функция дава нейното точно продължение.
 
 
-\begin{thm}
+\begin{theorem}
   За всяко естествено число $n$,
   \[\Partial{\Nat^n}{\Nat}\ \cong\ \Strict{\Nat^n_\bot}{\Nat_\bot}\]
   чрез изображението $\Sigma^\star_n$.
-\end{thm}
+\end{theorem}
 \begin{hint}
   \begin{itemize}
   \item 
@@ -300,10 +300,10 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
   \end{itemize}
 \end{hint}
 
-\begin{cor}
+\begin{corollary}
   $\Sigma^\star_n$ е непрекъснато изображение, т.е.
   \[\Sigma^\star \in \Cont{\Partial{\Nat^n}{\Nat}}{\Strict{\Nat^n_\bot}{\Nat_\bot}}.\]
-\end{cor}
+\end{corollary}
 
 \begin{example}
   Да разгледаме следната рекурсивна програма $\vv{P}$:
@@ -364,7 +364,7 @@ f(x, y) = if x == y then 0
 \shorthandon{"}%
 Сега директно получаваме, че
 \begin{align*}
-  \D_V\val{\vv{P}} & \dff \lfp(\Delta)\\
+  \D_V\val{\vv{P}} & \df \lfp(\Delta)\\
                    & = \Sigma^\star_2(\lfp(\Gamma)),
 \end{align*}
 защото $\Delta = \mathcal{G}(\Gamma)$ и от \Prop{isomorphic-higher-order} знаем, че

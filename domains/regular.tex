@@ -1,5 +1,7 @@
 \section{Приложение. Регулярни езици}\index{език!регулярен}
 
+\subsection{Регулярни изрази}
+
 Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_k\}$.
 \marginpar{Обърнете внимание, че нямаме звездата на Клини в дефиницията на термовете.}
 Следната абстрактна граматика 
@@ -466,10 +468,15 @@
 \begin{problem}
   Докажете, че ако $\alpha \cdot \gamma + \beta \leq \gamma$, то $\alpha^\star \beta \leq \gamma$.
 \end{problem}
+\begin{hint}
+  Докажете, че $\alpha^n \cdot \beta \leq \gamma$ за всяко естествено число $n$.
+\end{hint}
 
 Да разгледаме следното обобщение на езика $\texttt{REG}$, който да наречем $\texttt{REG++}$:
-\[\tau ::= \alpha\ |\ \alpha \cdot X\ |\ \tau_1 + \tau_2,\]
-където $\alpha$ е произволен регулярен израз.
+\begin{align*}
+  \alpha &  ::= \emptyset\ |\ \varepsilon\ |\ a\ |\ \alpha_1 + \alpha_2\ |\ \alpha_1 \cdot \alpha_2\ |\ \alpha^\star_1\\
+  \tau & ::= \alpha\ |\ \alpha \cdot X\ |\ \tau_1 + \tau_2.
+\end{align*}
 
 \begin{problem}[Правило на Ардън \cite{arden}]
   Да разгледаме следната програма на езика $\texttt{REG++}$:
@@ -549,6 +556,7 @@
   \[X_1 = \underbrace{(b + ab^\star a b^\star a)}_{\alpha} \cdot X_1 + \underbrace{\varepsilon}_{\beta}.\]
   Така получаваме, че най-малкото решение на първия ред е $(b + ab^\star a b^\star a)^\star$.
   Заключаваме, че най-малкото решение на системата е тройката от езици:
+  \marginpar{Тук един от проблемите е, че изобщо не е ясно дали тези регулярни изрази са ,,оптимални'' в някакъв смисъл.}
   \begin{align*}
     \hat{L}_1 & = (b + ab^\star a b^\star a)^\star\\
     \hat{L}_2 & = b^\star a b^\star a (b + ab^\star a b^\star a)^\star\\

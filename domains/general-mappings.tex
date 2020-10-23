@@ -10,7 +10,7 @@
   Всяка тотална функция от вида $f:A_1 \to A_2$ ще наричаме изображение между областите на Скот $\A_1$ и $\A_2$
   и ще записваме $f:\A_1 \to \A_2$.
   Да въведем означението 
-  \[\Mapping{\A_1}{\A_2} \dff (\{f \mid f:\A_1 \to \A_2\},\ \sqsubseteq,\ \bm{\bot}),\]
+  \[\Mapping{\A_1}{\A_2} \df (\{f \mid f:\A_1 \to \A_2\},\ \sqsubseteq,\ \bm{\bot}),\]
   където имаме следната релация между изображенията $f,g:\A_1 \to \A_2$:
   \[f \sqsubseteq g \dfff (\forall a \in \A_1)[f(a) \sqsubseteq_2 g(a)].\]
   Също така, изображението $\bm{\bot}:\A_1 \to \A_2$ е дефинирано като
@@ -34,7 +34,7 @@ ghci> let bottom _ = undefined
   Да разгледаме изображението $h:\A_1 \to \A_2$, където:
   \begin{equation}
     \label{eq:9}
-    h(a) \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}.
+    h(a) \df \bigsqcup \{f_i(a) \mid i \in \Nat\}.
   \end{equation}
   Ще докажем, че $h$ е тази точна горна граница.
   \begin{itemize}
@@ -54,7 +54,7 @@ ghci> let bottom _ = undefined
     Дотук имаме, че $h \in \Mapping{\A_1}{\A_2}$.
     Лесно се съобразява, че $h$ е горна граница на веригата $\chain{f}{i}$, защото за всяки елемент $a \in \A_1$
     и произволен индекс $i$,
-    \[f_i(a) \sqsubseteq \bigsqcup\{f_i(a) | i \in \Nat\} \dff h(a).\]
+    \[f_i(a) \sqsubseteq \bigsqcup\{f_i(a) | i \in \Nat\} \df h(a).\]
   \item
     Сега остава да проверим, че $h$ е точна горна граница, т.е. $h$ е най-малката измежду всички горни граници на 
     веригата $\chain{f}{i}$.
@@ -62,7 +62,7 @@ ghci> let bottom _ = undefined
     $f_i \sqsubseteq g$. Следователно, за фиксирано $a \in \A_1$,
     $g(a)$ е горна граница за веригата $(f_i(a))^{\infty}_{i=0}$.
     Тогава е ясно, че за разглеждания елемент $a$,
-    \[h(a) \dff \bigsqcup\{f_i(a) \mid i\in\Nat\} \sqsubseteq g(a).\]
+    \[h(a) \df \bigsqcup\{f_i(a) \mid i\in\Nat\} \sqsubseteq g(a).\]
     Понеже елементът $a$ е прозиволен, получаваме, че $h \sqsubseteq g$.
   \item
     Доказахме, че $h$ е горна граница и че $h$ е най-малката измежду всички горни граници.

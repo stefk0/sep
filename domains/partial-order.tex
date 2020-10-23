@@ -15,14 +15,14 @@
 
 \begin{example}
   Да означим 
-  \[\Partial{\Nat}{\Nat} \dff \{f:\Nat\to\Nat \mid f\text{ е частична функция}\}.\]
+  \[\Partial{\Nat}{\Nat} \df \{f:\Nat\to\Nat \mid f\text{ е частична функция}\}.\]
   Дефинираме и релацията {\bf включване } между две частични функции по следния начин:
   \begin{align*}
     f \subseteq g \dfff (\forall x\in \Nat)[& f(x)\text{ не е деф.}\ \vee\\
                                             & (f(x)\text{ е деф.}\ \&\ g(x)\text{ е деф.}\ \&\ f(x) = g(x))].
   \end{align*}
   Да дефинираме също {\bf графиката} на частичната функция $f$ като
-  \[\Graph{f} \dff \{\pair{x,y} \mid f(x) = y\}.\]
+  \[\Graph{f} \df \{\pair{x,y} \mid f(x) = y\}.\]
   Тогава лесно се съобразява, че 
   \[f \subseteq g \iff \Graph{f} \subseteq \Graph{g}.\]
   Съобразете, че двойката $(\Partial{\Nat}{\Nat}, \subseteq)$ е частично наредено множество.
@@ -72,7 +72,7 @@ $(\forall n)[a_n \sqsubseteq b]$.
 
 \begin{example}
   Тройката
-  \[\Partial{\Nat^n}{\Nat} \dff (\ \F_n,\ \sqsubseteq,\ \emptyset^{(n)}\ )\] е област на Скот, където:
+  \[\Partial{\Nat^n}{\Nat} \df (\ \F_n,\ \sqsubseteq,\ \emptyset^{(n)}\ )\] е област на Скот, където:
   \begin{itemize}
   \item
     С $\F_n$ означаваме всички частични функции от $\Nat^n$ в $\Nat$.

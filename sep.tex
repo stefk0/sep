@@ -134,14 +134,14 @@
 \newcommand{\evalv}[1]{\text{eval}^P_V\val{{#1}}}
 \newcommand{\evaln}[1]{\text{eval}^P_N\val{{#1}}}
 \newcommand{\eval}[1]{\text{eval}_P\val{{#1}}}
-\newcommand{\ifelse}[3]{\texttt{if}\ #1\ \texttt{then}\ #2\ \texttt{else}\ #3} 
-\newcommand{\while}[2]{\mathbf{while}\ #1\ \mathbf{do}\ #2}
-\newcommand{\rpt}[2]{\mathbf{repeat}\ #1\ \mathbf{until}\ #2}
+% \newcommand{\ifelse}[3]{\texttt{if}\ #1\ \texttt{then}\ #2\ \texttt{else}\ #3} 
+% \newcommand{\while}[2]{\mathbf{while}\ #1\ \mathbf{do}\ #2}
+% \newcommand{\rpt}[2]{\mathbf{repeat}\ #1\ \mathbf{until}\ #2}
 \newcommand{\op}{\texttt{op}}
 \newcommand{\true}{\mathbf{t}}
 \newcommand{\false}{\mathbf{f}}
-\newcommand{\exit}{\mathbf{exit}}
-\newcommand{\skp}{\mathbf{skip}}
+% \newcommand{\exit}{\mathbf{exit}}
+% \newcommand{\skp}{\mathbf{skip}}
 \newcommand{\newvar}[3]{\mathbf{newvar}\ #1 := #2\ \mathbf{in}\ #3}
 \newcommand{\trycatch}[2]{\mathbf{try}\ #1\ \mathbf{catch}\ #2}
 \newcommand{\finally}[3]{\mathbf{try}\ #1\ \mathbf{catch}\ #2\ \mathbf{finally}\ #3}
@@ -253,14 +253,15 @@
 % \include{basic}
 % \include{imp}
 % \include{Operators}
+\include{imp}
 \include{domains/domains}
-% \include{domains-extra/domains-extra}
+\include{domains-extra/domains-extra}
 \include{rec/rec}
 % \include{domains-extra/problems}
-\include{pcf/pcf}
-\include{proofs/proofs}
+% \include{pcf/pcf}
+% \include{proofs/proofs}
 % \include{cat/ccc}
-% \include{lists/lists}
+\include{lists/lists}
 
 % \include{call-by-value}
 % \include{call-by-name}

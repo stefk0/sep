@@ -13,7 +13,7 @@
 
 \begin{problem}
   Да разгледаме изображението $f \in \Cont{L}{L}$, където
-  \[f(l) \dff (0:l).\]
+  \[f(l) \df (0:l).\]
   Намерете $\lfp(f)$.
 \end{problem}
 \begin{solution}
@@ -84,15 +84,15 @@ ghci> take undefined []
 
 \begin{problem}
   Да разгледаме оператора $\Gamma:[L\times L \to L] \to [L\times L \to L]$, където
-  \[\Gamma(f)(l_1,l_2) = 
+  \[\Gamma(f)(\ell_1,\ell_2) = 
   \begin{cases}
-    \bot, & \text{ ако }l_1 = \bot \\
-    l_2, & \text{ ако }l_1 = \nil\\
-    a:f(l'_1,l_2) & \text{ ако } l_1 = a:l'_1.
+    \bot, & \text{ ако }\ell_1 = \bot \\
+    \ell_2, & \text{ ако }\ell_1 = \nil\\
+    a:f(\ell'_1,\ell_2) & \text{ ако } \ell_1 = a:\ell'_1.
   \end{cases}\]
-  Да означим $\texttt{conc} \dff \lfp(\Gamma)$.
+  Да означим $\texttt{conc} \df \lfp(\Gamma)$.
   Докажете, че
-  \[(\forall l_1 \in \FinL)(\forall l_2,l_3 \in L)[\texttt{conc}(l_1, \texttt{conc}(l_2,l_3)) = \texttt{conc}(\texttt{conc}(l_1, l_2), l_3))]\]
+  \[(\forall \ell_1 \in \FinL)(\forall \ell_2,\ell_3 \in L)[\texttt{conc}(\ell_1, \texttt{conc}(\ell_2,\ell_3)) = \texttt{conc}(\texttt{conc}(\ell_1, \ell_2), \ell_3))]\]
 \end{problem}
 
 %%% Local Variables:

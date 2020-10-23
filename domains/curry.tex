@@ -3,7 +3,7 @@
   Изображението 
   \[\curry:\Mapping{\A\times \B}{\C} \to \Mapping{\A}{\Mapping{\B}{\C}},\]
   е дефинирано като
-  \[\curry(f)(a)(b) \dff f(a,b).\]  
+  \[\curry(f)(a)(b) \df f(a,b).\]  
 \end{definition}
 
 \begin{proposition}\label{pr:curry}
@@ -17,12 +17,12 @@
 \begin{proof}
   Първо да фиксираме $f \in \Cont{\A\times\B}{\C}$ и $a \in \A$.
   Ще докажем, че $\curry(f)(a) \in \Cont{\B}{\C}$.
-  \marginpar{Ако означим $h \dff \curry(f)(a)$, то трябва да докажем, че за произволна верига $\chain{b}{i}$ в $\B$,
+  \marginpar{Ако означим $h \df \curry(f)(a)$, то трябва да докажем, че за произволна верига $\chain{b}{i}$ в $\B$,
   $h(\bigsqcup_i b_i) = \bigsqcup_i\{h(b_i)\}$.}
   Нека фиксираме верига $\chain{b}{i}$ от елементи на $\B$.
   Тогава
   \begin{align*}
-    \curry(f)(a)(\bigsqcup_i b_i) & \dff f(a, \bigsqcup_i b_i)\\
+    \curry(f)(a)(\bigsqcup_i b_i) & \df f(a, \bigsqcup_i b_i)\\
                                   & = \bigsqcup_i\{f(a,b_i)\} & \comment\text{ $f$ е непр. по втория си аргумент}\\
                                   & = \bigsqcup_i \{\curry(f)(a)(b_i)\}. & \comment\text{опр. на }\curry
   \end{align*}
@@ -37,7 +37,7 @@
   Също така, да напомним, че за произволен елемент $b \in \B$,
   \begin{equation}
     \label{eq:7}
-    (\bigsqcup_i \{\curry(f)(a_i)\})(b) \dff \bigsqcup_i \{\curry(f)(a_i)(b)\}.
+    (\bigsqcup_i \{\curry(f)(a_i)\})(b) \df \bigsqcup_i \{\curry(f)(a_i)(b)\}.
   \end{equation}
   Тогава
   \begin{align*}
@@ -52,7 +52,7 @@
   \[\curry(\bigsqcup_i f_i) = \bigsqcup_i \{\curry(f_i)\}.\]
   За произволен елемент $a \in \A$ имаме, че
   \[(\bigsqcup_i \curry(f_i))(a) = \bigsqcup_i \{\curry(f_i)(a)\}.\]
-  \marginpar{Ако $h_i \dff \curry(f_i)(a)$, то е ясно, че $(\bigsqcup_i h_i)(b) = \bigsqcup_i\{h_i(b)\}$.}
+  \marginpar{Ако $h_i \df \curry(f_i)(a)$, то е ясно, че $(\bigsqcup_i h_i)(b) = \bigsqcup_i\{h_i(b)\}$.}
   За произволен елемент $b \in \B$ имаме, че
   \[(\bigsqcup_i \curry(f_i)(a))(b) = \bigsqcup_i \{\curry(f_i)(a)(b)\}.\]
   Комбинирайки предишните две равенства, получаваме, че за произволни $a \in \A$ и $b \in \B$,
@@ -69,7 +69,7 @@
   Изображението 
   \[\texttt{uncurry}:\Mapping{\Mapping{\A}{\Mapping{\B}{\C}}}{\Mapping{\A\times \B}{\C}},\]
   е дефинирано като
-  \[\texttt{uncurry}(f)(a,b) \dff f(a)(b).\]  
+  \[\texttt{uncurry}(f)(a,b) \df f(a)(b).\]  
 \end{definition}
 
 \begin{problem}\label{prob:uncurry}

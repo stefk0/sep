@@ -18,11 +18,11 @@
     Да фиксираме произволно $m$. Тогава множеството $\{a_{n,m} \mid n \in \Nat\}$ образува верига:
     \[a_{0,m} \sqsubseteq a_{1,m} \sqsubseteq a_{2,m} \sqsubseteq \cdots\]
     \marginpar{По дефиниция, всяка монотонно растяща редица в област на Скот притежава точна горна граница.}
-    Следователно тя има точна горна граница $b_m \dff \bigsqcup \{a_{n,m} \mid n \in \Nat\}$.
+    Следователно тя има точна горна граница $b_m \df \bigsqcup \{a_{n,m} \mid n \in \Nat\}$.
   \item
     Аналогично, при фиксирано $n$, множеството $\{a_{n,m} \mid m \in \Nat\}$ образува верига:
     \[a_{n,0} \sqsubseteq a_{n,1} \sqsubseteq a_{n,2} \sqsubseteq \ldots,\]
-    която притежава точна горна граница $c_n \dff \bigsqcup \{a_{n,m} \mid m \in \Nat\}$.
+    която притежава точна горна граница $c_n \df \bigsqcup \{a_{n,m} \mid m \in \Nat\}$.
   \end{itemize}
   Това означава, че трябва да докажем следното:
   \[\bigsqcup_m b_m = \bigsqcup_n c_n = \bigsqcup_n a_{n,n}.\]
@@ -73,7 +73,7 @@
     Нека $\A$ и $\B$ са области на Скот.
     Нека $\chain{f}{k}$ е верига от елементи на $\Cont{\A}{\B}$.
     Да дефинираме изображението $h$ на $\A$ в $\B$ по следния начин
-    \[h(a) \dff \bigsqcup\{f_k(a) \mid k \in \Nat\}.\]
+    \[h(a) \df \bigsqcup\{f_k(a) \mid k \in \Nat\}.\]
     Изображението $h$ е {\em непрекъснато} и е {\em точна горна граница} на веригата $\chain{f}{k}$,
     т.е. $h = \bigsqcup_k f_k$.
   \end{lemma}
@@ -89,7 +89,7 @@
     % Това е така, защото всяко непрекъснато изображение е също така и монотонно.
 
     \marginpar{$\bigsqcup_n f_n(a)$ е съкратен запис за $\bigsqcup\{f_n(a) \mid n \in \Nat\}$.}
-    Получаваме, че за всяко $k$, $f_k(a) \sqsubseteq^\B \bigsqcup_n f_n(a) \dff h(a)$.
+    Получаваме, че за всяко $k$, $f_k(a) \sqsubseteq^\B \bigsqcup_n f_n(a) \df h(a)$.
     Понеже това е вярно за произволно $a \in A$, $(\forall k)[f_k \sqsubseteq h]$,
     което означава, че $h$ е горна граница на веригата.
   \item
@@ -106,7 +106,7 @@
   Да вземем една монотонно растяща редица $\chain{a}{k}$ от елементи на $A$.
   \marginpar{За момента дори не е ясно дали $\{h(a_k) \mid k \in \Nat\}$ е верига в $\B$}
   Ще докажем, че \[h(\bigsqcup_k a_k) = \bigsqcup_k \{h(a_k)\}.\]
-  Нека $e_{n,m} \dff f_n(a_m)$.
+  Нека $e_{n,m} \df f_n(a_m)$.
   Понеже всяко $f_n$ е непрекъснато и следователно монотонно изображение, то имаме
   \[n \leq n^\prime\ \&\ m \leq m^\prime\ \Rightarrow\ e_{n,m} \sqsubseteq^{\B} e_{n^\prime,m^\prime}.\]
   Следователно,

@@ -5,7 +5,7 @@
 Едно изображение $f:\A_1\to \A_2$ се нарича {\bf монотонно}, ако
 \[(\forall a,a'\in\A_1)[a \sqsubseteq_1 a' \implies f(a) \sqsubseteq_2 f(a')].\]
 Да въведем означението
-\[\Mon{\A_1}{\A_2} \dff (\{f: \A_1 \to \A_2 \mid f\text{ е мон. изобр.}\},\ \sqsubseteq,\ \bm{\bot}).\]
+\[\Mon{\A_1}{\A_2} \df (\{f: \A_1 \to \A_2 \mid f\text{ е мон. изобр.}\},\ \sqsubseteq,\ \bm{\bot}).\]
 
 \begin{framed}
   \begin{theorem}\label{th:monotone-is-domain}
@@ -16,19 +16,19 @@
   Да фиксираме една верига $\chain{f}{i}$ в $\Mon{\A_1}{\A_2}$. Трябва да докажем, че тази верига притежава точна горна граница,
   която е монотонно изображение.
   Да разгледаме същото изображение $h:\A_1 \to \A_2$ както в доказателството на \Th{all-mappings-is-domain}, като
-  \[h(a) \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}.\]
+  \[h(a) \df \bigsqcup \{f_i(a) \mid i \in \Nat\}.\]
   Оттам знаем, че $h$ е точна горна граница на веригата. 
   Остава да докажем, че $h \in \Mon{\A_1}{\A_2}$.
   Нека $a \sqsubseteq b$. Тогава, за всеки индекс $k$, понеже $f_k$ са монотонни изображения, получаваме следното:
   \begin{align*}
     f_k(a) & \sqsubseteq f_k(b)\\
-           & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \dff h(b).
+           & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \df h(b).
   \end{align*}
   Това означава, че $h(b)$ е горна граница за веригата ${(f_i(a))}^{\infty}_{i=0}$.
   Заключаваме, че 
   \begin{align*}
-    h(a) & \dff \bigsqcup \{f_i(a) \mid i \in \Nat\}\\
-         & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \dff h(b).    
+    h(a) & \df \bigsqcup \{f_i(a) \mid i \in \Nat\}\\
+         & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \df h(b).
   \end{align*}
 \end{hint}
 

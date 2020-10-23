@@ -54,7 +54,7 @@
 
 \newcommand{\dfv}{\overset{\text{деф}}{\equiv}}
 \newcommand{\df}{\stackrel{\text{деф}}{=}}
-\newcommand{\dff}{\stackrel{\text{деф}}{=}}
+% \newcommand{\dff}{\stackrel{\text{деф}}{=}}
 
 \newcommand{\sg}{\texttt{sign}}
 
@@ -64,6 +64,21 @@
 \newcommand{\comment}[1]{\texttt{/\!/}\ #1}
 \newcommand*{\blank}{\sqcup}
 \newcommand{\val}[1]{\llbracket{#1}\rrbracket}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  IMP                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\skp}{\texttt{skip}}
+\newcommand{\exit}{\texttt{exit}}
+\newcommand{\ifelse}[3]{\texttt{if}\ #1\ \texttt{then}\ #2\ \texttt{else}\ #3} 
+\newcommand{\while}[2]{\texttt{while}\ #1\ \texttt{do}\ #2}
+\newcommand{\rpt}[2]{\texttt{repeat}\ #1\ \texttt{until}\ #2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  PCF                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newcommand{\curry}{\texttt{curry}}

@@ -12,7 +12,7 @@
   ще записваме като $\pair{a_0,\dots,a_{k-1},\nil}$, т.е. това е елемент придандлежащ на множеството  
   \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\nil\}.\]
   Дефинираме множеството от всички крайни списъци като
-  \[\FinL \dff \bigcup_{k\geq 0} \Nat^k \times \{\nil\}.\]
+  \[\FinL \df \bigcup_{k\geq 0} \Nat^k \times \{\nil\}.\]
 \end{itemize}
 
 Нека $P(l)$ е свойство на крайните списъци.
@@ -29,7 +29,7 @@
 ще записваме като $\pair{a_0,a_1,a_2,\dots,a_{k-1},\bot}$, т.е. това е елемент придандлежащ на множеството  
 \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\bot\}.\]
 Дефинираме множеството от всички частични списъци като
-\[\PartL \dff \bigcup_{k\geq 0} \Nat^k \times \{\bot\}.\]
+\[\PartL \df \bigcup_{k\geq 0} \Nat^k \times \{\bot\}.\]
 Тогава $\bot$ може да се интерпретира като единствения частичен списък с дължина $0$.
 Да видим какво ще стане ако изпълним следния ред:
 
@@ -54,7 +54,7 @@ ghci> filter (<4) [1..]
 
 {\bf Безкраен списък} с елементи естествените числа $a_0,a_1,\dots$
 ще записваме като $\pair{a_0,a_1,\dots}$, т.е. това е елемент придандлежащ на множеството  
-\[\InfL \dff \Nat^\Nat = \{f:\Nat \to \Nat \mid f \text{ е тотална}\}.\]
+\[\InfL \df \Nat^\Nat = \{f:\Nat \to \Nat \mid f \text{ е тотална}\}.\]
 Както вече знаем, на хаскел е много лесно да работим с безкрайни списъци.
 \begin{haskellcode}
 ghci> take 10 [1,3..]                 -- $a_n = 1 + (3-1)*n$
@@ -84,14 +84,14 @@ ghci> take 10 [x*x | x <- [0..]]      -- $a_n = n^2$
 %   ще записваме като $\pair{a_0,\dots,a_{k-1},\nil}$, т.е. това е елемент придандлежащ на множеството  
 %   \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\nil\}.\]
 %   Дефинираме множеството от всички крайни списъци като
-%   \[\FinL \dff \bigcup_{k\geq 0} \Nat^k \times \{\nil\}.\]
+%   \[\FinL \df \bigcup_{k\geq 0} \Nat^k \times \{\nil\}.\]
 % \item
 %   \marginpar{Това на практика са недовършени списъци}
 %   {\bf Частичен списък} с елементи естествените числа $a_0,\dots,a_{k-1}$
 %   ще записваме като $\pair{a_0,\dots,a_{k-1},\bot}$, т.е. това е елемент придандлежащ на множеството  
 %   \[\underbrace{\Nat \times \Nat \cdots \times \Nat}_{k} \times \{\bot\}.\]
 %   Дефинираме множеството от всички частични списъци като
-%   \[\PartL \dff \bigcup_{k\geq 0} \Nat^k \times \{\bot\}.\]
+%   \[\PartL \df \bigcup_{k\geq 0} \Nat^k \times \{\bot\}.\]
 %   Тогава $\bot$ може да се интерпретира като единствения частичен списък с дължина $0$.
 %   Да видим какво ще стане ако изпълним следния ред:
   
@@ -106,7 +106,7 @@ ghci> take 10 [x*x | x <- [0..]]      -- $a_n = n^2$
 % \item
 %   {\bf Безкраен списък} с елементи естествените числа $a_0,a_1,\dots$
 %   ще записваме като $\pair{a_0,a_1,\dots}$, т.е. това е елемент придандлежащ на множеството  
-%   \[\InfL \dff \Nat^\Nat = \{f:\Nat \to \Nat \mid f \text{ е тотална}\}.\]
+%   \[\InfL \df \Nat^\Nat = \{f:\Nat \to \Nat \mid f \text{ е тотална}\}.\]
 %   Както вече знаем, на хаскел е много лесно да работим с безкрайни списъци.
 %   \begin{haskellcode}
 % ghci> take 10 [1,3..]
@@ -189,10 +189,10 @@ ghci> take 10 [x*x | x <- [0..]]      -- $a_n = n^2$
 \index{канонична апроксимация}
 За всеки елемент $l \in L$, дефинираме неговата {\bf $n$-та канонична апроксимация} $l\upharpoonright{n}$, където:
 \begin{align*}
-  & l \upharpoonright{0} \dff \bot\\
-  & \nil \upharpoonright{(n+1)} \dff \nil\\
-  % & l \upharpoonright{(n+1)} \dff \texttt{cons}(\texttt{car}(l), l\upharpoonright{n}).
-  & (a:l) \upharpoonright{(n+1)} \dff a:(l\upharpoonright{n}).
+  & l \upharpoonright{0} \df \bot\\
+  & \nil \upharpoonright{(n+1)} \df \nil\\
+  % & l \upharpoonright{(n+1)} \df \texttt{cons}(\texttt{car}(l), l\upharpoonright{n}).
+  & (a:l) \upharpoonright{(n+1)} \df a:(l\upharpoonright{n}).
 \end{align*}
 Имаме свойството, че за всеки списък $l \in L$, 
 \[n \leq n' \implies l\upharpoonright n \sqsubseteq l\upharpoonright n'.\]
@@ -237,7 +237,7 @@ approx (x:xs) n | n > 0 = x:approx xs (n-1) -- $(a:l) \upharpoonright (n+1) = (a
 \begin{problem}
   \label{prob:approx}
   Да дефинираме изображението 
-  \[\texttt{approx}_n(l) \dff l \upharpoonright n.\]
+  \[\texttt{approx}_n(l) \df l \upharpoonright n.\]
   Докажете, че $\texttt{approx}_n \in \Cont{L}{L}$.
 \end{problem}
 
@@ -254,9 +254,9 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 
 \Stefan{Да се обасни каква е разликата между take и approx}
 
-\begin{prop}
+\begin{proposition}
   Областта на Скот $L$ е алгебрична като крайните елементи $K(L) = \FinL$ и $\PartL$.
-\end{prop}
+\end{proposition}
 % \begin{hint}
 %   Банално.
 % \end{hint}
@@ -278,7 +278,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 
 \begin{problem}
   За произволно изображение $f \in \Cont{L}{L}$ и число $n$, да ознчим с $f \upharpoonright n$ изображението, където
-  \[(f\upharpoonright n)(l) \dff f(l\upharpoonright n)\upharpoonright n.\]
+  \[(f\upharpoonright n)(l) \df f(l\upharpoonright n)\upharpoonright n.\]
   Докажете, че $f\upharpoonright n \in \Cont{L}{L}$.
 \end{problem}
 \begin{hint}
@@ -294,7 +294,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 \begin{problem}
   Нека $a \in K(\A)$ и $b \in K(\B)$.
   Да дефинираме изображението
-  \[\theta(x) \dff
+  \[\theta(x) \df
   \begin{cases}
     b, & \text{ ако } a \sqsubseteq x\\
     \bot, & \text{ иначе}.
@@ -337,7 +337,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 
 Възможно е някои от елементите на $\bar{a}$ да са несравними помежду си, но обърнете внимание, че за произволен елемент $x$, 
 всички елементи на множеството 
-\[A \dff \{a_i \mid i < n\ \&\ a_i \sqsubseteq x\}\]
+\[A \df \{a_i \mid i < n\ \&\ a_i \sqsubseteq x\}\]
 са сравними помежду си.
 Това означава, че 
 \[A = \{a_{i_0} \sqsubseteq a_{i_1} \sqsubseteq \cdots \sqsubseteq a_{i_k}\},\] за някое $k$,
@@ -347,7 +347,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 
 Да разгледаме изображението 
 \begin{align*}
-  \theta_{\bar{a},\bar{b}}(x) & \dff \bigsqcup_{i<n}\{b_i \mid a_i \sqsubseteq x\}\\
+  \theta_{\bar{a},\bar{b}}(x) & \df \bigsqcup_{i<n}\{b_i \mid a_i \sqsubseteq x\}\\
   & = \begin{cases}
     b_0, & \text{ ако } a_0 = \bigsqcup_{i<n}\{a_i \mid a_i \sqsubseteq x\}\\
     \vdots & \\
@@ -358,7 +358,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 
 \Stefan{На картинка нещата не изглеждат толкова сложни.}
 
-\begin{prop}
+\begin{proposition}
   Ако $\bar{a}$ и $\bar{b}$ са съвместими редици от крайни елементи на $L$, то имаме свойствата:
   \begin{enumerate}[1)]
   \item 
@@ -369,7 +369,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
   \item
     $\theta_{\bar{a},\bar{b}}$ е компактен елемент в $\Cont{L}{L}$.
   \end{enumerate}
-\end{prop}
+\end{proposition}
 \begin{proof}
   \begin{enumerate}[1)]
   \item 
@@ -393,9 +393,9 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
 \end{proof}
 
 \begin{framed}
-\begin{prop}
+\begin{proposition}
   Областта на Скот $\Cont{L}{L}$ е алгебрична.
-\end{prop}
+\end{proposition}
 \end{framed}
 \begin{proof}
   Да разгледаме произволен елемент $f \in \Cont{L}{L}$.
@@ -408,7 +408,7 @@ ghci> approx [1..10] 101  --  == (1:2:3:4:5:6:7:8:9:10:$\nil$)
     \bar{b}_n & = (f(a_0)\upharpoonright n, \dots, f(a_{n})\upharpoonright n).
   \end{align*}
   Нека да положим
-  \[\theta_n \dff \theta_{\bar{a}_n,\bar{b}_n}.\]
+  \[\theta_n \df \theta_{\bar{a}_n,\bar{b}_n}.\]
 
   Лесно се проверява, че $(\theta_n)^\infty_{n=0}$ е верига, защото $f$ е монотонно изображение.
   

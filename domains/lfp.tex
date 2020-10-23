@@ -29,8 +29,8 @@
   \marginpar{В \cite{ditchev-soskov} се нарича теорема на Кнастер-Тарски. Според \href{https://en.wikipedia.org/wiki/Kleene_fixed-point_theorem}{уикипедия} е теорема на Клини}
   Определяме монотонно растяща редица от елементи на $\A$ по следния начин:
   \begin{align*}
-    & a_0 \dff \bot & \comment = f^0(\bot)\\
-    & a_{n+1} \dff f(a_n) & \comment = f^{n+1}(\bot).
+    & a_0 \df \bot & \comment = f^0(\bot)\\
+    & a_{n+1} \df f(a_n) & \comment = f^{n+1}(\bot).
   \end{align*}
 
   Първо ще докажем с индукция по $n$, че $\chain{a}{n}$ е верига.
@@ -39,9 +39,9 @@
   изображение е монотонно, то имаме, че
   \[\underbrace{f(a_n)}_{a_{n+1}} \sqsubseteq \underbrace{f(a_{n+1})}_{a_{n+2}}.\]
 
-  Нека $a \dff \bigsqcup_i a_i$. Тогава 
+  Нека $a \df \bigsqcup_i a_i$. Тогава 
   \begin{align*}
-    f(a) & = f(\bigsqcup_i a_i) & \comment a \dff \bigsqcup_i a_i\\
+    f(a) & = f(\bigsqcup_i a_i) & \comment a \df \bigsqcup_i a_i\\
          & = \bigsqcup_i f(a_i) & \comment f \text{ е непрекъсната}\\
          & = \bigsqcup_i a_{i+1} & \comment a_{i+1} = f(a_i)\\
          & = \bigsqcup_i a_i & \comment \text{защото }\chain{a}{i}\text{ е верига}\\
@@ -56,10 +56,10 @@
     За $n = 0$ е очевидно.
   \item
     Да приемем, че $a_n \sqsubseteq b$.
-    Тогава $a_{n+1} \dff f(a_n) \sqsubseteq f(b) = b$, защото $f$ е монотонно изображение.    
+    Тогава $a_{n+1} \df f(a_n) \sqsubseteq f(b) = b$, защото $f$ е монотонно изображение.    
   \end{itemize}
   Така доказахме, че $b$ е горна граница на веригата $\chain{a}{n}$.
-  Заключаваме, че $a \dff \bigsqcup_n a_n \sqsubseteq b$.
+  Заключаваме, че $a \df \bigsqcup_n a_n \sqsubseteq b$.
   Следователно, $a$ е \emph{ най-малката неподвижна точка} на $f$,
   т.е. $a = \lfp(f)$.
 \end{proof}
@@ -217,19 +217,19 @@
   \[(\forall a \in \Pref(f))[\lfp(f) \sqsubseteq a],\]
   където
   \index{преднеподвижна точка}
-  \[\Pref(f) \dff \{a \in \A \mid f(a) \sqsubseteq a\}\]
+  \[\Pref(f) \df \{a \in \A \mid f(a) \sqsubseteq a\}\]
   е множеството от всички преднеподвижни точки на $f$.
   Това означава, че $\lfp(f)$ е най-малката преднеподвижна точка на $f$.
 \end{proposition}
 \begin{proof}
   Знаем от \hyperref[th:knaster-tarski]{Теоремата на Клини}, че $\lfp(f) = \bigsqcup_n f^n(\bot)$.
-  Също така знаем, че $\chain{b}{n}$ е верига, където за улеснение сме положили $b_n \dff f^n(\bot)$. 
+  Също така знаем, че $\chain{b}{n}$ е верига, където за улеснение сме положили $b_n \df f^n(\bot)$. 
   Ясно е също, че $\texttt{Pref}(f) \neq \emptyset$, защото $\lfp(f) \in \texttt{Pref}(f)$.
   Да фиксираме прозиволен елемент $a\in \texttt{Pref}(f)$.
   С индукция по $n$ ще докажем, че $b_n \sqsubseteq a$ за всяко $n$.
   \begin{itemize}
   \item 
-    За $n = 0$ е очевидно, защото тогава $b_0 \dff \bot \sqsubseteq a$.
+    За $n = 0$ е очевидно, защото тогава $b_0 \df \bot \sqsubseteq a$.
   \item
     Да приемем, че $b_n \sqsubseteq a$.
     Ще докажем, че $b_{n+1} \sqsubseteq a$.

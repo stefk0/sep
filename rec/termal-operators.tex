@@ -141,9 +141,9 @@
     Освен това, понеже изображението $\texttt{plus}$ е непрекъснато, то то е и монотонно.
     \begin{align*}
       \val{\tau}(\ov{\varphi})(\ov{a}) & = \val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a})\\
-                                       & \dff \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}))\\
+                                       & \df \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}))\\
                                        & \sqsubseteq \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{b}), \val{\tau_2}(\ov{\varphi})(\ov{b})) & \comment{\text{от (\ref{eq:10}) и мон.}}\\
-      & \dff \val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{b}).
+      & \df \val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{b}).
     \end{align*}
   \item
     \marginpar{\writedown За домашно!}
@@ -160,9 +160,9 @@
     Тогава
     \begin{align*}
       \val{\tau}(\ov{\varphi})(\ov{a}) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a})\\
-                                      & \dff \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{a}))\\
+                                      & \df \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{a}))\\
                                       & \sqsubseteq \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от (\ref{eq:6}) и $\varphi_i$ е мон.}}\\
-                                      & \dff \val{\tau}(\ov{\varphi})(\ov{b}).
+                                      & \df \val{\tau}(\ov{\varphi})(\ov{b}).
     \end{align*}
   \end{itemize}
 \end{hint}
@@ -196,9 +196,9 @@
 
 \begin{lemma}\label{lem:rec:functional:term:continuous}
   Нека $\mu[\vv{f}_1,\dots,\vv{f}_k]$ е {\em функционален} терм.
-  \marginpar{Да напомним, че $m_i \dff \#\vv{f}_i$}
+  \marginpar{Да напомним, че $m_i \df \#\vv{f}_i$}
   Да разгледаме произволна верига $\chain{\ov{\varphi}}{r}$
-  от елементи на
+  от елементи на областта на Скот
   \[\DomOpCBN.\]
   Тогава $\val{\mu}$ е непрекъснато изображение, т.е.
   \[\val{\mu}(\bigsqcup_r\ov{\varphi}_r) = \bigsqcup_r \val{\mu}(\ov{\varphi}_r).\]
@@ -211,10 +211,10 @@
   \item
     Нека $\mu \equiv \mu_1 + \mu_2$. Ще използваме, че $\texttt{plus}$ е непрекъснато изображение.
     \begin{align*}
-      \val{\mu}(\bigsqcup_r \ov{\varphi}_r) & \dff \texttt{plus}(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r), \val{\mu_2}(\bigsqcup_r\ov{\varphi}_r))\\
+      \val{\mu}(\bigsqcup_r \ov{\varphi}_r) & \df \texttt{plus}(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r), \val{\mu_2}(\bigsqcup_r\ov{\varphi}_r))\\
       & = \texttt{plus}(\bigsqcup_r\val{\mu_1}(\ov{\varphi}_r), \bigsqcup_r \val{\mu_2}(\ov{\varphi}_r)) & \comment{\text{от И.П.}}\\
       & = \bigsqcup_r \texttt{plus}(\val{\mu_1}(\ov{\varphi}_r), \val{\mu_2}(\ov{\varphi}_r)) & \comment{\texttt{plus}\text{ е непр.}}\\
-      & \dff \bigsqcup_r \val{\mu}(\ov{\varphi}_r).
+      & \df \bigsqcup_r \val{\mu}(\ov{\varphi}_r).
     \end{align*}
   \item
     Нека $\mu \equiv \mu_1\ \vv{==}\ \mu_2$.
@@ -226,13 +226,13 @@
     Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$. 
     От И.П. знаем, че $\val{\mu_j}$ са непрекъснати изображения за $j = 1,\dots,m_i$ и следователно са монотонни. Тогава
     за произволни индекси $n \leq n'$ и $r \leq r'$ имаме, че
-    \marginpar{$\ov{\varphi}_n \dff (\varphi^1_n,\dots,\varphi^{k}_n)$}
+    \marginpar{$\ov{\varphi}_n \df (\varphi^1_n,\dots,\varphi^{k}_n)$}
     \begin{align*}
       \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r)) & \sqsubseteq \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_{r'}),\dots,\val{\mu_{m_i}}(\ov{\varphi}_{r'}))\\
                                                                                        & \sqsubseteq \varphi^i_{n'}(\val{\mu_1}(\ov{\varphi}_{r'}),\dots,\val{\mu_{m_i}}(\ov{\varphi}_{r'})).
     \end{align*}
     Това означава, че ако положим
-    \[e_{n,r} \dff \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r)),\]
+    \[e_{n,r} \df \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r)),\]
     то
     \[n \leq n'\ \&\ r \leq r' \implies e_{n,r} \sqsubseteq e_{n',r'}.\]
     Сега можем да приложим \Th{double-chain}, според която
@@ -244,12 +244,12 @@
     Тогава 
     \begin{align*}
       \val{\mu}(\bigsqcup_n\ov{\varphi}_n) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\bigsqcup_n\ov{\varphi}_n)\\
-                                           & \dff (\bigsqcup_n\varphi^i_n)(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\\
+                                           & \df (\bigsqcup_n\varphi^i_n)(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\\
                                            & = \bigsqcup_n \{\varphi^i_n(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\} & \comment{\text{от \Th{monotone-is-domain}}}\\
                                            & =  \bigsqcup_n \{\varphi^i_n(\bigsqcup_r \val{\mu_1}(\ov{\varphi}_r),\dots,\bigsqcup_r \val{\mu_{m_i}}(\ov{\varphi}_r))\} & \comment{\text{от И.П. за }\mu_j}\\
                                            & =  \bigsqcup_n \{\bigsqcup_r \underbrace{\varphi^i_n(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r))}_{e_{n,r}}\} & \comment{\varphi^i_n \text{ е непр.}}\\
                                            & =  \bigsqcup_n \underbrace{\varphi^i_n(\val{\mu_1}(\ov{\varphi}_n),\dots,\val{\mu_{m_i}}(\ov{\varphi}_n))}_{e_{n,n}} & \comment{\text{от (\ref{eq:8})}}\\
-                                           & \dff \bigsqcup_n \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\varphi}_n)\\
+                                           & \df \bigsqcup_n \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\varphi}_n)\\
                                            & = \bigsqcup_n \val{\mu}(\ov{\varphi}_n).
     \end{align*}
   \end{itemize}
