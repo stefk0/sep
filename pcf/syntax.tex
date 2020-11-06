@@ -13,15 +13,14 @@
   $\vv{a} \to \vv{b} \to \vv{c}$, то имаме предвид, че
   $\vv{a} \to (\vv{b} \to \vv{c})$.
 \item\index{израз}
+  \marginpar{Можем да си мислим за изразите като дървета.}
   Изрази
-  \[\tau ::= \vv{n}\ |\ \vv{x}\ |\ \tau + \tau\ |\ \tau\ \vv{==}\ \tau\ |\ \ifelse{\tau}{\tau}{\tau}\ |\ \tau\tau\ |\ \lamb{x}{a}{\tau}\ |\ \fix(\tau).\]
+  \[\tau ::= \vv{n}\ |\ \vv{x}\ |\ \tau_1 + \tau_2\ |\ \tau_1\ \vv{==}\ \tau_2\ |\ \ifelse{\tau_1}{\tau_2}{\tau_3}\ |\ \tau_1\tau_2\ |\ \lamb{x}{a}{\tau_1}\ |\ \fix(\tau_1).\]
   Ще означаваме съвкупоността от всички изрази с $\mathcal{E}$, а съвкупността от всички променливи с $\mathcal{V}$.
   Да обърнем внимание, че не всички изрази са ,,смислени''. Например,
   $\lamb{x}{nat}{\vv{xx}}$ не е ясно какво означава.
   
-  Понеже тук вече имам свободни и свързани променливи, трябва да дефинираме точно какво означава това.
-  \[\fv:\mathcal{E} \to \mathcal{P}(\mathcal{V})\]
-  Ще дефинираме функцията $\texttt{fv}$ със структурна индукция по построението на термовете.
+  Понеже тук вече имаме свободни и свързани променливи, трябва да сме по-внимателни, когато правим замяна на един израз с друг. Да разгледаме функцията $\fv:\mathcal{E} \to \mathcal{P}(\mathcal{V})$, дефинирана със структурна индукция по построението на термовете по следния начин:
   
   \begin{itemize}
   \item
@@ -44,79 +43,94 @@
   \marginpar{Стойносттите понякога се наричат и канонични форми.}
   Ще казваме, че един израз е {\bf стойност}, ако той е затворен терм, съставен по следния начин:
   \[\vv{v} ::= \vv{n}\ |\ \lamb{x}{a}{\mu}.\]
-  С други думи, стойносттите са затворени термове, в които не е възможно да се правят повече опростявания.
+  Интуицията тук е, че стойностите са затворени термове, в които не е възможно да се правят повече опростявания.
   Например, $\vv{5 + 6}$ не е стойност, защото може да се опрости до $\vv{11}$,
   но $\lamb{x}{nat}{\vv{5+6}}$ е стойност.
 \end{itemize}
 
 С $\tau\rename{x}{\rho}$ ще означаваме изразът получен от $\tau$, в който всяко \emph{свободно} срещане на променливата $\vv{x}$
 е заменена с израза $\rho$. Можем да дадем формална дефиниция с индукция по построението на изразите:
+\marginpar{Операцията $\rename{x}{\rho}$ заменя в дървото за израза $\tau$, всяко листо означено с $x$, не участва в дърво с корен $\lambda x:a$, с дървото за израза $\rho$.}
 \begin{itemize}
 \item
-  Ако $\tau$ е константата $\vv{n}$, то $\tau\rename{x}{\rho}$ e израза $\vv{n}$.
+  Ако $\tau \equiv \vv{n}$, то $\tau\rename{x}{\rho} \equiv \vv{n}$.
 \item
-  Ако $\tau$ е променливата $\vv{x}$, то $\tau\rename{x}{\rho}$ е израза $\rho$.
+  Ако $\tau \equiv \vv{x}$, то $\tau\rename{x}{\rho} \equiv \rho$.
 \item
-  Ако $\tau$ е променливата $\vv{y}$, където $\vv{y}$ не е променливата $\vv{x}$, то $\tau\rename{x}{\rho}$ е израза $\vv{y}$.
+  Ако $\tau \equiv \vv{y}$, където $\vv{y} \not\equiv \vv{x}$, то $\tau\rename{x}{\rho} \equiv \vv{y}$.
 \item
-  Ако $\tau$ е израза $\tau_1 + \tau_2$, то $\tau\rename{x}{y}$ е израза
-  \[\tau_1\rename{x}{\rho} + \tau_2\rename{x}{\rho}.\]
+  Ако $\tau \equiv \tau_1 + \tau_2$, то $\tau\rename{x}{y} \equiv \tau_1\rename{x}{\rho} + \tau_2\rename{x}{\rho}$.
 \item
-  Ако $\tau$ е израза $\tau_1\ \vv{==}\ \tau_2$, то $\tau\rename{x}{\rho}$ е израза
-  \[\tau_1\rename{x}{\rho}\ \vv{==}\ \tau_2\rename{x}{\rho}.\]
+  Ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то $\tau\rename{x}{\rho} \equiv \tau_1\rename{x}{\rho}\ \vv{==}\ \tau_2\rename{x}{\rho}$.
 \item
-  Ако $\tau$ е израза $\ifelse{\tau_1}{\tau_2}{\tau_3}$, то $\tau\rename{x}{\rho}$ е израза
-  \[\ifelse{\tau_1\rename{x}{\rho}}{\tau_2\rename{x}{\rho}}{\tau_3\rename{x}{\rho}}.\]
+  Ако $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
+  \[\tau\rename{x}{\rho} \equiv \ifelse{\tau_1\rename{x}{\rho}}{\tau_2\rename{x}{\rho}}{\tau_3\rename{x}{\rho}}.\]
 \item
-  Ако $\tau$ е израза $\lamb{x}{a}{\tau'}$, то
-  $\tau\rename{x}{\rho}$ е израза $\tau$;
+  Ако $\tau \equiv \lamb{x}{a}{\tau'}$, то $\tau\rename{x}{\rho} \equiv \tau$;
 \item
-  Ако $\tau$ е израза $\lamb{y}{a}{\tau'}$ и $\vv{y}$ е променлива различна от $\vv{x}$, то
-  $\tau\rename{x}{\rho}$ е израза
-  \[\lamb{y}{a}{\tau'\rename{x}{\rho}}.\]
+  Ако $\tau \equiv \lamb{y}{a}{\tau'}$ и $\vv{y} \not\equiv \vv{x}$, то
+  $\tau\rename{x}{\rho} \equiv \lamb{y}{a}{\tau'\rename{x}{\rho}}$.
 \end{itemize}
 
-Нека $\tau$ е израза $\lamb{x}{a}{\vv{x+y}}$.
-Обърнете внимание, че $\tau\rename{y}{\vv{x}}$ е израза $\lamb{x}{a}{\vv{x+x}}$,
+Нека $\tau \equiv \lamb{x}{a}{\vv{x+y}}$. Обърнете внимание, че $\tau\rename{y}{\vv{x}} \equiv \lamb{x}{a}{\vv{x+x}}$,
 т.е. тук получаваме израз, който ,,смислово'' е доста различен от първоначалния израз $\tau$.
-Проблемът се състои в това, че някоя свободна променлива на $\rho$ може да попадне под обхвата на някоя свързана
+Проблемът се състои в това, че при замяната на $\vv{x}$ с $\rho$, някоя свободна променлива на $\rho$ може да попадне под обхвата на някоя свързана
 променлива на $\tau$.
 
 \index{$\alpha$-еквивалентност}
+\marginpar{Това е подходът на Хаскел Къри за дефиниране на замяна на променлива с израз \cite[стр. 578]{barendregt-handbook}.}
 Сега ще дефинираме бинарна релация между изрази, която ще наричаме $\alpha$-еквивалентност.
 Интуитивно, всеки два $\alpha$-еквивалентни израза трябва да бъдат смислово неотличими.
-Това е най-малката релация $\equiv$ между изрази, за която са изпълнени свойствата:
+Това е най-малката релация между изрази, която ще означаваме с $\equiv_\alpha$, за която са изпълнени свойствата:
 \marginpar{
   В тази дефиниция единствено последният случай е интересен.
   Например,
-  \[(\lamb{x}{a}{\vv{x+z}})\vv{x} \equiv (\lamb{y}{a}{\vv{y+z}})\vv{x},\]
-  но \[(\lamb{x}{a}{\vv{x+y}})\vv{x} \not\equiv (\lamb{y}{a}{\vv{x+y}})\vv{x}.\]}
+  \[(\lamb{x}{a}{\vv{x+z}})\vv{x} \equiv_\alpha (\lamb{y}{a}{\vv{y+z}})\vv{x},\]
+  но \[(\lamb{x}{a}{\vv{x+y}})\vv{x} \not\equiv_\alpha (\lamb{y}{a}{\vv{x+y}})\vv{x}.\]}
 \begin{itemize}
 \item
-  $\vv{x} \equiv \vv{x}$;
+  $\vv{x} \equiv_\alpha \vv{x}$;
 \item
-  $\vv{n} \equiv \vv{n}$;
+  $\vv{n} \equiv_\alpha \vv{n}$;
 \item
-  ако $\tau_1 \equiv \rho_1$ и $\tau_2 \equiv \rho_2$, то имаме, че
+  ако $\tau_1 \equiv_\alpha \rho_1$ и $\tau_2 \equiv_\alpha \rho_2$, то имаме, че
   \begin{align*}
-    & \tau_1 + \tau_2 \equiv \rho_1 + \rho_2,\\
-    & \tau_1\ \vv{==}\ \tau_2 \equiv \rho_1\ \vv{==}\ \rho_2,\\
-    & \tau_1 \tau_2 \equiv \rho_1 \rho_2;
+    & \tau_1 + \tau_2 \equiv_\alpha \rho_1 + \rho_2,\\
+    & \tau_1\ \vv{==}\ \tau_2 \equiv_\alpha \rho_1\ \vv{==}\ \rho_2,\\
+    & \tau_1 \tau_2 \equiv_\alpha \rho_1 \rho_2;
   \end{align*}
 \item
-  ако $\tau_1 \equiv \rho_1$, $\tau_2 \equiv \rho_2$ и $\tau_3 \equiv \rho_3$, то
-  \[\ifelse{\tau_1}{\tau_2}{\tau_3} \equiv \ifelse{\rho_1}{\rho_2}{\rho_3};\]
+  ако $\tau_1 \equiv_\alpha \rho_1$, $\tau_2 \equiv_\alpha \rho_2$ и $\tau_3 \equiv_\alpha \rho_3$, то
+  \[\ifelse{\tau_1}{\tau_2}{\tau_3} \equiv_\alpha \ifelse{\rho_1}{\rho_2}{\rho_3};\]
 \item
-  ако $\tau \equiv \rho$, то $\fix(\tau) \equiv \fix(\rho)$;
-\item
-  
-  ако $\tau\rename{x}{\vv{z}} \equiv \rho\rename{y}{\vv{z}}$, където $\vv{z} \not\in \var(\tau) \cup \var(\rho)$, то
-  \[\lamb{x}{a}{\tau} \equiv \lamb{y}{a}{\rho}.\]
+  ако $\tau \equiv_\alpha \rho$, то $\fix(\tau) \equiv_\alpha \fix(\rho)$;
+\item  
+  ако $\tau\rename{x}{\vv{z}} \equiv_\alpha \rho\rename{y}{\vv{z}}$, където $\vv{z} \not\in \var(\tau) \cup \var(\rho)$, то
+  \[\lamb{x}{a}{\tau} \equiv_\alpha \lamb{y}{a}{\rho}.\]
 \end{itemize}
+
+\marginpar{
+Например,
+\[\lamb{x}{a}{\vv{x+y}} \equiv_\alpha \lamb{z}{a}{\vv{z+y}},\]
+но
+\[\lamb{x}{a}{\vv{x+y}} \not\equiv_\alpha \lamb{y}{a}{\vv{y+y}},\]
+защото
+\[(\vv{x+y})\rename{x}{\vv{u}} \not\equiv_\alpha (\vv{y+y})\rename{y}{\vv{u}}.\]}
+Също така,
+\[\lamb{x}{nat}{\vv{x + }\fix(\lamb{x}{nat}{\vv{x}})} \equiv_\alpha \lamb{y}{nat}{\vv{y + }\fix(\lamb{z}{nat}{\vv{z}})}.\]
+
 \index{терм}
 \begin{framed}
+\begin{definition}
   PCF терм е клас на еквивалентност от PCF изрази относно релацията $\alpha$-еквивалентност.
+\end{definition}
 \end{framed}
+
+Де Бройн има по-програмистки подход за дефинирането на PCF термовете.
+Всеки PCF терм има единствено представяне като израз, в който свързаните променливи са заменени с индекси.
+
+{\bf Пример ......}
+
 
 Сега искаме $\tau\subst{x}{\rho}$ да означава изразът получен от израза $\tau$, в който всяко \emph{свободно} срещане на променливата $\vv{x}$
 е заменена с израза $\rho$. Тук имаме потенциален проблем. Искаме да направим тази замяна по такъв начин, че свободни променливи на $\rho$
@@ -130,7 +144,7 @@
 \item
   Ако $\tau \equiv \vv{x}$, то $\tau\subst{x}{\rho} \equiv \rho$.
 \item
-  Ако $\tau \equiv \vv{y}$ и $\vv{y}$ е променлива различна от $\vv{x}$, то $\tau\subst{x}{\rho} \equiv \vv{y}$.
+  Ако $\tau \equiv \vv{y}$ и $\vv{y} \not\equiv \vv{x}$, то $\tau\subst{x}{\rho} \equiv \vv{y}$.
 \item
   Ако $\tau \equiv \tau_1 + \tau_2$, то
   \[\tau\subst{x}{y} \equiv \tau_1\subst{x}{\rho} + \tau_2\subst{x}{\rho}.\]
@@ -151,7 +165,8 @@
 изрази, всички от които са $\alpha$-еквивалентни, т.е. ако работим на ниво термове операцията е добре дефинирана.
 
 Това означава, че няма значение дали ще говорим за $\lamb{x}{a}{\vv{x+y}}$ или за $\lamb{y}{a}{\vv{y+z}}$.
-Тези два израза описват един и същи терм.
+Тези два израза описват един и същи терм и тези два израза са $\alpha$-еквивалентни.
+
 
 %%% Local Variables:
 %%% mode: latex

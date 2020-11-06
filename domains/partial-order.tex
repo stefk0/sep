@@ -31,7 +31,7 @@
 Казваме, че $a_0$ е {\bf най-малък елемент} на частично нареденото множество $(A, \sqsubseteq)$,
 ако $(\forall a \in A)[a_0 \sqsubseteq a]$. Ако такъв елемент съществува, то той е единствен,
 защото релацията $\sqsubseteq$ е антисиметрична.
-{\bf Неподвижна точка} на $f:A \to A$ е елемент $a \in A$, такъв че $f(a) = a$.
+% {\bf Неподвижна точка} на $f:A \to A$ е елемент $a \in A$, такъв че $f(a) = a$.
 За по-кратко монотонно-растящите редици от елементи на $A$,
 \[a_0 \sqsubseteq a_1 \sqsubseteq \cdots \sqsubseteq a_n \sqsubseteq \cdots,\]
 ще наричаме (растящи) {\bf вериги}. 
@@ -71,8 +71,7 @@ $(\forall n)[a_n \sqsubseteq b]$.
 \marginpar{В Хаскел $\bot$ се означава като \vv{undefined}. Повече за денотационна семантика в Хаскел може да прочетете \href{https://en.wikibooks.org/wiki/Haskell/Denotational_semantics}{тук}}
 
 \begin{example}
-  Тройката
-  \[\Partial{\Nat^n}{\Nat} \df (\ \F_n,\ \sqsubseteq,\ \emptyset^{(n)}\ )\] е област на Скот, където:
+  Тройката $\Partial{\Nat^n}{\Nat} \df (\ \F_n,\ \sqsubseteq,\ \emptyset^{(n)}\ )$ е област на Скот, където:
   \begin{itemize}
   \item
     С $\F_n$ означаваме всички частични функции от $\Nat^n$ в $\Nat$.
@@ -97,7 +96,6 @@ $(\forall n)[a_n \sqsubseteq b]$.
     \[0 \leq 1 \leq \cdots \leq \infty.\]
   \item
     $(\{0,1\}^\star, \preceq, \varepsilon)$ не е област на Скот, където $\preceq$ е релацията префикс на две думи.
-    % Може да образувате безкрайна растяща верига от думи, но тяхната точна горна граница ще бъде безкрайна дума.
   \end{itemize}
 \end{example}
 
@@ -117,6 +115,7 @@ $(\forall n)[a_n \sqsubseteq b]$.
   Тогава $Bin^\infty = (Bin^\infty,\preceq,\varepsilon)$ е област на Скот.
 \end{example}
 
+\marginpar{Тези две свойства ще се окажат полезни по-нататък.}
 \begin{problem}
   Нека $\chain{a}{i}$ и $\chain{b}{i}$ са вериги в областта на Скот $\A$, за които е изпълнено, че
   $a_i \sqsubseteq b_i$ за всяко $i$.
@@ -129,6 +128,7 @@ $(\forall n)[a_n \sqsubseteq b]$.
 \end{problem}
 
 \begin{problem}
+  \marginpar{Езикът $\{a^nb^n\mid n\in\Nat\}$ може да се представи като обединение на безкрайна верига от крайни езици.}
   Нека $\Sigma$ е азбука. Да разгледаме тройката $\mathcal{R} = (Reg, \subseteq, \emptyset)$, където $Reg$ е съвкупността от всички регулярни езици над $\Sigma$.
   Вярно ли е, че $\mathcal{R}$ е област на Скот ?
 \end{problem}

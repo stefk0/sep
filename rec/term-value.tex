@@ -3,13 +3,13 @@
 Нека първо да дефинираме следните {\em изображения}
 \begin{align*}
   & \texttt{plus} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
-  & \texttt{plus}(a,b) =
+  & \texttt{plus}(a,b) \df
     \begin{cases}
       a+b, & \text{ако }a,b \in \Nat\\
       \bot, & \text{ако }\bot \in \{a,b\}
     \end{cases}\\
   & \texttt{eq} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
-  & \texttt{eq}(a,b) =
+  & \texttt{eq}(a,b) \df
     \begin{cases}
       1, & \text{ако }a = b\ \&\ a,b \in \Nat\\
       0, & \text{ако }a \neq b\ \&\ a,b \in \Nat\\
@@ -40,10 +40,10 @@
 
 \begin{itemize}
 \item
-  ако $\tau \equiv \vv{c}$, за някоя константа, то 
+  ако $\tau \equiv \vv{c}$, за някоя константа $\vv{c}$, то 
   \[\val{\vv{c}}(\ov{\varphi})(\ov{a}) \df c.\]
 \item
-  ако $\tau \equiv \vv{x}_i$, за някоя обектова променлива, то 
+  ако $\tau \equiv \vv{x}_i$, за някоя обектова променлива $\vv{x}_i$, то 
   \[\val{\vv{x}_i}(\ov{\varphi})(\ov{a}) \df a_i.\]
 \item
   ако $\tau \equiv \tau_1 + \tau_2$, то
@@ -64,7 +64,7 @@
 
 \begin{example}
   Да разгледаме следния терм:
-  \[\tau[\vv{x},\vv{y},\vv{z}] \df \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
+  \[\tau[\vv{x},\vv{y},\vv{z}] \dfff \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
   Да видим каква е негова стойност при произволни стойности $a,b,c \in \Nat_\bot$:
   \begin{align*}
     \val{\tau}(a,b,c) & =
@@ -128,10 +128,9 @@ ghci> f(2)
     Тогава
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\tau_1[\varsx/\ov{\mu}] + \tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})\\
-                                                & \df \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
-                                                % & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})),\val{\tau_2}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi}))) & \comment{\text{от {\bf И.П.}}}\\
+                                                & = \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})) & \comment\text{от деф.}\\
                                                 & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
-                                                & \df \val{\tau}(\ov{\varphi})(b_1,\dots,b_n)\\
+                                                & = \val{\tau}(\ov{\varphi})(b_1,\dots,b_n) & \comment\text{от деф.}\\
                                                 & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \df \val{\mu_j}(\ov{\varphi})}
     \end{align*}
   \item
@@ -155,16 +154,17 @@ ghci> f(2)
     Следователно,
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\vv{f}_i(\tau_1[\varsx/\ov{\mu}],\dots,\tau_{m_i}[\varsx/\ov{\mu}])}(\ov{\varphi}) & \comment{\text{от (\ref{eq:1})}}\\
-                                                & \df \varphi_i(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}),\dots,\val{\tau_{m_i}[\varsx/\ov{\mu}]}(\ov{\varphi}))\\
+                                                & = \varphi_i(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}),\dots,\val{\tau_{m_i}[\varsx/\ov{\mu}]}(\ov{\varphi})) & \comment\text{от деф.}\\
                                                 & = \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от {\bf И.П.}}} \\
-                                                & \df \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{b})\\
+                                                & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{b}) & \comment\text{от деф.}\\
                                                 & = \val{\tau}(\ov{\varphi})(\ov{b}) & \comment{\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})}\\
-      & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) & \comment{b_i \df \val{\mu_i}(\ov{\varphi})}.
+                                                & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) & \comment{b_i \df \val{\mu_i}(\ov{\varphi})}.
     \end{align*}
   \end{itemize}
 \end{proof}
 
 \begin{remark}
+  \marginpar{Тук $\ov{c}$ са естествени числа.}
   В частния случай, когато функционалните термове $\mu_1,\dots, \mu_n$ са константите $\vv{c}_1, \dots, \vv{c}_n$, получаваме, че 
   \[\val{\tau[\ov{\vv{x}}/\ov{\vv{c}}]}(\ov{\varphi}) = \val{\tau}(\ov{\varphi})(\ov{c}).\]  
 \end{remark}

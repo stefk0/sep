@@ -2,8 +2,8 @@
 
 Семантиката на всеки тип ще бъде област на Скот както следва:
 \begin{align*}
-  & \val{\vv{nat}} \dff \Nat_\bot\\
-  & \val{\vv{a} \to \vv{b}} \dff \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
+  & \val{\vv{nat}} \df \Nat_\bot\\
+  & \val{\vv{a} \to \vv{b}} \df \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
 \end{align*}
 \marginpar{Да напомним, че \[\emptyset_\bot = (\{\bot\},\sqsubseteq,\bot).\]}
 \marginpar{От Раздел~\ref{subsect:domains:product} знаем, че $\val{\Gamma}$ е област на Скот.}
@@ -23,36 +23,36 @@
 \begin{itemize}
 \item
   Нека $\tau \equiv \vv{n}$. Тогава
-  \[\val{\vv{n}}_\Gamma(\overline{u}) \dff n.\]
+  \[\val{\vv{n}}_\Gamma(\overline{u}) \df n.\]
 \item
   Нека $\tau \equiv \vv{x}_i$. Тогава
-  \[\val{\vv{x}_i}_\Gamma(\overline{u}) \dff u_i.\]
+  \[\val{\vv{x}_i}_\Gamma(\overline{u}) \df u_i.\]
 \item
   \marginpar{За $\texttt{plus}$ вижте Раздел~\ref{subsect:rec:term-value}.}
   Нека $\tau \equiv \tau_1 + \tau_2$. Тогава
-  \[\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) \dff \texttt{plus}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
+  \[\val{\tau_1 + \tau_2}_\Gamma(\overline{u}) \df \texttt{plus}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\texttt{eq}$ вижте Раздел~\ref{subsect:rec:term-value}.}
   Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Тогава
-  \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \dff \texttt{eq}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
+  \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \df \texttt{eq}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\texttt{if}$ вижте \Def{if}.}
   Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Тогава
-  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}_\Gamma(\overline{u}) \dff \texttt{if}(\val{\tau_1}_\Gamma(\overline{u}),
+  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}_\Gamma(\overline{u}) \df \texttt{if}(\val{\tau_1}_\Gamma(\overline{u}),
   \val{\tau_2}_\Gamma(\overline{u}), \val{\tau_3}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\texttt{eval}$ вижте \Def{eval}.}
   Нека $\tau \equiv \tau_1 \tau_2$. Тогава
-  \[\val{\tau_1 \tau_2}_\Gamma(\overline{u}) \dff \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
+  \[\val{\tau_1 \tau_2}_\Gamma(\overline{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\lfp$ вижте Раздел~\ref{sect:lfp}.}
   Нека $\tau \equiv \fix(\tau')$. Тогава 
-  \[\val{\fix(\tau')}_\Gamma(\overline{u}) \dff \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
+  \[\val{\fix(\tau')}_\Gamma(\overline{u}) \df \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
 \item
   \marginpar{За $\curry$ вижте \Def{curry}.}
   Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
   Нека $\Gamma' \df \Gamma, \type{y}{b}$. Тогава
-  \[\val{\lamb{y}{b}{\tau'}}_\Gamma(\overline{u}) \dff \curry(\val{\tau'}_{\Gamma'})(\overline{u}).\]
+  \[\val{\lamb{y}{b}{\tau'}}_\Gamma(\overline{u}) \df \curry(\val{\tau'}_{\Gamma'})(\overline{u}).\]
 \end{itemize}
 
 \begin{remark}
@@ -105,7 +105,7 @@
     \begin{align*}
       (\texttt{plus} \circ (\val{\tau_1} \times \val{\tau_2}))(\overline{u}) & = \texttt{plus}((\val{\tau_1} \times \val{\tau_2})(\overline{u}))\\ 
                                                                              & = \texttt{plus}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u}))\\
-                                                                             & \dff \val{\tau}_\Gamma(\overline{u}).
+                                                                             & \df \val{\tau}_\Gamma(\overline{u}).
     \end{align*}
   \item
     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Съобразете сами, че 
@@ -136,7 +136,7 @@
     \begin{align*}
       (\texttt{eval} \circ \val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma)(\overline{u}) & = \texttt{eval}((\val{\tau_1}_\Gamma \times \val{\tau_2}_\Gamma)(\overline{u}))\\
                                                                                          & = \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u}))\\
-                                                                                         & \dff \val{\tau_1\tau_2}_\Gamma(\overline{u}).
+                                                                                         & \df \val{\tau_1\tau_2}_\Gamma(\overline{u}).
     \end{align*}
     
   \item
@@ -157,7 +157,7 @@
     \begin{align*}
       (Y \circ \val{\tau'}_\Gamma)(\overline{u}) & = Y(\val{\tau'}_\Gamma(\overline{u}))\\
                                                  & = \lfp(\val{\tau'}_\Gamma(\overline{u}))\\
-                                                 & \dff \val{\fix(\tau')}_\Gamma(\ov{u}).
+                                                 & \df \val{\fix(\tau')}_\Gamma(\ov{u}).
     \end{align*}
   \item
     Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
@@ -168,7 +168,7 @@
     Нека $\Gamma' = \Gamma, \vv{y}:\vv{b}$. Тогава $\val{\Gamma'} = \val{\Gamma} \times \val{\vv{b}}$, а от И.П. имаме, че
     \[\val{\tau'}_{\Gamma'} \in \Cont{\val{\Gamma} \times \val{\vv{b}}}{\val{\vv{c}}}.\]
     Тогава от \Prop{curry} следва, че
-    \[\val{\lamb{y}{b}{\tau}}_\Gamma \dff \curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}.\]
+    \[\val{\lamb{y}{b}{\tau}}_\Gamma \df \curry(\val{\tau'}_{\Gamma'}) \in \Cont{\val{\Gamma}}{\Cont{\val{\vv{b}}}{\val{\vv{c}}}}.\]
   \end{itemize}
 \end{proof}
 

@@ -39,7 +39,7 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 \end{problem}
 \begin{hint}
   Разгледайте затворения терм
-  \[\tau \dff \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{x}}{\vv{1}}{\ifelse{\vv{y}}{\vv{1}}{\vv{0}}}}}\]
+  \[\tau \df \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{x}}{\vv{1}}{\ifelse{\vv{y}}{\vv{1}}{\vv{0}}}}}\]
   Докажете, че $\val{\tau} = sor$.
 \end{hint}
 
@@ -116,13 +116,13 @@ ghci> undefined || True
   Тогава $f = \val{\tau}$, за някой затворен терм $\tau : \nat \to \nat \to \nat$.
 
   За произволна променлива $\vv{z}$, да положим
-  \[\rho_{\vv{z}} \dff \ifelse{\vv{z == 0}}{\vv{0}}{\vv{1}}.\]
+  \[\rho_{\vv{z}} \df \ifelse{\vv{z == 0}}{\vv{0}}{\vv{1}}.\]
   Нека също положим
   \begin{align*}
-    \tau' & \dff \tau\rho_{\vv{x}};\\
-    \tau'' & \dff \tau'\rho_{\vv{y}}.
+    \tau' & \df \tau\rho_{\vv{x}};\\
+    \tau'' & \df \tau'\rho_{\vv{y}}.
   \end{align*}
-  Нека също така $\Gamma \dff \type{x}{nat}$ и $\Delta = \type{y}{nat}$.
+  Нека също така $\Gamma \df \type{x}{nat}$ и $\Delta = \type{y}{nat}$.
   Ясно, че $\val{\tau'}_\Gamma \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$ и
   \begin{align*} 
     \val{\tau'}_\Gamma(u)  & = \val{\tau\rho_{\vv{x}}}_\Gamma(u)\\
@@ -164,7 +164,7 @@ ghci> undefined || True
     \hline
   \end{tabular}
 
-  Нека сега $\rho \dff \lamb{x}{nat}{\lamb{y}{nat}{\tau''}}$.
+  Нека сега $\rho \df \lamb{x}{nat}{\lamb{y}{nat}{\tau''}}$.
   Тогава за $g = \val{\rho}$ имаме, че
   \[g(x)(y) = f''(x,y).\]
   От \Problem{pcf:full-abstraction:por} получаваме, че $g = por$.
@@ -173,8 +173,8 @@ ghci> undefined || True
 
 В следващите твърдения ще използваме типовете
 \begin{align*}
-  & \vv{a} \dff \nat \to (\nat \to \nat)\\
-  & \vv{b} \dff (\nat \to (\nat \to \nat))\to\nat.
+  & \vv{a} \df \nat \to (\nat \to \nat)\\
+  & \vv{b} \df (\nat \to (\nat \to \nat))\to\nat.
 \end{align*}
 За $n = 0,1$, нека дефинираме затворените термове
 

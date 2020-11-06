@@ -26,7 +26,7 @@
 \end{theorem}
 \end{framed}
 \begin{proof}
-  \marginpar{В \cite{ditchev-soskov} се нарича теорема на Кнастер-Тарски. Според \href{https://en.wikipedia.org/wiki/Kleene_fixed-point_theorem}{уикипедия} е теорема на Клини}
+  \marginpar{В \cite{ditchev-soskov} се нарича теорема на Кнастер-Тарски. Според \href{https://en.wikipedia.org/wiki/Kleene_fixed-point_theorem}{уикипедия} е теорема на Клини. Теоремата на Кнастер-Тарски е по-силна и говори за монотонни изображения в решетки.}
   Определяме монотонно растяща редица от елементи на $\A$ по следния начин:
   \begin{align*}
     & a_0 \df \bot & \comment = f^0(\bot)\\
@@ -50,7 +50,7 @@
   Така доказахме, че $a$ е \emph{ неподвижна точка} на $f$.
   Остана да видим, че е най-малката неподвижна точка на $f$.
 
-  Нека $b = f(b)$. С индукция по $n$ ще докажем, $(\forall n)[a_n \sqsubseteq b]$.
+  Нека $b = f(b)$. С индукция по $n$ ще докажем, свойството $(\forall n)[a_n \sqsubseteq b]$.
   \begin{itemize}
   \item 
     За $n = 0$ е очевидно.
@@ -65,9 +65,10 @@
 \end{proof}
 
 \begin{problem}
-  Покажете, че съществува област на Скот $\A$ и $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но тя не е $\bigsqcup_n f^n(\bot^\A)$.
+  Покажете, че съществува област на Скот $\A$ и изображение $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но тя не е $\bigsqcup_n f^n(\bot^\A)$.
 \end{problem}
 \ifhints\begin{hint}
+  \marginpar{Това същата област на Скот както в \Prop{continuous-mappings-not-monotone}.}
   Да разгледаме $\A = (A,\ \sqsubseteq,\ a_0)$, където елементите на $A$ са подредени по следния начин:
   \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset a_\omega \sqsubset b \}.\]
   т.е. $A$ е съставена от веригата ${(a_n)}^\infty_{n=0}$ веднага следвана от елементите $a_\omega$ и $b$.
@@ -211,6 +212,8 @@
   \[\texttt{lfp}(\Gamma)(x) = (\bigsqcup_i g_i)(x) = \frac{x(x+1)}{2}.\]
 \end{example}
 
+Казваме, че елементът $a$ е {\bf преднеподвижна точка} на $f$,
+ако $f(a) \sqsubseteq a$.
 
 \begin{proposition}\label{pr:prefix-point}
   За всяко $f \in \Cont{\A}{\A}$ е изпълнено, че 

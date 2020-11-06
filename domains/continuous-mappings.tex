@@ -46,20 +46,20 @@
 Ествено е да си зададем въпроса дали имаме и обратното включване.
 Оказва се, че в общия случай не е вярно, че всяко монотонно изображение е непрекъснато.
 
-\begin{proposition}
+\begin{proposition}\label{pr:continuous-mappings-not-monotone}  
   Съществува област на Скот $\A$, за която
   \[\Cont{\A}{\A} \subsetneqq \Mon{\A}{\A}.\]
 \end{proposition}
 \begin{hint}
-  Нека $A = \{a_n \mid n \in \Nat\} \cup \{a_\omega, b_0\}$.
+  Нека $A = \{a_n \mid n \in \Nat\} \cup \{a_\omega, b\}$.
   Да разгледаме областта на Скот $\A = (A, \sqsubseteq, a_0)$, където 
   наредбата между елементите е следната:
-  \[a_0 \sqsubseteq a_1 \sqsubseteq \cdots \sqsubseteq a_n \sqsubseteq \cdots \sqsubseteq a_\omega \sqsubseteq b_0. \]
-  Нека $f(a_n) = a_{n+1}$, $f(a_{\omega}) = b_0$ и $f(b_0) = b_0$.
+  \[a_0 \sqsubseteq a_1 \sqsubseteq \cdots \sqsubseteq a_n \sqsubseteq \cdots \sqsubseteq a_\omega \sqsubseteq b. \]
+  Нека $f(a_n) = a_{n+1}$, $f(a_{\omega}) = b$ и $f(b) = b$.
   Очевидно е, че $f$ е монотонно изображение.
   Лесно се вижда, че $f$ не е непрекъснато изображение, 
   защото
-  \[f(\bigsqcup_n a_n) = f(a_\omega) = b_0,\]
+  \[f(\bigsqcup_n a_n) = f(a_\omega) = b,\]
   но 
   \[\bigsqcup_n f(a_n) = \bigsqcup_n a_{n+1} = a_\omega.\]
 \end{hint}

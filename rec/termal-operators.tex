@@ -160,9 +160,9 @@
     Тогава
     \begin{align*}
       \val{\tau}(\ov{\varphi})(\ov{a}) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a})\\
-                                      & \df \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{a}))\\
+                                      & = \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{a})) & \comment\text{от деф.}\\
                                       & \sqsubseteq \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}), \dots, \val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от (\ref{eq:6}) и $\varphi_i$ е мон.}}\\
-                                      & \df \val{\tau}(\ov{\varphi})(\ov{b}).
+                                      & = \val{\tau}(\ov{\varphi})(\ov{b}). & \comment\text{от деф.}
     \end{align*}
   \end{itemize}
 \end{hint}
@@ -191,49 +191,50 @@
   \[\val{\tau}(\bar\varphi) \in \RanOpCBN.\]
 \end{corollary}
 
-Щом термалните оператори $\Gamma_\tau$ са добре дефинирани, ще 
+Щом термалните оператори $\val{\tau}$ са добре дефинирани, ще 
 проверим, че са непрекъснати. Първата стъпка ще бъде проверката, че те са монотонни.
 
 \begin{lemma}\label{lem:rec:functional:term:continuous}
-  Нека $\mu[\vv{f}_1,\dots,\vv{f}_k]$ е {\em функционален} терм.
-  \marginpar{Да напомним, че $m_i \df \#\vv{f}_i$}
+  Нека $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$ е произволен терм.
+  \marginpar{Да напомним, че $m_i \df \sharp\vv{f}_i$}
   Да разгледаме произволна верига $\chain{\ov{\varphi}}{r}$
-  от елементи на областта на Скот
-  \[\DomOpCBN.\]
-  Тогава $\val{\mu}$ е непрекъснато изображение, т.е.
-  \[\val{\mu}(\bigsqcup_r\ov{\varphi}_r) = \bigsqcup_r \val{\mu}(\ov{\varphi}_r).\]
+  от елементи на областта на Скот $\DomOpCBN$.
+  Тогава $\val{\tau}$ е непрекъснато изображение, т.е.
+  \[\val{\tau}(\bigsqcup_r\ov{\varphi}_r) = \bigsqcup_r \val{\tau}(\ov{\varphi}_r).\]
 \end{lemma}
 \begin{proof}
-  Индукция по построението на терма $\mu$.
+  Индукция по построението на терма $\tau$.
   \begin{itemize}
   \item
-    Нека $\mu \equiv \vv{c}$. Този случай е очевиден.
+    Нека $\tau \equiv \vv{x}_i$.
   \item
-    Нека $\mu \equiv \mu_1 + \mu_2$. Ще използваме, че $\texttt{plus}$ е непрекъснато изображение.
+    Нека $\tau \equiv \vv{c}$. Този случай е очевиден.
+  \item
+    Нека $\tau \equiv \tau_1 + \tau_2$. Ще използваме, че $\texttt{plus}$ е непрекъснато изображение.
     \begin{align*}
-      \val{\mu}(\bigsqcup_r \ov{\varphi}_r) & \df \texttt{plus}(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r), \val{\mu_2}(\bigsqcup_r\ov{\varphi}_r))\\
-      & = \texttt{plus}(\bigsqcup_r\val{\mu_1}(\ov{\varphi}_r), \bigsqcup_r \val{\mu_2}(\ov{\varphi}_r)) & \comment{\text{от И.П.}}\\
-      & = \bigsqcup_r \texttt{plus}(\val{\mu_1}(\ov{\varphi}_r), \val{\mu_2}(\ov{\varphi}_r)) & \comment{\texttt{plus}\text{ е непр.}}\\
-      & \df \bigsqcup_r \val{\mu}(\ov{\varphi}_r).
+      \val{\tau}(\bigsqcup_r \ov{\varphi}_r)(\ov{a}) & = \texttt{plus}(\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}), \val{\tau_2}(\bigsqcup_r\ov{\varphi}_r)(\ov{a})) & \comment\text{от деф.}\\
+                                             & = \texttt{plus}(\bigsqcup_r\val{\tau_1}(\ov{\varphi}_r)(\ov{a}), \bigsqcup_r \val{\tau_2}(\ov{\varphi}_r)(\ov{a})) & \comment{\text{от И.П.}}\\
+                                             & = \bigsqcup_r \texttt{plus}(\val{\tau_1}(\ov{\varphi}_r)(\ov{a}), \val{\tau_2}(\ov{\varphi}_r)(\ov{a})) & \comment{\texttt{plus}\text{ е непр.}}\\
+                                             & = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}). & \comment\text{от деф.}
     \end{align*}
   \item
-    Нека $\mu \equiv \mu_1\ \vv{==}\ \mu_2$.
+    Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
     Използвайте, че $\texttt{eq}$ е непрекъснато изображение.
   \item
-    Нека $\mu \equiv \ifelse{\mu_0}{\mu_1}{\mu_2}$.
+    Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.
     Използвайте \Problem{rec:if:continuous}.
   \item
-    Нека $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$. 
-    От И.П. знаем, че $\val{\mu_j}$ са непрекъснати изображения за $j = 1,\dots,m_i$ и следователно са монотонни. Тогава
+    Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$. 
+    От И.П. знаем, че $\val{\tau_j}$ са непрекъснати изображения за $j = 1,\dots,m_i$ и следователно са монотонни. Тогава
     за произволни индекси $n \leq n'$ и $r \leq r'$ имаме, че
     \marginpar{$\ov{\varphi}_n \df (\varphi^1_n,\dots,\varphi^{k}_n)$}
     \begin{align*}
-      \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r)) & \sqsubseteq \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_{r'}),\dots,\val{\mu_{m_i}}(\ov{\varphi}_{r'}))\\
-                                                                                       & \sqsubseteq \varphi^i_{n'}(\val{\mu_1}(\ov{\varphi}_{r'}),\dots,\val{\mu_{m_i}}(\ov{\varphi}_{r'})).
+      \varphi^i_{n}(\val{\tau_1}(\ov{\varphi}_r)(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi}_r)(\ov{a})) & \sqsubseteq \varphi^i_{n}(\val{\tau_1}(\ov{\varphi}_{r'})(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi}_{r'})(\ov{a}))\\
+                                                                                       & \sqsubseteq \varphi^i_{n'}(\val{\tau_1}(\ov{\varphi}_{r'})(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi}_{r'})(\ov{a})).
     \end{align*}
     Това означава, че ако положим
-    \[e_{n,r} \df \varphi^i_{n}(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r)),\]
-    то
+    \[e_{n,r} \df \varphi^i_{n}(\val{\tau_1}(\ov{\varphi}_r)(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi}_r)(\ov{a})),\]
+    то е изпълнена импликацията:
     \[n \leq n'\ \&\ r \leq r' \implies e_{n,r} \sqsubseteq e_{n',r'}.\]
     Сега можем да приложим \Th{double-chain}, според която
     \begin{equation}
@@ -243,35 +244,35 @@
 
     Тогава 
     \begin{align*}
-      \val{\mu}(\bigsqcup_n\ov{\varphi}_n) & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\bigsqcup_n\ov{\varphi}_n)\\
-                                           & \df (\bigsqcup_n\varphi^i_n)(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\\
-                                           & = \bigsqcup_n \{\varphi^i_n(\val{\mu_1}(\bigsqcup_r\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\} & \comment{\text{от \Th{monotone-is-domain}}}\\
-                                           & =  \bigsqcup_n \{\varphi^i_n(\bigsqcup_r \val{\mu_1}(\ov{\varphi}_r),\dots,\bigsqcup_r \val{\mu_{m_i}}(\ov{\varphi}_r))\} & \comment{\text{от И.П. за }\mu_j}\\
-                                           & =  \bigsqcup_n \{\bigsqcup_r \underbrace{\varphi^i_n(\val{\mu_1}(\ov{\varphi}_r),\dots,\val{\mu_{m_i}}(\ov{\varphi}_r))}_{e_{n,r}}\} & \comment{\varphi^i_n \text{ е непр.}}\\
-                                           & =  \bigsqcup_n \underbrace{\varphi^i_n(\val{\mu_1}(\ov{\varphi}_n),\dots,\val{\mu_{m_i}}(\ov{\varphi}_n))}_{e_{n,n}} & \comment{\text{от (\ref{eq:8})}}\\
-                                           & \df \bigsqcup_n \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\varphi}_n)\\
-                                           & = \bigsqcup_n \val{\mu}(\ov{\varphi}_n).
+      \val{\tau}(\bigsqcup_n\ov{\varphi}_n)(\ov{a}) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\bigsqcup_n\ov{\varphi}_n)(\ov{a})\\
+                                                    & = (\bigsqcup_n\varphi^i_n)(\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}),\dots,\val{\tau_{m_i}}(\bigsqcup_r\ov{\varphi}_r)(\ov{a})) & \comment\text{от деф.}\\
+                                                    & = \bigsqcup_n \{\varphi^i_n(\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}),\dots,\val{\tau_{m_i}}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}))\} & \comment{\text{от \Th{monotone-is-domain}}}\\
+                                           & =  \bigsqcup_n \{\varphi^i_n(\bigsqcup_r \val{\tau_1}(\ov{\varphi}_r)(\ov{a}),\dots,\bigsqcup_r \val{\tau_{m_i}}(\ov{\varphi}_r)(\ov{a}))\} & \comment{\text{от И.П. за }\tau_j}\\
+                                           & =  \bigsqcup_n \{\bigsqcup_r \underbrace{\varphi^i_n(\val{\tau_1}(\ov{\varphi}_r)(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi}_r)(\ov{a}))}_{e_{n,r}}\} & \comment{\varphi^i_n \text{ е непр.}}\\
+                                           & =  \bigsqcup_n \underbrace{\varphi^i_n(\val{\tau_1}(\ov{\varphi}_n)(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi}_n)(\ov{a}))}_{e_{n,n}} & \comment{\text{от (\ref{eq:8})}}\\
+                                           & = \bigsqcup_n \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi}_n)(\ov{a}) & \comment\text{от деф.}\\
+                                           & = \bigsqcup_n \val{\tau}(\ov{\varphi}_n)(\ov{a}).
     \end{align*}
   \end{itemize}
 \end{proof}
 
-\begin{corollary}
-  \label{cr:rec:term:continuous}
-  Нека $\tau[\varsx,\varsf]$ е терм.
-  Да разгледаме произволни елементи $\ov{a}$ на $\Nat^n_\bot$ и 
-  произволна верига $\chain{\ov{\varphi}}{r}$
-  от елементи на
-  \[\DomOpCBN.\]
-  Тогава 
-  \[\val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}).\]  
-\end{corollary}
-\begin{proof}
-  \begin{align*}
-    \val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) & = \val{\tau[\varsx/\ov{\vv{a}}]}(\bigsqcup_r \ov{\varphi}_r) & \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
-                                                  & = \bigsqcup_r \val{\tau[\varsx/\ov{\vv{a}}]}(\ov{\varphi}_r) & \comment{\text{от \Lem{rec:functional:term:continuous}}}\\
-                                                  & = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}) &  \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
-  \end{align*}
-\end{proof}
+% \begin{corollary}
+%   \label{cr:rec:term:continuous}
+%   Нека $\tau[\varsx,\varsf]$ е терм.
+%   Да разгледаме произволни елементи $\ov{a}$ на $\Nat^n_\bot$ и 
+%   произволна верига $\chain{\ov{\varphi}}{r}$
+%   от елементи на $\DomOpCBN$.
+%   Тогава 
+%   \[\val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}).\]  
+% \end{corollary}
+% \begin{proof}
+%   \marginpar{Тук има проблем! Някои от $\ov{a}$ може да е $\bot$.}
+%   \begin{align*}
+%     \val{\tau}(\bigsqcup_r\ov{\varphi}_r)(\ov{a}) & = \val{\tau[\varsx/\ov{\vv{a}}]}(\bigsqcup_r \ov{\varphi}_r) & \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+%                                                   & = \bigsqcup_r \val{\tau[\varsx/\ov{\vv{a}}]}(\ov{\varphi}_r) & \comment{\text{от \Lem{rec:functional:term:continuous}}}\\
+%                                                   & = \bigsqcup_r \val{\tau}(\ov{\varphi}_r)(\ov{a}) &  \comment{\text{от \hyperref[lem:rec:substitution]{Лема за замяната}}}\\
+%   \end{align*}
+% \end{proof}
 
 Вече имаме всичко необходимо за да се убедим, че термалните оператори са непрекъснати.
 
@@ -286,6 +287,7 @@
 %   От \Cor{gamma-preserves-continuous} имаме, че $\Gamma_\tau$ е коректно дефиниран.
 %   Сега директно се позоваваме на \Cor{rec:term:continuous}.
 % \end{proof}
+
 
 %%% Local Variables:
 %%% mode: latex

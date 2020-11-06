@@ -66,12 +66,12 @@
 \begin{hint}
   \begin{enumerate}[(1)]
   \item
-    Просто вземете контекст $\C \dff -$. Ясно, че $\C[\tau_i] \equiv \tau_i$.
+    Просто вземете контекст $\C \df -$. Ясно, че $\C[\tau_i] \equiv \tau_i$.
   \item
     Да фиксираме произволен терм $\rho\in\text{PCF}_{\vv{b}}$.
     Да разгледаме произволен контекст $\C[-]$, за който $\C[\tau_1\rho]$ и $\C[\tau_2\rho]$
     са затворени термове от тип $\nat$.
-    Разглеждаме контекста $\C' \dff \C\rename{-}{-\rho}$,
+    Разглеждаме контекста $\C' \df \C\rename{-}{-\rho}$,
     т.е. заменяме $-$ с $-\rho$ в контекста.
     Лесно се съобразява, че \[\C'[\tau_i] \equiv \C[\tau_i\rho].\]
     Понеже $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c}$,
@@ -90,7 +90,7 @@
   За $(\Rightarrow)$, при даден терм $\rho \in \text{PCF}_{\vv{a}\to\nat}$, просто вземете контекст $\C~=~\rho~-$.
   За $(\Leftarrow)$, нека имаме контекст $\C[-]$.
   Нека $\vv{z}$ е променлива, която не се среща в $\C[-]$.
-  Разгледайте $\rho \dff \lamb{z}{a}{\C\rename{-}{\vv{z}}}$.
+  Разгледайте $\rho \df \lamb{z}{a}{\C\rename{-}{\vv{z}}}$.
   Тогава, понеже $\tau_i$ са затворени термове, то
   $\C\rename{-}{\tau_i} \equiv \rho\tau_i$.
 \end{hint}
@@ -222,7 +222,7 @@
 От \Prop{pcf:context:extensionality} и от \hyperref[th:pcf:adequacy]{теоремата за адекватност} имаме и обратните импликации за типа $\nat$.
 За съжаление, ще видим, че нямаме обратните импликации.
 За произволен тип $\vv{a}$, да означим затворения терм
-\[\Omega_{\vv{a}} \dff \fix(\lamb{x}{a}{\vv{x}}).\]
+\[\Omega_{\vv{a}} \df \fix(\lamb{x}{a}{\vv{x}}).\]
 
 \begin{problem}
   Докажете, че:
@@ -253,8 +253,8 @@
 
 Нека сега разгледаме затворените термове
 \begin{align*}
-  & \tau_1 \dff \lamb{x}{nat}{\Omega_{\nat}};\\
-  & \tau_2 \dff \Omega_{\nat\to\nat}.
+  & \tau_1 \df \lamb{x}{nat}{\Omega_{\nat}};\\
+  & \tau_2 \df \Omega_{\nat\to\nat}.
 \end{align*}
 
 \begin{problem}

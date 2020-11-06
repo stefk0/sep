@@ -14,7 +14,6 @@
   \end{align*}
 \end{hint}
 
-
 \begin{proposition}
   Докажете, че изображението
   \[\texttt{comp}:\Cont{\B}{\C}\times\Cont{\A}{\B} \to \Cont{\A}{\C}\]
@@ -26,6 +25,11 @@
   Използвайте \Prop{continuous-arguments}.
 \end{hint}
 
+Композицията на две функции е стандартна операция в \texttt{хаскел}.
+\begin{haskellcode}
+ghci> :t (.)
+(.) :: (b -> c) -> (a -> b) -> a -> c  
+\end{haskellcode}
 
 %%% Local Variables:
 %%% mode: latex

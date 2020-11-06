@@ -8,61 +8,40 @@
     \begin{prooftree}
       \AxiomC{}
       \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \to_P \vv{3}$}
+      \UnaryInfC{$\vv{3} \Downarrow_P \vv{3}$}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \to_P \vv{2}$}
+      \UnaryInfC{$\vv{2} \Downarrow_P \vv{2}$}
       \LeftLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{3 == 2} \to_P \vv{0}$}
+      \BinaryInfC{$\vv{3 == 2} \Downarrow_P \vv{0}$}
       \AxiomC{}
       \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \to_P \vv{1}$}
+      \UnaryInfC{$\vv{1} \Downarrow_P \vv{1}$}
       \AxiomC{}
       \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \to_P \vv{3}$}
+      \UnaryInfC{$\vv{3} \Downarrow_P \vv{3}$}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2+1} \to_P \vv{3}$}
+      \UnaryInfC{$\vv{2+1} \Downarrow_P \vv{3}$}
       \LeftLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{3 == 2 + 1} \to_P \vv{1}$}
+      \BinaryInfC{$\vv{3 == 2 + 1} \Downarrow_P \vv{1}$}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{0} \to_P \vv{0}$}
-      \RightLabel{\scriptsize{(if$_\true$)}}
-      \BinaryInfC{$\ifelse{\vv{3 == 2+1}}{\vv{0}}{\vv{1+f(3,2+1+1)}} \to_P \vv{0}$}
+      \UnaryInfC{$\vv{0} \Downarrow_P \vv{0}$}
+      \RightLabel{\scriptsize{(if$^+$)}}
+      \BinaryInfC{$\ifelse{\vv{3 == 2+1}}{\vv{0}}{\vv{1+f(3,2+1+1)}} \Downarrow_P \vv{0}$}
       \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(3,2+1)} \to_P \vv{0}$}
+      \UnaryInfC{$\vv{f(3,2+1)} \Downarrow_P \vv{0}$}
       \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{1 + f(3,2+1)} \to_P \vv{1}$}
-      \RightLabel{\scriptsize{(if$_{\false}$)}}
-      \BinaryInfC{$\ifelse{\vv{3 == 2}}{\vv{0}}{\vv{1 + f(3,2+1)}} \to_P \vv{1}$ }
+      \BinaryInfC{$\vv{1 + f(3,2+1)} \Downarrow_P \vv{1}$}
+      \RightLabel{\scriptsize{(if$_{0}$)}}
+      \BinaryInfC{$\ifelse{\vv{3 == 2}}{\vv{0}}{\vv{1 + f(3,2+1)}} \Downarrow_P \vv{1}$ }
       \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(3,2)} \to_P \vv{1}$}
+      \UnaryInfC{$\vv{f(3,2)} \Downarrow_P \vv{1}$}
     \end{prooftree}
   \end{framed}
   \caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,2)}$}
 \end{figure}
-
-% \begin{figure}[h!]
-%   \begin{framed}
-%     \begin{prooftree}
-%       \AxiomC{}
-%       \LeftLabel{\scriptsize{(1)}}
-%       \UnaryInfC{$\vv{2} \to_P 2$}
-%       \AxiomC{}
-%       \RightLabel{\scriptsize{(1)}}
-%       \UnaryInfC{$\bot \to_P \bot$}
-%       \RightLabel{\scriptsize{$(2_{\vv{==}})$}}
-%       \BinaryInfC{$\vv{3 == }\bot \to_P \bot$}
-%       \RightLabel{\scriptsize{$(2_{\bot})$}} 
-%       \UnaryInfC{$\ifelse{\vv{3 == }\bot}{\vv{0}}{\vv{1 + f(3,}\bot\vv{+1)}} \to_P \bot$ }
-%       \RightLabel{\scriptsize{(4)}}
-%       \UnaryInfC{$\vv{f(3,}\bot\vv{)} \to_P \bot$}
-%     \end{prooftree}
-% \end{framed}
-% \caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,}\bot\vv{)}$}
-% \end{figure}
-
 
 \def\defaultHypSeparation{\hskip .4cm}
 
@@ -71,40 +50,40 @@
     \begin{prooftree}
       \AxiomC{}
       \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \to_P \vv{2}$}
+      \UnaryInfC{$\vv{2} \Downarrow_P \vv{2}$}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \to_P \vv{3}$}
+      \UnaryInfC{$\vv{3} \Downarrow_P \vv{3}$}
       \RightLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{2 == 3} \to_P \vv{0}$}
+      \BinaryInfC{$\vv{2 == 3} \Downarrow_P \vv{0}$}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \to_P \vv{1}$}
+      \UnaryInfC{$\vv{1} \Downarrow_P \vv{1}$}
       \AxiomC{}
       \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \to_P \vv{2}$}
+      \UnaryInfC{$\vv{2} \Downarrow_P \vv{2}$}
       \AxiomC{}
       \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \to_P \vv{3}$}
+      \UnaryInfC{$\vv{3} \Downarrow_P \vv{3}$}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \to_P \vv{1}$}
+      \UnaryInfC{$\vv{1} \Downarrow_P \vv{1}$}
       \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{3+1} \to_P \vv{4}$}
+      \BinaryInfC{$\vv{3+1} \Downarrow_P \vv{4}$}
       \RightLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{2 == 3+1} \to_P \vv{0}$}
+      \BinaryInfC{$\vv{2 == 3+1} \Downarrow_P \vv{0}$}
       \AxiomC{$\vdots$}
-      \UnaryInfC{$\vv{1 + f(2,3+1+1)} \to_P \square$}
-      \RightLabel{\scriptsize{(if$_{\false}$)}}
-      \BinaryInfC{$\ifelse{\vv{2 == 3+1}}{\vv{0}}{\vv{1 + f(2,3+1+1)}} \to_P \square$}
+      \UnaryInfC{$\vv{1 + f(2,3+1+1)} \Downarrow_P \square$}
+      \RightLabel{\scriptsize{(if$_{0}$)}}
+      \BinaryInfC{$\ifelse{\vv{2 == 3+1}}{\vv{0}}{\vv{1 + f(2,3+1+1)}} \Downarrow_P \square$}
       \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(2,3+1)} \to_P \square$}
+      \UnaryInfC{$\vv{f(2,3+1)} \Downarrow_P \square$}
       \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{1+f(2,3+1)} \to_P \square$}
-      \RightLabel{\scriptsize{(if$_{\false}$)}} 
-      \BinaryInfC{$\ifelse{\vv{2 == 3}}{\vv{0}}{\vv{1 + f(2,3+1)}} \to_P \square$ }
+      \BinaryInfC{$\vv{1+f(2,3+1)} \Downarrow_P \square$}
+      \RightLabel{\scriptsize{(if$_{0}$)}} 
+      \BinaryInfC{$\ifelse{\vv{2 == 3}}{\vv{0}}{\vv{1 + f(2,3+1)}} \Downarrow_P \square$ }
       \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(2,3)} \to_P \square$}
+      \UnaryInfC{$\vv{f(2,3)} \Downarrow_P \square$}
     \end{prooftree}
 \end{framed}
 \caption{Част от безкрайното дърво на извод започващо от функционалния терм $\vv{f(2,3)}$}

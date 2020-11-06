@@ -57,7 +57,7 @@
     \end{prooftree}
     Втората част също е лесна.
     \begin{align*}
-      \val{\tau_1\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & \dff \texttt{eval}(\val{\tau_1}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})), \val{\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{\Def{eval}}\\
+      \val{\tau_1\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & \df \texttt{eval}(\val{\tau_1}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})), \val{\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{\Def{eval}}\\
                                                                    & = \texttt{eval}(\val{\tau_1\subst{x}{\rho}}_\Gamma(\ov{u}), \val{\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{И.П.}\\
                                                                    & = \val{\tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho})}_\Gamma(\ov{u})\\
                                                                    & = \val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})
@@ -111,20 +111,20 @@
     заключаваме, че
     \[\Gamma \vdash \tau\subst{x}{\rho}:\vv{b}.\]
 
-    Нека $\Delta \dff \Gamma,\type{y}{c}$.
+    Нека $\Delta \df \Gamma,\type{y}{c}$.
     Понеже имаме, че $\Delta \vdash \tau'\subst{x}{\rho} : \vv{d}$,
     то можем да приложим И.П. за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Delta}$,
     \begin{align*}
-      \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})(v) & \dff \val{\tau'\subst{x}{\rho}}_\Delta(\overline{u},v) & \comment\text{\Def{curry}}\\
-                                                                 & \stackrel{\text{И.П.}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta(\ov{u},v)) & \comment \Delta' \dff \Gamma, \type{y}{c}, \type{x}{a}\\
+      \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})(v) & \df \val{\tau'\subst{x}{\rho}}_\Delta(\overline{u},v) & \comment\text{\Def{curry}}\\
+                                                                 & \stackrel{\text{И.П.}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta(\ov{u},v)) & \comment \Delta' \df \Gamma, \type{y}{c}, \type{x}{a}\\
                                                                  & = \val{\tau'}_{\Delta'}(\ov{u},v,\val{\rho}_\Gamma(\ov{u})) & \comment \fv(\rho) \subseteq \vv{dom}(\Gamma)\\
-                                                                 & = \val{\tau'}_{\Delta''}(\ov{u},\val{\rho}_\Gamma(\ov{u}),v) & \comment \Delta'' \dff \Gamma, \type{x}{a}, \type{y}{c}\\
+                                                                 & = \val{\tau'}_{\Delta''}(\ov{u},\val{\rho}_\Gamma(\ov{u}),v) & \comment \Delta'' \df \Gamma, \type{x}{a}, \type{y}{c}\\
                                                                  & = \curry(\val{\tau'}_{\Delta''})(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v) \\
-                                                                 & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v). & \comment \Gamma' \dff \Gamma, \type{x}{a}
+                                                                 & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v). & \comment \Gamma' \df \Gamma, \type{x}{a}
     \end{align*}    
     Така получихме, че
     \begin{align*}
-      \val{\lamb{y}{c}{\tau'\subst{x}{\rho}}}_\Gamma(\ov{u}) & \dff \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})\\
+      \val{\lamb{y}{c}{\tau'\subst{x}{\rho}}}_\Gamma(\ov{u}) & \df \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})\\
                                                                    & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
     \end{align*}
     

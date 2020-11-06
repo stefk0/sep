@@ -230,33 +230,22 @@
   % \end{itemize}
 \end{hint}
 
-\begin{remark}
-  Когато на хаскел пишем типовата сигнатура на някоя функция като 
-  \mint{haskell}|f :: a -> b -> c|
-  в действителност се има предвид следното
-  \mint{haskell}|f :: a -> (b -> c)|
-  
-  На практика тези две задачи ни казват, че няма значение дали използваме {\em curried}
-  или {\em uncurried} версията на една функция. На хаскел е по-удобно да използваме {\em curried}
-  версията, защото като фиксираме първия аргумент на една функция получаваме нова функция наготово.
-  Например, 
-  \begin{haskellcode}
-ghci> let plus x y = x + y
-ghci> :t plus
-plus :: Num a => a -> a -> a
-ghci> let plus1 = plus 1
-ghci> :t plus1
-plus1 :: Num a => a -> a
-   \end{haskellcode}
+Когато на хаскел пишем типовата сигнатура на някоя функция като 
+\mint{haskell}|f :: a -> b -> c| в действителност се има предвид \mint{haskell}|f :: a -> (b -> c)|
 
-  Всъщност, хаскел има функциите \texttt{curry} и \texttt{uncurry} вградени в стандартната библиотека:
-  \begin{haskellcode}
-ghci> :t curry
-curry :: ((a, b) -> c) -> a -> b -> c
-ghci> :t uncurry
-uncurry :: (a -> b -> c) -> (a, b) -> c
-  \end{haskellcode}
-\end{remark}
+На практика тези две задачи ни казват, че няма значение дали използваме {\em curried}
+или {\em uncurried} версията на една функция. На хаскел е по-удобно да използваме {\em curried}
+версията, защото като фиксираме първия аргумент на една функция получаваме нова функция наготово.
+\marginpar{Това се нарича \emph{partial application}. Вижте \url{https://wiki.haskell.org/Partial_application}.}
+Например, 
+\begin{haskellcode}
+  ghci> let plus x y = x + y
+  ghci> :t plus
+  plus :: Num a => a -> a -> a
+  ghci> let plus1 = plus 1
+  ghci> :t plus1
+  plus1 :: Num a => a -> a
+\end{haskellcode}
 
 Нека да дефинираме
 \[\emptyset_\bot = (\{\bot\}, \sqsubseteq, \bot).\]

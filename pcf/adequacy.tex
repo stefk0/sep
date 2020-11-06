@@ -44,7 +44,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
 \begin{proof}
   Индукция по построението на типовете $\vv{a}$.
   Първо, нека $\vv{a} = \vv{nat}$ и да фиксираме произволен терм $\tau : \vv{nat}$.
-  \marginpar{Да напомним, че $\val{\vv{nat}} \dff \Nat_\bot$.}
+  \marginpar{Да напомним, че $\val{\vv{nat}} \df \Nat_\bot$.}
   \begin{enumerate}[1)]
   \item
     По тривиални съображения имаме, че
@@ -66,7 +66,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   \end{enumerate}
   
   Второ, ека $\vv{a} = \vv{b} \to \vv{c}$ и да фиксираме произволен терм $\tau : \vv{b} \to \vv{c}$.
-  \marginpar{Да напомним, че \[\val{\vv{b} \to \vv{c}} \dff \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]}
+  \marginpar{Да напомним, че \[\val{\vv{b} \to \vv{c}} \df \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]}
   \begin{enumerate}[1)]
   \item
     Тук имаме, че $\bot^{\val{\vv{a}}} \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}$ е изображение,
@@ -162,7 +162,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
       \BinaryInfC{$\Gamma \vdash \tau_1\tau_2 : \vv{a}$}
     \end{prooftree}
     Да напомним, че
-    \[\val{\tau_1\tau_2}_\Gamma(\ov{u}) \dff \texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u})).\]
+    \[\val{\tau_1\tau_2}_\Gamma(\ov{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u})).\]
     От И.П. имаме следното:
     \begin{align*}
       & \val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{b}\to\vv{a}} \tau_1[\ov{x}/\ov{\mu}];\\
@@ -174,8 +174,8 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     Нека $\tau = \lamb{y}{b}{\tau'}$. Тогава от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$ и
     $\Gamma' \vdash \tau' : \vv{c}$, където $\Gamma' = \Gamma, \type{y}{b}$.
     Да напомним, че
-    \[\val{\tau}_\Gamma(\ov{u}) \dff \texttt{curry}(\val{\tau'}_{\Gamma'})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
-    Да положим $f \dff \val{\tau}_\Gamma(\ov{u})$. Тогава $f(e) = \val{\tau'}(\ov{u},e)$.
+    \[\val{\tau}_\Gamma(\ov{u}) \df \texttt{curry}(\val{\tau'}_{\Gamma'})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
+    Да положим $f \df \val{\tau}_\Gamma(\ov{u})$. Тогава $f(e) = \val{\tau'}(\ov{u},e)$.
     
     Трябва да докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \tau[\ov{x}/\ov{\mu}]$.
     Това означава, че за произволни $e \in \val{\vv{b}}$ и $\rho : \vv{b}$, за които $e \triangleleft_{\vv{b}} \rho$,
@@ -200,7 +200,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     Нека $\tau \equiv \fix(\tau')$. Тогава от правилата за типизиране имаме, че $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
     От И.П., приложено за $\tau'$, имаме, че
     \[\val{\tau'}(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
-    Нека за улеснение да положим $f \dff \val{\tau'}(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
+    Нека за улеснение да положим $f \df \val{\tau'}(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
     Да напомним, че
     \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\]
     От 2) на \Lem{pcf:relation} знаем, че
