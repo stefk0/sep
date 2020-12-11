@@ -1,0 +1,178 @@
+\subsection{Езикът \CFG}
+
+Термовете на езика \CFG се описват със следната абстрактна граматика:
+\[\tau ::= \varepsilon\ |\ a\ |\ X\ |\ \tau_1 \cdot \tau_2\ |\ \tau_1 + \tau_2.\]
+
+Нека оттук нататък да приемем, че сме фиксирали една програма на езика \CFG:
+\begin{align*}
+  & X_1 = \tau_1[X_1,\dots,X_n]\\
+  & \ \vdots\\
+  & X_n = \tau_n[X_1,\dots,X_n].
+\end{align*}
+
+
+\subsubsection*{Операционна семантика}
+
+С индукция по $\ell$, дефинираме релацията $\tau \Downarrow^\ell \alpha$,
+където $\tau$ е терм на езика \CFG със свободни променливи измежду $X_1,\dots, X_n$.
+
+\begin{framed}
+  \begin{figure}[H]
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{}
+        \LeftLabel{\scriptsize{(eps)}}
+        \UnaryInfC{$\varepsilon \Downarrow^0 \varepsilon$}
+      \end{prooftree}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{\scriptsize{(letter)}}
+        \UnaryInfC{$a \Downarrow^1 a$}
+      \end{prooftree}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\tau_1 \Downarrow^\ell \alpha$}
+        \LeftLabel{\scriptsize{(left-or)}}
+        \UnaryInfC{$\tau_1 + \tau_2 \Downarrow^{\ell+1} \alpha$}
+      \end{prooftree}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\tau_2 \Downarrow^\ell \alpha$}
+        \RightLabel{\scriptsize{(right-or)}}
+        \UnaryInfC{$\tau_1 + \tau_2 \Downarrow^{\ell+1} \alpha$}
+      \end{prooftree}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\tau_i \Downarrow^\ell \alpha$}
+        \LeftLabel{\scriptsize{(rec)}}
+        \UnaryInfC{$X_i \Downarrow^{\ell+1} \alpha$}
+      \end{prooftree}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\tau_1 \Downarrow^\ell_1 \alpha_1$}
+        \AxiomC{$\tau_2 \Downarrow^\ell_2 \alpha_2$}
+        \RightLabel{\scriptsize{(concat)}}
+        \BinaryInfC{$\tau_1 \cdot \tau_2 \Downarrow^{\ell_1+\ell_2+1} \alpha_1\cdot\alpha_2$}
+      \end{prooftree}
+    \end{subfigure}
+    \caption{Правила на операционната семантика на езика \CFG.}
+  \end{figure}
+\end{framed}
+Ще пишем $\tau \Downarrow \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \Downarrow^\ell \alpha$.
+
+
+\subsubsection*{Денотационна семантика}
+
+За всеки терм $\tau[X_1,\dots,X_n]$ на езика \CFG дефинираме изображението
+% \marginpar{Тук за променливите използваме главни букви за да се сещаме, че те приемат стойности множества от думи.}
+\[\val{\tau}: \mathcal{P}(\Sigma^\star)^n \to \mathcal{P}(\Sigma^\star)\]
+ по следния начин:
+\begin{itemize}
+\item 
+  $\val{\varepsilon}(L_1,\dots,L_n) = \{\varepsilon\}$.
+\item 
+  $\val{a}(L_1,\dots,L_n) = \{a\}$.
+\item 
+  $\val{X_j}(L_1,\dots,L_n) = L_j$.
+\item
+  $\val{\tau_1 + \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cup \val{\tau_2}(L_1,\dots,L_n)$.
+\item
+  $\val{\tau_1 \cdot \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cdot \val{\tau_2}(L_1,\dots,L_n)$.
+\end{itemize}
+
+\begin{problem}
+  Докажете, че за всеки терм $\tau$ на езика \REG имаме, че $\val{\tau}$ е непрекъснато изображение в областта на Скот
+  $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
+\end{problem}
+
+\marginpar{Тук \hyperref[prob:reg:arden]{правилото на Ардън} не работи! Защо?}
+
+\begin{example}
+  Да разгледаме следната програма на езика \CFG.
+  \begin{align*}
+    X & = \overbrace{a\cdot X \cdot c + Y}^{\tau_1[X,Y]}\\
+    Y & = \underbrace{b \cdot Y \cdot c + \varepsilon}_{\tau_2[X,Y]}.
+  \end{align*}
+  На тази програма съответства системата от непрекъснати изображения:
+  \begin{align*}
+    L & = \val{\tau_1}(L,M) = \{a\}\cdot L_1 \cdot \{c\} \cup L_2\\
+    M & = \val{\tau_2}(L_1,L_2) = \{b\} \cdot L_2 \cdot \{c\} \cup \{\varepsilon\}.
+  \end{align*}
+  Да намерим най-малкото решение $(\hat{L},\hat{M})$ на тази система.
+  \begin{align*}
+    L_0 & = \emptyset\\
+    M_0 & = \emptyset\\
+    L_1 & = \val{\tau_1}(L_0,M_0)\\
+        & = \{a\}\cdot \emptyset \cdot \{c\} \cup \emptyset = \emptyset\\
+    M_1 & = \val{\tau_2}(L_0,M_0)\\
+        & = \{b\} \cdot \emptyset \cdot \{c\} \cup \{\varepsilon\} = \{\varepsilon\}\\
+    L_2 & = \{a\}\cdot L_1 \cdot \{c\} \cup M_1 = \{\varepsilon\}\\
+    M_2 & = \{b\} \cdot M_1 \cdot \{c\} \cup M_1\\
+        & = \{b\} \cdot \{\varepsilon\} \cdot \{c\} \cup \{\varepsilon\} = \{bc,\varepsilon\}\\
+    L_3 & = \{a\}\cdot L_2 \cdot \{c\} \cup M_2 \\
+        & = \{ac,bc,\varepsilon\}\\
+        & = \{a^mb^nc^k \mid 2 > m+n = k\}\\
+    M_3 & = \{b\} \cdot M_2 \cdot \{c\} \cup M_2\\
+        & = \{b\} \cdot \{bc,\varepsilon\} \cdot \{c\} \cup \{bc,\varepsilon\}\\
+        & = \{b^nc^n \mid 3 > n\}.
+  \end{align*}
+
+  Сега вече сме готови да формулираме нашето индукционно предположение:
+  \begin{align*}
+    L_t & = \{a^mb^nc^k \mid t-1 > m+n = k\}\\
+    M_t & = \{b^nc^n \mid t > n \}.
+  \end{align*}
+
+  Докажете, че $\hat{L} = \{a^mb^nc^k \mid m+n = k\}$ и $\hat{M} = \{b^nc^n \mid n \in \Nat\}$.
+  
+\end{example}
+
+
+\begin{problem}[Теорема за характеризация]
+  Да разгледаме системата от непрекъснати оператори
+  \begin{align*}
+    & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
+    & \ \ \vdots\\
+    & \val{\tau_n}(L_1,\dots,L_n) = L_n.
+  \end{align*}
+  Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
+  Докажете, че всеки от езиците $\hat{L}_i$ е безконтекстен.
+
+  Докажете, че всеки безконтекстен език е елемент от най-малкото решение 
+  на някоя система от непрекъснати изображения от горния вид.
+\end{problem}
+
+
+\subsubsection*{Еквивалентност}
+
+\begin{problem}
+  Докажете, че за всеки индекс $r$ и всеки терм $\tau$ на езика \CFG с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
+  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
+  Заключете, че ако $L_1,\dots,L_n$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times\cdots\times\val{\tau_n}$, то
+  за произволен терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
+  \[\val{\tau}(L_1,\dots,L_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
+\end{problem}
+
+\begin{problem}
+  Нека $L_1,\dots,L_n$ е неподвижна точка на $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$.
+  Докажете, че за всеки терм $\tau$ на езика \CFG с променливи измежду $X_1,\dots,X_n$ е  изпълнено, че:
+  \[\{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n).\]
+
+  Заключете, че ако $L_1,\dots,L_n$ е най-малката неподвижна точка на $\Gamma$, то за всеки индекс $i$ измежду $1,\dots,n$ е изпълнено, че:
+  \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]  
+\end{problem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../sep"
+%%% End:

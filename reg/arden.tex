@@ -1,0 +1,111 @@
+
+\subsection{Езикът \texttt{REG++}}
+
+Нека тук с $\alpha,\beta,\gamma$ да означаваме произволни регулярни изрази.
+Да въведем означението $\alpha \leq \beta$, ако $\mathcal{L}(\alpha) \subseteq \mathcal{L}(\beta)$.
+
+\begin{problem}
+  Докажете, че ако $\alpha \cdot \gamma + \beta \leq \gamma$, то $\alpha^\star \beta \leq \gamma$.
+\end{problem}
+\begin{hint}
+  Докажете, че $\alpha^n \cdot \beta \leq \gamma$ за всяко естествено число $n$.
+\end{hint}
+
+Да разгледаме следното разширение на езика \REG, който да наречем $\REG\texttt{++}$.
+Термовете на езика \REGPP се формират спрямо следната абстрактна граматика:
+\[\tau ::= \alpha\ |\ \alpha \cdot X\ |\ \tau_1 + \tau_2,\]
+където с $\alpha$ означаваме произволен регулярен израз, т.е.
+\[\alpha ::= \emptyset\ |\ \varepsilon\ |\ a\ |\ \alpha_1 + \alpha_2\ |\ \alpha_1 \cdot \alpha_2\ |\ \alpha^\star_1\]
+\marginpar{Новото е, че тук позволяваме да имаме термове от вида $\alpha \cdot X$, за произволен регулярен израз $\alpha$, докато в езика \REG\ позволявахме само $a \cdot X$, за произволна буква $a$.}
+
+\begin{problem}[Правило на Ардън \cite{arden}]\label{prob:reg:arden}
+  \index{правило на Ардън}
+  Да разгледаме програмата на езика \REGPP:
+  \[X = \alpha \cdot X + \beta.\]
+  Докажете, че най-малкото решение на системата за тази програма е езикът описан с регулярния израз $\alpha^\star \cdot \beta$. Докажете, че ако $\varepsilon \not \in \mathcal{L}(\alpha)$, то това решение е и едиствено.
+\end{problem}
+
+\begin{example}
+  Да разгледаме следния краен детерминиран автомат:
+  \marginpar{Означаваме с $\abs{\omega}_a$ броя на срещанията на $a$ в думата $\omega$.}
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,>=stealth,thick,node distance=65pt]
+      \tikzstyle{every state}=[circle,minimum size=20pt,auto]
+      
+      \node[initial, state, accepting]         (0) {$q_1$};
+      \node[state]                             (1) [right of=0]{$q_2$};
+      \node[state]                             (2) [right of=1]{$q_3$};
+      
+      \path 
+      (0) edge [loop above]   node   [above] {$b$}    (0)
+      (0) edge [bend left=15] node   [above] {$a$}    (1)
+      (1) edge [loop above]   node   [above] {$b$}    (1)
+      (1) edge [bend left=15] node   [above] {$a$}    (2)
+      (2) edge [loop above]   node   [above] {$b$}    (2)
+      (2) edge [bend left=45] node   [below] {$a$}    (0);
+    \end{tikzpicture}
+    \caption{Автомат разпознаващ $\{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}$}
+  \end{figure}
+  На този автомат съответства следната програма $R$, която е програма и на езика \REGPP:
+  \marginpar{Тук $\Sigma = \{a,b\}$.}
+  \begin{align*}
+    & X_1 = a \cdot X_2 + b \cdot X_1 + \varepsilon \\
+    & X_2 = a \cdot X_3 + b \cdot X_2\\
+    & X_3 = a \cdot X_1 + b \cdot X_3.
+  \end{align*}
+
+  Да видим как можем да намерим най-малкото решение на тази система като използваме само \hyperref[prob:reg:arden]{правилото на Ардън}.
+  Нека първо да разгледаме само последния ред на системата като си мислим, че имаме азбука $\Sigma_3 = \{a,b,X_1,X_2\}$. Тогава получаваме следното:
+  \[X_3 = \underbrace{b}_{\alpha} \cdot X_3 + \underbrace{a \cdot X_1}_{\beta}.\]
+  Според \hyperref[prob:reg:arden]{правилото на Ардън}, най-малкото решение на тази система е $b^\star a X_1$.
+  Заместваме $X_3$ с този израз в горните две уравнения и получаваме следното:
+  \begin{align*}
+    & X_1 = b \cdot X_1 + a \cdot X_2 + \varepsilon \\
+    & X_2 = b \cdot X_2 + a b^\star a X_1.
+  \end{align*}
+  Ако позволим да имаме регулярни изрази по ребрата на автомат, то новият автомат би бил този:
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[->,>=stealth,thick,node distance=65pt]
+      \tikzstyle{every state}=[circle,minimum size=20pt,auto]
+      
+      \node[initial, state, accepting]         (0) {$q_1$};
+      \node[state]                             (1) [right of=0]{$q_2$};
+      % \node[state]                             (2) [right of=1]{$q_3$};
+      
+      \path 
+      (0) edge [loop above]   node   [above] {$b$}    (0)
+      (0) edge [bend left=35] node   [above] {$a$}    (1)
+      (1) edge [loop above]   node   [above] {$b$}    (1)
+      (1) edge [bend left=35] node   [below] {$ab^\star a$}    (0);
+      % (2) edge [loop above]   node   [above] {$b$}    (2)
+      % (2) edge [bend left=45] node   [below] {$a$}    (0);
+    \end{tikzpicture}
+    \caption{Автомат разпознаващ $\{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}$}
+  \end{figure}
+  
+  Сега разглеждаме втория ред като си мислим, че имаме азбуката $\Sigma_2 = \{a,b,X_1,X_3\}$. Тогава получаваме следното:
+  \[X_2 = \underbrace{b}_{\alpha} \cdot X_2 + \underbrace{a b^\star a X_1}_{\beta}.\]
+  Според \hyperref[prob:reg:arden]{правилото на Ардън}, най-малкото решение на тази система е $b^\star a b^\star a X_1$.
+  Заместваме $X_2$ с израза $b^\star a b^\star a X_1$ в първия ред и получаваме:
+  \[X_1 = b \cdot X_1 + ab^\star a b^\star a X_1  + \varepsilon.\]
+  Оттук имаме, че:
+  \[X_1 = \underbrace{(b + ab^\star a b^\star a)}_{\alpha} \cdot X_1 + \underbrace{\varepsilon}_{\beta}.\]
+  Така получаваме, че най-малкото решение на първия ред е $(b + ab^\star a b^\star a)^\star$.
+  Заключаваме, че най-малкото решение на системата е тройката от езици:
+  \marginpar{Тук един от проблемите е, че изобщо не е ясно дали тези регулярни изрази са ,,оптимални'' в някакъв смисъл.}
+  \begin{align*}
+    \hat{L}_1 & = (b + ab^\star a b^\star a)^\star\\
+    \hat{L}_2 & = b^\star a b^\star a (b + ab^\star a b^\star a)^\star\\
+    \hat{L}_3 & = b^\star a (b + ab^\star a b^\star a)^\star.
+  \end{align*}
+  
+  Да напомним, че вече намерихме следното представяне на най-малкото решение на системата:
+  \begin{align*}
+    \hat{L}_1 & = \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}\\
+    \hat{L}_2 & = \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 2 \bmod\ 3\}\\
+    \hat{L}_3 & = \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 1 \bmod\ 3\}.
+  \end{align*}
+\end{example}
