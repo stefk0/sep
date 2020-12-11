@@ -432,40 +432,36 @@
 % \end{problem}
 
 \begin{problem}
-  Операторът $\Gamma:\F_2 \to \F_2$ е зададен с равенството:
+  Да разгледаме изображението $\Gamma \in \Cont{\F_2}{\F_2}$, където:
   \begin{align*}
-    \Gamma(f)(x,y) = 
+    \Gamma(f)(x,y) \simeq
     \begin{cases}
       y, & \text{ ако } y\vert x\\
       f(f(x,y+1)), x), & \text{ иначе}.
     \end{cases}
   \end{align*}
-  Докажете, че:
-  \begin{enumerate}[a)]
-  \item 
-    операторът $\Gamma$ е компактен;
-  \item
-    $(\forall x,y\in\Nat)[!f_\Gamma(x,y)\ \&\ y\not| x\ \Rightarrow\ f_\Gamma(x,y)\ \vert\ x]$.
-  \end{enumerate}  
+  Докажете, че
+  % \begin{enumerate}[a)]
+  % \item 
+  %   операторът $\Gamma$ е компактен;
+  % \item
+  \[(\forall x)(\forall y)[!f_\Gamma(x,y)\ \&\ y\not| x\ \Rightarrow\ f_\Gamma(x,y)\ \vert\ x].\]
+  % \end{enumerate}  
 \end{problem}
 
 \begin{problem}
-  Операторът $\Gamma:\F_1 \to \F_1$ е зададен с равенството:
+  Да разгледаме $\Gamma \in \Mapping{\F_1}{\F_1}$, където
   \begin{align*}
-    \Gamma(f)(x) = 
+    \Gamma(f)(x) \simeq
     \begin{cases}
       1, & \text{ ако } x \leq 1\\
       x/2, & \text{ ако } 2\vert x\ \&\ x > 1\\
       f(f(3\lfloor{x/2}\rfloor+2)), & \text{ иначе}.
     \end{cases}
   \end{align*}
-  Докажете, че:
-  \begin{enumerate}[a)]
-  \item 
-    операторът $\Gamma$ е компактен;
-  \item
-    $(\forall x\in\Nat)[!f_\Gamma(x)\ \&\ x > 1\ \Rightarrow\ f_\Gamma(x)\ \leq x/2]$.
-  \end{enumerate}  
+  Докажете, че $\Gamma$ е непрекъснато изображение и ако $f_\Gamma \df \lfp(\Gamma)$, то 
+  докажете, че
+  \[(\forall x)[!f_\Gamma(x)\ \&\ x > 1\ \Rightarrow\ f_\Gamma(x)\ \leq x/2].\]
 \end{problem}
 
 % \begin{problem}
@@ -595,7 +591,7 @@
 
 
 \begin{problem}
-  Даден е следния оператор $\Gamma:\F_1 \to \F_1$:
+  Да разгледаме $\Gamma \in \Mapping{\F_1}{\F_1}$, където
   \begin{align*}
     \Gamma(f)(x,y) \simeq
     \begin{cases}
@@ -603,26 +599,18 @@
       y, & \text{ ако $x$ не е точен квадрат}\\
     \end{cases}
   \end{align*}
-  Да се докаже, че:
-  \begin{enumerate}[a)]
-  \item
-    операторът $\Gamma$ е компактен.
-  \item 
-    ако $f_{\Gamma} = \lfp(\Gamma)$, то:
-    \begin{equation*}
-      (\forall x,y \in \Nat)[3.f_\Gamma(x,y) + 2 \simeq f_\Gamma(x,3y+2)].
-    \end{equation*}
-  \end{enumerate}
+  Съобразете, че $\Gamma$ е непрекъснато изображение.
+  Нека $f_{\Gamma} \df \lfp(\Gamma)$. Докажете, че:
+  \[(\forall x)(\forall y)[3.f_\Gamma(x,y) + 2 \simeq f_\Gamma(x,3y+2)].\]
 \end{problem}
 \ifhints
 \begin{hint}
-  Подточка а) е стандартна.
   \begin{itemize}
   \item 
     Нека първо да разгледаме операторите $\Gamma_1$ и $\Gamma_2$, където
     \begin{align*}
-      & \Delta_1(f) \dff 3f(x,y)+2\\
-      & \Delta_2(f) \dff f(x,3y+2).
+      & \Delta_1(f) \df 3f(x,y)+2\\
+      & \Delta_2(f) \df f(x,3y+2).
     \end{align*}
     Съобразете, че те са непрекъснати.
   \item
@@ -638,7 +626,7 @@
 \fi
 
 \begin{problem}
-  Даден е следния оператор $\Gamma:\F_1 \to \F_1$:
+  Да разгледаме изображението $\Gamma \in \Mapping{\F_1}{\F_1}$, където:
   \begin{align*}
     \Gamma(f)(x,y) \simeq
     \begin{cases}
@@ -646,60 +634,41 @@
       y, & \text{ иначе }
     \end{cases}
   \end{align*}
-  Да се докаже, че:
-  \begin{enumerate}[a)]
-  \item
-    операторът $\Gamma$ е компактен.
-  \item 
-    ако $f_{\Gamma}$ е най-малката неподвижна точка на $\Gamma$, то:
-    \begin{equation*}
-      (\forall x,y \in \Nat)[(f_\Gamma(x,y))^2 \simeq f_\Gamma(x,y^2)].
-    \end{equation*}
-  \end{enumerate}
+  Съобразете защо $\Gamma$ е непрекъснато изображение.
+  Нека $f_{\Gamma} \df \lfp(\Gamma)$. Докажете, че
+  \[(\forall x)(\forall y)[(f_\Gamma(x,y))^2 \simeq f_\Gamma(x,y^2)].\]
 \end{problem}
 
 \begin{problem}
   Нека $p_0,p_1,p_2\dots\ $ е редицата от всички прости числа в нарастващ ред.
-  Операторът $\Gamma: \F_3\to\F_3$ действа по правилото:
+  Да разгледаме $\Gamma \in \Mapping{\F_3}{\F_3}$, където:
   \begin{align*}
     \Gamma(f)(x,y,z) \simeq
     \begin{cases}
-      x^xy, & \text{ ако }p_z = x\ \&\ x,y,z\in\Nat\\
-      f(x+x,y,z+2), & \text{ ако }p_z = x\ \&\ x,y,z\in\Nat.
+      x^xy, & \text{ ако }p_z = x\\
+      f(x+x,y,z+2), & \text{ ако }p_z = x.
     \end{cases}
   \end{align*}
-  Да се докаже, че:
-  \begin{enumerate}[a)]
-  \item
-    операторът $\Gamma$ е компактен.
-  \item 
-    ако $f_{\Gamma} = \lfp(\Gamma)$, то:
-    \begin{equation*}
-      (\forall x,y,z \in \Nat)[!f_{\Gamma}(x,y,z) \implies (\exists\text{ просто число }p)[p \geq x\ \&\ p^py\ |\ f_\Gamma(x,y,z)].
-    \end{equation*}
-  \end{enumerate}
+  Съобразете, че $\Gamma$ е непрекъснато изображение. 
+  Нека $f_{\Gamma} \df \lfp(\Gamma)$. Докажете, че
+  \[(\forall x)(\forall y)(\forall z)[!f_{\Gamma}(x,y,z) \implies (\exists\text{ просто число }p)[p \geq x\ \&\ p^py\ |\ f_\Gamma(x,y,z)].\]
 \end{problem}
 
 \begin{problem}
-  Операторът $\Gamma:\F_3 \to \F_3$ е зададен с равенството:
+  Да разгледаме изображението $\Gamma \in \Mapping{\F_3}{\F_3}$, където:
   \begin{align*}
-    \Gamma(f)(x,y,z) =
+    \Gamma(f)(x,y,z) \simeq
     \begin{cases}
       z, & y = 0\ \&\ x,z\in\Nat\\
       f(x,y-1, xy+z), & y > 0\ \&\ x,z \in \Nat.
     \end{cases}
   \end{align*}
-  \begin{enumerate}[a)]
-  \item 
-    Докажете, че $\Gamma$ е компактен;
-  \item
-    Докажете, че ако $f_\Gamma = \lfp(\Gamma)$, то
-    \[(\forall x,y\in\Nat)[f_\Gamma(x,y,0) = \frac{xy(y+1)}{2}].\]
-  \end{enumerate}
+  Съобразете, че $\Gamma$ е непрекъснато изображение и ако $f_\Gamma \df \lfp(\Gamma)$, то
+  \[(\forall x)(\forall y)[f_\Gamma(x,y,0) \simeq \frac{xy(y+1)}{2}].\]
 \end{problem}
 \begin{hint}
   Да разгледаме свойството над ествествените числа
-  \[P(y) \dfff (\forall x,z\in\Nat)[f_\Gamma(x,y,z) = \frac{xy(y+1)}{2} + z].\]
+  \[P(y) \dfff (\forall x,z\in\Nat)[f_\Gamma(x,y,z) \simeq \frac{xy(y+1)}{2} + z].\]
   Докажете с математическа индукция по $y \in \Nat$, че $(\forall y\in\Nat)[P(y)]$.
   % \begin{itemize}
   % \item 
@@ -756,18 +725,18 @@
 %   \[f_\Gamma(x,y,0) = \frac{xy(y+1)}{2}.\]
 % \end{hint}
 
-\begin{remark}
-Да разгледаме програмата на езика \REC:
+% \begin{remark}
+% Да разгледаме програмата на езика \REC:
 
-\begin{haskellcode}
-h(x,y) = f(x,y,0) where
-  f(x,y,z) = if y == 0 then z
-               else f(x, y-1, x*y + z)
-\end{haskellcode}
+% \begin{haskellcode}
+% h(x,y) = f(x,y,0) where
+%   f(x,y,z) = if y == 0 then z
+%                else f(x, y-1, x*y + z)
+% \end{haskellcode}
 
-Съобразете, че ние горе на практика доказахме, че
-\[(\forall x,y \in \Nat)[\D_V\val{\vv{h}}(x,y) = \frac{xy(y+1)}{2}].\]
-\end{remark}
+% Съобразете, че ние горе на практика доказахме, че
+% \[(\forall x,y \in \Nat)[\D_V\val{\vv{h}}(x,y) = \frac{xy(y+1)}{2}].\]
+% \end{remark}
 
 
 % \begin{problem}

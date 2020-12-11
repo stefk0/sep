@@ -62,7 +62,7 @@
   Заместваме $X_3$ с този израз в горните две уравнения и получаваме следното:
   \begin{align*}
     & X_1 = b \cdot X_1 + a \cdot X_2 + \varepsilon \\
-    & X_2 = b \cdot X_2 + a b^\star a X_1.
+    & X_2 = b \cdot X_2 + a b^\star a \cdot X_1.
   \end{align*}
   Ако позволим да имаме регулярни изрази по ребрата на автомат, то новият автомат би бил този:
 
@@ -90,7 +90,7 @@
   \[X_2 = \underbrace{b}_{\alpha} \cdot X_2 + \underbrace{a b^\star a X_1}_{\beta}.\]
   Според \hyperref[prob:reg:arden]{правилото на Ардън}, най-малкото решение на тази система е $b^\star a b^\star a X_1$.
   Заместваме $X_2$ с израза $b^\star a b^\star a X_1$ в първия ред и получаваме:
-  \[X_1 = b \cdot X_1 + ab^\star a b^\star a X_1  + \varepsilon.\]
+  \[X_1 = b \cdot X_1 + ab^\star a b^\star a \cdot X_1  + \varepsilon.\]
   Оттук имаме, че:
   \[X_1 = \underbrace{(b + ab^\star a b^\star a)}_{\alpha} \cdot X_1 + \underbrace{\varepsilon}_{\beta}.\]
   Така получаваме, че най-малкото решение на първия ред е $(b + ab^\star a b^\star a)^\star$.

@@ -187,20 +187,20 @@ ghci> take 10 [x*x | x <- [0..]]      -- $a_n = n^2$
 
 \marginpar{Тук следваме \cite[стр. 218]{bird-haskell}}
 \index{канонична апроксимация}
-За всеки елемент $l \in L$, дефинираме неговата {\bf $n$-та канонична апроксимация} $l\upharpoonright{n}$, където:
+За всеки елемент $\ell \in L$, дефинираме неговата {\bf $n$-та канонична апроксимация} $\ell\upharpoonright{n}$, където:
 \begin{align*}
-  & l \upharpoonright{0} \df \bot\\
+  & \ell \upharpoonright{0} \df \bot\\
   & \nil \upharpoonright{(n+1)} \df \nil\\
   % & l \upharpoonright{(n+1)} \df \texttt{cons}(\texttt{car}(l), l\upharpoonright{n}).
-  & (a:l) \upharpoonright{(n+1)} \df a:(l\upharpoonright{n}).
+  & (a:\ell) \upharpoonright{(n+1)} \df a:(\ell\upharpoonright{n}).
 \end{align*}
 Имаме свойството, че за всеки списък $l \in L$, 
-\[n \leq n' \implies l\upharpoonright n \sqsubseteq l\upharpoonright n'.\]
-Това означава, че $(l\upharpoonright n)^{\infty}_{n=0}$ е верига.
+\[n \leq n' \implies \ell\upharpoonright n \sqsubseteq \ell\upharpoonright n'.\]
+Това означава, че $(\ell\upharpoonright n)^{\infty}_{n=0}$ е верига.
 Лесно се съобразява, че 
-\[l = \bigsqcup_n (l \upharpoonright n).\]
+\[\ell = \bigsqcup_n (\ell \upharpoonright n).\]
 Друго важно свойство, което имаме е, че 
-\[l_1 \sqsubseteq l_2 \implies l_1 \upharpoonright n \sqsubseteq l_2 \upharpoonright n.\]
+\[\ell_1 \sqsubseteq \ell_2 \implies \ell_1 \upharpoonright n \sqsubseteq \ell_2 \upharpoonright n.\]
 \begin{itemize}
 \item 
   Да обърнем внимание на апроксимациите на крайни списъци.
@@ -237,7 +237,7 @@ approx (x:xs) n | n > 0 = x:approx xs (n-1) -- $(a:l) \upharpoonright (n+1) = (a
 \begin{problem}
   \label{prob:approx}
   Да дефинираме изображението 
-  \[\texttt{approx}_n(l) \df l \upharpoonright n.\]
+  \[\texttt{approx}_n(\ell) \df \ell \upharpoonright n.\]
   Докажете, че $\texttt{approx}_n \in \Cont{L}{L}$.
 \end{problem}
 

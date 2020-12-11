@@ -177,25 +177,24 @@
   $\val{\tau}_\emptyset \in \Cont{\emptyset_\bot}{\A}$, за някоя област на Скот $\A$.
   Но ние знаем, че $\Cont{\emptyset_\bot}{\A} \cong \A$.
   Следователно, можем да считаме, че $\val{\tau} \in \A$.
-  В противен случай, трябва винаги да пишем $\val{\tau}(\bot)(a)$ вместо $\val{\tau}(a)$.
+  В противен случай, трябва винаги да пишем $\val{\tau}(\bot)$ вместо $\val{\tau}$.
 \end{remark}
 
 
 \begin{proposition}
-  \marginpar{Ясно е, че това твърдение се обобщава за произволна пермутация на индекстите $1,\dots,n$.}
+  \marginpar{Ясно е, че това твърдение се обобщава за произволна пермутация на индекстите $1,\dots,n$ \cite[стр. 106]{types-programming-languages}.}
   Нека имаме следните типови контексти:
   \begin{align*}
     &\Gamma = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_i:\vv{a}_i, \dots, \vv{x}_j:\vv{a}_j, \dots, \vv{x}_n:\vv{a}_n;\\
     &\Delta = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_j:\vv{a}_j, \dots, \vv{x}_i:\vv{a}_i, \dots, \vv{x}_n:\vv{a}_n,
   \end{align*}
   т.е. $\Delta$ се получава от $\Gamma$ като разменим местата на $i$-тата и $j$-тата двойка.
-  Тогава за всеки терм $\tau$, такъв че $\Gamma \vdash \tau : \vv{a}$, е изпълено, че за всеки $(u_1,\dots,u_n) \in \val{\Gamma}$,
+  Тогава за всеки терм $\tau$, такъв че $\Gamma \vdash \tau : \vv{a}$, е изпълено, че $\Delta \vdash \tau : \vv{a}$ и за всеки $(u_1,\dots,u_n) \in \val{\Gamma}$,
   \[\val{\tau}_\Gamma(u_1,\dots,u_i,\dots,u_j,\dots,u_n) = \val{\tau}_\Delta(u_1,\dots,u_j,\dots,u_i,\dots,u_n).\]
 \end{proposition}
 \begin{hint}
   Индукция по построението на терма $\tau$.
 \end{hint}
-
 
 
 %%% Local Variables:

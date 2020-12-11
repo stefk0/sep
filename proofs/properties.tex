@@ -22,8 +22,8 @@
 
 \begin{example}
   \label{ex:complement-not-inclusive}
-  Нека да разгледаме областта на Скот от точните изображения $\Strict{\Nat_\bot}{\Nat_\bot}$.
-  Да разгледаме свойството $P \subseteq \Strict{\Nat_\bot}{\Nat_\bot}$, което е дефинирано по следния начин:
+  % Нека да разгледаме областта на Скот от точните изображения $\Strict{\Nat_\bot}{\Nat_\bot}$.
+  Да разгледаме свойството $P \subseteq \Cont{\Nat_\bot}{\Nat_\bot}$, което е дефинирано по следния начин:
   \[P(f) \dfff (\exists x \in \Nat)[f(x) = \bot].\]
   Да разгледаме изображенията $f_i$, дефинирани по следния начин:
   \begin{align*}
@@ -65,7 +65,7 @@
 
 \begin{problem}
   \label{prob:inclusive-property}
-  Докажете, че свойството $Q$ над $\Strict{\Nat_\bot}{\Nat_\bot}$, където
+  Докажете, че свойството $Q$ над $\Cont{\Nat_\bot}{\Nat_\bot}$, където
   \[Q(f) \iff (\forall x \in \Nat)[f(x) \neq \bot],\]
   е непрекъснато.
 \end{problem}
@@ -99,14 +99,14 @@
 
 \subsection{Сечение}
 \begin{proposition}
-  Нека $P_1$ и $P_2$ непрекъснати свойства над областта на Скот $\A$.
+  Нека $P_1$ и $P_2$ са непрекъснати свойства над областта на Скот $\A$.
   Тогава $P_1 \cap P_2$ също е непрекъснато свойство.
 \end{proposition}
 
 \subsection{Обединение}
 
 \begin{proposition}
-  Нека $P_1$ и $P_2$ непрекъснати свойства над областта на Скот $\A$.
+  Нека $P_1$ и $P_2$ са непрекъснати свойства над областта на Скот $\A$.
   Тогава $P_1 \cup P_2$ също е непрекъснато свойство.
 \end{proposition}
 
@@ -117,9 +117,9 @@
   за което $\A \setminus P$ {\bf не} е непрекъснато свойство.
 \end{proposition}
 \begin{proof}
-  Да вземем $\A = \Strict{\Nat_\bot}{\Nat_\bot}$.
+  Да вземем $\A = \Cont{\Nat_\bot}{\Nat_\bot}$.
   Свойството $Q$ от \Problem{inclusive-property} е непрекъснато, 
-  докато $\Strict{\Nat_\bot}{\Nat_\bot} \setminus Q = P$, което е точно свойството от \Ex{complement-not-inclusive}, а 
+  докато $\Cont{\Nat_\bot}{\Nat_\bot} \setminus Q = P$, което е точно свойството от \Ex{complement-not-inclusive}, а 
   за него знаем, че не е непрекъснато.
 \end{proof}
 
@@ -299,19 +299,19 @@
 % \end{example}
 
 
-\subsection{Тотална коректност}
+% \subsection{Тотална коректност}
 
-\index{тотална коректност}
-{\bf Свойство от тип тотална коректност} относно $I$ и $O$ представлява 
-свойство $P \subseteq \Mapping{\A}{\B}$ със следната дефиниция
-\[P(f) \dfff (\forall a \in \A)[I(a) \implies (f(a) \neq \bot\ \&\  O(a,f(a)))].\]
+% \index{тотална коректност}
+% {\bf Свойство от тип тотална коректност} относно $I$ и $O$ представлява 
+% свойство $P \subseteq \Mapping{\A}{\B}$ със следната дефиниция
+% \[P(f) \dfff (\forall a \in \A)[I(a) \implies (f(a) \neq \bot\ \&\  O(a,f(a)))].\]
 
-\begin{proposition}
-  Нека $I$ е свойство в $\A$, а $O$ е непрекъснато свойство в $\A \times \B$.
-  Тогава свойството
-  \[P(f) \dfff (\forall a \in \A)[I(a) \implies (f(a) \neq \bot\ \&\ O(a,f(a)))]\]
-  е непрекъснато в $\Mapping{\A}{\B}$.
-\end{proposition}
+% \begin{proposition}
+%   Нека $I$ е свойство в $\A$, а $O$ е непрекъснато свойство в $\A \times \B$.
+%   Тогава свойството
+%   \[P(f) \dfff (\forall a \in \A)[I(a) \implies (f(a) \neq \bot\ \&\ O(a,f(a)))]\]
+%   е непрекъснато в $\Mapping{\A}{\B}$.
+% \end{proposition}
 
 %%% Local Variables:
 %%% mode: latex

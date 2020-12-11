@@ -23,6 +23,12 @@
 
 \section{Операционна семантика}
 
+
+\marginpar{
+  Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на термовете.
+  Също така, няма как да дефинираме релация $\tau \Downarrow L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
+}
+
 Да фиксираме една програма на езика \REG:
 \begin{align*}
   & X_1 = \tau_1[X_1,\dots,X_n]\\
@@ -32,15 +38,6 @@
 
 С индукция по $\ell$, дефинираме релацията $\tau \Downarrow^\ell \alpha$,
 където $\tau$ е терм на езика \REG със свободни променливи измежду $X_1,\dots, X_n$.
-
-\marginpar{
-  \begin{itemize}
-  \item 
-    Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на термовете. Защо?
-  \item
-    Тук няма как да дефинираме релация $\tau \Downarrow L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
-  \end{itemize}
-}
 
 
 \begin{framed}
@@ -260,7 +257,7 @@
 
 \section{Еквивалентност на денотационната и операционната семантика}
 
-Нека тук да фиксираме една програма $R$
+Нека оттук нататък да фиксираме една програма $R$ на езика \REG:
 \begin{align*}
   & X_1 = \tau_1[X_1,\dots,X_n]\\
     & \vdots\\
@@ -270,10 +267,13 @@
 \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]
 Този резултат ще наречем теорема за еквивалентност. Това ще направим на две стъпки.
 
-\marginpar{Да напомним, че $L_i = \bigcup_k L^k_i$, където $L^0_i = \emptyset$ и $L^{k+1}_i = \val{\tau_i}(L^k_1,\dots,L^k_n)$. }
+\marginpar{Да напомним, че $L_i = \bigcup_k L^k_i$, където:
+  \begin{align*}
+    & L^0_i = \emptyset\\
+    & L^{k+1}_i = \val{\tau_i}(L^k_1,\dots,L^k_n).
+  \end{align*}}
 
 \begin{lemma}
-  \marginpar{Тук раборим при фиксирана програма $R$.}
   За всеки индекс $r$ и всеки терм $\tau$ на езика \REG с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
   \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
 \end{lemma}
@@ -359,6 +359,7 @@
     От правилата на операционната семантика имаме, че:
     \begin{prooftree}
       \AxiomC{$\tau_j \Downarrow \beta$}
+      \RightLabel{\scriptsize{(rec)}}
       \UnaryInfC{$a \cdot X_j \Downarrow a \cdot \beta$}
     \end{prooftree}
     Понеже $\tau \equiv a \cdot X_j$, получаваме следното:
@@ -425,6 +426,7 @@
     Първият случай е когато имаме, че $\tau \equiv a \cdot X_j$ и
     \begin{prooftree}
       \AxiomC{$\tau_j \Downarrow^{\ell-1} \beta$}
+      \RightLabel{\scriptsize{(rec)}}
       \UnaryInfC{$a \cdot X_j \Downarrow^\ell a \cdot \beta$}
     \end{prooftree}
     Според правилата на операционната семантика имаме, че:

@@ -35,7 +35,7 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
     \hline
   \end{tabular}
   
-  Докажете, че $sor$ е определима в PCF.
+  Докажете, че $\texttt{sor}$ е определима в PCF.
 \end{problem}
 \begin{hint}
   Разгледайте затворения терм
@@ -99,7 +99,7 @@ ghci> undefined || True
     \hline
   \end{tabular}
 
-  Докажете, че $f = por$.
+  Докажете, че $f = \texttt{por}$.
   
 \end{problem}
 \begin{hint}
@@ -109,7 +109,7 @@ ghci> undefined || True
 \begin{problem}\label{prob:pcf:full-abstraction:not-definable}
   Да разгледаме изображението $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което
   \[f(0)(0) = 0\text{ и } f(1)(\bot) = f(\bot)(1) = 1.\]
-  Докажете, че $f$ не е определима в PCF.
+  Докажете, че $f$ не е определимо в PCF.
 \end{problem}
 \begin{hint}
   Да допуснем, че $f$ е определима в PCF.

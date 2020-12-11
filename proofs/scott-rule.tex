@@ -15,16 +15,15 @@
   \BinaryInfC{$P(\texttt{lfp}(f))$}
 \end{prooftree}
 \end{itemize}
-
 \begin{proof}
-  
+  ....
 \end{proof}
 
 \begin{problem}
   \marginpar{Сравнете с \Prop{prefix-point}}
   Нека $f \in \Cont{\A}{\A}$.
   Да означим множеството от преднеподвижни точки на $f$ като
-  \[\texttt{Pref}(f) \dff \{a \in \A \mid f(a) \sqsubseteq a\}.\]
+  \[\texttt{Pref}(f) \df \{a \in \A \mid f(a) \sqsubseteq a\}.\]
   Тогава 
   \[(\forall a \in \A)[a \in \texttt{Pref}(f) \implies \lfp(f) \sqsubseteq a].\]
 \end{problem}
@@ -32,7 +31,7 @@
   Да фиксираме елемент $a \in \texttt{Pref}(f)$.
   Да разгледаме непрекъснатото свойство
   \marginpar{Сами се убедете, че $P$ е непрекъснато свойство!}
-  \[P(b) \dfff b \sqsubseteq a.\]
+  \[P(b) \df b \sqsubseteq a.\]
   Ясно е, че $P(\bot)$.
   Нека $b\in \A$, за който $P(b)$. Ще докажем, че $P(f(b))$.
   \begin{align*}
@@ -56,7 +55,7 @@
 \end{problem}
 \begin{proof}
   Разгледайте непрекъснатото свойството 
-  \[P(a) \dfff f(a) \sqsubseteq g(a).\]
+  \[P(a) \df f(a) \sqsubseteq g(a).\]
   От условието имаме, че $P(\bot)$.
   Нека $P(a)$. Ще докажем, че $P(g(a))$.
   \begin{align*}
@@ -89,7 +88,7 @@
   \begin{itemize}
   \item 
     Разгледайте непрекъснатото свойство 
-    \[P_1(a) \dfff h(a) \sqsubseteq g(h(a)).\]
+    \[P_1(a) \df h(a) \sqsubseteq g(h(a)).\]
     Докажете с правилото на Скот, че $P_1(\lfp(f))$.
     Тогава
     \begin{align*}
@@ -102,7 +101,7 @@
     Заключаваме, че $\lfp(g) \sqsubseteq h(\lfp(f))$.
   \item
     Другата посока е по-лесна. Разгледайте непрекъснатото свойство
-    \[P_2(a) \dfff h(a) \sqsubseteq \lfp(g).\]
+    \[P_2(a) \df h(a) \sqsubseteq \lfp(g).\]
     Докажете, че $P_2(\lfp(f))$.
   \end{itemize}
 \end{hint}
@@ -122,7 +121,7 @@
 \begin{hint}
   Разгледайте непрекъснатото свойство
   \marginpar{Лесно се вижда, че $P$ е непрекъснато свойство, защото $f$ и $g$ са непрекъснати изображения.}
-  \[P(a) \dfff g(f(a)) \sqsubseteq a.\]
+  \[P(a) \df g(f(a)) \sqsubseteq a.\]
   Ясно е, че $P(\bot)$.
   Нека $P(a)$. Ще докажем, че $P(f(g(a))$.
   \begin{align*}
@@ -155,13 +154,13 @@
       \bot, & p(x) = \bot.
     \end{cases}
   \end{align*}
-  Докажете, че ако $f_\Gamma \dff \lfp(\Gamma)$, то
+  Докажете, че ако $f_\Gamma \df \lfp(\Gamma)$, то
   \[(\forall a,b\in\A)[h(f_\Gamma(a,b)) = f_\Gamma(a,h(b))].\]
 \end{problem}
 \ifhints
 \begin{hint}
   Разгледайте непрекъснатото свойство
-  \[P(g) \dfff (\forall a,b\in\A)[h(g(a,b)) = g(a,h(b))].\]
+  \[P(g) \df (\forall a,b\in\A)[h(g(a,b)) = g(a,h(b))].\]
 \end{hint}
 \fi
 
@@ -178,13 +177,13 @@
       \bot, & p(x) = \bot.
     \end{cases}
   \end{align*}
-  Докажете, че ако $f_\Gamma \dff \lfp(\Gamma)$, то
+  Докажете, че ако $f_\Gamma \df \lfp(\Gamma)$, то
   \[(\forall a\in\A)[f_\Gamma(f_\Gamma(a)) = f_\Gamma(a)].\]
 \end{problem}
 \ifhints
 \begin{hint}
   Разгледайте непрекъснатото свойство
-  \[P(g) \dfff (\forall a \in \A)[f_\Gamma(g(a)) = g(a)].\]
+  \[P(g) \df (\forall a \in \A)[f_\Gamma(g(a)) = g(a)].\]
 \end{hint}
 \fi
 
@@ -205,7 +204,7 @@
       \bot, & p(x) = \bot;
     \end{cases}
   \end{align*}
-  Докажете, че ако $f_1 \dff \lfp(\Gamma_1)$ и $f_2 = \lfp(\Gamma_2)$, то
+  Докажете, че ако $f_1 \df \lfp(\Gamma_1)$ и $f_2 = \lfp(\Gamma_2)$, то
   $f_1 = f_2$.
 \end{problem}
 \ifhints
@@ -213,9 +212,9 @@
   Разгледайте непрекъснатото изображение $\Delta$, където
   \[\Delta(f,g) = \pair{\Gamma_1(f),\Gamma_2(g)}.\]
   Разгледайте свойството:
-  \[P(f,g) \dfff f = g\ \&\ (\forall a,b \in \A)[h(f(a,b))) = f(a,h(b))].\]
+  \[P(f,g) \dff f = g\ \&\ (\forall a,b \in \A)[h(f(a,b))) = f(a,h(b))].\]
   Първо трябва да се съобрази, че това свойство е непрекъснато, което не е трудно.
-  Ясно е, че $P(\Omega,\Omega)$.
+  Ясно е, че $P(\bot,\bot)$.
   Докажете, че $P(f,g) \implies P(\Delta(f,g))$.
 \end{hint}
 \fi

@@ -1,6 +1,6 @@
 \begin{framed}
 \begin{lemma}[Лема за замяната]\label{lem:pcf:substitution}
-  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, и
+  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, $\vv{x} \not\in \texttt{dom}(\Gamma)$,
   \begin{align*}
     & \Gamma \vdash \rho : \vv{a}\\
     & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
@@ -82,6 +82,16 @@
     \end{prooftree}
     Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
     \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
+    
+    Сега трябва да проверим защо $\val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) = \val{\fix(\tau)}_{\Gamma'})(\ov{u},\val{\rho}_\Gamma)$.
+    Получаваме следното:
+    \begin{align*}
+      \val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) & = \lfp(\val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{от деф.}\\
+                                                       & = \lfp(\val{\tau}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от И.П. за }\tau\\
+                                                       & = \val{\fix(\tau)}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
+    \end{align*}
+    
+    
   \item
     \marginpar{Тук е важно, че $\val{\Delta} = \val{\Gamma} \times \val{\vv{a}_n}$}
 
@@ -130,6 +140,8 @@
     
   \end{itemize}
 \end{proof}
+
+
 
 %%% Local Variables:
 %%% mode: latex
