@@ -128,6 +128,42 @@
   \end{itemize}
 \end{proof}
 
+\hyperref[th:pcf:soundness]{Теоремата за коректност} частично потвърждава нашата интуиция, че за типа $\vv{nat}$
+можем да си мислим за $\bot^{\val{\vv{nat}}}$ като за изчисление, което никога не завършва.
+
+\marginpar{Другата посока ще я получим след малко.}
+
+\begin{corollary}
+  Нека $\tau$ е затворен терм от тип $\vv{nat}$. Тогава
+  \[\val{\tau} = \bot^{\val{\vv{nat}}}\ \implies\ \tau \not\Downarrow_{\nat}.\]
+\end{corollary}
+
+За жалост, тази наша интуиция се ,,губи'', когато се интересуваме от термове от по-висок от $\nat$ тип.
+
+\marginpar{\todo Проверете, че $\tau : \nat\to\nat$.}
+Да разгледаме един пример. Нека 
+\[\tau \equiv \lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}.\]
+
+Тогава
+\begin{align*}
+  \val{\tau} & = \val{\lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}}\\
+             & = \curry(\underbrace{\val{\fix(\lamb{x}{nat}{\vv{x}})}_\Gamma}_{f}) & \comment \Gamma = \vv{y}:\nat\\
+             & = f.
+\end{align*}
+Да видим сега вътрешната част. От дефиницията на денотационната семантика имаме, че:
+\begin{align*}
+  \val{\fix(\lamb{x}{nat}{\vv{x}})}_\Gamma(a) & = \lfp(\val{\lamb{x}{nat}{\vv{x}}}_\Gamma(a))\\
+                                              & = \lfp(\underbrace{\curry(\val{x}_{\Gamma'})(a)}_{g}) & \comment \Gamma' = \vv{y}:\nat,\vv{x}:\nat.
+\end{align*}
+
+Знаем, че $\val{x}_{\Gamma'}(a,b) = b$ за произволни $a,b \in \Nat_\bot$. Тогава за всяко $b \in \Nat_\bot$, $g(b) = \curry(\val{x}_{\Gamma'})(a)(b) = b$, т.е. $g = \texttt{id}$.
+Лесно се съобразява, че $\lfp(\texttt{id}) = \bot^{\val{\nat}}$.
+
+Така получаваме, че за всяко $a \in \Nat_\bot$, $f(a) = \lfp(g) = \bot^{\val{\nat}}$, т.е. 
+\[\val{\tau} = \bot^{\val{\nat\to\nat}}.\]
+
+От друга страна, обаче, $\tau$ представлява стойност. Следователно, $\tau \Downarrow^0_{\nat\to\nat} \tau$.
+
 
 %%% Local Variables:
 %%% mode: latex

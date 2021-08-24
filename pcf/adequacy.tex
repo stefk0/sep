@@ -4,7 +4,7 @@
 \begin{framed}
   \begin{theorem}[Теорема за адекватност]
     За всеки затворен терм $\tau : \vv{nat}$ е изпълнена импликацията
-    \[\val{\tau} = n \neq \bot \implies \tau \Downarrow_{\vv{nat}} \vv{n}.\]
+    \[\val{\tau} = n \neq \bot^{\val{\nat}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}.\]
   \end{theorem}
 \end{framed}
 \marginpar{Тук $n$ е число, а $\vv{n}$ е константа.}
@@ -352,7 +352,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   \[\tau \in \text{PCF}_{\vv{a}} \implies \val{\tau} \triangleleft_{\vv{a}} \tau.\]
 \end{corollary}
 
-Вече на практика доказахме теоремата за адекватност.
+Така на практика доказахме теоремата за адекватност.
 
 \begin{framed}
   \begin{theorem}[Теорема за адекватност]\label{th:pcf:adequacy}
@@ -367,26 +367,33 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   Тогава от дефиницията на $\triangleleft_{\vv{nat}}$ получаваме, че $\tau \Downarrow_{\vv{nat}} \vv{n}$.
 \end{proof}
 
-\begin{example}
-  Да разгледаме термовете $\tau \equiv \lamb{x}{nat}{\vv{x + 0}}$ и $\rho \equiv \lamb{x}{nat}{\vv{x}}$.
-  Ясно е, че $\val{\tau} = \val{\rho}$, но според правилата на операционната семантика,
-  $\tau \not\Downarrow_{\vv{nat}\to\vv{nat}} \rho$.
-  Оттук веднага е ясно, че няма как да имаме теорема за адекватност за по-високи типове от $\vv{nat}$.
-\end{example}
+Да разгледаме термовете
+\begin{align*}
+  & \tau \equiv \lamb{x}{nat}{\vv{x + 0}}\\
+  & \rho \equiv \lamb{x}{nat}{\vv{x}}.
+\end{align*}
+
+
+Ясно е, че $\val{\tau} = \val{\rho}$, но според правилата на операционната семантика, понеже $\tau$ е стойност, то
+$\tau \not\Downarrow_{\vv{nat}\to\vv{nat}} \rho$.
+Оттук веднага е ясно, че няма как да имаме теорема за адекватност за по-високи типове от $\vv{nat}$.
 
 
 \begin{corollary}
-  За всеки $\tau \in \text{PCF}_{\vv{nat}}$ е изпълнена импликацията:
-  \[\tau \not\Downarrow_{\vv{nat}}\ \implies\ \val{\tau} = \bot^{\val{\vv{nat}}}.\]  
+  За всеки $\tau \in \text{PCF}_{\nat}$ е изпълнена импликацията:
+  \[\tau \not\Downarrow_{\nat}\ \implies\ \val{\tau} = \bot^{\val{\nat}}.\]  
 \end{corollary}
+\begin{proof}
+  Да допуснем, че $\tau \not\Downarrow_{\nat}$, но $\val{\tau} = n \neq \bot$.
+  Но тогава от \hyperref[th:pcf:adequacy]{теоремата за адекватност} следва, че $\tau \Downarrow_{\nat} \vv{n}$, което е противоречие.
+\end{proof}
 
-
-
-
-Но както видяхме в Пример~\ref{pcf:ex:no-adequacy-high-types} не можем да обобщим \hyperref[th:pcf:adequacy]{теоремата за адекватност} за по-високи типове.
-Това означава, че нашата семантика не е напълно ,,добра'' в смисъл, че $\bot^{\val{\vv{a}}}$ елементът не
-отговаря на нашата интуиция за безкрайно изчисление за всеки тип $\vv{a}$.
-
+\begin{framed}
+  \begin{corollary}
+    Нека $\tau$ е затворен терм от тип $\nat$. Тогава 
+    \[\val{\tau} = \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \not\Downarrow_{\nat}.\]
+  \end{corollary}
+\end{framed}
 
 %%% Local Variables:
 %%% mode: latex

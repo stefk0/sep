@@ -1,9 +1,13 @@
-\section{Операционна семантика с предаване на параметрите по име}\label{pcf:sect:operational-cbn}
-\index{операционна семантика!по име}
+\section{Операционна семантика}\label{pcf:sect:operational-cbn}
+\index{операционна семантика}
 
 За затворен терм $\tau : \vv{a}$ и стойност $\vv{v} : \vv{a}$, дефинираме релацията $\tau \Downarrow^\ell_{\vv{a}} \vv{v}$ по
 следния начин.
 \marginpar{Да напомним, че с $\vv{v}$ означаваме стойности, които биват или константи или затворени термове от вида $\lamb{x}{a}{\mu}$.}
+
+\begin{figure}[H]
+  \centering
+  
 \begin{prooftree}
   \AxiomC{$\type{v}{a}$}
   \RightLabel{\scriptsize{(val)}}
@@ -54,6 +58,10 @@
   \RightLabel{\scriptsize{(fix)}}
   \UnaryInfC{$\fix(\tau) \Downarrow^{\ell+1}_{\vv{a}} \vv{v} $}
 \end{prooftree}
+\caption{Правила на операционната семантика за езика \PCF}
+\end{figure}
+
+
 
 \begin{itemize}
 \item 

@@ -1,4 +1,3 @@
-\marginpar{Основно следваме \cite[Глава 9]{winskel}}
 \section{Синтаксис}
 Ще разглеждаме един много прост език за функционално програмиране.
 \begin{itemize}
@@ -35,20 +34,18 @@
   Най-удобно е да си мислим за един терм като за дърво.
 \item
   Ще пишем $\tau_1 \equiv \tau_2$, ако термовете $\tau_1$ и $\tau_2$ представляват едни и същи дървета.
-  Например, $2+3 = 3+2$, но $2+3 \not\equiv 2+3$.
+  Например, $2+3 = 3+2$, но $2+3 \not\equiv 3+2$. 
 \item
+  \marginpar{Тук нямаме усложнения с дефиницията на замяната, защото нямаме свързани променливи.}
   С $\tau[\vv{x}/\mu]$ ще означаваме терма получен от $\tau$, в който всяко срещане на обектовата променлива $\vv{x}$
   е заменена с функционалния терм $\mu$. Можем да дадем формална дефиниция с индукция по построението на термовете:
   \begin{itemize}
   \item
-    Ако $\tau \equiv \vv{n}$, то
-    \[\vv{n}[\vv{x}/\mu] \equiv \vv{n}.\]
+    Ако $\tau \equiv \vv{n}$, то $\vv{n}[\vv{x}/\mu] \equiv \vv{n}$.
   \item
-    Ако $\tau \equiv \vv{x}$, то
-    \[\vv{x}[\vv{x}/\mu] \equiv \mu.\]
+    Ако $\tau \equiv \vv{x}$, то $\vv{x}[\vv{x}/\mu] \equiv \mu$.
   \item
-    Ако $\tau \equiv \vv{y}$ и $\vv{y} \not\equiv \vv{x}$, то
-    \[\vv{y}[\vv{x}/\mu] \equiv \vv{y}.\]
+    Ако $\tau \equiv \vv{y}$ и $\vv{y} \not\equiv \vv{x}$, то $\vv{y}[\vv{x}/\mu] \equiv \vv{y}$.
   \item
     Ако $\tau \equiv \tau_1 + \tau_2$, то
     \[\tau[x/\mu] \equiv \tau_1[x/\mu] + \tau_2[x/\mu].\]

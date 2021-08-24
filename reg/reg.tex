@@ -2,13 +2,14 @@
 
 \section{Регулярни изрази}
 
-Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_k\}$.
+% Да фиксираме азбуката $\Sigma = \{a_1,\dots,a_k\}$.
 \marginpar{Обърнете внимание, че нямаме звездата на Клини в дефиницията на термовете.}
 Следната абстрактна граматика 
 \[\tau ::= \varepsilon\ |\ a \cdot X\ |\ \tau_1 + \tau_2.\]
-описва термовете на езика \REG, където $a$ означава буква от азбуката $\Sigma$, а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
+описва термовете на езика \REG, където $a$ означава буква, която принадлежи на някаква предварително зададена азбука $\Sigma$,
+а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
 \marginpar{Ще използваме малките гръцки букви $\tau,\rho,\mu$, евентуално с индекси, за да означаваме термовете. Думите над азбуката $\Sigma$ ще означаваме с малките гръцки букви $\alpha$, $\beta$, $\gamma$.}
-Програмите на езика езика $\texttt{REG}$ имат следния вид:
+Програмите на езика $\texttt{REG}$ имат следния вид:
 \begin{align*}
   & X_1 = \tau_1[X_1,\dots,X_n]\\
   & \ \vdots\\
@@ -22,7 +23,8 @@
 
 
 \section{Операционна семантика}
-
+\index{операционна семантика}
+\label{reg:sect:operational-semantics}
 
 \marginpar{
   Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на термовете.
@@ -36,6 +38,8 @@
   & X_n = \tau_n[X_1,\dots,X_n].
 \end{align*}
 
+Щом сме фиксирали програмата, с която искаме да работим, това означава, че вече знаем и буквите, които се срещат в програмата,
+а също и променливите, които са $X_1,\dots,X_n$.
 С индукция по $\ell$, дефинираме релацията $\tau \Downarrow^\ell \alpha$,
 където $\tau$ е терм на езика \REG със свободни променливи измежду $X_1,\dots, X_n$.
 
@@ -58,6 +62,9 @@
         \BinaryInfC{$a \cdot X_i \Downarrow^{\ell+1} \alpha$}
       \end{prooftree}
     \end{subfigure}
+
+    \vspace{10pt}
+    
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
         \AxiomC{$\tau_1 \Downarrow^\ell \alpha$}
@@ -77,12 +84,6 @@
   \end{figure}
 \end{framed}
 Ще пишем $\tau \Downarrow \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \Downarrow^\ell \alpha$.
-
-
-\begin{proposition}
-  Докажете, че ако $\tau \Downarrow \alpha$ и $\tau \Downarrow \beta$, то $\alpha = \beta$.
-\end{proposition}
-
 
 \begin{example}
   \marginpar{На всяка променлива от програмата $R$ съответства състояние на автомата.}
@@ -114,6 +115,10 @@
 \end{example}
 
 \section{Денотационна семантика}
+\index{денотационна семантика}
+\label{reg:sect:denotational-semantics}
+
+\marginpar{Тук отново приемаме, че сме работим с предварително фиксирана програма какво в Раздел~\ref{reg:sect:operational-semantics}.}
 
 \begin{problem}
   Докажете, че $\mathcal{S} = (\mathcal{P}(\Sigma^\star), \subseteq, \emptyset)$ е област на Скот.
@@ -127,7 +132,7 @@
 \item 
   $\val{\varepsilon}(L_1,\dots,L_n) = \{\varepsilon\}$.
 \item 
-  $\val{a_i \cdot X_j}(L_1,\dots,L_n) = \{a_i\} \cdot L_j$.
+  $\val{a \cdot X_j}(L_1,\dots,L_n) = \{a\} \cdot L_j$.
 \item
   $\val{\tau_1 + \tau_2}(L_1,\dots,L_n) = \val{\tau_1}(L_1,\dots,L_n) \cup \val{\tau_2}(L_1,\dots,L_n)$.
 \end{itemize}
@@ -137,7 +142,7 @@
   $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
 \end{problem}
 
-\marginpar{Програмата е просто текст. Системата е редица от уравнения на непрекъснати изображения.}
+\marginpar{Програмата е просто редове с текст. На този текст съотвества система от уравнения от непрекъснати изображения.}
 
 \begin{example}
   Да разгледаме програмата $R$, където:
@@ -174,6 +179,7 @@
   \item
     $(L_5,M_5) \df \Gamma(L_4,M_4) = ( \val{\tau_1}(L_4,M_4), \val{\tau_2}(L_4,M_4)) = (\{bba, bba, ba,a\},\{\varepsilon\})$.
   \end{itemize}
+  \marginpar{\writedown Докажете!}
   Лесно се съобразява, че $L_n = \{ b^ka \mid k < n\}$, а $M_n = \{\varepsilon\}$. Тогава
   \[\lfp( \Gamma ) = (\bigcup_n L_n, \bigcup_n M_n) = (\{b\}^\star \cdot \{a\}, \{\varepsilon\} ).\]
 \end{example}
@@ -200,7 +206,8 @@
     \end{tikzpicture}
     \caption{Автомат разпознаващ $\{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}$}
   \end{figure}
-  На този автомат съответства следната програма $R$:
+  \noindent
+  На този автомат съответства следната програма на езика \REG:
   \begin{align*}
     & X_1 = a \cdot X_2 + b \cdot X_1 + \varepsilon \\
     & X_2 = a \cdot X_3 + b \cdot X_2\\
@@ -213,6 +220,7 @@
     & L_3 = \{a\} \cdot L_1 \cup \{b\} \cdot L_3.
   \end{align*}
   Най-малкото решение на тази система е тройката $(\hat{L}_1,\hat{L}_2,\hat{L}_3)$ от следните езици:
+  \marginpar{\writedown Докажете!}
   \begin{align*}
     \hat{L}_1 = & \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}\\
     \hat{L}_2 = & \{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 2 \bmod\ 3\}\\
@@ -221,11 +229,12 @@
 \end{example}
 
 \begin{example}
-  Да разгледаме системата от само едно уравнение
+  Да разгледаме следната система съставена само от едно уравнение:
   \[L = \{a\} \cdot L.\]
+  \marginpar{Този пример ни подсказва защо се интересуваме от най-малкото решение на една система, а не просто от някое решение на систамата.}
   Най-малкото решение на тази система е езикът $\emptyset$,
   но тази система има за решение и езикът $\{a^n \mid n > 0\}$.
-  Да разгледаме сега програмата
+  Да разгледаме сега програмата на езика \REG
   \[X = \underbrace{a \cdot X}_{\tau[X]}.\]
   Лесно се съобразява, че $\emptyset = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}$.
 \end{example}
@@ -237,11 +246,11 @@
     & X_1 = a \cdot X_1 + b \cdot X_2 + \varepsilon\\
     & X_2 = b \cdot X_2 + \varepsilon
   \end{align*}
-  е двойката $(\{a\}^\star \cdot \{b\}^\star, \{b\}^\star)$.
-  
+  е двойката от езици $(\{a\}^\star \cdot \{b\}^\star, \{b\}^\star)$.
 \end{problem}
 
 \begin{problem}[Теорема за характеризация]
+  \marginpar{Да се даде упътване}
   Да разгледаме системата от непрекъснати оператори
   \begin{align*}
     & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
@@ -263,7 +272,7 @@
     & \vdots\\
   & X_n = \tau_n[X_1,\dots,X_n].
 \end{align*}
-Нека $(L_1,\dots,L_n)$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$. Целта ни е да докажем, че за всяко $i = 1,\dots,n$ е изпълнено, че:
+Нека също $(L_1,\dots,L_n)$ да бъде най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$. Целта ни е да докажем, че за всяко $i = 1,\dots,n$ е изпълнено, че:
 \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]
 Този резултат ще наречем теорема за еквивалентност. Това ще направим на две стъпки.
 
@@ -283,14 +292,15 @@
   \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}".\]
   Целта ни е да докажем, че $(\forall r\in\Nat)\textbf{Include}(r)$. Това ще направим с индукция по $r$.
   
-  Нека $r = 0$. Знаем, че $L^0_i = \emptyset$ за всеки индекс $i$ измежду $1,\dots,n$. Тук ще направим вътрешна индукция по построението на термовете $\tau$ за да докажем, че:
+  Нека $r = 0$. Знаем, че $L^0_i = \emptyset$ за всеки индекс $i$ измежду $1,\dots,n$.
+  \marginpar{Тук е важно, че дефиницията на денотационната семантика следва индуктивното построение на термовете.}
+  За да докажем, че $\textbf{Include}(0)$ е изпълнено, ще направим индукция по построението на термовете $\tau$ за да докажем, че:
   \begin{equation}
     \label{eq:17}
     \val{\tau}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}
   \end{equation}
   \begin{itemize}
   % \item
-    \marginpar{Тук е важно, че дефиницията на денотационната семантика следва индуктивното построение на термовете.}
     % Нека $\tau \equiv \emptyset$. Понеже $\val{\tau}(L^0_1,\dots,L^0_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:17} е изпълнено.
   \item
     Нека $\tau \equiv \varepsilon$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \{\varepsilon\}$.
@@ -339,16 +349,16 @@
 
   Нека $r > 0$ и като индукционно предположение да приемем, че е изпълнено $\textbf{Include}(r-1)$. Ще докажем, че е изпълнено $\textbf{Include}(r)$.
   \marginpar{Тук знаем, че \[L^r_i = \val{\tau_i}(L^{r-1}_1,\dots,L^{r-1}_n).\]}
-  Ще направим вътрешна индукция по построението на термовете $\tau$ за да докажем, че:
+  Ще направим индукция по построението на термовете $\tau$ за да докажем, че:
   \begin{equation}
     \label{eq:18}
     \val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
   \end{equation}
   \begin{itemize}
   \item
-    Нека $\tau \equiv \emptyset$. Отново, понеже $\val{\tau}(L^0_1,\dots,L^0_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:18} е изпълнено.
+    Нека $\tau \equiv \emptyset$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:18} е изпълнено.
   \item
-    Нека $\tau \equiv \varepsilon$. Отново, понеже $\val{\tau}(L^0_1,\dots,L^0_n) = \{\varepsilon\}$,
+    Нека $\tau \equiv \varepsilon$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \{\varepsilon\}$,
     то от правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
     Заключаваме, че Свойство~\ref{eq:18} е изпълнено.
   \item
@@ -377,7 +387,7 @@
   \item
     Нека $\tau \equiv \rho + \mu$. Тук имаме, че
     \[\val{\tau}(L^r_1,\dots,L^r_n) = \val{\rho}(L^r_1,\dots,L^r_n) \cup \val{\mu}(L^r_1,\dots,L^r_n).\]
-    Понеже $\tau$ е построен с помощта на $\rho$ и $\mu$, можем да използваме вътрешното индукционно предположение за $\rho$ и $\mu$, откъдето имаме, че:
+    Понеже $\tau$ е построен с помощта на $\rho$ и $\mu$, можем да използваме (вътрешното) индукционно предположение за $\rho$ и $\mu$, откъдето имаме, че:
     \begin{align*}
       & \val{\rho}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\}\\
       & \val{\mu}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}.
@@ -409,7 +419,7 @@
 \end{proof}
 
 \begin{lemma}
-  Нека $L_1,\dots,L_n$ е неподвижна точка на $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$.
+  Нека $L_1,\dots,L_n$ е някоя неподвижна точка на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$.
   За всеки терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е  изпълнено, че:
   \[\{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n).\]
 \end{lemma}
@@ -418,9 +428,13 @@
   \[\{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n)".\]
   Ще докажем, че $(\forall \ell\in\Nat)\textbf{Include}(\ell)$.
 
-  Нека $\ell = 0$. Според правилата на операционната семантика, единственият случай, който имаме тук е $\tau \equiv \varepsilon$.
+  Нека $\ell = 0$. Според правилата на операционната семантика, единственият случай за $\tau \Downarrow^0 \alpha$ е когато $\tau \equiv \varepsilon$.
+  Тогава е ясно, че имаме $\textbf{Include}(0)$, защото
+  \[\{\alpha \in \Sigma^\star \mid \varepsilon \Downarrow^0 \alpha\} = \{\varepsilon\} = \val{\varepsilon}(L_1,\dots,L_n).\]
 
-  Нека $\ell > 0$ и да разгледаме дума $\alpha$ и терм $\tau$, за които $\tau \Downarrow^\ell \alpha$. Тогава имаме три случая в зависимост от това какво е последното правило, което сме приложили.
+  Нека $\ell > 0$ и да приемем, че е изпълнено $\textbf{Include}(\ell-1)$, което ще ни служи като индукционно предположение.
+  Да разгледаме дума $\alpha$ и терм $\tau$, за които $\tau \Downarrow^\ell \alpha$. 
+  Според правилата на операционната семантика, имаме три случая в зависимост от това какво е последното правило, което сме приложили.
   \begin{itemize}
   \item
     Първият случай е когато имаме, че $\tau \equiv a \cdot X_j$ и
@@ -434,8 +448,13 @@
       \label{eq:22}
       \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} = \{\alpha \in \Sigma^\star \mid \tau \Downarrow^{\ell} \alpha\}
     \end{equation}
-    Знаем, че $\val{\tau}(L_1,\dots,L_n) = \{a\} \cdot L_j = \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n)$,
-    защото $L_1,\dots,L_n$ е \emph{неподвижна точка} на изображението $\Gamma$.
+    От дефиницията на денотационната семантика знаем, че:
+    \begin{align*}
+      \val{\tau}(L_1,\dots,L_n) & = \val{a\cdot X_j}(L_1,\dots,L_n) \\
+                                & = \{a\} \cdot L_j \\
+                                & = \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n)
+    \end{align*}
+    защото $L_1,\dots,L_n$ е \emph{неподвижна точка} на изображението $\Gamma$ и $L_j = \val{\tau_j}(L_1,\dots,L_n)$.
     От $\textbf{Include}(\ell-1)$ имаме следното:
     \begin{equation}
       \label{eq:11}
@@ -445,7 +464,7 @@
     \begin{align*}
       \{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} & \comment\text{от (\ref{eq:22})}\\
                                                                    & \subseteq \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n) & \comment\text{от (\ref{eq:11})}\\
-                                                                   & = \{a\} \cdot L_j & \comment L_1,\dots,L_n\text{ е неподв. точка}\\
+                                                                   & = \{a\} \cdot L_j & \comment L_j = \val{\tau_j}(L_1,\dots,L_n)\\
       & = \val{\tau}(L_1,\dots,L_n) & \comment\text{деф. на денот. сем.}
     \end{align*}
   \item
@@ -488,6 +507,7 @@
 \input{reg/arden}
 
 \input{reg/cfg}
+
 
 %%% Local Variables:
 %%% mode: latex

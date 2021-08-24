@@ -17,6 +17,8 @@ $\Delta = \vv{z}:\vv{nat}\to\vv{nat}$.
 Сега ще дефинираме релация $\Gamma \vdash \tau : \vv{a}$, която ще ни казва, че термът $\tau$, относно типовият контекст $\Gamma$,
 е добре типизиран и има тип $\vv{a}$.
 
+\begin{figure}[H]
+  \centering
 \begin{prooftree}
   \AxiomC{}
   \RightLabel{\scriptsize{(const)}}
@@ -71,6 +73,11 @@ $\Delta = \vv{z}:\vv{nat}\to\vv{nat}$.
   \RightLabel{\scriptsize{(lambda)}}
   \BinaryInfC{$\Gamma \vdash \lambda \type{x}{a}\ .\ \tau : \vv{a} \to \vv{b}$}
 \end{prooftree}
+  
+  \caption{Релация за типизиране на термовете от езика \PCF}
+  \label{fig:pcf:types:relation}
+\end{figure}
+
 
 Ако имаме затворен израз $\tau$, то ще пишем $\tau : \vv{a}$ вместо $\emptyset \vdash \tau : \vv{a}$.
 Да положим

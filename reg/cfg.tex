@@ -1,4 +1,5 @@
 \subsection{Езикът \CFG}
+\index{език!безконтекстен}
 
 Термовете на езика \CFG се описват със следната абстрактна граматика:
 \[\tau ::= \varepsilon\ |\ a\ |\ X\ |\ \tau_1 \cdot \tau_2\ |\ \tau_1 + \tau_2.\]
@@ -32,6 +33,9 @@
         \UnaryInfC{$a \Downarrow^1 a$}
       \end{prooftree}
     \end{subfigure}
+
+    \vspace{10pt}
+
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
         \AxiomC{$\tau_1 \Downarrow^\ell \alpha$}
@@ -48,6 +52,8 @@
       \end{prooftree}
     \end{subfigure}
 
+    \vspace{10pt}
+    
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
         \AxiomC{$\tau_i \Downarrow^\ell \alpha$}
@@ -58,8 +64,8 @@
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_1 \Downarrow^\ell_1 \alpha_1$}
-        \AxiomC{$\tau_2 \Downarrow^\ell_2 \alpha_2$}
+        \AxiomC{$\tau_1 \Downarrow^{\ell_1} \alpha_1$}
+        \AxiomC{$\tau_2 \Downarrow^{\ell_2} \alpha_2$}
         \RightLabel{\scriptsize{(concat)}}
         \BinaryInfC{$\tau_1 \cdot \tau_2 \Downarrow^{\ell_1+\ell_2+1} \alpha_1\cdot\alpha_2$}
       \end{prooftree}
@@ -94,7 +100,7 @@
   $\mathcal{S} = ( \mathcal{P}(\Sigma^\star),\subseteq, \emptyset)$.
 \end{problem}
 
-\marginpar{Тук \hyperref[prob:reg:arden]{правилото на Ардън} не работи! Защо?}
+\marginpar{Тук \hyperref[prob:reg:arden]{правилото на Ардън} не работи!}
 
 \begin{example}
   Да разгледаме следната програма на езика \CFG.
@@ -126,6 +132,7 @@
         & = \{b^nc^n \mid 3 > n\}.
   \end{align*}
 
+  \marginpar{\writedown Довършете доказателството!}
   Сега вече сме готови да формулираме нашето индукционно предположение:
   \begin{align*}
     L_t & = \{a^mb^nc^k \mid t-1 > m+n = k\}\\

@@ -1,5 +1,5 @@
 \section{Пълна абстракция}\label{pcf:sect:full-abstraction}
-\marginpar{Full abstraction на англ.}
+\marginpar{Full abstraction на англ., \cite{milner-fully-abstract}.}
 \begin{definition}
   \marginpar{\cite[стр. 179]{gunter}}
   Денотационната семантика $\val{.}$ се нарича {\bf напълно абстрактна}, ако
@@ -10,7 +10,7 @@
 
 \begin{framed}
   \begin{theorem}[Гордън Плоткин 1977]
-    Денотационната семантика $\val{.}$ за езика PCF {\bf не е} напълно абстрактна.
+    Денотационната семантика $\val{.}$ за \PCF++ {\bf не е} напълно абстрактна.
   \end{theorem}
 \end{framed}
 Да напомним, че от \Th{pcf:context:connection} винаги имаме следното:
@@ -18,48 +18,79 @@
 Сега ще се захванем с търсенето на термове $\tau_1$ и $\tau_2$, за които
 $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 
-
 \begin{problem}
-  Да дефинираме функцията $sor:\Nat_\bot \to (\Nat_\bot \to \Nat_\bot)$ по следния начин:
+  Да дефинираме функцията $sor:\Bool \to (\Bool \to \Bool)$ по следния начин:
   \marginpar{$sor$ идва от sequential or.}
+
+  \vspace{10pt}
   
   \begin{tabular}{|c|c|c|c|}
     \hline
-    $sor$ & $\bot$ & $0$ & $y>0$ \\
+    $sor$ & $\bot$ & $false$ & $true$ \\
     \hline
     $\bot$ & $\bot$ & $\bot$ & $\bot$\\
     \hline
-    $0$ & $\bot$ & $0$ & $1$\\
+    $false$ & $\bot$ & $false$ & $true$\\
     \hline
-    $x>0$ & $1$ & $1$ & $1$\\
+    $true$ & $true$ & $true$ & $true$\\
     \hline
   \end{tabular}
+
+  \vspace{10pt}
   
-  Докажете, че $\texttt{sor}$ е определима в PCF.
+  Докажете, че $\texttt{sor}$ е определима в \PCFPP.
 \end{problem}
 \begin{hint}
   Разгледайте затворения терм
-  \[\tau \df \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{x}}{\vv{1}}{\ifelse{\vv{y}}{\vv{1}}{\vv{0}}}}}\]
+  \[\tau \df \lamb{x}{bool}{\lamb{y}{bool}{\ifelse{\vv{x}}{\tru}{{\ifelse{\vv{y}}{\tru}{\fls}}}}}\]
   Докажете, че $\val{\tau} = sor$.
 \end{hint}
 
 
+
+% \begin{problem}
+%   Да дефинираме функцията $sor:\Nat_\bot \to (\Nat_\bot \to \Nat_\bot)$ по следния начин:
+%   \marginpar{$sor$ идва от sequential or.}
+  
+%   \begin{tabular}{|c|c|c|c|}
+%     \hline
+%     $sor$ & $\bot$ & $0$ & $y>0$ \\
+%     \hline
+%     $\bot$ & $\bot$ & $\bot$ & $\bot$\\
+%     \hline
+%     $0$ & $\bot$ & $0$ & $1$\\
+%     \hline
+%     $x>0$ & $1$ & $1$ & $1$\\
+%     \hline
+%   \end{tabular}
+  
+%   Докажете, че $\texttt{sor}$ е определима в PCF.
+% \end{problem}
+% \begin{hint}
+%   Разгледайте затворения терм
+%   \[\tau \df \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{x}}{\vv{1}}{\ifelse{\vv{y}}{\vv{1}}{\vv{0}}}}}\]
+%   Докажете, че $\val{\tau} = sor$.
+% \end{hint}
+
 \begin{problem}
+  Да дефинираме изображението $por:\Bool \to (\Bool \to \Bool)$ по следния начин:
 
-Да дефинираме изображението $por:\Nat_\bot\to(\Nat_\bot \to \Nat_\bot)$ по следния начин:
-
-\begin{tabular}{|c|c|c|c|}
+  \vspace{10pt}
+  
+  \begin{tabular}{|c|c|c|c|}
   \hline
-  $por$ & $\bot$ & $0$ & $y>0$\\
+  $por$ & $\bot$ & $false$ & $true$\\
   \hline
-  $\bot$ & $\bot$ & $\bot$ & $1$\\
+  $\bot$ & $\bot$ & $\bot$ & $true$\\
   \hline
-  $0$ & $\bot$ & $0$ & $1$\\
+  $false$ & $\bot$ & $false$ & $true$\\
   \hline
-  $x>0$ & $1$ & $1$ & $1$\\
+  $true$ & $true$ & $true$ & $true$\\
   \hline
 \end{tabular}
 \marginpar{$por$ идва от parallel or.}
+
+\vspace{10pt}
 
   Докажете, че $por$ е непрекъснато изображение.
 \end{problem}
@@ -67,10 +98,35 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   Достатъчно е да се съобрази, че $por$ е монотонно изображение.
 \end{hint}
 
+
+
+% \begin{problem}
+
+% Да дефинираме изображението $por:\Nat_\bot\to(\Nat_\bot \to \Nat_\bot)$ по следния начин:
+
+% \begin{tabular}{|c|c|c|c|}
+%   \hline
+%   $por$ & $\bot$ & $0$ & $y>0$\\
+%   \hline
+%   $\bot$ & $\bot$ & $\bot$ & $1$\\
+%   \hline
+%   $0$ & $\bot$ & $0$ & $1$\\
+%   \hline
+%   $x>0$ & $1$ & $1$ & $1$\\
+%   \hline
+% \end{tabular}
+% \marginpar{$por$ идва от parallel or.}
+
+%   Докажете, че $por$ е непрекъснато изображение.
+% \end{problem}
+% \begin{hint}
+%   Достатъчно е да се съобрази, че $por$ е монотонно изображение.
+% \end{hint}
+
 \begin{framed}
   \begin{lemma}[Гордън Плоткин 1977]
-    Изображението $por$ не е определимо в PCF, т.е. не съществува затворен терм $\rho$,
-    за който $\val{\rho} = por$.
+    Изображението $por$ не е определимо в \PCFPP, т.е. не съществува затворен терм $\tau$ на езика \PCFPP,
+    за който $\val{\tau} = por$.
   \end{lemma}
 \end{framed}
 
@@ -85,20 +141,24 @@ ghci> undefined || True
 \end{example}
 
 \begin{problem}\label{prob:pcf:full-abstraction:por}
-  Да разгледаме $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което имаме ограниченията:
+  Да разгледаме $f \in \Cont{\Bool}{\Cont{\Bool}{\Bool}}$, за което имаме ограниченията:
 
+  \vspace{10pt}
+  
   \begin{tabular}{|c|c|c|c|}
     \hline
-    $f$ & $\bot$ & $0$ & $y>0$\\
+    $f$ & $\bot$ & $false$ & $true$\\
     \hline
-    $\bot$ & $?$ & $?$ & $1$\\
+    $\bot$ & $?$ & $?$ & $true$\\
     \hline
-    $0$ & $?$ & $0$ & $?$\\
+    $false$ & $?$ & $false$ & $?$\\
     \hline
-    $x>0$ & $1$ & $?$ & $?$\\
+    $true$ & $true$ & $?$ & $?$\\
     \hline
   \end{tabular}
 
+  \vspace{10pt}
+  
   Докажете, че $f = \texttt{por}$.
   
 \end{problem}
@@ -106,132 +166,218 @@ ghci> undefined || True
   Използвайте монотонността на $f$.
 \end{hint}
 
+
+% \begin{problem}\label{prob:pcf:full-abstraction:por}
+%   Да разгледаме $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което имаме ограниченията:
+
+%   \begin{tabular}{|c|c|c|c|}
+%     \hline
+%     $f$ & $\bot$ & $0$ & $y>0$\\
+%     \hline
+%     $\bot$ & $?$ & $?$ & $1$\\
+%     \hline
+%     $0$ & $?$ & $0$ & $?$\\
+%     \hline
+%     $x>0$ & $1$ & $?$ & $?$\\
+%     \hline
+%   \end{tabular}
+
+%   Докажете, че $f = \texttt{por}$.
+  
+% \end{problem}
+% \begin{hint}
+%   Използвайте монотонността на $f$.
+% \end{hint}
+
 \begin{problem}\label{prob:pcf:full-abstraction:not-definable}
-  Да разгледаме изображението $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което
-  \[f(0)(0) = 0\text{ и } f(1)(\bot) = f(\bot)(1) = 1.\]
-  Докажете, че $f$ не е определимо в PCF.
+  Да разгледаме изображението $f \in \Cont{\Bool}{\Cont{\Bool}{\Bool}}$, за което
+  \[f(false)(false) = false\text{ и } f(true)(\bot) = f(\bot)(true) = true.\]
+  Докажете, че $f$ не е определимо в \PCFPP.
 \end{problem}
 \begin{hint}
-  Да допуснем, че $f$ е определима в PCF.
-  Тогава $f = \val{\tau}$, за някой затворен терм $\tau : \nat \to \nat \to \nat$.
-
-  За произволна променлива $\vv{z}$, да положим
-  \[\rho_{\vv{z}} \df \ifelse{\vv{z == 0}}{\vv{0}}{\vv{1}}.\]
-  Нека също положим
-  \begin{align*}
-    \tau' & \df \tau\rho_{\vv{x}};\\
-    \tau'' & \df \tau'\rho_{\vv{y}}.
-  \end{align*}
-  Нека също така $\Gamma \df \type{x}{nat}$ и $\Delta = \type{y}{nat}$.
-  Ясно, че $\val{\tau'}_\Gamma \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$ и
-  \begin{align*} 
-    \val{\tau'}_\Gamma(u)  & = \val{\tau\rho_{\vv{x}}}_\Gamma(u)\\
-                       & = \texttt{eval}(\val{\tau}, \val{\rho_{\vv{x}}}_\Gamma(u))\\
-                       & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))
-  \end{align*}
-  Нека $f' = \val{\tau'}_\Gamma$. Получаваме следното за $f'$.
-  \[f'(u) = f(\val{\rho_{\vv{x}}}_\Gamma(u)) =
-    \begin{cases}
-      f(u), & \text{ако } u = \bot \text{ или } u = 0\\
-      f(1), & \text{ако } u > 0.
-    \end{cases}\]
-  Аналогично, ясно е, че $\val{\tau''}_{\Gamma,\Delta} \in \Cont{\Nat_\bot\times\Nat_\bot}{\Nat_\bot}$ и
-  \begin{align*} 
-    \val{\tau''}_{\Gamma,\Delta}(u,v)  & = \val{\tau'\rho_{\vv{y}}}_{\Gamma,\Delta}(u,v)\\
-                                  & = \texttt{eval}(\val{\tau'}_\Gamma(u), \val{\rho_{\vv{y}}}_\Delta(v))\\
-                                  & = \val{\tau'}_\Gamma(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
-                                  & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))(\val{\rho_{\vv{y}}}_\Delta(v)).
-  \end{align*}
-  Нека сега $f'' = \val{\tau''}_{\Gamma,\Delta}$. Тогава
-  \begin{align*}
-    f''(u,v) & = f'(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
-             & = \begin{cases}
-               f'(u)(v), & \text{ако } v = \bot\text{ или } v = 0\\
-               f'(u)(1), & \text{ако } v > 0
-             \end{cases}
-  \end{align*}
-  Така получаваме следната характеризация на $f''$:
-
-  \begin{tabular}{|c|c|c|c|}
-    \hline
-    $f''$ & $\bot$ & $0$ & $y>0$ \\
-    \hline
-    $\bot$ & $?$ & $?$ & $1$ \\
-    \hline
-    $0$ & $?$ & $0$ & $?$ \\
-    \hline
-    $x>0$ & $1$ & $?$ & $?$\\
-    \hline
-  \end{tabular}
-
-  Нека сега $\rho \df \lamb{x}{nat}{\lamb{y}{nat}{\tau''}}$.
-  Тогава за $g = \val{\rho}$ имаме, че
-  \[g(x)(y) = f''(x,y).\]
-  От \Problem{pcf:full-abstraction:por} получаваме, че $g = por$.
-  Достигаме до противоречие, защото $por$ не е определимо изображение.
+  Директно от предишната задача.
 \end{hint}
+% \begin{hint}
+%   Да допуснем, че $f$ е определима в PCF.
+%   Тогава $f = \val{\tau}$, за някой затворен терм $\tau : \nat \to \nat \to \nat$.
+
+%   За произволна променлива $\vv{z}$, да положим
+%   \[\rho_{\vv{z}} \df \ifelse{\vv{z == 0}}{\vv{0}}{\vv{1}}.\]
+%   Нека също положим
+%   \begin{align*}
+%     \tau' & \df \tau\rho_{\vv{x}};\\
+%     \tau'' & \df \tau'\rho_{\vv{y}}.
+%   \end{align*}
+%   Нека също така $\Gamma \df \type{x}{nat}$ и $\Delta = \type{y}{nat}$.
+%   Ясно, че $\val{\tau'}_\Gamma \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$ и
+%   \begin{align*} 
+%     \val{\tau'}_\Gamma(u)  & = \val{\tau\rho_{\vv{x}}}_\Gamma(u)\\
+%                        & = \texttt{eval}(\val{\tau}, \val{\rho_{\vv{x}}}_\Gamma(u))\\
+%                        & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))
+%   \end{align*}
+%   Нека $f' = \val{\tau'}_\Gamma$. Получаваме следното за $f'$.
+%   \[f'(u) = f(\val{\rho_{\vv{x}}}_\Gamma(u)) =
+%     \begin{cases}
+%       f(u), & \text{ако } u = \bot \text{ или } u = 0\\
+%       f(1), & \text{ако } u > 0.
+%     \end{cases}\]
+%   Аналогично, ясно е, че $\val{\tau''}_{\Gamma,\Delta} \in \Cont{\Nat_\bot\times\Nat_\bot}{\Nat_\bot}$ и
+%   \begin{align*} 
+%     \val{\tau''}_{\Gamma,\Delta}(u,v)  & = \val{\tau'\rho_{\vv{y}}}_{\Gamma,\Delta}(u,v)\\
+%                                   & = \texttt{eval}(\val{\tau'}_\Gamma(u), \val{\rho_{\vv{y}}}_\Delta(v))\\
+%                                   & = \val{\tau'}_\Gamma(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
+%                                   & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))(\val{\rho_{\vv{y}}}_\Delta(v)).
+%   \end{align*}
+%   Нека сега $f'' = \val{\tau''}_{\Gamma,\Delta}$. Тогава
+%   \begin{align*}
+%     f''(u,v) & = f'(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
+%              & = \begin{cases}
+%                f'(u)(v), & \text{ако } v = \bot\text{ или } v = 0\\
+%                f'(u)(1), & \text{ако } v > 0
+%              \end{cases}
+%   \end{align*}
+%   Така получаваме следната характеризация на $f''$:
+
+%   \begin{tabular}{|c|c|c|c|}
+%     \hline
+%     $f''$ & $\bot$ & $0$ & $y>0$ \\
+%     \hline
+%     $\bot$ & $?$ & $?$ & $1$ \\
+%     \hline
+%     $0$ & $?$ & $0$ & $?$ \\
+%     \hline
+%     $x>0$ & $1$ & $?$ & $?$\\
+%     \hline
+%   \end{tabular}
+
+%   Нека сега $\rho \df \lamb{x}{nat}{\lamb{y}{nat}{\tau''}}$.
+%   Тогава за $g = \val{\rho}$ имаме, че
+%   \[g(x)(y) = f''(x,y).\]
+%   От \Problem{pcf:full-abstraction:por} получаваме, че $g = por$.
+%   Достигаме до противоречие, защото $por$ не е определимо изображение.
+% \end{hint}
 
 В следващите твърдения ще използваме типовете
 \begin{align*}
-  & \vv{a} \df \nat \to (\nat \to \nat)\\
-  & \vv{b} \df (\nat \to (\nat \to \nat))\to\nat.
+  & \vv{a} \df \bool \to (\bool \to \bool)\\
+  & \vv{b} \df (\bool \to (\bool \to \bool))\to\bool.
 \end{align*}
 За $n = 0,1$, нека дефинираме затворените термове
 
+\marginpar{$\Omega_{\vv{a}} \df \fix(\lamb{x}{a}{\vv{x}})$}
+
 \begin{lstlisting}
-  $\tau_n \equiv \lambda \vv{f:a}$.if (f 1 $\Omega_\nat$) == 1 then
-              if (f $\Omega_\nat$ 1) == 1 then
-                if (f 0 0) == 0 then n
-                  else $\Omega_\nat$
-                else $\Omega_\nat$
-              else $\Omega_\nat$
+  $\tau_n \equiv \lambda \vv{f:a}$.if (f true $\Omega_\bool$) then
+              if (f $\Omega_\bool$ true) then
+                if (f false false) then $\Omega_\bool$
+                  else $\vv{b}_n$
+                else $\Omega_\bool$
+              else $\Omega_\bool$
 \end{lstlisting}
 
-Лесно се съобразява, че $\tau_0$ и $\tau_1$ са добре типизирани термове от тип $\vv{b}$.
+Тук $\vv{b}_0 = \tru$, $\vv{b}_1 = \fls$.
 
-\begin{problem}
-  Докажете, че 
-  \[\val{\tau_0} \neq \val{\tau_1}.\]
-\end{problem}
-\begin{hint}
-  Докажете, че за $n = 0,1$ е изпълнено, че
-  \[\val{\tau_n}(por) = n.\]  
-\end{hint}
+Лесно се съобразява, че $\emptyset \vdash \tau_0:\vv{b}$ и $\emptyset \vdash \tau_1:\vv{b}$.
 
+% \begin{problem}
+%   Докажете, че 
+%   \[\val{\tau_0} \neq \val{\tau_1}.\]
+% \end{problem}
+% \begin{hint}
+  % Докажете, че за $n = 0,1$ е изпълнено, че
+  % \[\val{\tau_n}(por) = b_n.\]  
+% \end{hint}
+
+Следващото твърдение показва защо денотационната семантика $\val{.}$ на езика \PCFPP не е напълно абстрактна.
+\begin{framed}
 \begin{proposition}
-  $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$.
-\end{proposition}
+  $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$, но $\val{\tau_0} \neq \val{\tau_1}$.
+\end{proposition}  
+\end{framed}
 \begin{proof}
-  Понеже $\vv{b} = \vv{a} \to \nat$, от \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
+  Първо докажете, че за $n = 0,1$ е изпълнено, че
+  \[\val{\tau_n}(por) = b_n.\]  
+  
+  Второ, понеже $\vv{b} = \vv{a} \to \bool$, от \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
   за всеки затворен терм $\rho:\vv{a}$ е изпълнено, че
-  \[\tau_1\rho \Downarrow_{\nat} \vv{n} \iff \tau_2\rho \Downarrow_{\nat} \vv{n}.\]
-  Да видим какво означава $\tau_i \rho \Downarrow_{\nat}$ за $i = 0,1$.
+  \[\tau_1\rho \Downarrow_{\bool} \vv{n} \iff \tau_2\rho \Downarrow_{\bool} \vv{n}.\]
+  Да видим какво означава $\tau_i \rho \Downarrow_{\bool}$ за $i = 0,1$.
   Това означава, че трябва да са изпълнени и трите свойства:
   \begin{itemize}
   \item
-    $\rho\ \vv{1}\ \Omega_{\nat} \Downarrow_{\nat} \vv{1}$;% , за някое $\vv{k} \not\equiv \vv{0}$;
+    $\rho\ \tru\ \Omega_{\bool} \Downarrow_{\bool} \tru$;% , за някое $\vv{k} \not\equiv \vv{0}$;
   \item
-    $\rho\ \Omega_{\nat}\ \vv{1} \Downarrow_{\nat} \vv{1}$;% , за някое $\vv{m} \not\equiv \vv{0}$;
+    $\rho\ \Omega_{\bool}\ \tru \Downarrow_{\bool} \tru$;% , за някое $\vv{m} \not\equiv \vv{0}$;
   \item
-    $\rho\ \vv{0}\ \vv{0} \Downarrow_{\nat} \vv{0}$.
+    $\rho\ \fls\ \fls \Downarrow_{\bool} \fls$.
   \end{itemize}
-  Понеже $\val{\Omega_{\nat}} = \bot$, от \hyperref[th:pcf:soundness]{теоремата за коректност} получаваме, че трябва да са изпълнени следните три свойства:
+  Понеже $\val{\Omega_{\bool}} = \bot$, от \hyperref[th:pcf:soundness]{теоремата за коректност} получаваме, че трябва да са изпълнени следните три свойства:
   \begin{itemize}
   \item
-    $\val{\rho}(1)(\bot) = 1$;
+    $\val{\rho}(true)(\bot) = true$;
   \item
-    $\val{\rho}(\bot)(1) = 1$;
+    $\val{\rho}(\bot)(true) = true$;
   \item
-    $\val{\rho}(0)(0) = 0$.
+    $\val{\rho}(false)(false) = false$.
   \end{itemize}
   Но тогава $\val{\rho} = por$, което е противоречие с \Problem{pcf:full-abstraction:not-definable}.
+  Заключаваме, че не съществува затворен терм $\rho$ на езика \PCFPP, за който $\tau_i\rho\Downarrow_\bool$.
 \end{proof}
 
 Доказателството на следващата теорема излиза извън обхата на този курс.
+
+
+\subsection{Езикът \PCFPOR}
+
+Дефинираме езика \PCFPOR като разширение на \PCFPP по следния начин:
+
+\begin{itemize}
+\item
+  Типовете на \PCFPOR са типовете на \PCFPP
+\item
+  Термовете на \PCFPOR са термовете на \PCFPP с едно ново правило:
+  \[\tau ::= \dots\ |\ \por(\tau_1,\tau_2).\]
+\item
+  Имаме следните нови правила в операционната семантика:
+
+  \begin{figure}[H]
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\tau_1 \Downarrow_\bool \tru$}
+        \UnaryInfC{$\por(\tau_1,\tau_2) \Downarrow_\bool \tru$}
+      \end{prooftree}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\tau_2 \Downarrow_\bool \tru$}
+        \UnaryInfC{$\por(\tau_1,\tau_2) \Downarrow_\bool \tru$}
+      \end{prooftree}
+    \end{subfigure}
+  \end{figure}
+
+  \begin{prooftree}
+    \AxiomC{$\tau_1 \Downarrow_\bool \fls$}
+    \AxiomC{$\tau_2 \Downarrow_\bool \fls$}
+    \BinaryInfC{$\por(\tau_1,\tau_2) \Downarrow_\bool \fls$}
+  \end{prooftree}
+  
+\item
+  Денотационна семантика:
+  \[\val{\por(\tau_1,\tau_2)}_\Gamma(\ov{u}) \df por(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}(\ov{u})).\]
+\end{itemize}
+
+
+\begin{problem}
+  Нека $\tau$ е затворен терм на езика \PCFPOR. Докажете, че ако
+  $\tau \Downarrow \vv{v}$ и $\tau \Downarrow \vv{v}'$, то $\vv{v} \equiv_\alpha \vv{v}'$.
+\end{problem}
+
+
 \index{Плоткин}
 \begin{framed}
   \begin{theorem}[Плоткин 1977]
-    Денотационната семантика $\val{.}$ за езика PCF+\texttt{por} е напълно абстрактна.
+    Денотационната семантика $\val{.}$ за \PCFPP(\texttt{por}) е напълно абстрактна.
   \end{theorem}
 \end{framed}
 \marginpar{\cite[стр. 188]{gunter}}
@@ -241,6 +387,7 @@ ghci> undefined || True
 % \begin{theorem}[Милнър,Плоткин]
 %   A continuous, order-extensional model of PCF is fully abstract if and only if for every type $\sigma$, $\val{\sigma}$ is a domain whose finite elements are definable.
 % \end{theorem}
+
 
 %%% Local Variables:
 %%% mode: latex
