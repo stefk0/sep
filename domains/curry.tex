@@ -12,7 +12,7 @@
   $\curry(f)$ е непрекъснато изображение,
   т.е. $\curry(f) \in \Cont{\A}{\Cont{\B}{\C}}$.
   Освен това,
-  \[\curry \in \Cont{\Cont{\A\times \B}{\C}}{\Cont{\A}{\Mapping{\B}{\C}}}.\]
+  \[\curry \in \Cont{\Cont{\A\times \B}{\C}}{\Cont{\A}{\Cont{\B}{\C}}}.\]
 \end{proposition}
 \begin{proof}
   Първо да фиксираме $f \in \Cont{\A\times\B}{\C}$ и $a \in \A$.
@@ -92,9 +92,9 @@ uncurry :: (a -> b -> c) -> (a, b) -> c
 
   \begin{problem}
     \marginpar{\cite[стр. 177]{models-of-computation}}
-  Докажете, че изображенията $\texttt{fst}:\A\times\B \to \A$ и $\texttt{snd}:\A\times\B \to \B$ са непрекъснати, където $\texttt{fst}(a,b) \df a$ и $\texttt{snd}(a,b) \df b$.
-\end{problem}
-
+    Докажете, че изображенията $\texttt{fst}:\A\times\B \to \A$ и $\texttt{snd}:\A\times\B \to \B$ са непрекъснати, където $\texttt{fst}(a,b) \df a$ и $\texttt{snd}(a,b) \df b$.
+  \end{problem}
+  
   \begin{haskellcode}
 ghci> :t fst
 fst :: (a, b) -> a

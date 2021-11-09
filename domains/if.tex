@@ -1,23 +1,3 @@
-\begin{definition}\label{def:if}\index{if}
-  Нека $\A$ е област на Скот. Дефинираме следното изображение
-  \begin{align*}
-    & \texttt{if}:\Nat_\bot \times \A \times \A \to \A \text{, където}\\
-    & \texttt{if}(b, a_1,a_2) =
-      \begin{cases}
-        a_1, & \text{ако } b \in \Nat^+\\
-        a_2, & \text{ако } b = 0\\
-        \bot, & \text{ако } b = \bot.
-      \end{cases}
-  \end{align*}
-\end{definition}
-
-\begin{problem}\label{prob:if}
-  Докажете, че $\texttt{if}$ е непрекъснато изображение, т.е.
-  \[\texttt{if} \in \Cont{\Nat_\bot \times \A \times \A}{\A}.\]
-\end{problem}
-\begin{hint}
-  Докажете, че $\texttt{if}$ е непрекъснато изображение по всеки от аргументите си поотделно.
-\end{hint}
 
 %%% Local Variables:
 %%% mode: latex

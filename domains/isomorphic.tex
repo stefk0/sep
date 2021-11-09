@@ -6,7 +6,7 @@
 Ще казваме, че $\A_1$ е {\bf изоморфна} на $\A_2$, което ще означаваме като 
 \[\A_1 \cong \A_2,\]
 ако съществува {\em биективна} функция $F:A_1 \to A_2$ със свойството:
-\[(\forall a,b\in A_1)[\ a \sqsubseteq_1 b \iff F(a) \sqsubseteq_2 F(b)\ ].\]
+\[(\forall a \in A_1)(\forall b\in A_1)[\ a \sqsubseteq_1 b \iff F(a) \sqsubseteq_2 F(b)\ ].\]
 В такъв случай ще казваме, че $F$ задава изоморфизъм между $\A_1$ и $\A_2$.
 
 Когато искаме да означим, че $\A_1$ е изоморфна на $\A_2$ чрез $F$,
@@ -234,7 +234,7 @@
 \mint{haskell}|f :: a -> b -> c| в действителност се има предвид \mint{haskell}|f :: a -> (b -> c)|
 
 На практика тези две задачи ни казват, че няма значение дали използваме {\em curried}
-или {\em uncurried} версията на една функция. На хаскел е по-удобно да използваме {\em curried}
+или {\em uncurried} версията на една функция. На \texttt{хаскел} е по-удобно да използваме {\em curried}
 версията, защото като фиксираме първия аргумент на една функция получаваме нова функция наготово.
 \marginpar{Това се нарича \emph{partial application}. Вижте \url{https://wiki.haskell.org/Partial_application}.}
 Например, 
@@ -252,8 +252,8 @@
 \begin{problem}
   Докажете, че за произволна област на Скот $\A$ е изпълнено:
   \begin{align*}
-    & \Mapping{\emptyset_\bot}{\A} \cong \A\\
-    & \Mapping{\A}{\emptyset_\bot} \cong \emptyset_\bot.
+    & \Cont{\emptyset_\bot}{\A} \cong \A\\
+    & \Cont{\A}{\emptyset_\bot} \cong \emptyset_\bot.
   \end{align*}
 \end{problem}
 
@@ -264,8 +264,10 @@
 \begin{hint}
   Нека изберем $\A = \C = \Nat_\bot$, а $\B = \emptyset_\bot$. Тогава
   \[\Cont{\Cont{\Nat_\bot}{\emptyset_\bot}}{\Nat_\bot} \cong \Cont{\emptyset_\bot}{\Nat_\bot} \cong \Nat_\bot,\]
-  но
+  но лесно можем да съобразим, че:
   \[\Cont{\Nat_\bot}{\Cont{\emptyset_\bot}{\Nat_\bot}} \cong \Cont{\Nat_\bot}{\Nat_\bot}.\]
+  Сега остава да съобразим, че
+  \[\Nat_\bot \not\cong \Cont{\Nat_\bot}{\Nat_\bot}.\]
 \end{hint}
 
 %%% Local Variables:

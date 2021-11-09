@@ -6,7 +6,7 @@
 \item
   $f$ е монотонно изображение;
 \item
-  при всеки избор на верига $\chain{a}{i}$ в $\A_1$, то имаме равенството
+  при всеки избор на верига $\chain{a}{i}$ в $\A_1$, имаме равенството
   \marginpar{Понеже $\A_1$ е област на Скот знаем, че $\bigsqcup_i a_i \in \A_1$}
   \marginpar{Понеже $f$ е монотонно, то ${(f(a_i))}^{\infty}_{i=0}$ е верига.}
   \marginpar{$\bigsqcup_i f(a_i) \df \bigsqcup\{f(a_i) \mid i \in \Nat\}$}
@@ -65,6 +65,7 @@
 \end{hint}
 
 Сега да видим един важен за нас случай, при който имаме и обратното включване.
+\marginpar{В Раздел~\ref{subsect:domains:product} дефинирахме какво означава една верига $\chain{n}{a}$ да се стабилизира: съществува индекс $n_0$, за който \[(\forall n \geq n_0)[a_{n_0} = a_{n}].\]}
 
 \begin{framed}
   \begin{proposition}\label{pr:stab-continuous}
@@ -97,7 +98,7 @@
   От $(1)$ и $(2)$ следва, че $f(\bigsqcup_i a_i) = \bigsqcup_i f(a_i)$.
 \end{hint}
 
-Понеже всяка верига в $\Nat^n_\bot$ се {\em стабилизира}, то
+От Раздел~\ref{subsect:domains:product} знаем, че всяка верига в $\Nat^n_\bot$ се {\em стабилизира}, то
 получаваме следното важно следствие.
 \begin{framed}
 \begin{corollary}\label{cr:monotone-is-continuous}

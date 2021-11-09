@@ -20,10 +20,7 @@
   Оттам знаем, че $h$ е точна горна граница на веригата. 
   Остава да докажем, че $h \in \Mon{\A_1}{\A_2}$.
   Нека $a \sqsubseteq b$. Тогава, за всеки индекс $k$, понеже $f_k$ са монотонни изображения, получаваме следното:
-  \begin{align*}
-    f_k(a) & \sqsubseteq f_k(b)\\
-           & \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \df h(b).
-  \end{align*}
+  \[f_k(a) \sqsubseteq f_k(b) \sqsubseteq \bigsqcup \{f_i(b) \mid i \in \Nat\} \df h(b).\]
   Това означава, че $h(b)$ е горна граница за веригата ${(f_i(a))}^{\infty}_{i=0}$.
   Заключаваме, че 
   \begin{align*}
@@ -32,24 +29,29 @@
   \end{align*}
 \end{hint}
 
-\begin{corollary}\label{cr:flat-monotone-is-domain}
-  $\Mon{\Nat^n_\bot}{\Nat_\bot}$ е област на Скот.
-\end{corollary}
+Оттук като частен случай получаваме следното полезно следствие.
+\begin{framed}
+  \begin{corollary}\label{cr:flat-monotone-is-domain}
+    $\Mon{\Nat^n_\bot}{\Nat_\bot}$ е област на Скот.
+  \end{corollary}
+\end{framed}
 
-Удобно е да имаме следващото свойство на монотонните изображения като отделно твърдение за да можем да го използваме наготово по-късно.
+Удобно е да имаме следващото свойство на монотонните изображения като отделно твърдение за да можем да
+се позоваваме на него, когато имаме нужда от него по-късно.
+
 \begin{proposition}\label{pr:monotone-chain}
   Нека $f \in \Mon{\A}{\B}$ и $\chain{a}{i}$ е верига от елементи на $\A$.
   Тогава
   \[\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i).\]
 \end{proposition}
 \begin{proof}
-  Понеже $f$ е монотонно, то ${(f(a_i))}^{\infty}_{i=0}$ е верига от елементи на $\B$
+  Понеже $f$ е монотонно, то ${(f(a_i))}^{\infty}_{i=0}$ е верига от елементи на областта на Скот $\B$
   и тя има точна горна граница.
   Достатъчно е да докажем, че $f(\bigsqcup_i a_i)$ е горна граница на веригата ${(f(a_i))}^{\infty}_{i=0}$.
   Но това е лесно.
-  Понеже $a_i \sqsubseteq \bigsqcup_i a_i$ и $f$ е монотонно, то веднага получаваме, че
-  $f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
-  Заключаваме, че $\bigsqcup_i f(a_i) \sqsubseteq f(\bigsqcup_i a_i)$.
+  Понеже за произволен индекс $k$, $a_k \sqsubseteq \bigsqcup_i a_i$ и $f$ е монотонно изображение, то веднага получаваме, че
+  $f(a_k) \sqsubseteq f(\bigsqcup_i a_i)$.
+  Заключаваме, че $\bigsqcup_k f(a_k) \sqsubseteq f(\bigsqcup_i a_i)$.
 \end{proof}
 
 %%% Local Variables:

@@ -1,0 +1,39 @@
+
+\begin{proposition}\label{pr:cartesian-product:pair-continuous}
+  Нека $f \in \Cont{\A}{\B}$ и $g \in \Cont{\A}{\C}$.
+  Тогава $h \in \Cont{\A}{\B\times\C}$, където
+  \[h(a) \df \pair{f(a),g(a)}.\]
+  В такъв случай ще означаваме $h = f \times g$.
+\end{proposition}
+\begin{proof}
+  Нека ${(a_i)}^{\infty}_{i=0}$ е верига в $\A$. Тогава:
+  \begin{align*}
+    h(\bigsqcup_i a_i) & = \pair{f(\bigsqcup_i a_i), g(\bigsqcup_i a_i)} & \comment{\text{от деф.}}\\
+    & = \pair{\bigsqcup_i f(a_i), \bigsqcup_i g(a_i)} & \comment{\text{$f$ и $g$ са непр.}}\\
+    & = \bigsqcup_i \pair{f(a_i),g(a_i)} & \comment{\text{от \Prop{cartesian}}}\\
+    & = \bigsqcup_i h(a_i) & \comment{\text{от деф.}}
+  \end{align*}
+\end{proof}
+
+% Обърнете внимание на следващото твърдение, защото ще го използваме често по-късно.
+% То представлява обобщение на предишната задача и има сходно доказателство.
+% Първо да въведем следното означение за произволно области на Скот $\B_1,\dots,\B_n$,
+% \[\prod^n_{i=1}\B_i \df \B_1\times \B_2 \times \cdots \B_n,\]
+% което също е област на Скот, дефинирана в {\em Раздел \ref{subsect:domains:product}}.
+
+\begin{proposition}\label{pr:cartesian-product:general-continuous}
+  Нека $f_i \in \Cont{\A}{\B_i}$, за $i = 1,\dots,n$.
+  \marginpar{\writedown Докажете сами!}
+  Тогава
+  \[g \in \Cont{\A}{\prod^n_{i=1}\B_i},\]
+  където
+  \[g(a) \df \pair{f_1(a),f_2(a),\dots,f_n(a)}.\]
+  В такъв случай ще означаваме $g = f_1\times f_2 \cdots \times f_n$.
+\end{proposition}
+
+\begin{proposition}\label{pr:cartesian-product:operator-continuous}
+  Докажете, че изображението
+  \[\texttt{cross}: \Cont{\A}{\B}\times\Cont{\A}{\C} \to \Cont{\A}{\B\times\C}\]
+  е непрекъснато, където
+  \[\texttt{cross}(f,g) = f \times g.\]
+\end{proposition}

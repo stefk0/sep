@@ -54,6 +54,8 @@
 \usepackage{tikz, pgf}
 \usetikzlibrary{arrows, automata, positioning, backgrounds, decorations.pathmorphing, decorations.markings}
 
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
 
 \usemintedstyle{friendly}
 \definecolor{bg}{rgb}{0.9, 0.9, 0.9}
@@ -71,6 +73,17 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 % \newauthor{Stefan}{0.6,0.6,0.6}
+
+\newenvironment{SystemEq}
+{% This is the begin code
+  \[\left|
+      \begin{array}{lcl}
+}
+{% This is the end code
+      \end{array}
+   \right.\]
+}
+
 
 
 \newcommand{\Stefan}[1]{}

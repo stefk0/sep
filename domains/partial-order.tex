@@ -15,19 +15,21 @@
 
 \begin{example}
   Да означим 
-  \[\Partial{\Nat}{\Nat} \df \{f:\Nat\to\Nat \mid f\text{ е частична функция}\}.\]
+  \[\F_n \df \{f:\Nat^n\to\Nat \mid f\text{ е частична функция}\}.\]
+  \marginpar{Често вместо $x_1,\dots,x_n$ ще пишем просто $\ov{x}$.}
   Дефинираме и релацията {\bf включване } между две частични функции по следния начин:
   \begin{align*}
-    f \subseteq g \dfff (\forall x\in \Nat)[& f(x)\text{ не е деф.}\ \vee\\
-                                            & (f(x)\text{ е деф.}\ \&\ g(x)\text{ е деф.}\ \&\ f(x) = g(x))].
+    f \subseteq g \dfff (\forall \ov{x}\in \Nat^n)[& f(\ov{x})\text{ не е деф.}\ \vee\\
+                                            & (f(\ov{x})\text{ е деф.}\ \&\ g(\ov{x})\text{ е деф.}\ \&\ f(\ov{x}) = g(\ov{x}))].
   \end{align*}
   Да дефинираме също {\bf графиката} на частичната функция $f$ като
-  \[\Graph{f} \df \{\pair{x,y} \mid f(x) = y\}.\]
+  \[\Graph{f} \df \{\pair{\ov{x},y} \mid f(\ov{x}) = y\}.\]
   Тогава лесно се съобразява, че 
   \[f \subseteq g \iff \Graph{f} \subseteq \Graph{g}.\]
   Съобразете, че двойката $(\Partial{\Nat}{\Nat}, \subseteq)$ е частично наредено множество.
 \end{example}
 
+\marginpar{Обърнете внимание, че има и понятие \emph{минимален} елемент, което в общия случай е различно от понятието \emph{най-малък} елемент. Един елемент $a_0$ е минимален за множеството $A$, ако $\neg(\exists a \in A)[a \sqsubseteq a_0\ \&\ a \neq a_0]$. Съобразете, че е възможно едно частично наредено множество да притежава повече от един минимални елементи.}
 Казваме, че $a_0$ е {\bf най-малък елемент} на частично нареденото множество $(A, \sqsubseteq)$,
 ако $(\forall a \in A)[a_0 \sqsubseteq a]$. Ако такъв елемент съществува, то той е единствен,
 защото релацията $\sqsubseteq$ е антисиметрична.
@@ -46,41 +48,44 @@ $(\forall n)[a_n \sqsubseteq b]$.
   за всяка друга горна граница $c$ е изпълнено, че $b \sqsubseteq c$, т.е.
   $b$ е най-малкият елемент измежду всички горни граници на веригата $\chain{a}{n}$.
 \end{itemize}
-Обърнете внимание, че не всяка верига притежава точна горна граница.
+Не всяка верига притежава точна горна граница.
 Обикновено точната горна граница на вергата $\chain{a}{n}$ ще бележим като $\bigsqcup_n a_n$.
 
 \Stefan{Още тук да се даде пример за верига от частични функции и две функции - една, която е точна горна граница на веригата и една, която е просто горна граница.}
+\marginpar{На англ. {\em Scott domain}. Обикновено в литературата, за да се нарече едно частично нареденото множество област на Скот се изискват още допълнителни свойства, но за нашите цели тази дефиниция ще свърши работа.}
 
 
-\begin{definition}
-  Наредена тройка от вида $\A = (A, \sqsubseteq, \bot)$ се нарича {\bf област на Скот}, ако:
-  \index{област на Скот}
-  \marginpar{На англ. {\em Scott domain}}
-  \begin{itemize}
-  \item
-    $\sqsubseteq$ е бинарна релация върху $A$, която задава частична наредба.
-  \item
-    Всяка растяща верига $\chain{a}{n}$ в $A$ притежава точна горна граница $\bigsqcup_n a_n$.
-  \item
-    $\bot \in A$ е най-малкият елемент на $A$;
-  \end{itemize}
-\end{definition}
 
-Интуицията зад израза $a \sqsubseteq b$ е, че $b$ носи повече информация от $a$, без да противоречи на $a$.
+\begin{framed}
+  \begin{definition}
+    Наредена тройка от вида $\A = (A, \sqsubseteq, \bot)$ се нарича {\bf област на Скот}, ако:
+    \index{област на Скот}
+    \begin{itemize}
+    \item
+      $\sqsubseteq$ е бинарна релация върху $A$, която задава частична наредба.
+    \item
+      Всяка растяща верига $\chain{a}{n}$ в $A$ притежава точна горна граница $\bigsqcup_n a_n$.
+    \item
+      $\bot \in A$ е най-малкият елемент на $A$;
+    \end{itemize}
+  \end{definition}
+\end{framed}
 
-\marginpar{В Хаскел $\bot$ се означава като \vv{undefined}. Повече за денотационна семантика в Хаскел може да прочетете \href{https://en.wikibooks.org/wiki/Haskell/Denotational_semantics}{тук}}
+
+Интуицията зад израза $a \sqsubseteq b$ е, че $b$ носи повече информация от $a$, без да противоречи на $a$. Елементът $\bot$ означава липса на информация.
+
+\marginpar{В хаскел $\bot$ се означава като \vv{undefined}. Повече за денотационна семантика в хаскел може да прочетете \href{https://en.wikibooks.org/wiki/Haskell/Denotational_semantics}{тук}.}
 
 \begin{example}
-  Тройката $\Partial{\Nat^n}{\Nat} \df (\ \F_n,\ \sqsubseteq,\ \emptyset^{(n)}\ )$ е област на Скот, където:
+  Тройката $\Partial{\Nat^n}{\Nat} \df (\ \F_n,\ \subseteq,\ \bm{\emptyset}^{(n)}\ )$ е област на Скот, където:
   \begin{itemize}
   \item
     С $\F_n$ означаваме всички частични функции от $\Nat^n$ в $\Nat$.
   \item
      релацията ,,включване'' между функции е дефинирана по следния начин:
-     \[f\sqsubseteq g\ \dffff\ \text{Graph}(f) \subseteq \text{Graph}(g).\]
+     \[f\subseteq g\ \dffff\ \text{Graph}(f) \subseteq \text{Graph}(g).\]
    \item
-     $\emptyset^{(n)}$ е функцията с празна дефиниционна област, т.е.
-     \[(\forall \bar{x} \in \Nat^n)[\neg !\emptyset^{(n)}(\bar{x})].\]
+     $\bm{\emptyset}^{(n)}$ е функцията с празна дефиниционна област, т.е. $\Dom(\bm{\emptyset}^{(n)}) = \emptyset$.
   \end{itemize}
 \end{example}
 
@@ -92,7 +97,7 @@ $(\forall n)[a_n \sqsubseteq b]$.
   \item
     $(\Nat, \leq, 0)$ не е е област на Скот.
   \item
-    $(\Nat\cup\{\infty\}, \leq, 0)$ е също област на Скот, където наредбата $\leq$ е зададена като
+    $(\Nat\cup\{\infty\}, \leq, 0)$ е област на Скот, където наредбата $\leq$ е зададена като
     \[0 \leq 1 \leq \cdots \leq \infty.\]
   \item
     $(\{0,1\}^\star, \preceq, \varepsilon)$ не е област на Скот, където $\preceq$ е релацията префикс на две думи.

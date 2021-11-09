@@ -68,25 +68,25 @@
   Покажете, че съществува област на Скот $\A$ и изображение $f \in \Mon{\A}{\A}$, което притежава най-малка неподвижна точка, но тя не е $\bigsqcup_n f^n(\bot^\A)$.
 \end{problem}
 \ifhints\begin{hint}
-  \marginpar{Това същата област на Скот както в \Prop{continuous-mappings-not-monotone}.}
-  Да разгледаме $\A = (A,\ \sqsubseteq,\ a_0)$, където елементите на $A$ са подредени по следния начин:
-  \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset a_\omega \sqsubset b \}.\]
-  т.е. $A$ е съставена от веригата ${(a_n)}^\infty_{n=0}$ веднага следвана от елементите $a_\omega$ и $b$.
-  Да обърнем внимание, че $\bigsqcup_n a_n = a_\omega$.
-  Сега да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
-  \begin{align*}
-    & f(a_n) = a_{n+1}\\
-    & f(a_\omega) = b\\
-    & f(b) = b.
-  \end{align*}
-  Лесно се вижда, че това изображение е монотонно.
-  Обаче $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = a_\omega$, и тогава:
+  Вземете областта на Скот $\A$ и монотонното изображение $f$ както в \Prop{continuous-mappings-not-monotone}.
+  % Да разгледаме $\A = (A,\ \sqsubseteq,\ a_0)$, където елементите на $A$ са подредени по следния начин:
+  % \[A = \{ a_0 \sqsubset a_1 \sqsubset \cdots \sqsubset a_n \sqsubset \cdots \sqsubset a_\omega \sqsubset b \}.\]
+  % т.е. $A$ е съставена от веригата ${(a_n)}^\infty_{n=0}$ веднага следвана от елементите $a_\omega$ и $b$.
+  % Да обърнем внимание, че $\bigsqcup_n a_n = a_\omega$.
+  % Сега да разгледаме изображението $f:\A\to\A$, където за всяко $n$,
+  % \begin{align*}
+  %   & f(a_n) = a_{n+1}\\
+  %   & f(a_\omega) = b\\
+  %   & f(b) = b.
+  % \end{align*}
+  % Лесно се вижда, че това изображение е монотонно.
+  Лесно се вижда, че $f$ не е непрекъснато изображение, защото $\bigsqcup_n a_n = a_\omega$, и тогава:
   \[f(\bigsqcup_n a_n) = f(a_\omega) = b \neq a_\omega = \bigsqcup_n a_{n+1} = \bigsqcup_n \{f(a_n)\}.\]
   Според дефиницията на изображението $f$, единствената неподвижна точка на $f$ е елементът $b$.
   Това означава, че $b$ е също и най-малката неподвижна точка.
-  \marginpar{$f^n(a_0) = a_n$.}
-  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка,
-  макар и тя да не е $\bigsqcup_n f^n(a_0)$.
+  \marginpar{Имаме, че $f^n(a_0) = a_n$.}
+  Това е пример за монотонно изображение, което не е непрекъснато, но притежава най-малка неподвижна точка $b$,
+  макар и тя да не е $a_\omega = \bigsqcup_n f^n(a_0)$.
 \end{hint}
 \fi
 
@@ -125,96 +125,99 @@
 % \end{problem}
 
 
-\begin{example}
-  Да разгледаме следното изображение $\Gamma:\Partial{\Nat}{\Nat} \to \Partial{\Nat}{\Nat}$, където
-  \[\Gamma(f)(x) =
-    \begin{cases}
-      0, & \text{ ако }x = 0\\
-      x + f(x-1), & \text{ ако }x > 0.
-    \end{cases}\]
-  Първо да видим, че $\Gamma$ е монотонно изображение.
-  Нека $f \sqsubseteq g$.
-  Трябва да докажем, че за всяко $x$, ако $\Gamma(f)(x) = y$, то $\Gamma(g)(x) = y$.
-  \begin{itemize}
-  \item
-    Нека $x = 0$.
-    Тогава $\Gamma(f)(0) = 0 = \Gamma(g)(0)$.
-  \item
-    Нека $x > 0$ и да приемем, че $\Gamma(f)(x) = x + f(x-1) = y$.
-    Това означава, че $f(x-1) = z$, за някое $z$, и $x + z = y$.
-    От $f \sqsubseteq g$ следва, че имаме също и $g(x-1) = z$.
-    Тогава е ясно, че $\Gamma(g)(x) = x + g(x-1) = x+z = y$.
-  \end{itemize}
-  Разгледахме всички възмножни случаи за естественото число $x$ и
-  \marginpar{$\texttt{Graph}(\Gamma(f)) \subseteq \texttt{Graph}(\Gamma(g))$.}
-  видяхме, че за произволно $x$, ако $\Gamma(f)(x) = y$, то $\Gamma(g)(x) = y$.
-  Заключаваме, че $\Gamma(f) \sqsubseteq \Gamma(g)$, т.е. $\Gamma$ е монотонно изображение.
+% \newpage
 
-  Нека сега да видим, че $\Gamma$ е непрекъснато изображение.
-  Да разгледаме произволна верига $\chain{f}{i}$ от частични функции.
-  Трябва да докажем, че
-  \[\Gamma(\bigsqcup_i f_i) = \bigsqcup_i \Gamma(f_i).\]
-  Щом $\Gamma$ е монотонно, от \Prop{monotone-chain} вече знаем, че
-  \[\bigsqcup_i \Gamma(f_i) \sqsubseteq \Gamma(\bigsqcup_i f_i).\]
-  Остава да докажем обратната посока. И така, нека първо да вземем $x = 0$.
-  Тогава $\Gamma(\bigsqcup_i f_i)(0) = 0$. От дефиницията от $\Gamma$ знаем, че
-  за всяко $i$, $\Gamma(f_i)(0) = 0$ и оттук $(\bigsqcup_i \Gamma(f_i))(0) = 0$.
-  Следователно,
-  \[\Gamma(\bigsqcup_i f_i)(0) = 0 = (\bigsqcup_i \Gamma(f_i))(0).\]
-  Нека сега $x > 0$. Тогава
-  \marginpar{Да напомним, че $(\bigsqcup_i f_i)(u) = v$ точно тогава, когато съществува индекс $i$, за който $f_i(u) = v$.}
-  \[\Gamma(\bigsqcup_i f_i)(x) = x + (\bigsqcup_i f_i)(x-1) = y.\]
-  Ясно е, че съществува $z$, за което $(\bigsqcup_i f_i)(x-1) = z$ и $x + z = y$.
-  Знаем, че съществува индекс $i$, за който $f_i(x-1) = z$.
-  Тогава, понеже $\Gamma(f_i)(x) = x + f_i(x-1) = x+z = y$, то следва, че $(\bigsqcup_i \Gamma(f_i))(x) = y$.
+% \begin{example}
+%   Да разгледаме следното изображение $\Gamma:\Partial{\Nat}{\Nat} \to \Partial{\Nat}{\Nat}$, където
+%   \[\Gamma(f)(x) \simeq
+%     \begin{cases}
+%       0, & \text{ ако }x = 0\\
+%       x + f(x-1), & \text{ ако }x > 0.
+%     \end{cases}\]
+%   Първо да видим, че $\Gamma$ е монотонно изображение.
+%   Нека $f \subseteq g$.
+%   Трябва да докажем, че за всяко $x$, ако $\Gamma(f)(x) \simeq y$, то $\Gamma(g)(x) \simeq y$.
+%   \begin{itemize}
+%   \item
+%     Нека $x = 0$.
+%     Тогава $\Gamma(f)(0) \simeq 0 \simeq \Gamma(g)(0)$.
+%   \item
+%     Нека $x > 0$ и да приемем, че $\Gamma(f)(x) \simeq x + f(x-1) \simeq y$.
+%     Това означава, че $f(x-1) \simeq z$, за някое $z$, и $x + z = y$.
+%     От $f \subseteq g$ следва, че имаме също и $g(x-1) \simeq z$.
+%     Тогава е ясно, че $\Gamma(g)(x) \simeq x + g(x-1) \simeq x+z = y$.
+%   \end{itemize}
+%   Разгледахме всички възмножни случаи за естественото число $x$ и
+%   \marginpar{$\texttt{Graph}(\Gamma(f)) \subseteq \texttt{Graph}(\Gamma(g))$.}
+%   видяхме, че за произволно $x$, ако $\Gamma(f)(x) \simeq y$, то $\Gamma(g)(x) \simeq y$.
+%   Заключаваме, че $\Gamma(f) \subseteq \Gamma(g)$, т.е. $\Gamma$ е монотонно изображение.
 
-  Сега вече можем да намерим $\lfp(\Gamma) = \bigsqcup_n \Gamma^n(\bm{\bot})$.
-  Ще докажем, че
-  \[\lfp(\Gamma)(x) = \frac{x(x+1)}{2}\] за всяко естествено число $x$.
-  Нека за улеснение да означим $g_n = \Gamma^n(\bm{\bot})$.
-  Ще докажем, че за всяко $n$,
-  \[g_n(x) = \begin{cases}
-      \sum^x_{i=1}i, & \text{ ако } x < n\\
-      \text{не е деф.}, & \text{ ако } x \geq n.
-    \end{cases}\]
-  Ясно е, че $g_0 = \bm{\bot}$, което може да се запише и така:
-  \marginpar{Да напомним, че $\Gamma^0(g) = g$ и $\Gamma^{n+1}(g) = \Gamma(\Gamma^n(g))$.}
-  \[g_0(x) = \begin{cases}
-      \sum^x_{i=1}i, & \text{ ако } x < 0\\
-      \text{не е деф.}, & \text{ ако } x \geq 0.
-    \end{cases}\]
-  Да приемем, че нашето твърдение е изпълнено за $g_n$.
-  Ще докажем, че то е изпълнено и за $g_{n+1}$. И така,
-  \begin{align*}
-    g_{n+1}(x) & = \Gamma(g_n)(x)\\
-               &  = \begin{cases}
-                 0, & \text{ ако } x = 0\\
-                 x + g_n(x-1), & \text{ ако }x > 0\\
-               \end{cases}\\
-               & \stackrel{\text{И.П.}}{=} \begin{cases}
-                 0, & \text{ ако } x = 0\\
-                 x + \sum^{x-1}_{i=1}i , & \text{ ако } 0 \leq x-1 < n\\
-                 \text{не е деф.}, & \text{ ако }x-1 \geq n\\
-               \end{cases}\\
-               & = \begin{cases}
-                 0, & \text{ ако } x = 0\\
-                 \sum^{x}_{i=1}i , & \text{ ако } 1 \leq x < n+1\\
-                 \text{не е деф.}, & \text{ ако }x \geq n+1\\
-               \end{cases}\\
-               & = \begin{cases}
-                 \sum^{x}_{i=1}i , & \text{ ако } x < n+1\\
-                 \text{не е деф.}, & \text{ ако }x \geq n+1.
-               \end{cases}
-  \end{align*}
-  Сега можем да заключим, че за всяко естествено число $x$,
-  \[g_{x+1}(x) = \sum^x_{i=1}i = \frac{x(x+1)}{2}.\]
-  Тогава
-  \[\texttt{lfp}(\Gamma)(x) = (\bigsqcup_i g_i)(x) = \frac{x(x+1)}{2}.\]
-\end{example}
+%   Нека сега да видим, че $\Gamma$ е непрекъснато изображение.
+%   Да разгледаме произволна верига $\chain{f}{i}$ от частични функции.
+%   Трябва да докажем, че
+%   \[\Gamma(\bigsqcup_i f_i) = \bigsqcup_i \Gamma(f_i).\]
+%   Щом $\Gamma$ е монотонно, от \Prop{monotone-chain} вече знаем, че
+%   \[\bigsqcup_i \Gamma(f_i) \subseteq \Gamma(\bigsqcup_i f_i).\]
+%   Остава да докажем обратната посока. И така, нека първо да вземем $x = 0$.
+%   Тогава $\Gamma(\bigsqcup_i f_i)(0) \simeq 0$. От дефиницията от $\Gamma$ знаем, че
+%   за всяко $i$, $\Gamma(f_i)(0) \simeq 0$ и оттук $(\bigsqcup_i \Gamma(f_i))(0) \simeq 0$.
+%   Следователно,
+%   \[\Gamma(\bigsqcup_i f_i)(0) \simeq 0 \simeq (\bigsqcup_i \Gamma(f_i))(0).\]
+%   Нека сега $x > 0$. Тогава
+%   \marginpar{Да напомним, че $(\bigsqcup_i f_i)(u) \simeq v$ точно тогава, когато съществува индекс $i$, за който $f_i(u) = v$.}
+%   \[\Gamma(\bigsqcup_i f_i)(x) \simeq x + (\bigsqcup_i f_i)(x-1) \simeq y.\]
+%   Ясно е, че съществува $z$, за което $(\bigsqcup_i f_i)(x-1) \simeq z$ и $x + z = y$.
+%   Знаем, че съществува индекс $i$, за който $f_i(x-1) \simeq z$.
+%   Тогава, понеже $\Gamma(f_i)(x) \simeq x + f_i(x-1) \simeq x+z = y$, то следва, че $(\bigsqcup_i \Gamma(f_i))(x) \simeq y$.
 
-Казваме, че елементът $a$ е {\bf преднеподвижна точка} на $f$,
-ако $f(a) \sqsubseteq a$.
+%   Сега вече можем да намерим $\lfp(\Gamma) = \bigsqcup_n \Gamma^n(\bm{\bot})$.
+%   Ще докажем, че
+%   \[\lfp(\Gamma)(x) \simeq \frac{x(x+1)}{2}\] за всяко естествено число $x$.
+%   Нека за улеснение да означим $g_n = \Gamma^n(\bm{\bot})$.
+%   Ще докажем, че за всяко $n$,
+%   \[g_n(x) \simeq \begin{cases}
+%       \sum^x_{i=1}i, & \text{ ако } x < n\\
+%       \text{не е деф.}, & \text{ ако } x \geq n.
+%     \end{cases}\]
+%   Ясно е, че $g_0 = \bm{\bot}$, което може да се запише и така:
+%   \marginpar{Да напомним, че $\Gamma^0(g) = g$ и $\Gamma^{n+1}(g) = \Gamma(\Gamma^n(g))$.}
+%   \[g_0(x) \simeq \begin{cases}
+%       \sum^x_{i=1}i, & \text{ ако } x < 0\\
+%       \text{не е деф.}, & \text{ ако } x \geq 0.
+%     \end{cases}\]
+%   Да приемем, че нашето твърдение е изпълнено за $g_n$.
+%   Ще докажем, че то е изпълнено и за $g_{n+1}$. И така,
+%   \begin{align*}
+%     g_{n+1}(x) & \simeq= \Gamma(g_n)(x)\\
+%                &  \simeq \begin{cases}
+%                  0, & \text{ ако } x = 0\\
+%                  x + g_n(x-1), & \text{ ако }x > 0\\
+%                \end{cases}\\
+%                & \stackrel{\text{И.П.}}{\simeq} \begin{cases}
+%                  0, & \text{ ако } x = 0\\
+%                  x + \sum^{x-1}_{i=1}i , & \text{ ако } 0 \leq x-1 < n\\
+%                  \text{не е деф.}, & \text{ ако }x-1 \geq n\\
+%                \end{cases}\\
+%                & \simeq \begin{cases}
+%                  0, & \text{ ако } x = 0\\
+%                  \sum^{x}_{i=1}i , & \text{ ако } 1 \leq x < n+1\\
+%                  \text{не е деф.}, & \text{ ако }x \geq n+1\\
+%                \end{cases}\\
+%                & \simeq \begin{cases}
+%                  \sum^{x}_{i=1}i , & \text{ ако } x < n+1\\
+%                  \text{не е деф.}, & \text{ ако }x \geq n+1.
+%                \end{cases}
+%   \end{align*}
+%   Сега можем да заключим, че за всяко естествено число $x$,
+%   \[g_{x+1}(x) \simeq \sum^x_{i=1}i = \frac{x(x+1)}{2}.\]
+%   Тогава
+%   \[\texttt{lfp}(\Gamma)(x) \simeq (\bigsqcup_i g_i)(x) \simeq \frac{x(x+1)}{2}.\]
+% \end{example}
 
+% Казваме, че елементът $a$ е {\bf преднеподвижна точка} на $f$,
+% ако $f(a) \sqsubseteq a$.
+
+\marginpar{Да се обясни къде се използва това твърдение.}
 \begin{proposition}\label{pr:prefix-point}
   За всяко $f \in \Cont{\A}{\A}$ е изпълнено, че 
   \[(\forall a \in \Pref(f))[\lfp(f) \sqsubseteq a],\]

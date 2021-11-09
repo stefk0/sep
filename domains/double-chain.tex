@@ -1,16 +1,18 @@
 \section{Област на Скот от непрекъснати изображения}
 
-Следващата теорема е важна, защото с нейна помощ се доказват много свойства на непрекъснатите изображения от по-висок ред.
-
-\begin{theorem}\label{th:double-chain}
+Тук ще докажем, че всички непрекъснати изображения между две области на Скот също образуват област на Скот. За да направим това, първо трябва да се подготвим с една теорема, която е важна, защото с нейна помощ се доказват много свойства на непрекъснатите изображения от по-висок ред.
   \marginpar{\cite[стр. 127]{winskel}}
   \marginpar{\cite[Switch Lemma, стр. 178]{models-of-computation}}
+
+\begin{framed}
+\begin{theorem}[Switch Lemma]\label{th:double-chain}
   Нека $\A = (A,\sqsubseteq,\bot)$ да бъде област на Скот и нека множеството 
   \[\{a_{m,n} \mid m,n \in \Nat\}\] от елементи на $A$ притежава свойството, че 
   \[n \leq n^\prime\ \&\ m \leq m^\prime\ \Rightarrow\ a_{n,m} \sqsubseteq a_{n^\prime,m^\prime}.\]
   Тогава са изпълнени равенствата
   \[\bigsqcup_m(\bigsqcup_n a_{n,m}) = \bigsqcup_n(\bigsqcup_{m} a_{n,m}) = \bigsqcup_n a_{n,n}.\]
 \end{theorem}
+\end{framed}
 \begin{proof}
   Първо ще въведем някои означения.
   \begin{itemize}
@@ -72,7 +74,7 @@
   \begin{lemma}\label{lem:double-chain:lub}
     Нека $\A$ и $\B$ са области на Скот.
     Нека $\chain{f}{k}$ е верига от елементи на $\Cont{\A}{\B}$.
-    Да дефинираме изображението $h$ на $\A$ в $\B$ по следния начин
+    Да дефинираме изображението $h$ на $\A$ в $\B$ по следния начин:
     \[h(a) \df \bigsqcup\{f_k(a) \mid k \in \Nat\}.\]
     Изображението $h$ е {\em непрекъснато} и е {\em точна горна граница} на веригата $\chain{f}{k}$,
     т.е. $h = \bigsqcup_k f_k$.
@@ -130,8 +132,9 @@
 
 Нека $\A_1,\dots,\A_n$ и $\A$ са области на Скот и да разгледаме $f: \A_1\times \dots \times \A_n \to \A$.
 Казваме, че $f$ е {\bf непрекъснато изображение по $i$-тия аргумент}, ако 
-за всяка верига $\chain{a}{k}$ в $\A_i$, то
-\[f(b_1,\dots, b_{i-1}, \bigsqcup_k a_k, b_{i+1},\dots,b_n) = \bigsqcup_k f(b_1,\dots, b_{i-1}, a_k, b_{i+1},\dots,b_n).\]
+за всяка верига $\chain{a}{k}$ в $\A_i$, то е изпълнено равенството
+\[f(b_1,\dots, b_{i-1}, \bigsqcup_k a_k, b_{i+1},\dots,b_n) = \bigsqcup_k f(b_1,\dots, b_{i-1}, a_k, b_{i+1},\dots,b_n),\]
+където $b_1,\dots,b_{i-1},b_{i+1},\dots,b_{n}$ са произволно елементи от съответните области на Скот.
 
 \begin{proposition}
   \label{pr:continuous-arguments}
@@ -142,7 +145,8 @@
 \end{proposition}
 \begin{proof}
   \marginpar{\writedown Обобщете това твърдение за $n > 2$.}
-  За по-просто изложение, да разгледаме случая $n = 2$.
+  За по-просто изложение, да разгледаме случая $n = 2$ и да
+  разгледаме изображение $f:\A \times \B \to \C$.
 
   $(\Rightarrow)$ Лесно се съобразява, че ако $f$ е непрекъснато изображение, то $f$ е непрекъснато по всеки от аргументите си.
   Да видим например защо $f$ е непрекъснато по първия аргумент.
@@ -161,15 +165,15 @@
   \[\bigsqcup_n\pair{a_n,b_n} = \pair{\bigsqcup_n a_n,\bigsqcup_n b_n},\]
   ще докажем, че 
   \[\bigsqcup_n f(a_n,b_n) = f(\bigsqcup_n a_n,\bigsqcup_n b_n).\]
-  Да положим $e_{n,m} = f(a_n,b_m)$.
+  Да положим $c_{n,m} \df f(a_n,b_m)$.
   Понеже $f$ е непрекъснато по всеки от аргументите си, лесно се вижда, че $f$
   е монотонно изображение по всеки от аргументите си. Следователно, 
-  \[n \leq n^\prime\ \&\ m \leq m^\prime\ \Rightarrow\ e_{n,m} \sqsubseteq e_{n^\prime,m^\prime}.\]  
+  \[n \leq n^\prime\ \&\ m \leq m^\prime\ \implies\ c_{n,m} \sqsubseteq c_{n^\prime,m^\prime}.\]  
   Получаваме, че
   \begin{align*}
-    \bigsqcup_n f(a_n,b_n) & = \bigsqcup_n e_{n,n} & \comment{\text{от опр. на }e_{n,m}}\\
-                           & = \bigsqcup_n (\bigsqcup_m e_{n,m}) & \comment{\text{от \Th{double-chain}}}\\
-                           & = \bigsqcup_n (\bigsqcup_m f(a_n,b_m)) & \comment{\text{от опр. на }e_{n,m}}\\
+    \bigsqcup_n f(a_n,b_n) & = \bigsqcup_n c_{n,n} & \comment{\text{от опр. на }c_{n,m}}\\
+                           & = \bigsqcup_n (\bigsqcup_m c_{n,m}) & \comment{\text{от \Th{double-chain}}}\\
+                           & = \bigsqcup_n (\bigsqcup_m f(a_n,b_m)) & \comment{\text{от опр. на }c_{n,m}}\\
                            & = \bigsqcup_n f(a_n,\bigsqcup_m b_m) & \comment{f \text{ е непр. по втория си аргумент}}\\
                            & = f(\bigsqcup_n a_n,\bigsqcup_m b_m) & \comment{f \text{ е непр. по първия си аргумент}}.
   \end{align*}
