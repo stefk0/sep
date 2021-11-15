@@ -29,9 +29,18 @@
     \begin{prooftree}
       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
       \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
-      \AxiomC{$a = \texttt{plus}(a_1, a_2)$}
+      \AxiomC{$a = \plus(a_1, a_2)$}
       \RightLabel{\scriptsize{(plus)}}
       \TrinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
+    \end{prooftree}
+  \end{figure}
+  \begin{figure}[h!]
+    \begin{prooftree}
+      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
+      \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
+      \AxiomC{$a = \minus(a_1, a_2)$}
+      \RightLabel{\scriptsize{(minus)}}
+      \TrinaryInfC{$\mu_1 - \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
     \end{prooftree}
   \end{figure}
 \item
@@ -39,7 +48,7 @@
     \begin{prooftree}
       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
       \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
-      \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
+      \AxiomC{$a = \eq(a_1, a_2)$}
       \RightLabel{\scriptsize{(eq)}}
       \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
     \end{prooftree}

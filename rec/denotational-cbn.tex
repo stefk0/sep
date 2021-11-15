@@ -14,11 +14,17 @@
 Нека $\ov{\gamma} \in \DomOpCBN$
 е {\em най-малкото решение} на системата
 \marginpar{В тази система неизвестните са $\varphi_1,\dots,\varphi_k$.}
-\begin{align*}
-  & \val{\tau_1}(\varphi_1,\dots,\varphi_k) = \varphi_1\\
-  & \ \vdots \\
-  & \val{\tau_k}(\varphi_1,\dots,\varphi_k) = \varphi_k.
-\end{align*}
+
+\begin{SystemEq}
+  \varphi_1 & = & \val{\tau_1}(\varphi_1,\dots,\varphi_k)\\
+  & \vdots & \\
+  \varphi_k & = & \val{\tau_k}(\varphi_1,\dots,\varphi_k).
+\end{SystemEq}
+% \begin{align*}
+%   & \val{\tau_1}(\varphi_1,\dots,\varphi_k) = \varphi_1\\
+%   & \ \vdots \\
+%   & \val{\tau_k}(\varphi_1,\dots,\varphi_k) = \varphi_k.
+% \end{align*}
 От \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем, че такова най-малко решение съществува.
 
 \index{денотационна семантика!по име}

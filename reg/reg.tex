@@ -18,16 +18,15 @@
 Ето един пример за програма:
 \begin{align*}
   & X_1 = a \cdot X_1 + b \cdot X_2\\
-  & X_2 = \varepsilon + b \cdot X_1.
+  & X_2 = b \cdot X_1 + \varepsilon.
 \end{align*}
-
 
 \section{Операционна семантика}
 \index{операционна семантика}
 \label{reg:sect:operational-semantics}
 
 \marginpar{
-  Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на термовете.
+  Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на изрази.
   Също така, няма как да дефинираме релация $\tau \Downarrow L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
 }
 
@@ -148,12 +147,12 @@
   Да разгледаме програмата $R$, където:
   \begin{align*}
     & X_1 = \overbrace{b \cdot X_1 + a\cdot X_2}^{\tau_1[X_1,X_2]}\\
-    & X_2 = \underbrace{\varepsilon}_{\tau_2[X_1,X_2]}.
+    & X_2 = \underbrace{\varepsilon}_{\tau_2[X_1,X_2]}
   \end{align*}
-  Според горната дефиниция на семантика на термове, на програмата $R$ съотвества следната система от непрекъснати изображения:
+  Според горната дефиниция на семантика на термовете, на програмата $R$ съотвества следната система от непрекъснати изображения:
   \begin{align*}
     & L = \overbrace{\{b\} \cdot L \cup \{a\} \cdot M}^{\val{\tau_1}(L,M)}\\
-    & M = \underbrace{\{\varepsilon\}}_{\val{\tau_2}(L,M)}.
+    & M = \underbrace{\{\varepsilon\}}_{\val{\tau_2}(L,M)}
   \end{align*}
   От \Th{sep:min-solution-system} знаем, че тази система има най-малко решение. Нека да го намерим.
   За тази цел, да дефинираме непрекъснатото изображение $\Gamma:\mathcal{P}(\Sigma^\star)^2 \to \mathcal{P}(\Sigma^\star)^2$ като
@@ -180,7 +179,7 @@
     $(L_5,M_5) \df \Gamma(L_4,M_4) = ( \val{\tau_1}(L_4,M_4), \val{\tau_2}(L_4,M_4)) = (\{bba, bba, ba,a\},\{\varepsilon\})$.
   \end{itemize}
   \marginpar{\writedown Докажете!}
-  Лесно се съобразява, че $L_n = \{ b^ka \mid k < n\}$, а $M_n = \{\varepsilon\}$. Тогава
+  Лесно се съобразява, че $L_n = \{ b^ka \mid k < n-1\}$, а $M_n = \{\varepsilon\}$. Тогава
   \[\lfp( \Gamma ) = (\bigcup_n L_n, \bigcup_n M_n) = (\{b\}^\star \cdot \{a\}, \{\varepsilon\} ).\]
 \end{example}
 
@@ -213,12 +212,17 @@
     & X_2 = a \cdot X_3 + b \cdot X_2\\
     & X_3 = a \cdot X_1 + b \cdot X_3.
   \end{align*}
-  На тази програма съответства системата:
-  \begin{align*}
-    & L_1 = \{a\} \cdot L_2 \cup \{b\} \cdot L_1 \cup \{\varepsilon\}\\
-    & L_2 = \{a\} \cdot L_3 \cup \{b\} \cdot L_2\\
-    & L_3 = \{a\} \cdot L_1 \cup \{b\} \cdot L_3.
-  \end{align*}
+  На тази програма съответства системата от уравнения:
+  \begin{SystemEq}
+    L_1 & = & \{a\} \cdot L_2 \cup \{b\} \cdot L_1 \cup \{\varepsilon\}\\
+    L_2 & = & \{a\} \cdot L_3 \cup \{b\} \cdot L_2\\
+    L_3 & = & \{a\} \cdot L_1 \cup \{b\} \cdot L_3.
+  \end{SystemEq}
+  % \begin{align*}
+  %   & L_1 = \{a\} \cdot L_2 \cup \{b\} \cdot L_1 \cup \{\varepsilon\}\\
+  %   & L_2 = \{a\} \cdot L_3 \cup \{b\} \cdot L_2\\
+  %   & L_3 = \{a\} \cdot L_1 \cup \{b\} \cdot L_3.
+  % \end{align*}
   Най-малкото решение на тази система е тройката $(\hat{L}_1,\hat{L}_2,\hat{L}_3)$ от следните езици:
   \marginpar{\writedown Докажете!}
   \begin{align*}
@@ -230,33 +234,42 @@
 
 \begin{example}
   Да разгледаме следната система съставена само от едно уравнение:
-  \[L = \{a\} \cdot L.\]
+  \[L = \{a\}^\star \cdot L.\]
   \marginpar{Този пример ни подсказва защо се интересуваме от най-малкото решение на една система, а не просто от някое решение на систамата.}
   Най-малкото решение на тази система е езикът $\emptyset$,
-  но тази система има за решение и езикът $\{a^n \mid n > 0\}$.
-  Да разгледаме сега програмата на езика \REG
-  \[X = \underbrace{a \cdot X}_{\tau[X]}.\]
-  Лесно се съобразява, че $\emptyset = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}$.
+  но тази система има за решение и езикът $\{a^n \mid n \geq 0\}$.
+  % Да разгледаме сега програмата на езика \REG
+  % \[X = \underbrace{a \cdot X}_{\tau[X]}.\]
+  % Лесно се съобразява, че $\emptyset = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}$.
 \end{example}
 
   
 \begin{problem}
-  Докажете, че най-малкото решение на системата 
-  \begin{align*}
-    & X_1 = a \cdot X_1 + b \cdot X_2 + \varepsilon\\
-    & X_2 = b \cdot X_2 + \varepsilon
-  \end{align*}
+  Докажете, че най-малкото решение на системата
+  \begin{SystemEq}
+    X_1 & = & a \cdot X_1 + b \cdot X_2 + \varepsilon\\
+    X_2 & = & b \cdot X_2 + \varepsilon
+  \end{SystemEq}
+  % \begin{align*}
+  %   & X_1 = a \cdot X_1 + b \cdot X_2 + \varepsilon\\
+  %   & X_2 = b \cdot X_2 + \varepsilon
+  % \end{align*}
   е двойката от езици $(\{a\}^\star \cdot \{b\}^\star, \{b\}^\star)$.
 \end{problem}
 
 \begin{problem}[Теорема за характеризация]
   \marginpar{Да се даде упътване}
   Да разгледаме системата от непрекъснати оператори
-  \begin{align*}
-    & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
-    & \ \ \vdots\\
-    & \val{\tau_n}(L_1,\dots,L_n) = L_n.
-  \end{align*}
+  \begin{SystemEq}
+    L_1 & = & \val{\tau_1}(L_1,\dots,L_n)\\
+    & \vdots & \\
+    L_n & = & \val{\tau_n}(L_1,\dots,L_n).
+  \end{SystemEq}
+  % \begin{align*}
+  %   & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
+  %   & \ \ \vdots\\
+  %   & \val{\tau_n}(L_1,\dots,L_n) = L_n.
+  % \end{align*}
   Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
   Докажете, че всеки от езиците $\hat{L}_i$ е регулярен.
 
@@ -305,13 +318,13 @@
   \item
     Нека $\tau \equiv \varepsilon$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \{\varepsilon\}$.
     От правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
-    Заключаваме, че Свойство~\ref{eq:17} е изпълнено.
+    Заключаваме, че Свойство~(\ref{eq:17}) е изпълнено.
   \item
     Нека $\tau \equiv a \cdot X_j$, за някой индекс $j$ измежду $1,\dots,n$. Тогава
     \[\val{\tau}(L^0_1,\dots,L^0_n) = \{a\}\cdot L^0_j = \{a\} \cdot \emptyset = \emptyset\]
-    и оттук е очевидно, че Свойство~\ref{eq:17} е в сила.
+    и оттук е очевидно, че Свойство~(\ref{eq:17}) е в сила.
   \item
-    Нека $\tau \equiv \rho + \mu$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \val{\rho}(L^0_1,\dots,L^0_n) \cup \val{\mu}(L^0_1,\dots,L^0_n)$. Сега от И.П. за Свойство~\ref{eq:17} получаваме, че
+    Нека $\tau \equiv \rho + \mu$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \val{\rho}(L^0_1,\dots,L^0_n) \cup \val{\mu}(L^0_1,\dots,L^0_n)$. Сега от И.П. за Свойство~(\ref{eq:17}) получаваме, че
     \begin{align*}
       & \val{\rho}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\}\\
       & \val{\mu}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}.
@@ -356,11 +369,11 @@
   \end{equation}
   \begin{itemize}
   \item
-    Нека $\tau \equiv \emptyset$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:18} е изпълнено.
+    Нека $\tau \equiv \emptyset$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \emptyset$, то е ясно, че Свойство~(\ref{eq:18}) е изпълнено.
   \item
     Нека $\tau \equiv \varepsilon$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \{\varepsilon\}$,
     то от правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
-    Заключаваме, че Свойство~\ref{eq:18} е изпълнено.
+    Заключаваме, че Свойство~(\ref{eq:18}) е изпълнено.
   \item
     Нека $\tau \equiv a \cdot X_j$ за някой индекс $j$ измежду $1,\dots,n$. Тогава
     \[\val{\tau}(L^r_1,\dots,L^r_n) = \{a\}\cdot L^r_j.\]
@@ -382,7 +395,7 @@
       \val{\tau}(L^r_1,\dots,L^r_n) & = \{a\} \cdot L^r_j \\
                                     & = \{a\} \cdot \val{\tau_j}(L^{r-1}_1,\dots,L^{r-1}_n)\\
                                     & \subseteq \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow \beta\} & \comment\text{от }\textbf{Include}(r-1)\\
-      & = \{ \alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}. & \comment\text{от \ref{eq:21}}
+      & = \{ \alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}. & \comment\text{от Свойство~(\ref{eq:21})}
     \end{align*}
   \item
     Нека $\tau \equiv \rho + \mu$. Тук имаме, че
@@ -401,7 +414,7 @@
                                     & = \{\alpha \in \Sigma^\star \mid \mu+\rho \Downarrow \alpha\}\\
       & = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
     \end{align*}
-    Свойство~\ref{eq:18} е изпълнено за всеки терм $\tau$.
+    Свойство~(\ref{eq:18}) е изпълнено за всеки терм $\tau$.
   \end{itemize}
 \end{proof}
 
@@ -462,8 +475,8 @@
     \end{equation}
     Заключаваме, че:
     \begin{align*}
-      \{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} & \comment\text{от (\ref{eq:22})}\\
-                                                                   & \subseteq \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n) & \comment\text{от (\ref{eq:11})}\\
+      \{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} & \comment\text{от Свойство~(\ref{eq:22})}\\
+                                                                   & \subseteq \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n) & \comment\text{от Свойство~(\ref{eq:11})}\\
                                                                    & = \{a\} \cdot L_j & \comment L_j = \val{\tau_j}(L_1,\dots,L_n)\\
       & = \val{\tau}(L_1,\dots,L_n) & \comment\text{деф. на денот. сем.}
     \end{align*}

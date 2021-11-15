@@ -1,32 +1,32 @@
 \subsection{Термални оператори}\label{subsect:rec:term-value}
 
-Нека първо да дефинираме следните {\em изображения}
-\begin{align*}
-  & \texttt{plus} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
-  & \texttt{plus}(a,b) \df
-    \begin{cases}
-      a+b, & \text{ако }a,b \in \Nat\\
-      \bot, & \text{ако }\bot \in \{a,b\}
-    \end{cases}\\
-  & \texttt{eq} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
-  & \texttt{eq}(a,b) \df
-    \begin{cases}
-      1, & \text{ако }a = b\ \&\ a,b \in \Nat\\
-      0, & \text{ако }a \neq b\ \&\ a,b \in \Nat\\
-      \bot, & \text{ако }\bot \in \{a,b\}
-    \end{cases}
-\end{align*}
+% Нека първо да дефинираме следните {\em изображения}
+% \begin{align*}
+%   & \texttt{plus} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
+%   & \texttt{plus}(a,b) \df
+%     \begin{cases}
+%       a+b, & \text{ако }a,b \in \Nat\\
+%       \bot, & \text{ако }\bot \in \{a,b\}
+%     \end{cases}\\
+%   & \texttt{eq} : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
+%   & \texttt{eq}(a,b) \df
+%     \begin{cases}
+%       1, & \text{ако }a = b\ \&\ a,b \in \Nat\\
+%       0, & \text{ако }a \neq b\ \&\ a,b \in \Nat\\
+%       \bot, & \text{ако }\bot \in \{a,b\}
+%     \end{cases}
+% \end{align*}
 
-\marginpar{Спестяваме си труда от въвеждането на булевия тип променливи}
-\marginpar{Озн. $\Nat^+ \df \Nat \setminus \{0\}$}
+% \marginpar{Спестяваме си труда от въвеждането на булевия тип променливи}
+% \marginpar{Озн. $\Nat^+ \df \Nat \setminus \{0\}$}
 
-\begin{problem}\label{prob:rec:if:continuous}
-  Докажете, че изображенията $\texttt{plus}$ и $\texttt{eq}$ са непрекъснати.
-\end{problem}
-\begin{hint}
-  Понеже $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$,
-  достатъчно е да докажете, че изображенията са монотонни.
-\end{hint}
+% \begin{problem}\label{prob:rec:if:continuous}
+%   Докажете, че изображенията $\texttt{plus}$ и $\texttt{eq}$ са непрекъснати.
+% \end{problem}
+% \begin{hint}
+%   Понеже $\Mon{\Nat^n_\bot}{\Nat_\bot} = \Cont{\Nat^n_\bot}{\Nat_\bot}$,
+%   достатъчно е да докажете, че изображенията са монотонни.
+% \end{hint}
 
 \index{денотационна семантика!по име}
 \marginpar{\cite[стр. 155]{winskel}}
@@ -47,19 +47,26 @@
   \[\val{\vv{x}_i}(\ov{\varphi})(\ov{a}) \df a_i.\]
 \item
   ако $\tau \equiv \tau_1 + \tau_2$, то
-  \[\val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a}) \df \texttt{plus}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\tau_1 + \tau_2}(\ov{\varphi})(\ov{a}) \df \plus(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 \item
-  \marginpar{От \Problem{rec:if:continuous} знаем, че изображенията $\texttt{plus}$, $\texttt{eq}$ са непрекъснати.}
+  ако $\tau \equiv \tau_1 - \tau_2$, то
+  \[\val{\tau_1 - \tau_2}(\ov{\varphi})(\ov{a}) \df \minus(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+
+\item
+  \marginpar{От \Problem{basic-operations:continuous} знаем, че изображенията $\plus$, $\minus$, $\eq$ са непрекъснати.}
   ако $\tau \equiv \tau_1\ \vv{==}\ \tau_2$, то
-  \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \df \texttt{eq}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \df \eq(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
+
 \item
-  \marginpar{За $\texttt{if}$ вижте \Def{if}. От \Problem{if} знаем, че $\texttt{if}$ е непрекъснато изображение.}
+  \marginpar{От \Problem{basic-operations:if} знаем, че $\texttt{if}$ е непрекъснато изображение.}
   ако $\tau \equiv\ \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
   \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \df \texttt{if}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
+
 \item
   ако $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$, то
   \marginpar{Термовете $\tau_j$ може да имат различен брой променливи. Ако се наложи, разширяваме ги с фиктивни променливи}
   \[\val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{a}) \df \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{a}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{a})).\]
+
 \end{itemize}
 
 
@@ -89,8 +96,8 @@ ghci> let f(x) = if x == undefined then 0 else 1
 ghci> f(2)
 *** Exception: Prelude.undefined
 \end{haskellcode}
-Това означава, че функцията на хаскел \texttt{==} е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата
-денотационна семантика, т.е. функцията $\texttt{eq}$.
+Това означава, че функцията на хаскел \eq е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата
+денотационна семантика, т.е. функцията $\eq$.
 
 \begin{framed}
   \begin{lemma}[Лема за замяната]
@@ -106,7 +113,7 @@ ghci> f(2)
   Доказателството се провежда с {\em индукция по построението на терма $\tau$.}
   \marginpar{Понеже нямаме обектови променливи в $\mu_1,\dots,\mu_n$, то е очевидно как правим замяната.}
   \marginpar{Substitution Lemma, \cite[стр. 149]{winskel}.}
-  \marginpar{Това твърдение е без д-во в \cite[стр. 188]{ditchev-soskov}.}
+  \marginpar{Това твърдение е без доказателство в \cite[стр. 188]{ditchev-soskov}.}
   \begin{itemize}
   \item
     \marginpar{$\vv{c}$ е константа, докато $c \in \Nat_\bot$}
@@ -130,13 +137,16 @@ ghci> f(2)
     Тогава
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\tau_1[\varsx/\ov{\mu}] + \tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})\\
-                                                & = \texttt{plus}(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})) & \comment\text{от деф.}\\
-                                                & = \texttt{plus}(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
+                                                & = \plus(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})) & \comment\text{от деф.}\\
+                                                & = \plus(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
                                                 & = \val{\tau}(\ov{\varphi})(b_1,\dots,b_n) & \comment\text{от деф.}\\
                                                 & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \df \val{\mu_j}(\ov{\varphi})}
     \end{align*}
   \item
     \marginpar{\writedown Докажете сами останалите два случая. Те не крият изненади.}
+    Нека $\tau \equiv \tau_1\ -\  \tau_2$.
+  \item
+    % \marginpar{\writedown Докажете сами останалите два случая. Те не крият изненади.}
     Нека $\tau \equiv \tau_1\ \vv{==}\  \tau_2$.
   \item
     Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.

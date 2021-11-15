@@ -92,7 +92,7 @@
     \caption{Автомат разпознаващ $\{\omega \in \{a,b\}^\star \mid \abs{\omega}_{a} \equiv 0 \bmod\ 3\}$}
   \end{figure}
   
-  Сега разглеждаме втория ред като си мислим, че имаме азбуката $\Sigma_2 = \{a,b,X_1,X_3\}$, т.е. едиствената свободна променлива е $X_2$.
+  Сега разглеждаме втория ред като си мислим, че имаме азбуката $\Sigma_2 = \{a,b,X_1\}$, т.е. едиствената свободна променлива е $X_2$.
   Тогава получаваме следното:
   \[X_2 = \underbrace{b}_{\alpha} \cdot X_2 + \underbrace{a b^\star a \cdot X_1}_{\beta}.\]
   Според \hyperref[prob:reg:arden]{правилото на Ардън}, най-малкото решение на тази система е езикът описван с регулярния израз $b^\star a b^\star a \cdot X_1$
@@ -103,12 +103,17 @@
   \[X_1 = \underbrace{(b + ab^\star a b^\star a)}_{\alpha} \cdot X_1 + \underbrace{\varepsilon}_{\beta}.\]
   Така получаваме, че най-малкото решение на първия ред е $(b + ab^\star a b^\star a)^\star$.
   Заключаваме, че най-малкото решение на системата е тройката от езици:
-  \marginpar{Тук един от проблемите е, че изобщо не е ясно дали тези регулярни изрази са ,,оптимални'' в някакъв смисъл.}
-  \begin{align*}
-    \hat{L}_1 & = (b + ab^\star a b^\star a)^\star\\
-    \hat{L}_2 & = b^\star a b^\star a (b + ab^\star a b^\star a)^\star\\
-    \hat{L}_3 & = b^\star a (b + ab^\star a b^\star a)^\star.
-  \end{align*}
+  \marginpar{Тук един от проблемите е, че изобщо не е ясно дали тези регулярни изрази са ,,оптимални'', т.е. може да същствуват по-кратки регулярни изрази, които да описват същите езици.}
+  \begin{SystemEq}
+    \hat{L}_1 & = & (b + ab^\star a b^\star a)^\star\\
+    \hat{L}_2 & = & b^\star a b^\star a (b + ab^\star a b^\star a)^\star\\
+    \hat{L}_3 & = & b^\star a (b + ab^\star a b^\star a)^\star.
+  \end{SystemEq}
+  % \begin{align*}
+  %   \hat{L}_1 & = (b + ab^\star a b^\star a)^\star\\
+  %   \hat{L}_2 & = b^\star a b^\star a (b + ab^\star a b^\star a)^\star\\
+  %   \hat{L}_3 & = b^\star a (b + ab^\star a b^\star a)^\star.
+  % \end{align*}
   
   Да напомним, че вече намерихме следното представяне на най-малкото решение на системата:
   \begin{align*}

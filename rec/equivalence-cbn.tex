@@ -65,8 +65,8 @@
     \end{align*}
     Тогава получаваме, че ако $\mu_1 + \mu_2 \Downarrow^\ell_P \vv{a}$, то
     \begin{align*}
-      \val{\mu_1 + \mu_2}(\ov{\gamma}) & \df \texttt{plus}(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
-                                       & = \texttt{plus}(a_1,a_2)\\
+      \val{\mu_1 + \mu_2}(\ov{\gamma}) & \df \plus(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
+                                       & = \plus(a_1,a_2)\\
                                        & = a.
     \end{align*}
   \item
@@ -107,7 +107,7 @@
 \begin{framed}
   \begin{corollary}[Теорема за коректност]
     \label{cr:on-in-dn}
-    За всяка рекурсивна програма $\vv{P}$ на езика \REC имаме, че 
+    За всяка рекурсивна програма $\vv{P}$ на езика \FUN имаме, че 
     \[\O\val{\vv{P}} \sqsubseteq \D\val{\vv{P}}.\]
   \end{corollary}
 \end{framed}
@@ -141,7 +141,7 @@
   \label{pr:op-name-inclusion2}
   \marginpar{\writedown На пръв поглед не е ясно защо трябва да докажем толкова сложно формулирано твърдение.Съобразете защо не можем да докажем по-простото твърдение, че за всеки функционален терм $\mu$ и всяко $r$,
   $\val{\mu}(\ov{\gamma}_r) \sqsubseteq \eval{\mu}$.}
-  Да разгледаме една програма \vv{P} в езика $\REC$, като
+  Да разгледаме една програма \vv{P} в езика \FUN, като
   $\ov{\gamma} = \bigsqcup_r\ov{\gamma}_r$ е най-малкото решение на системата от оператори за \vv{P}.
   Тогава за произволен терм $\tau[\vv{x}_1,\dots,\vv{x}_n,\vv{f}_1,\dots,\vv{f}_k]$ и
   произволни функционални термове
@@ -187,8 +187,8 @@
       Да напомним, че изображението $\texttt{plus}$ е непрекъснато, откъдето следва, че също така е монотонно. 
       Тогава:
       \begin{align*}
-        \val{\tau_1 + \tau_2}(\ov{\gamma}_0)(\ov{a}) & = \texttt{plus}(\val{\tau_1}(\ov{\gamma}_0)(\ov{a}), \val{\tau_2}(\ov{\gamma}_0)(\ov{a})) & \comment\text{стойност на терма}\\
-                                                    & \sqsubseteq \texttt{plus}(\eval{\tau_1[\varsx/\ov{\mu}]}, \eval{\tau_2[\varsx/\ov{\mu}]}) & \comment{\text{от (\ref{eq:15})}}\\
+        \val{\tau_1 + \tau_2}(\ov{\gamma}_0)(\ov{a}) & = \plus(\val{\tau_1}(\ov{\gamma}_0)(\ov{a}), \val{\tau_2}(\ov{\gamma}_0)(\ov{a})) & \comment\text{стойност на терма}\\
+                                                    & \sqsubseteq \plus(\eval{\tau_1[\varsx/\ov{\mu}]}, \eval{\tau_2[\varsx/\ov{\mu}]}) & \comment{\text{от (\ref{eq:15})}}\\
                                                     & = \eval{\tau[\varsx/\ov{\mu}]} & \comment{\text{правило }(\texttt{plus})}
       \end{align*}
     \item
@@ -270,7 +270,7 @@
 
 \begin{framed}
   \begin{theorem}
-    За всяка рекурсивна програма $\vv{P}$ на езика \REC е изпълнено:
+    За всяка рекурсивна програма $\vv{P}$ на езика \FUN е изпълнено:
     \[\O\val{\vv{P}} = \D\val{\vv{P}}.\]
   \end{theorem}
 \end{framed}
