@@ -111,27 +111,51 @@
                                            & = (\compose (\plus, \varphi \times \psi))(a).
   \end{align*}
   Или казано по-накратко,
-  \[\val{f_1(x) + f_2(x)}(\varphi,\psi) = \compose (\plus, \varphi \times \psi).\]
-  
-  А какво изображение съответсва на терма $\tau[f_1,f_2,x_1,x_2] \equiv f_1(x_1) + f_2(x_2)$?
-  Нека да съобразим, че
+  \[\val{\tau}(\varphi,\psi) = \compose (\plus, \varphi \times \psi).\]
+
+  Оттук веднага се вижда, че ако $\varphi$ и $\psi$ са непрекъснати, то и $\val{\tau}(\varphi,\psi)$
+  също ще е непрекъснато изображение, т.е. $\val{\tau}(\varphi,\psi) \in \Cont{\Nat_\bot}{\Nat_\bot}$.
+
+  Можем да видим, че самото изображение $\val{\tau}$ също е непрекъснато, т.е.
+  \[\val{\tau} \in \Cont{\Cont{\Nat_\bot}{\Nat_\bot}\times\Cont{\Nat_\bot}{\Nat_\bot}}{\Cont{\Nat_\bot}{\Nat_\bot}}.\]
+  За да направим това е достатъчно да си припомним основните непрекъснати изображения, които разгледахме в първа глава и да съобразим следното:
+  \[\val{\tau}(\varphi,\psi)  = \compose(\plus, \texttt{cross}(\varphi,\psi)).\]
+  Тогава за произволни вериги $\chain{\varphi}{i}$ и $\chain{\psi}{i}$ е изпълнено, че:
   \begin{align*}
-    & f_1(x_1) = (f_1 \circ \texttt{fst})(x_1,x_2)\\
-    & f_2(x_2) = (f_2 \circ \texttt{snd})(x_1,x_2).
+    \val{\tau}(\bigsqcup_i\varphi_i,\bigsqcup_i\psi_i) & = \compose(\plus, \texttt{cross}(\bigsqcup_i\varphi_i,\bigsqcup_i\psi_i))\\
+                                                       & = \compose(\plus, \bigsqcup_i \texttt{cross}(\varphi_i,\psi_i))\\
+                                                       & = \bigsqcup_i\compose(\plus, \texttt{cross}(\varphi_i,\psi_i))\\
+                                                       & = \bigsqcup_i\val{\tau}(\varphi_i,\psi_i).
   \end{align*}
-  Оттук получаваме, че
-  \begin{align*}
-    \val{f_1(x_1) + f_2(x_2)}(\varphi,\psi)(a,b) & = \plus(\val{f_1(x_1)}(\varphi,\psi)(a,b),\val{f_2(x_2)}(\varphi,\psi)(a,b)) \\
-                                                 & = \plus((\varphi \circ \texttt{fst})(a,b),(\psi\circ \texttt{snd})(a,b))\\
-                                                 & = (\plus \circ ((\varphi\circ\texttt{fst}) \times (\psi\circ\texttt{snd})))(a,b).
-  \end{align*}
-  Оттук се вижда, че можем да получим следното представяне:
-  \[\val{f_1(x_1) + f_2(x_2)}(\varphi,\psi) = \plus \circ ((\varphi\circ\texttt{fst}) \times (\psi\circ\texttt{snd})).\]
-  От това представяне на $\val{\tau}$ е ясно, че ако $\varphi$ и $\psi$ са непрекъснати изображения, то
-  $\val{\tau}(\varphi,\psi)$ също е непрекъснато изображение.
-  Можем да видим и нещо по-силно, а именно, че
-  \[\val{\tau} : \Cont{\Cont{\Nat_\bot}{\Nat_\bot} \times \Cont{\Nat_\bot}{\Nat_\bot}}{\Cont{\Nat^2_\bot}{\Nat_\bot}}.\]
-  Това е така, защото самите операции $\compose$ и $\texttt{cross}$ са непрекъснати.
+  % А какво изображение съответства на терма $\tau[f_1,f_2,x_1,x_2] \equiv f_1(x_1) + f_2(x_2)$?
+  % Нека да съобразим, че
+  % \begin{align*}
+  %   & \varphi(a) = (\varphi \circ \texttt{fst})(a,b)\\
+  %   & \psi(b) = (\psi \circ \texttt{snd})(a,b).
+  % \end{align*}
+  % Оттук получаваме, че
+  % \begin{align*}
+  %   \val{f_1(x_1) + f_2(x_2)}(\varphi,\psi)(a,b) & = \plus(\val{f_1(x_1)}(\varphi,\psi)(a,b),\val{f_2(x_2)}(\varphi,\psi)(a,b)) \\
+  %                                                & = \plus(\varphi(a),\psi(b))\\
+  %                                                & = \plus((\varphi \circ \texttt{fst})(a,b),(\psi\circ \texttt{snd})(a,b))\\
+  %                                                & = (\plus \circ ((\varphi\circ\texttt{fst}) \times (\psi\circ\texttt{snd})))(a,b).
+  % \end{align*}
+  % Оттук се вижда, че можем да получим следното представяне:
+  % \[\val{f_1(x_1) + f_2(x_2)}(\varphi,\psi) = \plus \circ ((\varphi\circ\texttt{fst}) \times (\psi\circ\texttt{snd})).\]
+  % От това представяне на $\val{\tau}$ е ясно, че ако $\varphi$ и $\psi$ са непрекъснати изображения, то
+  % $\val{\tau}(\varphi,\psi)$ също е непрекъснато изображение.
+  % Можем да видим и нещо по-силно, а именно, че самото изображение $\val{\tau}$ е непрекъснато. С други думи,
+  % \[\val{\tau} : \Cont{\Cont{\Nat_\bot}{\Nat_\bot} \times \Cont{\Nat_\bot}{\Nat_\bot}}{\Cont{\Nat^2_\bot}{\Nat_\bot}}.\]
+  % Това е така, защото самите операции $\compose$ и $\texttt{cross}$ са непрекъснати и защото
+  % \[\val{\tau}(\varphi,\psi) = \compose(\plus, \texttt{cross}(\compose(\varphi,\texttt{fst}), \compose(\psi,\texttt{snd})))\]
+  % и тогава за произволни вериги $\chain{\varphi}{i}$ и $\chain{\psi}{i}$ е изпълнено, че:
+  % \begin{align*}
+  %   \val{\tau}(\bigsqcup_i\varphi_i,\bigsqcup_i\psi_i) & = \compose(\plus, \texttt{cross}(\compose(\bigsqcup_i\varphi_i,\texttt{fst}), \compose(\bigsqcup_i\psi_i,\texttt{snd})))\\
+  %                                                      & =  \compose(\plus, \texttt{cross}(\bigsqcup_i\compose(\varphi_i,\texttt{fst}), \bigsqcup_i\compose(\psi_i,\texttt{snd})))\\
+  %                                                      & =  \compose(\plus, \bigsqcup_i\texttt{cross}(\compose(\varphi_i,\texttt{fst}), \compose(\psi_i,\texttt{snd})))\\
+  %                                                      & =  \bigsqcup_i\compose(\plus, \texttt{cross}(\compose(\varphi_i,\texttt{fst}), \compose(\psi_i,\texttt{snd})))\\
+  %                                                      & = \bigsqcup_i \val{\tau}(\varphi_i,\psi_i).
+  % \end{align*}
 \end{example}
 
 
@@ -140,6 +164,8 @@
 % то $\Gamma_\tau$ връща непрекъснато изображение.
 
 \marginpar{В този раздел всички доказателства се провеждат с индукция по построението на термовете.}
+
+Сега ще видим, че разсъжденията, които направихме в горния пример могат да се обобщят за всеки терм.
 
 \begin{proposition}
   \label{pr:term-monotone}
@@ -158,18 +184,13 @@
   Индукция по построението на терма $\tau$.
   \begin{itemize}
   \item
+    \marginpar{$\texttt{const}^n_a \in \Cont{\Nat^n_\bot}{\Nat_\bot}$.}
     Нека $\tau \equiv \vv{a}$. Тогава
-    \[\val{\tau}(\ov{\varphi}) = \texttt{const}_a.\]
+    \[\val{\tau}(\ov{\varphi}) = \texttt{const}^{n}_a.\]
   \item
+    \marginpar{$\texttt{proj}^{\Nat_\bot,n}_i \in \Cont{\Nat^n_\bot}{\Nat_\bot}$}
     Нека $\tau \equiv \vv{x}_i$. Тогава
-    \[\val{\tau}(\ov{\varphi}) = \texttt{proj}^n_i.\]
-    % \begin{align*}
-    %   \val{\tau}(\ov{\varphi})(\ov{a}) & = \val{\vv{x}_i}(\ov{\varphi})(\ov{a})\\
-    %                                    & = a_i & \comment{\text{стойност на терм}}\\
-    %                                    & \sqsubseteq b_i & \comment{\ov{a} \sqsubseteq \ov{b}}\\
-    %                                    &= \val{\vv{x}_i}(\ov{\varphi})(\ov{b}) & \comment{\text{стойност на терм}}\\
-    %                                    & = \val{\tau}(\ov{\varphi})(\ov{b}).
-    % \end{align*}
+    \[\val{\tau}(\ov{\varphi}) = \texttt{proj}^{\Nat_\bot,n}_i.\]
   \item
     Нека $\tau \equiv \tau_1 + \tau_2$.
     \marginpar{
@@ -183,6 +204,9 @@
 }
     Можем лесно да съобразим, че
     \[\val{\tau_1\ \vv{+}\ \tau_2}(\ov{\varphi}) = \plus \circ (\val{\tau_1}(\ov{\varphi}) \times \val{\tau_2}(\ov{\varphi})).\]
+    Първо, от \IndHyp имаме, че $\val{\tau_1}(\ov{\varphi})$ и $\val{\tau_2}(\ov{\varphi})$ са непрекъснати.
+    От \Prop{cartesian-product:pair-continuous} знаем, $\val{\tau_1}(\ov{\varphi}) \times \val{\tau_2}(\ov{\varphi})$ е непрекъснато изображение. И накрая, понеже $\plus$ е непрекъснато, и композицията запазва непрекъснатостта, то целия израз
+    $\plus \circ (\val{\tau_1}(\ov{\varphi}) \times \val{\tau_2}(\ov{\varphi}))$ е непрекъснато изображение.
     % Тук ще използваме, че от {\bf И.П.}, за $j = 1,2$, имаме
     % \begin{equation}
     %   \label{eq:10}
@@ -208,7 +232,7 @@
   \item
     Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.
     Ясно е, че
-    \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi}) = \texttt{if} \circ (\val{\tau_1}(\ov{\varphi}) \times \val{\tau_2}(\ov{\varphi}) \times \val{\tau_3}(\ov{\varphi})).\]
+    \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi}) = \texttt{if}_{\Nat_\bot} \circ (\val{\tau_1}(\ov{\varphi}) \times \val{\tau_2}(\ov{\varphi}) \times \val{\tau_3}(\ov{\varphi})).\]
   \item
     Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$.
     Ясно е, че
@@ -272,9 +296,9 @@
   Индукция по построението на терма $\tau$.
   \begin{itemize}
   \item
-    Нека $\tau \equiv \vv{x}_i$.
+    Нека $\tau \equiv \vv{a}$. Този случай е очевиден.
   \item
-    Нека $\tau \equiv \vv{c}$. Този случай е очевиден.
+    Нека $\tau \equiv \vv{x}_i$.
   \item
     Нека $\tau \equiv \tau_1 + \tau_2$. Ще използваме, че $\plus$ е непрекъснато изображение.
     % \begin{align*}
@@ -287,22 +311,23 @@
     \begin{align*}
       \val{\tau}(\bigsqcup_r \ov{\varphi}_r) & = \plus \circ (\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r) \times \val{\tau_2}(\bigsqcup_r\ov{\varphi}_r)) & \comment\text{от деф.}\\
                                              & = \compose (\plus, \texttt{cross}(\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r), \val{\tau_2}(\bigsqcup_r\ov{\varphi}_r)))\\
-                                             & = \compose (\plus, \texttt{cross}(\bigsqcup_r \val{\tau_1}(\ov{\varphi}_r), \bigsqcup_r \val{\tau_2}(\ov{\varphi}_r))) & \comment\text{И.П.}\\
+                                             & = \compose (\plus, \texttt{cross}(\bigsqcup_r \val{\tau_1}(\ov{\varphi}_r), \bigsqcup_r \val{\tau_2}(\ov{\varphi}_r))) & \comment\text{\IndHyp}\\
                                              & = \compose (\plus, \bigsqcup_r \texttt{cross}(\val{\tau_1}(\ov{\varphi}_r), \val{\tau_2}(\ov{\varphi}_r))) & \comment \texttt{cross}\text{ е непр.}\\
                                              & = \bigsqcup_r \compose (\plus, \texttt{cross}(\val{\tau_1}(\ov{\varphi}_r), \val{\tau_2}(\ov{\varphi}_r))) & \comment \compose\text{ е непр.}\\
                                              & = \bigsqcup_r \val{\tau}(\ov{\varphi}_r). & \comment\text{от деф.}
     \end{align*}
   \item
     Нека $\tau \equiv \tau_1\ \vv{-}\ \tau_2$.
-    Използвайте, че $\minus$ е непрекъснато изображение.
+    Използвайте, че $\minus$ е непрекъснато изображение според \Problem{basic-operations:continuous}.
   \item
     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
-    Използвайте, че $\eq$ е непрекъснато изображение.
+    Използвайте, че $\eq$ е непрекъснато изображение според \Problem{basic-operations:continuous}.
   \item
     Нека $\tau \equiv \ifelse{\tau_0}{\tau_1}{\tau_2}$.
-    Използвайте \Problem{basic-operations:if}.
+    Използвайте, че $\texttt{if}_{\Nat_\bot}$ е непрекъснато според \Problem{basic-operations:if:continuous}.
   \item
-    Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$. 
+    Нека $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$.
+    Тук ще използваме, че $\compose$ и $\texttt{cross}$ са непрекъснати според \Problem{composition:continuous} и \Problem{cross:continuous}.
     % От И.П. знаем, че $\val{\tau_j}$ са непрекъснати изображения за $j = 1,\dots,m_i$ и следователно са монотонни. Тогава
     % за произволни индекси $n \leq n'$ и $r \leq r'$ имаме, че
     % \marginpar{$\ov{\varphi}_n \df (\varphi^1_n,\dots,\varphi^{k}_n)$}
@@ -332,16 +357,18 @@
     %                                        & = \bigsqcup_n \val{\tau}(\ov{\varphi}_n)(\ov{a}).
     % \end{align*}
 
-    \marginpar{От \Prop{composition:continuous} знаем, че $\compose$ е непрекъснато изображение.}
+    % \marginpar{От \Prop{composition:continuous} знаем, че $\compose$ е непрекъснато изображение.}
     Тогава:
     \begin{align*}
-      \val{\tau}(\bigsqcup_n\ov{\varphi}_n) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\bigsqcup_n\ov{\varphi}_n)\\
-                                            & = (\bigsqcup_n\varphi^i_n) \circ (\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r) \times \cdots \times \val{\tau_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\\
-                                            & = \compose(\bigsqcup_n\varphi^i_n, \val{\tau_1}(\bigsqcup_r\ov{\varphi}_r) \times \cdots \times \val{\tau_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\\
-                                            & = \compose(\bigsqcup_n\varphi^i_n, \bigsqcup_r(\val{\tau_1}(\ov{\varphi}_r) \times \cdots \times \val{\tau_{m_i}}(\ov{\varphi}_r)))\\
-                                            & = \bigsqcup_k \compose(\varphi^i_k, \val{\tau_1}(\ov{\varphi}_k) \times \cdots \times \val{\tau_{m_i}}(\ov{\varphi}_k))\\
-                                            & = \bigsqcup_k \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi}_k)\\
-                                            & = \bigsqcup_k \val{\tau}(\ov{\varphi}_k).
+      \val{\tau}(\bigsqcup_n\ov{\varphi}_n) & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\bigsqcup_n\ov{\varphi}_n) & \comment{\ov{\varphi}_n = (\varphi^1_n,\dots,\varphi^k_n)}\\
+                                            & = (\bigsqcup_n\varphi^i_n) \circ (\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r) \times \cdots \times \val{\tau_{m_i}}(\bigsqcup_r\ov{\varphi}_r)) & \comment\text{деф. на }\val{\tau}\\
+                                            & = \compose(\bigsqcup_n\varphi^i_n, \texttt{cross}(\val{\tau_1}(\bigsqcup_r\ov{\varphi}_r), \dots, \val{\tau_{m_i}}(\bigsqcup_r\ov{\varphi}_r))\\
+                                            & = \compose(\bigsqcup_n\varphi^i_n, \texttt{cross}(\bigsqcup_r \val{\tau_1}(\ov{\varphi}_r), \dots, \bigsqcup_r\val{\tau_{m_i}}(\ov{\varphi}_r)) & \comment\text{от \IndHyp}\\
+                                            & = \compose(\bigsqcup_n\varphi^i_n, \bigsqcup_r \texttt{cross}(\val{\tau_1}(\ov{\varphi}_r), \dots, \val{\tau_{m_i}}(\ov{\varphi}_r)) & \comment\texttt{cross}\text{ е непр.}\\
+                                            & = \bigsqcup_r \compose(\varphi^i_r, \texttt{cross}(\val{\tau_1}(\ov{\varphi}_r), \dots, \val{\tau_{m_i}}(\ov{\varphi}_r))) & \comment\compose\text{ е непр.}\\
+                                            & = \bigsqcup_r \varphi^i_r(\val{\tau_1}(\ov{\varphi}_r), \dots, \val{\tau_{m_i}}(\ov{\varphi}_r))\\
+                                            & = \bigsqcup_r \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi}_r)\\
+                                            & = \bigsqcup_r \val{\tau}(\ov{\varphi}_r).
     \end{align*}
     
   \end{itemize}
@@ -366,6 +393,7 @@
 % \end{proof}
 
 % Вече имаме всичко необходимо за да се убедим, че термалните оператори са непрекъснати.
+
 
 \begin{framed}
 \begin{theorem}

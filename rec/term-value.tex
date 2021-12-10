@@ -58,9 +58,9 @@
   \[\val{\tau_1\ \vv{==}\ \tau_2}(\ov{\varphi})(\ov{a}) \df \eq(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a})).\]
 
 \item
-  \marginpar{От \Problem{basic-operations:if} знаем, че $\texttt{if}$ е непрекъснато изображение.}
+  \marginpar{От \Problem{basic-operations:if:continuous} знаем, че $\texttt{if}$ е непрекъснато изображение.}
   ако $\tau \equiv\ \ifelse{\tau_1}{\tau_2}{\tau_3}$, то
-  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \df \texttt{if}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
+  \[\val{\ifelse{\tau_1}{\tau_2}{\tau_3}}(\ov{\varphi})(\ov{a}) \df \texttt{if}_{\Nat_\bot}(\val{\tau_1}(\ov{\varphi})(\ov{a}), \val{\tau_2}(\ov{\varphi})(\ov{a}), \val{\tau_3}(\ov{\varphi})(\ov{a})).\]
 
 \item
   ако $\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})$, то
@@ -71,33 +71,33 @@
 
 
 
-\begin{example}
-  Да разгледаме следния терм:
-  \[\tau[\vv{x},\vv{y},\vv{z}] \dfff \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
-  Да видим каква е негова стойност при произволни стойности $a,b,c \in \Nat_\bot$:
-  \begin{align*}
-    \val{\tau}(a,b,c) & =
-                        \begin{cases}
-                          \val{\vv{y}}(a,b,c), & \text{ако }\val{x \ \vv{==}\ 5}(a,b,c) \in \Nat^+\\
-                          \val{\vv{z}}(a,b,c), & \text{ако }\val{x \ \vv{==}\  5}(a,b,c) = 0\\
-                          \bot,                & \text{ако }\val{x\ \vv{==}\ 5}(a,b,c) = \bot
-                        \end{cases}\\
-                      & =
-                        \begin{cases}
-                          b,    & \text{ако }a = 5\\
-                          c,    & \text{ако }a \in \Nat\ \&\ a \neq 5\\
-                          \bot, & \text{ако }a = \bot.
-                        \end{cases}
-  \end{align*}
-\end{example}
-Нека сега да видим следния пример на хаскел.
-\begin{haskellcode}
-ghci> let f(x) = if x == undefined then 0 else 1
-ghci> f(2)
-*** Exception: Prelude.undefined
-\end{haskellcode}
-Това означава, че функцията на хаскел \eq е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата
-денотационна семантика, т.е. функцията $\eq$.
+% \begin{example}
+%   Да разгледаме следния терм:
+%   \[\tau[\vv{x},\vv{y},\vv{z}] \dfff \ifelse{\vv{x}\ \vv{==}\ 5}{\vv{y}}{\vv{z}}.\]
+%   Да видим каква е негова стойност при произволни стойности $a,b,c \in \Nat_\bot$:
+%   \begin{align*}
+%     \val{\tau}(a,b,c) & =
+%                         \begin{cases}
+%                           \val{\vv{y}}(a,b,c), & \text{ако }\val{x \ \vv{==}\ 5}(a,b,c) \in \Nat^+\\
+%                           \val{\vv{z}}(a,b,c), & \text{ако }\val{x \ \vv{==}\  5}(a,b,c) = 0\\
+%                           \bot,                & \text{ако }\val{x\ \vv{==}\ 5}(a,b,c) = \bot
+%                         \end{cases}\\
+%                       & =
+%                         \begin{cases}
+%                           b,    & \text{ако }a = 5\\
+%                           c,    & \text{ако }a \in \Nat\ \&\ a \neq 5\\
+%                           \bot, & \text{ако }a = \bot.
+%                         \end{cases}
+%   \end{align*}
+% \end{example}
+% Нека сега да видим следния пример на хаскел.
+% \begin{haskellcode}
+% ghci> let f(x) = if x == undefined then 0 else 1
+% ghci> f(2)
+% *** Exception: Prelude.undefined
+% \end{haskellcode}
+% Това означава, че функцията на хаскел \eq е точна, т.е. не можем да сравняваме с $\bot$, което съответства на нашата
+% денотационна семантика, т.е. функцията $\eq$.
 
 \begin{framed}
   \begin{lemma}[Лема за замяната]
@@ -111,9 +111,8 @@ ghci> f(2)
 \end{framed}
 \begin{proof}
   Доказателството се провежда с {\em индукция по построението на терма $\tau$.}
-  \marginpar{Понеже нямаме обектови променливи в $\mu_1,\dots,\mu_n$, то е очевидно как правим замяната.}
-  \marginpar{Substitution Lemma, \cite[стр. 149]{winskel}.}
-  \marginpar{Това твърдение е без доказателство в \cite[стр. 188]{ditchev-soskov}.}
+  \marginpar{Понеже нямаме обектови променливи в $\mu_1,\dots,\mu_n$, то е очевидно как правим замяната.
+    Тук следваме \cite[стр. 149]{winskel}. Това твърдение е без доказателство в \cite[стр. 188]{ditchev-soskov}.}
   \begin{itemize}
   \item
     \marginpar{$\vv{c}$ е константа, докато $c \in \Nat_\bot$}
@@ -132,13 +131,13 @@ ghci> f(2)
     \[\val{\vv{x}_i}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\bar{\varphi})) = \val{\mu_i}(\bar{\varphi}).\]
   \item
     Нека $\tau \equiv \tau_1 + \tau_2$.
-    От {\bf И.П.} имаме, че за $j = 1,2$ е изпъленено следното:
+    От \IndHyp имаме, че за $j = 1,2$ е изпъленено следното:
     \[\val{\tau_j[\varsx/\ov{\mu}]}(\ov{\varphi}) = \val{\tau_j}(\ov{\varphi})(\underbrace{\val{\mu_1}(\ov{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_n}(\ov{\varphi})}_{b_n}).\]
     Тогава
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\tau_1[\varsx/\ov{\mu}] + \tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})\\
                                                 & = \plus(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}), \val{\tau_2[\varsx/\ov{\mu}]}(\ov{\varphi})) & \comment\text{от деф.}\\
-                                                & = \plus(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment{\text{от {\bf И.П.}}}\\
+                                                & = \plus(\val{\tau_1}(\ov{\varphi})(b_1,\dots,b_n),\val{\tau_2}(\ov{\varphi})(b_1,\dots,b_n)) & \comment\text{от \IndHyp}\\
                                                 & = \val{\tau}(\ov{\varphi})(b_1,\dots,b_n) & \comment\text{от деф.}\\
                                                 & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\bar{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})). & \comment{b_j \df \val{\mu_j}(\ov{\varphi})}
     \end{align*}
@@ -158,16 +157,16 @@ ghci> f(2)
       \tau[\varsx/\bar{\mu}] \equiv \vv{f}_i(\tau_1[\varsx/\bar{\mu}],\dots,\tau_{m_i}[\varsx/\bar{\mu}]).
     \end{equation}
     Нека за улеснение да означим $b_i \df \val{\mu_i}(\bar{\varphi})$, за $i = 1,\dots,n$.
-    Прилагаме {\bf И.П.} за термовете $\tau_1,\dots,\tau_{m_i}$ и получаваме за $j = 1, \dots, m_i$,
+    Прилагаме \IndHyp за термовете $\tau_1,\dots,\tau_{m_i}$ и получаваме за $j = 1, \dots, m_i$,
     \begin{align*}
-      \val{\tau_j[\varsx /\bar{\mu}]}(\bar{\varphi}) & = \val{\tau_j}(\ov{\varphi})(\underbrace{\val{\mu_1}(\bar{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_{n}}(\bar{\varphi})}_{b_{n}}) & \comment{\text{от {\bf И.П.}}}\\
+      \val{\tau_j[\varsx /\bar{\mu}]}(\bar{\varphi}) & = \val{\tau_j}(\ov{\varphi})(\underbrace{\val{\mu_1}(\bar{\varphi})}_{b_1},\dots,\underbrace{\val{\mu_{n}}(\bar{\varphi})}_{b_{n}}) & \comment\text{от \IndHyp}\\
       & = \val{\tau_j}(\ov{\varphi})(b_1,\dots,b_{n}) & \comment{b_i \df \val{\mu_i}(\bar{\varphi})}.
     \end{align*}
     Следователно,
     \begin{align*}
       \val{\tau[\varsx/\ov{\mu}]}(\ov{\varphi}) & = \val{\vv{f}_i(\tau_1[\varsx/\ov{\mu}],\dots,\tau_{m_i}[\varsx/\ov{\mu}])}(\ov{\varphi}) & \comment{\text{от (\ref{eq:1})}}\\
                                                 & = \varphi_i(\val{\tau_1[\varsx/\ov{\mu}]}(\ov{\varphi}),\dots,\val{\tau_{m_i}[\varsx/\ov{\mu}]}(\ov{\varphi})) & \comment\text{от деф.}\\
-                                                & = \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment{\text{от {\bf И.П.}}} \\
+                                                & = \varphi_i(\val{\tau_1}(\ov{\varphi})(\ov{b}),\dots,\val{\tau_{m_i}}(\ov{\varphi})(\ov{b})) & \comment\text{от \IndHyp} \\
                                                 & = \val{\vv{f}_i(\tau_1,\dots,\tau_{m_i})}(\ov{\varphi})(\ov{b}) & \comment\text{от деф.}\\
                                                 & = \val{\tau}(\ov{\varphi})(\ov{b}) & \comment{\tau \equiv \vv{f}_i(\tau_1,\dots,\tau_{m_i})}\\
                                                 & = \val{\tau}(\ov{\varphi})(\val{\mu_1}(\ov{\varphi}),\dots,\val{\mu_n}(\ov{\varphi})) & \comment{b_i \df \val{\mu_i}(\ov{\varphi})}.
@@ -175,11 +174,11 @@ ghci> f(2)
   \end{itemize}
 \end{proof}
 
-\begin{remark}
-  \marginpar{Тук $\ov{c}$ са естествени числа.}
-  В частния случай, когато функционалните термове $\mu_1,\dots, \mu_n$ са константите $\vv{c}_1, \dots, \vv{c}_n$, получаваме, че 
-  \[\val{\tau[\ov{\vv{x}}/\ov{\vv{c}}]}(\ov{\varphi}) = \val{\tau}(\ov{\varphi})(\ov{c}).\]  
-\end{remark}
+% \begin{remark}
+%   \marginpar{Тук $\ov{c}$ са естествени числа.}
+%   В частния случай, когато функционалните термове $\mu_1,\dots, \mu_n$ са константите $\vv{c}_1, \dots, \vv{c}_n$, получаваме, че 
+%   \[\val{\tau[\ov{\vv{x}}/\ov{\vv{c}}]}(\ov{\varphi}) = \val{\tau}(\ov{\varphi})(\ov{c}).\]  
+% \end{remark}
 
 %%% Local Variables:
 %%% mode: latex

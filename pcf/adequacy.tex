@@ -105,7 +105,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   Ще докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \rho$.
   За целта, да разгледаме произволен елемент $e \in \val{\vv{b}}$ и произволен затворен терм $\mu : \vv{b}$, за който $e \triangleleft_{\vv{b}} \mu$.
   Достатъчно е да докажем, че $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
-  За момента от (\ref{eq:pcf:adequacy:implication:f-tau}) знаем само, че $f(e) \triangleleft_{\vv{c}} \tau(\mu)$.
+  За момента от Свойство~(\ref{eq:pcf:adequacy:implication:f-tau}) знаем само, че $f(e) \triangleleft_{\vv{c}} \tau(\mu)$.
   Понеже имаме следното правило в операционната семантика:
   \marginpar{Имаме от (\ref{eq:pcf:adequacy:implication:value}), че 
     \[\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho \Downarrow_{\vv{b}\to\vv{c}} \vv{v},\] а тук $\vv{v} \equiv \lamb{x}{b}{\tau'}$.}
@@ -115,7 +115,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
     \RightLabel{\scriptsize{(app)}}
     \BinaryInfC{$\tau(\mu) \Downarrow_{\vv{c}} \vv{v}'$}
   \end{prooftree}
-  то от (\ref{eq:pcf:adequacy:implication:value}) получаваме, че
+  то от Свойство~(\ref{eq:pcf:adequacy:implication:value}) получаваме, че
   \begin{prooftree}
     \AxiomC{$\rho \Downarrow_{\vv{b}\to\vv{c}} \overbrace{\lamb{x}{b}{\tau'}}^{\vv{v}}$}
     \AxiomC{$\tau'\subst{x}{\mu} \Downarrow_{\vv{c}} \vv{v}'$}
@@ -247,7 +247,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     Нека $\tau \equiv \tau_1 + \tau_2$. Тогава $\vv{a} = \vv{nat}$. Имаме също, че
     \begin{align*}
       & \tau[\ov{x}/\ov{\mu}] \equiv \tau_1[\ov{x}/\ov{\mu}] + \tau_2[\ov{x}/\ov{\mu}];\\
-      & \val{\tau}_\Gamma(\ov{u}) = \texttt{plus}(\underbrace{\val{\tau_1}_\Gamma(\ov{u})}_{n_1},\underbrace{\val{\tau_2}_\Gamma(\ov{u})}_{n_2}) = n.
+      & \val{\tau}_\Gamma(\ov{u}) = \plus(\underbrace{\val{\tau_1}_\Gamma(\ov{u})}_{n_1},\underbrace{\val{\tau_2}_\Gamma(\ov{u})}_{n_2}) = n.
     \end{align*}
     Можем да приемем, че $n \neq \bot$, защото в противен случай този случай е тривиален заради дефиницията на $\triangleleft_{\vv{nat}}$.
     От И.П. имаме, че $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_1[\ov{x}/\ov{\mu}]$

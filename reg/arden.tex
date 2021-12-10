@@ -53,11 +53,11 @@
   \end{figure}
   На този автомат съответства следната програма $R$, която е програма на езика \REGPP (а също и на езика \REG):
   \marginpar{Тук $\Sigma = \{a,b\}$.}
-  \begin{align*}
-    & X_1 = a \cdot X_2 + b \cdot X_1 + \varepsilon \\
-    & X_2 = a \cdot X_3 + b \cdot X_2\\
-    & X_3 = a \cdot X_1 + b \cdot X_3.
-  \end{align*}
+  \begin{SystemEq}
+    X_1 & = & a \cdot X_2 + b \cdot X_1 + \varepsilon \\
+    X_2 & = & a \cdot X_3 + b \cdot X_2\\
+    X_3 & = & a \cdot X_1 + b \cdot X_3.    
+  \end{SystemEq}
 
   Да видим как можем да намерим най-малкото решение на тази система като използваме само \hyperref[prob:reg:arden]{правилото на Ардън}.
   Нека първо да разгледаме само последния ред на системата като си мислим, че имаме азбука $\Sigma_3 = \{a,b,X_1,X_2\}$, т.е. единствената свободна променлива е $X_3$.
@@ -66,10 +66,11 @@
   Според \hyperref[prob:reg:arden]{правилото на Ардън}, най-малкото решение на тази система е езикът описван с регулярния израз $b^\star a \cdot X_1$
   над азбуката $\Sigma_3$.
   Заместваме $X_3$ с този израз в горните две уравнения и получаваме нова програма на езика \REGPP:
-  \begin{align*}
-    & X_1 = b \cdot X_1 + a \cdot X_2 + \varepsilon \\
-    & X_2 = b \cdot X_2 + a b^\star a \cdot X_1.
-  \end{align*}
+  \begin{SystemEq}
+    X_1 & = & b \cdot X_1 + a \cdot X_2 + \varepsilon \\
+    X_2 & = & b \cdot X_2 + a b^\star a \cdot X_1.
+  \end{SystemEq}
+
   Ако позволим да имаме регулярни изрази по ребрата на автомат, то новият автомат би бил този:
 
   \begin{figure}[H]

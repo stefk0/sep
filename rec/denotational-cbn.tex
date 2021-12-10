@@ -1,4 +1,4 @@
-\subsection{Предаване на параметрите по име}
+% \subsection{Предаване на параметрите по име}
 
 Нека е дадена една рекурсивна програма $\vv{P}[\varsx,\varsf]$, където:
 \marginpar{Можем да си мислим, че $\vv{f}_1$ е нещо като \texttt{main} функция за програмата $\vv{P}$.}
@@ -38,6 +38,39 @@
       \bot, & \text{ако }\bot\in\{a_1,\dots,a_{m_1}\}.
     \end{cases}\]
 \end{framed}
+
+
+\begin{example}
+  Да разгледаме следната проста програма:
+  \begin{haskellcode}
+f(x) = if x == 0 then 1 else f(x+1)
+  \end{haskellcode}
+  \marginpar{Тази програма е дори валидна програма на хаскел.}
+  На тази програма съответства системата от едно уравнение с една функционална променлива
+  \begin{equation}
+    \label{eq:denotational-cbn:example-motivation}
+    f = \Gamma(f),
+  \end{equation}
+  където за изображението $\Gamma$ имаме, че:
+  \begin{align*}
+    & \Gamma \in \Cont{\Cont{\Nat_\bot}{\Nat_\bot}}{\Cont{\Nat_\bot}{\Nat_\bot}}\\
+    & \Gamma(f)(x) \df
+      \begin{cases}
+        1, & \text{ако }x = 0\\
+        f(x+1), & \text{иначе}.
+      \end{cases}
+  \end{align*}
+  Най-малкото решение на системата (\ref{eq:denotational-cbn:example-motivation}) е функцията $\varphi:\Nat_\bot\to\Nat_\bot$, за която
+  \[\varphi(x) = \begin{cases}
+      1, & \text{ако } x =  0\\
+      \bot, & \text{иначе}.
+    \end{cases}\]
+  % $\varphi(0) = 1$ и $\varphi(x) = \bot$ за $x \neq 0$.
+  \marginpar{\todo Съобразете, че системата (\ref{eq:denotational-cbn:example-motivation}) има дори безкрайно много решения!}
+  Обаче системата (\ref{eq:denotational-cbn:example-motivation}) има и други решения. Например, функцията $\psi(x) = 1$ за всяко $x \in \Nat_\bot$.
+  Този пример ни показва, че най-малкото решение кореспондира точно с нашата интуиция как ,,работи'' тази програма.
+\end{example}
+
 
 
 %%% Local Variables:

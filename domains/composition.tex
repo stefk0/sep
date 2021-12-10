@@ -1,4 +1,6 @@
-\begin{proposition}\label{pr:composition}\index{изображения!композиция}
+\begin{proposition}
+  \label{pr:composition}
+  \index{изображение!композиция}
   Ако $f \in \Cont{\A}{B}$ и $g \in \Cont{\B}{\C}$, то $g \circ f \in \Cont{\A}{\C}$,
   където \[(g\circ f)(a) \df g(f(a)).\]
 \end{proposition}
@@ -14,14 +16,14 @@
   \end{align*}
 \end{hint}
 
-\begin{proposition}
-  \label{pr:composition:continuous}
+\begin{problem}
+  \label{prob:composition:continuous}
   Докажете, че изображението
   \[\compose:\Cont{\B}{\C}\times\Cont{\A}{\B} \to \Cont{\A}{\C}\]
   е непрекъснато, където $\compose(f,g) = f\circ g$.
   С други думи, $\compose$ е елемент на областта на Скот
   \[\Cont{\Cont{\B}{\C}\times\Cont{\A}{\B}}{\Cont{\A}{\C}}.\]
-\end{proposition}
+\end{problem}
 \begin{hint}
   Използвайте \Prop{continuous-arguments}.
 \end{hint}

@@ -10,36 +10,39 @@
 а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
 \marginpar{Ще използваме малките гръцки букви $\tau,\rho,\mu$, евентуално с индекси, за да означаваме термовете. Думите над азбуката $\Sigma$ ще означаваме с малките гръцки букви $\alpha$, $\beta$, $\gamma$.}
 Програмите на езика $\texttt{REG}$ имат следния вид:
+\begin{SystemEq}
+  X_1 & = & \tau_1[X_1,\dots,X_n]\\
+  & \vdots & \\
+  X_n & = & \tau_n[X_1,\dots,X_n].  
+\end{SystemEq}
+Ето един пример за такава програма:
 \begin{align*}
-  & X_1 = \tau_1[X_1,\dots,X_n]\\
-  & \ \vdots\\
-  & X_n = \tau_n[X_1,\dots,X_n].
-\end{align*}
-Ето един пример за програма:
-\begin{align*}
-  & X_1 = a \cdot X_1 + b \cdot X_2\\
-  & X_2 = b \cdot X_1 + \varepsilon.
+  & X_1 = \overbrace{a \cdot X_1 + b \cdot X_2}^{\tau_1[X_1,X_2]}\\
+  & X_2 = \underbrace{b \cdot X_1 + \varepsilon}_{\tau_2[X_1,X_2]}.
 \end{align*}
 
 \section{Операционна семантика}
 \index{операционна семантика}
 \label{reg:sect:operational-semantics}
 
+
+
+
 \marginpar{
   Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на изрази.
-  Също така, няма как да дефинираме релация $\tau \Downarrow L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
+  Също така, няма как да дефинираме релация $\tau \Downarrow_{\vv{P}} L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
 }
 
-Да фиксираме една програма на езика \REG:
-\begin{align*}
-  & X_1 = \tau_1[X_1,\dots,X_n]\\
-  & \ \vdots\\
-  & X_n = \tau_n[X_1,\dots,X_n].
-\end{align*}
+Да фиксираме една програма $\vv{R}$ на езика \REG:
+\begin{SystemEq}
+  X_1 & = & \tau_1[X_1,\dots,X_n]\\
+  & \vdots & \\
+  X_n & = & \tau_n[X_1,\dots,X_n].  
+\end{SystemEq}
 
-Щом сме фиксирали програмата, с която искаме да работим, това означава, че вече знаем и буквите, които се срещат в програмата,
+Щом сме фиксирали програмата $\vv{P}$, с която искаме да работим, това означава, че вече знаем и буквите, които се срещат в програмата,
 а също и променливите, които са $X_1,\dots,X_n$.
-С индукция по $\ell$, дефинираме релацията $\tau \Downarrow^\ell \alpha$,
+С индукция по $\ell$, дефинираме релацията $\tau \opsemReg{\ell} \alpha$,
 където $\tau$ е терм на езика \REG със свободни променливи измежду $X_1,\dots, X_n$.
 
 
@@ -49,16 +52,16 @@
       \begin{prooftree}
         \AxiomC{}
         \LeftLabel{\scriptsize{(eps)}}
-        \UnaryInfC{$\varepsilon \Downarrow^0 \varepsilon$}
+        \UnaryInfC{$\varepsilon \opsemReg{0} \varepsilon$}
       \end{prooftree}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_i \Downarrow^\ell \beta$}
+        \AxiomC{$\tau_i \opsemReg{\ell} \beta$}
         \AxiomC{$\alpha = a\cdot \beta$}
         \RightLabel{\scriptsize{(rec)}}
-        \BinaryInfC{$a \cdot X_i \Downarrow^{\ell+1} \alpha$}
+        \BinaryInfC{$a \cdot X_i \opsemReg{\ell+1} \alpha$}
       \end{prooftree}
     \end{subfigure}
 
@@ -66,30 +69,31 @@
     
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_1 \Downarrow^\ell \alpha$}
+        \AxiomC{$\tau_1 \opsemReg{\ell} \alpha$}
         \LeftLabel{\scriptsize{(left-or)}}
-        \UnaryInfC{$\tau_1 + \tau_2 \Downarrow^{\ell+1} \alpha$}
+        \UnaryInfC{$\tau_1 + \tau_2 \opsemReg{\ell+1} \alpha$}
       \end{prooftree}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_2 \Downarrow^\ell \alpha$}
+        \AxiomC{$\tau_2 \opsemReg{\ell} \alpha$}
         \RightLabel{\scriptsize{(right-or)}}
-        \UnaryInfC{$\tau_1 + \tau_2 \Downarrow^{\ell+1} \alpha$}
+        \UnaryInfC{$\tau_1 + \tau_2 \opsemReg{\ell+1} \alpha$}
       \end{prooftree}
     \end{subfigure}
     \caption{Правила на операционната семантика на езика \REG.}
   \end{figure}
 \end{framed}
-Ще пишем $\tau \Downarrow \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \Downarrow^\ell \alpha$.
+Ще пишем $\tau \Downarrow_{\vv{P}} \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \opsemReg{\ell} \alpha$.
+% Също така, когато се подразбира за коя програма говорим, можем да пишем направо и $\tau \Downarrow \alpha$  и $\tau \Downarrow^\ell \alpha$.
 
 \begin{example}
   \marginpar{На всяка променлива от програмата $R$ съответства състояние на автомата.}
   Нека $\Sigma = \{a,b\}$. Да разгледаме програмата $R$, където:
   \begin{align*}
     & X_1 = \overbrace{a \cdot X_1 + b \cdot X_2 + \varepsilon}^{\tau_1[X_1,X_2]}\\
-    & X_2 = \underbrace{b \cdot X_2 + \varepsilon}_{\tau_2[X_1,X_2]}.
+    & X_2 = \underbrace{b \cdot X_2 + \varepsilon}_{\tau_2[X_1,X_2]}.    
   \end{align*}
   Съобразете, че за всеки две естествени числа $n$ и $k$ е изпълнено, че $\tau_1~\Downarrow~a^k b^n$ и $\tau_2~\Downarrow~b^n$.
   \begin{figure}[H]
@@ -207,11 +211,11 @@
   \end{figure}
   \noindent
   На този автомат съответства следната програма на езика \REG:
-  \begin{align*}
-    & X_1 = a \cdot X_2 + b \cdot X_1 + \varepsilon \\
-    & X_2 = a \cdot X_3 + b \cdot X_2\\
-    & X_3 = a \cdot X_1 + b \cdot X_3.
-  \end{align*}
+  \begin{SystemEq}
+    X_1 & = & a \cdot X_2 + b \cdot X_1 + \varepsilon \\
+    X_2 & = & a \cdot X_3 + b \cdot X_2\\
+    X_3 & = & a \cdot X_1 + b \cdot X_3.
+  \end{SystemEq}
   На тази програма съответства системата от уравнения:
   \begin{SystemEq}
     L_1 & = & \{a\} \cdot L_2 \cup \{b\} \cdot L_1 \cup \{\varepsilon\}\\
@@ -277,14 +281,14 @@
   на някоя система от непрекъснати изображения от горния вид.
 \end{problem}
 
-\section{Еквивалентност на денотационната и операционната семантика}
+\section{Теорема за еквивалентност}
 
 Нека оттук нататък да фиксираме една програма $R$ на езика \REG:
-\begin{align*}
-  & X_1 = \tau_1[X_1,\dots,X_n]\\
-    & \vdots\\
-  & X_n = \tau_n[X_1,\dots,X_n].
-\end{align*}
+\begin{SystemEq}
+  X_1 & = & \tau_1[X_1,\dots,X_n]\\
+  & \vdots & \\
+  X_n & = & \tau_n[X_1,\dots,X_n].  
+\end{SystemEq}
 Нека също $(L_1,\dots,L_n)$ да бъде най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$. Целта ни е да докажем, че за всяко $i = 1,\dots,n$ е изпълнено, че:
 \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]
 Този резултат ще наречем теорема за еквивалентност. Това ще направим на две стъпки.
@@ -438,28 +442,28 @@
 \end{lemma}
 \begin{proof}
   Да означим с $\textbf{Include}(\ell)$ твърдението ,,за всеки терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n)".\]
+  \[\{\alpha \in \Sigma^\star \mid \tau \opsemReg{\ell} \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n)".\]
   Ще докажем, че $(\forall \ell\in\Nat)\textbf{Include}(\ell)$.
 
-  Нека $\ell = 0$. Според правилата на операционната семантика, единственият случай за $\tau \Downarrow^0 \alpha$ е когато $\tau \equiv \varepsilon$.
+  Нека $\ell = 0$. Според правилата на операционната семантика, единственият случай за $\tau \opsemReg{0} \alpha$ е когато $\tau \equiv \varepsilon$.
   Тогава е ясно, че имаме $\textbf{Include}(0)$, защото
   \[\{\alpha \in \Sigma^\star \mid \varepsilon \Downarrow^0 \alpha\} = \{\varepsilon\} = \val{\varepsilon}(L_1,\dots,L_n).\]
 
   Нека $\ell > 0$ и да приемем, че е изпълнено $\textbf{Include}(\ell-1)$, което ще ни служи като индукционно предположение.
-  Да разгледаме дума $\alpha$ и терм $\tau$, за които $\tau \Downarrow^\ell \alpha$. 
+  Да разгледаме дума $\alpha$ и терм $\tau$, за които $\tau \opsemReg{\ell} \alpha$. 
   Според правилата на операционната семантика, имаме три случая в зависимост от това какво е последното правило, което сме приложили.
   \begin{itemize}
   \item
     Първият случай е когато имаме, че $\tau \equiv a \cdot X_j$ и
     \begin{prooftree}
-      \AxiomC{$\tau_j \Downarrow^{\ell-1} \beta$}
+      \AxiomC{$\tau_j \opsemReg{\ell-1} \beta$}
       \RightLabel{\scriptsize{(rec)}}
-      \UnaryInfC{$a \cdot X_j \Downarrow^\ell a \cdot \beta$}
+      \UnaryInfC{$a \cdot X_j \opsemReg{\ell} a \cdot \beta$}
     \end{prooftree}
     Според правилата на операционната семантика имаме, че:
     \begin{equation}
       \label{eq:22}
-      \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} = \{\alpha \in \Sigma^\star \mid \tau \Downarrow^{\ell} \alpha\}
+      \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \opsemReg{\ell-1} \beta\} = \{\alpha \in \Sigma^\star \mid \tau \opsemReg{\ell} \alpha\}
     \end{equation}
     От дефиницията на денотационната семантика знаем, че:
     \begin{align*}
@@ -483,24 +487,24 @@
   \item
     Сега нека $\tau \equiv \rho + \mu$ и последното правило, което сме приложили е следното:
     \begin{prooftree}
-      \AxiomC{$\rho \Downarrow^{\ell-1} \alpha$}
+      \AxiomC{$\rho \opsemReg{\ell-1} \alpha$}
       \RightLabel{\scriptsize{(left-or)}}
-      \UnaryInfC{$\rho + \mu \Downarrow^\ell \alpha$}
+      \UnaryInfC{$\rho + \mu \opsemReg{\ell} \alpha$}
     \end{prooftree}
 
     Знаем, че $\val{\tau}(L_1,\dots,L_n) = \val{\rho}(L_1,\dots,L_n) \cup \val{\mu}(L_1,\dots,L_n)$.
     Понеже сме приели, че $\textbf{Include}(\ell-1)$ е изпълнено, получаваме:
     \begin{align*}
-      \{\alpha \in \Sigma^\star \mid \rho \Downarrow^{\ell-1} \alpha\} & \subseteq \val{\rho}(L_1,\dots,L_n)\\
+      \{\alpha \in \Sigma^\star \mid \rho \opsemReg{\ell-1} \alpha\} & \subseteq \val{\rho}(L_1,\dots,L_n)\\
                                                                        & \subseteq \val{\tau}(L_1,\dots,L_n).
     \end{align*}
     
   \item
     Сега нека $\tau \equiv \rho + \mu$ и последното правило, което сме приложили е следното:
     \begin{prooftree}
-      \AxiomC{$\mu \Downarrow^{\ell-1} \alpha$}
+      \AxiomC{$\mu \opsemReg{\ell-1} \alpha$}
       \RightLabel{\scriptsize{(right-or)}}
-      \UnaryInfC{$\rho + \mu \Downarrow^\ell \alpha$}
+      \UnaryInfC{$\rho + \mu \opsemReg{\ell} \alpha$}
     \end{prooftree}
     Този случай е аналогичен на предния.
   \end{itemize}
@@ -511,7 +515,7 @@
 \begin{framed}
   \begin{theorem}[Теорема за еквивалентност]
     Нека $L_1,\dots,L_n$ е най-малката неподвижна точка на $\Gamma$. Тогава за всеки индекс $i$ измежду $1,\dots,n$ е изпълнено, че:
-    \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]  
+    \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow_{\vv{P}} \alpha\}.\]  
   \end{theorem}
 \end{framed}
 

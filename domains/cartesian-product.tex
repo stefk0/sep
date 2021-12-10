@@ -21,19 +21,30 @@
 % \[\prod^n_{i=1}\B_i \df \B_1\times \B_2 \times \cdots \B_n,\]
 % което също е област на Скот, дефинирана в {\em Раздел \ref{subsect:domains:product}}.
 
-\begin{proposition}\label{pr:cartesian-product:general-continuous}
+\begin{problem}\label{prob:cartesian-product:continuous}
   Нека $f_i \in \Cont{\A}{\B_i}$, за $i = 1,\dots,n$.
   \marginpar{\writedown Докажете сами!}
-  Тогава
+  Тогава докажете, че
   \[g \in \Cont{\A}{\prod^n_{i=1}\B_i},\]
   където
   \[g(a) \df \pair{f_1(a),f_2(a),\dots,f_n(a)}.\]
   В такъв случай ще означаваме $g = f_1\times f_2 \cdots \times f_n$.
-\end{proposition}
+\end{problem}
 
-\begin{proposition}\label{pr:cartesian-product:operator-continuous}
+\begin{problem}\label{prob:cross:continuous}
+  \marginpar{Ясно е, че може да се обобщи за произволно крайно декартово произведение.}
   Докажете, че изображението
   \[\texttt{cross}: \Cont{\A}{\B}\times\Cont{\A}{\C} \to \Cont{\A}{\B\times\C}\]
   е непрекъснато, където
-  \[\texttt{cross}(f,g) = f \times g.\]
-\end{proposition}
+  \[\texttt{cross}(f,g) \df f \times g.\]
+\end{problem}
+
+\begin{haskellcode}
+ghci> import Control.Arrow
+ghci> :t (&&&)
+(&&&) :: Arrow a => a b c -> a b c' -> a b (c, c')
+ghci> (&&&) (\x->x+1) (\x->x+2) 2
+(3,4)
+ghci> (&&&) (\x->x^2) (\x->x^3) 2
+(4,8)
+\end{haskellcode}

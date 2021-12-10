@@ -1,98 +1,193 @@
 \newpage
 \def\defaultHypSeparation{\hskip .6cm}
-
+%\def\defaultHypSeparation{\hskip .4cm}
 \begin{landscape}
 
-\begin{figure}[h!]
-  \begin{framed}
-    \begin{prooftree}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \Downarrow^0_P \vv{3}$}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \Downarrow^0_P \vv{2}$}
-      \LeftLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{3 == 2} \Downarrow^1_P \vv{0}$}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \Downarrow^0_P \vv{1}$}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \Downarrow^0_P \vv{3}$}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \Downarrow^0_P \vv{1}$}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \Downarrow^0_P \vv{2}$}
-      \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{2+1} \Downarrow^1_P \vv{3}$}
-      \LeftLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{3 == 2 + 1} \Downarrow^2_P \vv{1}$}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{0} \Downarrow^0_P \vv{0}$}
-      \RightLabel{\scriptsize{(if$^+$)}}
-      \BinaryInfC{$\ifelse{\vv{3 == 2+1}}{\vv{0}}{\vv{1+f(3,2+1+1)}} \Downarrow^3_P \vv{0}$}
-      \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(3,2+1)} \Downarrow^4_P \vv{0}$}
-      \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{1 + f(3,2+1)} \Downarrow^5_P \vv{1}$}
-      \RightLabel{\scriptsize{(if$_{0}$)}}
-      \BinaryInfC{$\ifelse{\vv{3 == 2}}{\vv{0}}{\vv{1 + f(3,2+1)}} \Downarrow^7_P \vv{1}$ }
-      \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(3,2)} \Downarrow^8_P \vv{1}$}
-    \end{prooftree}
-  \end{framed}
-  \caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,2)}$}
-\end{figure}
+  \begin{figure}[H]
+    % \centering
+    \begin{subfigure}[b]{1\textwidth}
+      % \framebox{
+        \begin{prooftree}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+          \AxiomC{}
+          \RightLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+          \LeftLabel{\scriptsize{(eq)}}
+          \BinaryInfC{$\vv{3 == 2} \opsemFun{1} \vv{0}$}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+          \AxiomC{}
+          \RightLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+          \RightLabel{\scriptsize{(plus)}}
+          \BinaryInfC{$\vv{2+1} \opsemFun{1} \vv{3}$}
+          \LeftLabel{\scriptsize{(eq)}}
+          \BinaryInfC{$\vv{3 == 2 + 1} \opsemFun{2} \vv{1}$}
+          \AxiomC{}
+          \RightLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{0} \opsemFun{0} \vv{0}$}
+          \RightLabel{\scriptsize{(if$^+$)}}
+          \BinaryInfC{$\ifelse{\vv{3 == 2+1}}{\vv{0}}{\vv{1+f(3,2+1+1)}} \opsemFun{3} \vv{0}$}
+          \RightLabel{\scriptsize{(cbn)}}
+          \UnaryInfC{$\vv{f(3,2+1)} \opsemFun{4} \vv{0}$}
+          \RightLabel{\scriptsize{(plus)}}
+          \BinaryInfC{$\vv{1 + f(3,2+1)} \opsemFun{5} \vv{1}$}
+          \RightLabel{\scriptsize{(if$_{0}$)}}
+          \BinaryInfC{$\ifelse{\vv{3 == 2}}{\vv{0}}{\vv{1 + f(3,2+1)}} \opsemFun{7} \vv{1}$ }
+          \RightLabel{\scriptsize{(cbn)}}
+          \UnaryInfC{$\vv{f(3,2)} \opsemFun{8} \vv{1}$}
+        \end{prooftree}
+      % }
+      \caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,2)}$}
+    \end{subfigure}
+    
+    \vspace{2cm}
 
-\def\defaultHypSeparation{\hskip .4cm}
+    \begin{subfigure}[b]{1\textwidth}
+      % \begin{framed}
+        \begin{prooftree}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+          \AxiomC{}
+          \RightLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+          \RightLabel{\scriptsize{(eq)}}
+          \BinaryInfC{$\vv{2 == 3} \opsemFun{1} \vv{0}$}
+          \AxiomC{}
+          \RightLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+          \AxiomC{}
+          \LeftLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+          \AxiomC{}
+          \RightLabel{\scriptsize{(const)}}
+          \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+          \RightLabel{\scriptsize{(plus)}}
+          \BinaryInfC{$\vv{3+1} \opsemFun{1} \vv{4}$}
+          \RightLabel{\scriptsize{(eq)}}
+          \BinaryInfC{$\vv{2 == 3+1} \opsemFun{2} \vv{0}$}
+          \AxiomC{$\vdots$}
+          \UnaryInfC{$\vv{1 + f(2,3+1+1)} \opsemFun{\ell} \square$}
+          \RightLabel{\scriptsize{(if$_{0}$)}}
+          \BinaryInfC{$\ifelse{\vv{2 == 3+1}}{\vv{0}}{\vv{1 + f(2,3+1+1)}} \opsemFun{\ell+3} \square$}
+          \RightLabel{\scriptsize{(cbn)}}
+          \UnaryInfC{$\vv{f(2,3+1)} \opsemFun{\ell+4} \square$}
+          \RightLabel{\scriptsize{(plus)}}
+          \BinaryInfC{$\vv{1+f(2,3+1)} \opsemFun{\ell+5} \square$}
+          \RightLabel{\scriptsize{(if$_{0}$)}} 
+          \BinaryInfC{$\ifelse{\vv{2 == 3}}{\vv{0}}{\vv{1 + f(2,3+1)}} \opsemFun{\ell+6} \square$ }
+          \RightLabel{\scriptsize{(cbn)}}
+          \UnaryInfC{$\vv{f(2,3)} \opsemFun{\ell+7} \square$}
+        \end{prooftree}
+      % \end{framed}
+      \caption{Част от безкрайното дърво на извод започващо от функционалния терм $\vv{f(2,3)}$}
+    \end{subfigure}
+  \end{figure}
+  
 
-\begin{figure}[h!]
-  \begin{framed}
-    \begin{prooftree}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \Downarrow^0_P \vv{2}$}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \Downarrow^0_P \vv{3}$}
-      \RightLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{2 == 3} \Downarrow^1_P \vv{0}$}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \Downarrow^0_P \vv{1}$}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{2} \Downarrow^0_P \vv{2}$}
-      \AxiomC{}
-      \LeftLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{3} \Downarrow^0_P \vv{3}$}
-      \AxiomC{}
-      \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{1} \Downarrow^0_P \vv{1}$}
-      \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{3+1} \Downarrow^1_P \vv{4}$}
-      \RightLabel{\scriptsize{(eq)}}
-      \BinaryInfC{$\vv{2 == 3+1} \Downarrow^2_P \vv{0}$}
-      \AxiomC{$\vdots$}
-      \UnaryInfC{$\vv{1 + f(2,3+1+1)} \Downarrow^\ell_P \square$}
-      \RightLabel{\scriptsize{(if$_{0}$)}}
-      \BinaryInfC{$\ifelse{\vv{2 == 3+1}}{\vv{0}}{\vv{1 + f(2,3+1+1)}} \Downarrow^{\ell+3}_P \square$}
-      \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(2,3+1)} \Downarrow^{\ell+4}_P \square$}
-      \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\vv{1+f(2,3+1)} \Downarrow^{\ell+5}_P \square$}
-      \RightLabel{\scriptsize{(if$_{0}$)}} 
-      \BinaryInfC{$\ifelse{\vv{2 == 3}}{\vv{0}}{\vv{1 + f(2,3+1)}} \Downarrow^{\ell+6}_P \square$ }
-      \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f(2,3)} \Downarrow^{\ell+7}_P \square$}
-    \end{prooftree}
-\end{framed}
-\caption{Част от безкрайното дърво на извод започващо от функционалния терм $\vv{f(2,3)}$}
-\end{figure}
+% \begin{figure}[h!]
+%   \begin{framed}
+%     \begin{prooftree}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+%       \LeftLabel{\scriptsize{(eq)}}
+%       \BinaryInfC{$\vv{3 == 2} \opsemFun{1} \vv{0}$}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+%       \RightLabel{\scriptsize{(plus)}}
+%       \BinaryInfC{$\vv{2+1} \opsemFun{1} \vv{3}$}
+%       \LeftLabel{\scriptsize{(eq)}}
+%       \BinaryInfC{$\vv{3 == 2 + 1} \opsemFun{2} \vv{1}$}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{0} \opsemFun{0} \vv{0}$}
+%       \RightLabel{\scriptsize{(if$^+$)}}
+%       \BinaryInfC{$\ifelse{\vv{3 == 2+1}}{\vv{0}}{\vv{1+f(3,2+1+1)}} \opsemFun{3} \vv{0}$}
+%       \RightLabel{\scriptsize{(cbn)}}
+%       \UnaryInfC{$\vv{f(3,2+1)} \opsemFun{4} \vv{0}$}
+%       \RightLabel{\scriptsize{(plus)}}
+%       \BinaryInfC{$\vv{1 + f(3,2+1)} \opsemFun{5} \vv{1}$}
+%       \RightLabel{\scriptsize{(if$_{0}$)}}
+%       \BinaryInfC{$\ifelse{\vv{3 == 2}}{\vv{0}}{\vv{1 + f(3,2+1)}} \opsemFun{7} \vv{1}$ }
+%       \RightLabel{\scriptsize{(cbn)}}
+%       \UnaryInfC{$\vv{f(3,2)} \opsemFun{8} \vv{1}$}
+%     \end{prooftree}
+%   \end{framed}
+%   \caption{Крайно дърво на извод започващо от функционалния терм $\vv{f(3,2)}$}
+% \end{figure}
+
+% \def\defaultHypSeparation{\hskip .4cm}
+
+% \begin{figure}[h!]
+%   \begin{framed}
+%     \begin{prooftree}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+%       \RightLabel{\scriptsize{(eq)}}
+%       \BinaryInfC{$\vv{2 == 3} \opsemFun{1} \vv{0}$}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{2} \opsemFun{0} \vv{2}$}
+%       \AxiomC{}
+%       \LeftLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{3} \opsemFun{0} \vv{3}$}
+%       \AxiomC{}
+%       \RightLabel{\scriptsize{(const)}}
+%       \UnaryInfC{$\vv{1} \opsemFun{0} \vv{1}$}
+%       \RightLabel{\scriptsize{(plus)}}
+%       \BinaryInfC{$\vv{3+1} \opsemFun{1} \vv{4}$}
+%       \RightLabel{\scriptsize{(eq)}}
+%       \BinaryInfC{$\vv{2 == 3+1} \opsemFun{2} \vv{0}$}
+%       \AxiomC{$\vdots$}
+%       \UnaryInfC{$\vv{1 + f(2,3+1+1)} \opsemFun{\ell} \square$}
+%       \RightLabel{\scriptsize{(if$_{0}$)}}
+%       \BinaryInfC{$\ifelse{\vv{2 == 3+1}}{\vv{0}}{\vv{1 + f(2,3+1+1)}} \opsemFun{\ell+3} \square$}
+%       \RightLabel{\scriptsize{(cbn)}}
+%       \UnaryInfC{$\vv{f(2,3+1)} \opsemFun{\ell+4} \square$}
+%       \RightLabel{\scriptsize{(plus)}}
+%       \BinaryInfC{$\vv{1+f(2,3+1)} \opsemFun{\ell+5} \square$}
+%       \RightLabel{\scriptsize{(if$_{0}$)}} 
+%       \BinaryInfC{$\ifelse{\vv{2 == 3}}{\vv{0}}{\vv{1 + f(2,3+1)}} \opsemFun{\ell+6} \square$ }
+%       \RightLabel{\scriptsize{(cbn)}}
+%       \UnaryInfC{$\vv{f(2,3)} \opsemFun{\ell+7} \square$}
+%     \end{prooftree}
+% \end{framed}
+% \caption{Част от безкрайното дърво на извод започващо от функционалния терм $\vv{f(2,3)}$}
+% \end{figure}
 
 
 \end{landscape}

@@ -1,4 +1,4 @@
-\subsection{Теорема за еквивалентност}
+\section{Теорема за еквивалентност}
 \marginpar{Винаги с $\mu$ ще означаваме функционални термове, а с $\tau$ произволни термове.}
 
 \begin{proposition}\label{pr:rec:op-name-inclusion1}
@@ -8,7 +8,7 @@
   Нека $\mu[\vv{f}_1,\dots,\vv{f}_n]$ е {\em функционален} терм. Тогава
   \[\eval{\mu} \sqsubseteq \val{\mu}(\bar{\gamma}),\]
   където $\bar{\gamma} = (\gamma_1,\dots,\gamma_n)$ е 
-  \marginpar{Тук използваме наготово \Prop{product-continuous}.}
+  \marginpar{Тук използваме наготово \Problem{cartesian-product:continuous}.}
   някоя неподвижна точка на непрекъснатия оператор
   \[\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n},\]
   който съответства на програмата \vv{P}.
@@ -24,69 +24,71 @@
   Тогава ще докажем, че за произволен функционален терм $\mu$ и константа $\vv{a}$,
   \begin{equation}
     \label{eq:16}
-    \mu\Downarrow_P \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.
+    \mu\Downarrow_{\vv{P}} \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.
   \end{equation}
-  Доказателството на (\ref{eq:16}) ще проведем с индукция по дължината $\ell$ на извода $\mu\Downarrow^\ell_P a$.
+  Доказателството на (\ref{eq:16}) ще проведем с \emph{пълна} индукция по дължината $\ell$ на извода $\mu\opsemFun{\ell}\vv{a}$.
 
   \marginpar{Константата $\vv{a}$ има стойност числото $a$.}
   Нека изводът има дължина $0$. Понеже $\mu$ е функционален терм, според правилата на операционната семантика, единствената възможност е $\mu \equiv \vv{a}$.
   Тогава е очевидно, че $\val{\mu}(\bar{\gamma}) = a$. Ясно е, че в този случай,
-  \[\vv{a} \Downarrow^0_P \vv{a}\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
+  \[\vv{a} \opsemFun{0} \vv{a}\ \implies\ \val{\vv{a}}(\ov{\gamma}) = a.\]
   Нака имаме следното индукционно предположение:
   \begin{equation}
     \label{eq:ind-hyp}
-    \mu\Downarrow^{<\ell}_P \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.
+    \mu \opsemFun{<\ell} \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.
   \end{equation}
   Ще докажем, че
-  \[\mu\Downarrow^{\ell}_P \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.\]
+  \[\mu \opsemFun{\ell} \vv{a}\ \implies \val{\mu}(\ov{\gamma}) = a.\]
   Ще разгледаме всички случаи в зависимост от вида на функционалния терм $\mu$.
   \begin{itemize}
   \item
     Да разгледаме случая, когато $\mu \equiv \mu_1 + \mu_2$.
-    Нека $\mu_1 + \mu_2 \Downarrow^\ell_P \vv{a}$.
+    Нека $\mu_1 + \mu_2 \opsemFun{\ell} \vv{a}$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
       % \LeftLabel{\scriptsize{(Извод с дълж. $\ell_1$)}}
-      \UnaryInfC{$\mu_1 \Downarrow^{\ell_1}_P \vv{a}_1$}
+      \UnaryInfC{$\mu_1 \opsemFun{\ell_1} \vv{a}_1$}
       \AxiomC{$\vdots$}
       % \RightLabel{\scriptsize{(Извод с дълж. $\ell_2$)}}
-      \UnaryInfC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
+      \UnaryInfC{$\mu_2 \opsemFun{\ell_2} \vv{a}_2$}
       \RightLabel{\scriptsize{правило (plus)}}
-      \BinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
+      \BinaryInfC{$\mu_1 + \mu_2 \opsemFun{\ell_1+\ell_2+1} \vv{a}$}
     \end{prooftree}
 
-    където $a = \texttt{plus}(a_1,a_2)$.
-    Ясно е, че изводите на $\mu_1\Downarrow^{<\ell}_P \vv{a}_1$ и $\mu_2 \Downarrow^{<\ell}_P \vv{a}_2$.
-    Следователно можем да приложим {\bf И.П.} за $\mu_1$ и $\mu_2$, откъдето получаваме, че
+    където $a = \plus(a_1,a_2)$.
+    Ясно е, че изводите на $\mu_1 \opsemFun{<\ell} \vv{a}_1$ и $\mu_2 \opsemFun{<\ell} \vv{a}_2$.
+    Следователно можем да приложим \IndHyp за $\mu_1$ и $\mu_2$, откъдето получаваме, че
     \begin{align*}
-      & \mu_1 \Downarrow^{<\ell}_P \vv{a}_1\ \implies \val{\mu_1}(\ov{\gamma}) = \vv{a}_1\\
-      & \mu_2 \Downarrow^{<\ell}_P \vv{a}_2\ \implies \val{\mu_2}(\ov{\gamma}) = \vv{a}_2.
+      & \mu_1 \opsemFun{<\ell} \vv{a}_1\ \implies \val{\mu_1}(\ov{\gamma}) = \vv{a}_1\\
+      & \mu_2 \opsemFun{<\ell} \vv{a}_2\ \implies \val{\mu_2}(\ov{\gamma}) = \vv{a}_2.
     \end{align*}
-    Тогава получаваме, че ако $\mu_1 + \mu_2 \Downarrow^\ell_P \vv{a}$, то
+    Тогава получаваме, че ако $\mu_1 + \mu_2 \opsemFun{\ell} \vv{a}$, то
     \begin{align*}
       \val{\mu_1 + \mu_2}(\ov{\gamma}) & \df \plus(\val{\mu_1}(\ov{\gamma}), \val{\mu_2}(\ov{\gamma}))\\
                                        & = \plus(a_1,a_2)\\
                                        & = a.
     \end{align*}
   \item
+    Случаят, когато $\mu \equiv \mu_1\ \vv{-}\ \mu_2$ е лесен.
+  \item
     Случаят, когато $\mu \equiv \mu_1\ \vv{==}\ \mu_2$ е лесен.
   \item
     Случаят, когато $\mu \equiv \ifelse{\mu_0}{\mu_1}{\mu_2}$, е лесен.
   \item
-    Нека имаме функционалния терм $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и $\mu \Downarrow^\ell_P \vv{a}$.
+    Нека имаме функционалния терм $\mu \equiv \vv{f}_i(\mu_1,\dots,\mu_{m_i})$ и $\mu \opsemFun{\ell} \vv{a}$.
     Според правилата за извод в операционната семантика по име, имаме следната ситуация:
     \begin{prooftree}
       \AxiomC{$\vdots$}
       % \RightLabel{\scriptsize{Извод с дълж. $(\ell-1)$}}
-      \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow^{\ell-1}_P \vv{a}$}
+      \UnaryInfC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \opsemFun{\ell-1} \vv{a}$}
       \RightLabel{\scriptsize{правило (cbn)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^{\ell}_P \vv{a}$}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsemFun{\ell} \vv{a}$}
     \end{prooftree}
     \marginpar{Индукционното предположение е цялата импликация. Според случая, който разглеждаме и според правилата на операционната семантика, лявата страна на импликацията е изпълнена. Следователно, и дясната страна на импликацията е изпълнена.}
-    От {\bf И.П.} имаме, че  
-    \[\tau_i[\varsx/\ov{\mu}] \Downarrow^{<\ell}_P \vv{a}\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
-    Понеже знаем, че $\tau_i[\varsx/\ov{\mu}] \Downarrow^{<\ell}_P \vv{a}$, то $\val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a$.
+    От \IndHyp имаме, че  
+    \[\tau_i[\varsx/\ov{\mu}] \opsemFun{<\ell} \vv{a}\ \implies\ \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a.\]
+    Понеже знаем, че $\tau_i[\varsx/\ov{\mu}] \opsemFun{<\ell} \vv{a}$, то $\val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a$.
     \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$. Единствено в този случай се използва, че $\ov{\gamma}$ е решение на системата от оператори, като не е задължително да е най-малкото решение.}
     Лесно се съобразява, че:
     \begin{align*}
@@ -96,8 +98,8 @@
     \end{align*}
     Обединявайки всичко, което знаем, получаваме:
     \begin{align*}
-      \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^\ell_P \vv{a} & \implies \tau_i[\varsx/\ov{\mu}] \Downarrow^{<\ell}_P \vv{a} & \comment{\text{правило (cbn)}}\\
-                                                & \implies \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a & \comment{\text{{\bf И.П.}}}\\
+      \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsemFun{\ell} \vv{a} & \implies \tau_i[\varsx/\ov{\mu}] \opsemFun{<\ell} \vv{a} & \comment{\text{правило (cbn)}}\\
+                                                & \implies \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a & \comment\text{\IndHyp}\\
                                                 & \implies  \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}) = a.
     \end{align*}
   \end{itemize}
@@ -179,12 +181,12 @@
     \item
       Нека $\tau \equiv \tau_1 + \tau_2$.
       В този случай, $\tau$ е съставен от по-простите термове $\tau_1$ и $\tau_2$.
-      От {\bf И.П.} за $\tau_1$ и $\tau_2$ следва, че за $i = 1,2$ е изпълнено следното:
+      От \IndHyp за $\tau_1$ и $\tau_2$ следва, че за $i = 1,2$ е изпълнено следното:
       \begin{equation}
         \label{eq:15}
         \val{\tau_i}(\ov{\gamma}_0)(\ov{a}) \sqsubseteq \eval{\tau_i[\varsx/\ov{\mu}]}.
       \end{equation}
-      Да напомним, че изображението $\texttt{plus}$ е непрекъснато, откъдето следва, че също така е монотонно. 
+      Да напомним, че изображението $\plus$ е непрекъснато, откъдето следва, че също така е монотонно. 
       Тогава:
       \begin{align*}
         \val{\tau_1 + \tau_2}(\ov{\gamma}_0)(\ov{a}) & = \plus(\val{\tau_1}(\ov{\gamma}_0)(\ov{a}), \val{\tau_2}(\ov{\gamma}_0)(\ov{a})) & \comment\text{стойност на терма}\\
@@ -214,14 +216,14 @@
     Доказателствата на всички останали случаи за $\tau$ протичат по абсолютно същия начин както при $r = 0$.
 
     Понеже термът $\tau$ е построен с помощта на термовете $\rho_j$, за $j = 1, \dots, m_i$,
-    можем да приложим {\bf И.П.} за тях и да получим, че 
+    можем да приложим \IndHyp за тях и да получим, че 
     \begin{align*}
       \val{\rho_{j}}(\ov{\gamma}_r)(\underbrace{\eval{\mu_1}}_{a_1},\dots,\underbrace{\eval{\mu_n}}_{a_n}) & = \underbrace{\val{\rho_{j}}(\ov{\gamma}_r)(a_1,\dots, a_n)}_{b_j} \\
-                                                                                                             & \sqsubseteq \underbrace{\eval{\rho_j[\varsx/\ov{\mu}]}}_{c_j}. & \comment{\text{от {\bf И.П.}}}
+                                                                                                             & \sqsubseteq \underbrace{\eval{\rho_j[\varsx/\ov{\mu}]}}_{c_j}. & \comment\text{от \IndHyp}
     \end{align*}
 
     \marginpar{Обърнете внимание, че $\rho'_j$ са функционални термове}
-    Нека за наше улеснение да положим $\rho'_j \df \rho[\varsx/\ov{\mu}]$.
+    Нека за наше улеснение да положим $\rho'_j \df \rho_j[\varsx/\ov{\mu}]$.
     Това означава, че до момента имаме следното:
     \[\val{\tau_i}(\ov{\varphi})(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) \sqsubseteq  \val{\tau_i}(\ov{\varphi})(\underbrace{\eval{\rho'_1}}_{c_1},\dots, \underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}),\]
     за произволни непрекъснати изображения $\ov{\varphi}$.
@@ -233,7 +235,7 @@
                                         & = \gamma^i_r(b_1, \dots, b_{m_i})\\
                                         & \sqsubseteq \gamma^i_r(c_1, \dots, c_{m_i}) & \comment{\gamma^i_r\text{ е непр. и следователно мон.}}\\
                                         & = \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \df \val{\tau_i}(\ov{\gamma}_{r-1})}\\
-                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\eval{\rho'_1}}_{c_1},\dots,\underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}) & \comment{c_i = \eval{\rho'_i}} \\
+                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\eval{\rho'_1}}_{c_1},\dots,\underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}) & \comment{c_i \df \eval{\rho'_i}} \\
                                         & \sqsubseteq \eval{\tau_i[\vv{x}_1/\rho'_1,\dots,\vv{x}_{m_i}/\rho'_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
                                         & = \eval{\vv{f}_i(\rho'_1,\dots,\rho'_{m_i})} & \comment{\text{от правило (4)}}\\
                                         & = \eval{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \df \rho[\varsx/\ov{\mu}]}\\
@@ -253,7 +255,7 @@
 \end{corollary}
 
 \begin{lemma}
-  \marginpar{$f\times g$ е дефинирано в \Prop{cartesian-continuous}.}
+  \marginpar{$\Gamma$ е непрекъснат според \Problem{cartesian-product:continuous}.}
   За всяка рекурсивна програма $\vv{P}$,
   произволен {\em функционален} терм $\mu$,
   \[\val{\mu}(\ov{\gamma}) \sqsubseteq \eval{\mu},\]
@@ -280,6 +282,7 @@
   \[\O\val{\vv{P}} \sqsubseteq \D\val{\vv{P}}.\]
   Остава да докажем обратната посока, а именно 
   \[\D\val{\vv{P}} \sqsubseteq \O\val{\vv{P}}.\]
+  \marginpar{Случаят, когато $\bot$ е измежду $\ov{a}$ е очевиден.}
   За произволни числа $\ov{a}$, имаме следните връзки:
   \begin{align*}
     \D\val{\vv{P}}(\ov{a}) & = \gamma_1(\ov{a}) & \comment\text{деф. на денот. сем.}\\

@@ -24,6 +24,16 @@
   \[\texttt{eval}(f,\bigsqcup_n d_n) = f(\bigsqcup_n d_n) = \bigsqcup_n \{f(d_n)\} = \bigsqcup_n \texttt{eval}(f,d_n).\]
 \end{proof}
 
+
+\begin{haskellcode}
+ghci> :t ($)
+($) :: (a -> b) -> a -> b
+ghci> ($) (+1) 3
+4
+ghci> (+1) $ (+2) 3
+6
+\end{haskellcode}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../sep"

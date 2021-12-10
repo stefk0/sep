@@ -11,18 +11,19 @@
 \begin{align*}
   \bigstar = 
   \begin{cases}
-    &f_1(x_1,\dots,x_n) = x_1\\
+    &x_1 = f_1(x_1,\dots,x_n)\\
     & \ \vdots\\
-    & f_n(x_1,\dots,x_n) = x_n,
+    &x_n = f_n(x_1,\dots,x_n),
   \end{cases}
 \end{align*}
 
-ако са в сила равенствата 
-\begin{align*}
-  & f_1(a_1,\dots,a_n) = a_1\\
-  & \ \vdots\\
-  & f_n(a_1,\dots,a_n) = a_n.
-\end{align*}
+ако са в сила равенствата
+\begin{SystemEq}
+  a_1 & = & f_1(a_1,\dots,a_n)\\
+  & \vdots & \\
+  a_n & = & f_n(a_1,\dots,a_n).  
+\end{SystemEq}
+
 \index{система!най-малко решение}
 
 Казваме, че $\bar{a}$ е {\bf най-малкото решение} на системата $\bigstar$, ако за всяко друго решение $\bar{b}$
@@ -32,11 +33,11 @@
 \begin{theorem}
   \label{th:sep:min-solution-system}
   За произволни изображения $f_i \in \Cont{\prod^n_{k=1}\A_k}{\A_i}$, за $i = 1,\dots,n$, системата
-  \begin{align*}
-    & f_1(x_1,\dots,x_n) = x_1\\
-    & \vdots\\
-    & f_n(x_1,\dots,x_n) = x_n,
-  \end{align*} 
+  \begin{SystemEq}
+    x_1 & = & f_1(x_1,\dots,x_n)\\
+    & \vdots & \\
+    x_n & = & f_n(x_1,\dots,x_n),    
+  \end{SystemEq}
   притежава най-малко решение.
 \end{theorem}
 \end{framed}
@@ -44,8 +45,8 @@
   Първо да дефинираме изображението
   \[g \df f_1\times\dots\times f_n : \prod^n_{k=1}\A_k \to  \prod^n_{k=1}\A_k,\]
   като 
-  \[g(\bar{a}) \df \pair{f_1(\bar{a}),\dots,f_n(\bar{a})},\]
-  което е непрекъснато според \Prop{cartesian-product:general-continuous}.
+  \[g(\ov{a}) \df \pair{f_1(\ov{a}),\dots,f_n(\ov{a})},\]
+  което е непрекъснато според \Problem{cartesian-product:continuous}.
   От \hyperref[th:knaster-tarski]{Теоремата на Клини} знаем, че $g$ притежава най-малка неподвижна точка
   $\bar{a} = \pair{a_1,\dots,a_n}$. Ще проверим, че $\ov{a}$ е най-малкото решение на системата.
   \begin{itemize}

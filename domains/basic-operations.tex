@@ -1,4 +1,4 @@
-Да започнем като първо да дефинираме следните {\em основни изображения}
+Да започнем като първо дефинираме следните {\em основни изображения}
 \begin{align*}
   & \plus : \Nat^2_\bot \to \Nat_\bot\text{, където}\\
   & \plus(a,b) \df
@@ -32,40 +32,28 @@
   достатъчно е да докажете, че изображенията са монотонни.
 \end{hint}
 
-
 \begin{problem}
-  Докажете, че за всяко $b \in \B$, изображението
-  $\texttt{const}_b \in \Cont{\prod^n_{i=1}\A_i}{\B}$ е непрекъснато, където
-  \[\texttt{const}_b(a_1,\dots,a_n) = b.\]
+  \label{prob:basic-operations:const:continuous}
+  Докажете, че за всяко $a \in \Nat_\bot$, изображението
+  $\texttt{const}^n_a \in \Cont{\Nat^n_\bot}{\Nat_\bot}$ е непрекъснато, където
+  \[\texttt{const}^n_a(x) \df a.\]
 \end{problem}
 
+% Формано погледнато, трябва да пишем $\texttt{const}^{\A,\B}_b$, защото изображението зависи от областите на Скот, за които е дефинирано.
+% За целите на Глава \ref{ch:rec}, нека да означим с $\texttt{const}^n_a$
 
 \begin{problem}
-  \label{prob:projection}
+  \label{prob:basic-operations:projection:continuous}
   Докажете, че за всяко $n$ и $i < n$, изображението
-  $\texttt{proj}^n_i \in \Cont{\A^n}{\A}$, където
-  \[\texttt{proj}^n_i(a_0,\dots,a_{n-1}) = a_i.\]
+  $\texttt{proj}^{\A,n}_i \in \Cont{\A^n}{\A}$, където
+  \[\texttt{proj}^{\A,n}_i(a_0,\dots,a_{n-1}) \df a_i.\]
 \end{problem}
 
-% \begin{definition}
-%   \label{def:if}
-%   \index{if}
-%   Нека $\A$ е област на Скот. Дефинираме следното изображение
-%   \begin{align*}
-%     & \texttt{if}:\Nat_\bot \times \A \times \A \to \A \text{, където}\\
-%     & \texttt{if}(b, a_1,a_2) =
-%       \begin{cases}
-%         a_1, & \text{ако } b \in \Nat^+\\
-%         a_2, & \text{ако } b = 0\\
-%         \bot, & \text{ако } b = \bot.
-%       \end{cases}
-%   \end{align*}
-% \end{definition}
-
-\begin{problem}\label{prob:basic-operations:if}
-  Докажете, че $\texttt{if} \in \Cont{\Nat_\bot \times \A \times \A}{\A}$, където
+\begin{problem}
+  \label{prob:basic-operations:if:continuous}
+  Докажете, че $\texttt{if}_{\A} \in \Cont{\Nat_\bot \times \A \times \A}{\A}$, където
   \begin{align*}
-    & \texttt{if}(b, a_1,a_2) =
+    & \texttt{if}_{\A}(b, a_1,a_2) \df
       \begin{cases}
         a_1, & \text{ако } b \in \Nat^+\\
         a_2, & \text{ако } b = 0\\
@@ -74,5 +62,5 @@
   \end{align*}
 \end{problem}
 \begin{hint}
-  Докажете, че $\texttt{if}$ е непрекъснато изображение по всеки от аргументите си поотделно.
+  Докажете, че $\texttt{if}_{\A}$ е непрекъснато изображение по всеки от аргументите си поотделно.
 \end{hint}
