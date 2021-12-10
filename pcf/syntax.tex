@@ -15,10 +15,14 @@
 \item\index{израз}
   \marginpar{Можем да си мислим за изразите като дървета.}
   Изрази
-  \[\tau ::= \vv{n}\ |\ \vv{x}\ |\ \tau_1 + \tau_2\ |\ \tau_1\ \vv{==}\ \tau_2\ |\ \ifelse{\tau_1}{\tau_2}{\tau_3}\ |\ \tau_1\tau_2\ |\ \lamb{x}{a}{\tau_1}\ |\ \fix(\tau_1).\]
+  \begin{align*}
+    \tau ::=\ & \vv{n}\ |\ \vv{x}\ |\ \tau_1 + \tau_2\ |\ \tau_1 - \tau_2\ |\  \tau_1\ \vv{==}\ \tau_2\ |\ \ifelse{\tau_1}{\tau_2}{\tau_3}\ |\\
+              & \tau_1\tau_2\ |\ \lamb{x}{a}{\tau_1}\ |\ \fix(\tau_1).
+  \end{align*}
   Ще означаваме съвкупоността от всички изрази с $\mathcal{E}$, а съвкупността от всички променливи с $\mathcal{V}$.
   Да обърнем внимание, че не всички изрази са ,,смислени''. Например,
   $\lamb{x}{nat}{\vv{xx}}$ не е ясно какво означава.
+  След малко ще дефинираме типизираща релация, с чиято помощ ще изхвърлим безслислените изрази.
   
   Понеже тук вече имаме свободни и свързани променливи, трябва да сме по-внимателни, когато правим замяна на един израз с друг. Да разгледаме функцията $\fv:\mathcal{E} \to \mathcal{P}(\mathcal{V})$, дефинирана със структурна индукция по построението на термовете по следния начин:
   
@@ -50,7 +54,7 @@
 
 С $\tau\rename{x}{\rho}$ ще означаваме изразът получен от $\tau$, в който всяко \emph{свободно} срещане на променливата $\vv{x}$
 е заменена с израза $\rho$. Можем да дадем формална дефиниция с индукция по построението на изразите:
-\marginpar{Операцията $\rename{x}{\rho}$ заменя в дървото за израза $\tau$, всяко листо означено с $x$, не участва в дърво с корен $\lambda x:a$, с дървото за израза $\rho$.}
+\marginpar{Операцията $\rename{x}{\rho}$ заменя в дървото за израза $\tau$, всяко листо означено с $x$, което не участва в дърво с корен $\lambda x:a$, с дървото за израза $\rho$.}
 \begin{itemize}
 \item
   Ако $\tau \equiv \vv{n}$, то $\tau\rename{x}{\rho} \equiv \vv{n}$.
@@ -81,7 +85,7 @@
 \marginpar{Това е подходът на Хаскел Къри за дефиниране на замяна на променлива с израз \cite[стр. 578]{barendregt-handbook}.}
 Сега ще дефинираме бинарна релация между изрази, която ще наричаме $\alpha$-ек\-ви\-ва\-лент\-ност.
 Интуитивно, всеки два $\alpha$-еквивалентни израза трябва да бъдат смислово неотличими.
-Това е най-малката релация между изрази, която ще означаваме с $\equiv_\alpha$, за която са изпълнени свойствата:
+Това е най-малката релация между изрази, която ще означаваме с $\alphaEq$, за която са изпълнени свойствата:
 \marginpar{
   В тази дефиниция единствено последният случай е интересен.
   Например,
@@ -89,35 +93,35 @@
   но \[(\lamb{x}{a}{\vv{x+y}})\vv{x} \not\equiv_\alpha (\lamb{y}{a}{\vv{x+y}})\vv{x}.\]}
 \begin{itemize}
 \item
-  $\vv{x} \equiv_\alpha \vv{x}$;
+  $\vv{x} \alphaEq \vv{x}$;
 \item
-  $\vv{n} \equiv_\alpha \vv{n}$;
+  $\vv{n} \alphaEq \vv{n}$;
 \item
-  ако $\tau_1 \equiv_\alpha \rho_1$ и $\tau_2 \equiv_\alpha \rho_2$, то имаме, че
+  ако $\tau_1 \alphaEq \rho_1$ и $\tau_2 \equiv_\alpha \rho_2$, то имаме, че
   \begin{align*}
-    & \tau_1 + \tau_2 \equiv_\alpha \rho_1 + \rho_2,\\
-    & \tau_1\ \vv{==}\ \tau_2 \equiv_\alpha \rho_1\ \vv{==}\ \rho_2,\\
-    & \tau_1 \tau_2 \equiv_\alpha \rho_1 \rho_2;
+    & \tau_1 + \tau_2 \alphaEq \rho_1 + \rho_2,\\
+    & \tau_1\ \vv{==}\ \tau_2 \alphaEq \rho_1\ \vv{==}\ \rho_2,\\
+    & \tau_1 \tau_2 \alphaEq \rho_1 \rho_2;
   \end{align*}
 \item
-  ако $\tau_1 \equiv_\alpha \rho_1$, $\tau_2 \equiv_\alpha \rho_2$ и $\tau_3 \equiv_\alpha \rho_3$, то
-  \[\ifelse{\tau_1}{\tau_2}{\tau_3} \equiv_\alpha \ifelse{\rho_1}{\rho_2}{\rho_3};\]
+  ако $\tau_1 \alphaEq \rho_1$, $\tau_2 \equiv_\alpha \rho_2$ и $\tau_3 \equiv_\alpha \rho_3$, то
+  \[\ifelse{\tau_1}{\tau_2}{\tau_3} \alphaEq \ifelse{\rho_1}{\rho_2}{\rho_3};\]
 \item
-  ако $\tau \equiv_\alpha \rho$, то $\fix(\tau) \equiv_\alpha \fix(\rho)$;
+  ако $\tau \alphaEq \rho$, то $\fix(\tau) \equiv_\alpha \fix(\rho)$;
 \item  
-  ако $\tau\rename{x}{\vv{z}} \equiv_\alpha \rho\rename{y}{\vv{z}}$, където $\vv{z} \not\in \var(\tau) \cup \var(\rho)$, то
-  \[\lamb{x}{a}{\tau} \equiv_\alpha \lamb{y}{a}{\rho}.\]
+  ако $\tau\rename{x}{\vv{z}} \alphaEq \rho\rename{y}{\vv{z}}$, където $\vv{z} \not\in \var(\tau) \cup \var(\rho)$, то
+  \[\lamb{x}{a}{\tau} \alphaEq \lamb{y}{a}{\rho}.\]
 \end{itemize}
 
 \marginpar{
 Например,
-\[\lamb{x}{a}{\vv{x+y}} \equiv_\alpha \lamb{z}{a}{\vv{z+y}},\]
+\[\lamb{x}{a}{\vv{x+y}} \alphaEq \lamb{z}{a}{\vv{z+y}},\]
 но
-\[\lamb{x}{a}{\vv{x+y}} \not\equiv_\alpha \lamb{y}{a}{\vv{y+y}},\]
+\[\lamb{x}{a}{\vv{x+y}} \not\alphaEq \lamb{y}{a}{\vv{y+y}},\]
 защото
-\[(\vv{x+y})\rename{x}{\vv{u}} \not\equiv_\alpha (\vv{y+y})\rename{y}{\vv{u}}.\]}
+\[(\vv{x+y})\rename{x}{\vv{u}} \not\alphaEq (\vv{y+y})\rename{y}{\vv{u}}.\]}
 Също така,
-\[\lamb{x}{nat}{\vv{x + }\fix(\lamb{x}{nat}{\vv{x}})} \equiv_\alpha \lamb{y}{nat}{\vv{y + }\fix(\lamb{z}{nat}{\vv{z}})}.\]
+\[\lamb{x}{nat}{\vv{x + }\fix(\lamb{x}{nat}{\vv{x}})} \alphaEq \lamb{y}{nat}{\vv{y + }\fix(\lamb{z}{nat}{\vv{z}})}.\]
 
 \index{терм}
 \begin{framed}

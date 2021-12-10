@@ -50,14 +50,14 @@
       \BinaryInfC{$\tau_1 + \tau_2 \Downarrow_{\vv{nat}} \vv{n},$}
     \end{prooftree}
     където $n = n_1 + n_2$.
-    От И.П. получаваме, че
+    От \IndHyp получаваме, че
     \begin{align*}
       & \val{\tau_1} = \val{\vv{n}_1} = n_1\\
       & \val{\tau_2} = \val{\vv{n}_2} = n_2.
     \end{align*}
     Тогава
     \begin{align*}
-      \val{\tau_1 + \tau_2} & = \texttt{plus}(\val{\tau_1}, \val{\tau_2}) & \comment\text{от деф.}\\
+      \val{\tau_1 + \tau_2} & = \plus(\val{\tau_1}, \val{\tau_2}) & \comment\text{от деф.}\\
                             & = n_1 + n_2 & \comment\text{от И.П.}\\
                             & = n.
     \end{align*}
@@ -80,9 +80,9 @@
     Тогава
     \begin{align*}
       \val{\ifelse{\tau_1}{\tau_2}{\tau_3}} & = \texttt{if}(\val{\tau_1}, \val{\tau_2}, \val{\tau_3})\\
-                                            & = \texttt{if}(n_1,\val{\tau_2}, \val{\tau_3}) & \comment\text{от И.П.}\\
+                                            & = \texttt{if}(n_1,\val{\tau_2}, \val{\tau_3}) & \comment\text{от \IndHyp}\\
                                             & = \val{\tau_2} & \comment\text{от деф. на }\texttt{if}\\
-                                            & = \val{\vv{v}_2}. & \comment\text{от И.П.}
+                                            & = \val{\vv{v}_2}. & \comment\text{от \IndHyp}
     \end{align*}
     
     Случаят, когато $n_1 = 0$ е аналогичен.

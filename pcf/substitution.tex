@@ -1,6 +1,6 @@
 \begin{framed}
 \begin{lemma}[Лема за замяната]\label{lem:pcf:substitution}
-  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, $\vv{x} \not\in \texttt{dom}(\Gamma)$,
+  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, като $\vv{x} \not\in \texttt{dom}(\Gamma)$,
   \begin{align*}
     & \Gamma \vdash \rho : \vv{a}\\
     & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
@@ -40,15 +40,15 @@
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_2: \vv{c}$}
       \BinaryInfC{$\Gamma, \type{x}{a} \vdash \tau_1 \tau_2 : \vv{b}$}
     \end{prooftree}
-    то можем да приложим И.П. за да получим, че
+    то можем да приложим \IndHyp за да получим, че
     \begin{prooftree}
       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_1: \vv{c} \to \vv{b}$}
-      \LeftLabel{\scriptsize{(И.П.)}}
+      \LeftLabel{\scriptsize{\IndHyp}}
       \BinaryInfC{$\Gamma \vdash \tau_1\subst{\vv{x}}{\rho} : \vv{b}$}
       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_2: \vv{c} \to \vv{b}$}
-      \RightLabel{\scriptsize{(И.П.)}}
+      \RightLabel{\scriptsize{\IndHyp}}
       \BinaryInfC{$\Gamma \vdash \tau_2\subst{x}{\rho} : \vv{c}$}
       \RightLabel{\scriptsize{(app)}}
       \BinaryInfC{$\Gamma \vdash \tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho}) : \vv{c}$}
@@ -58,7 +58,7 @@
     Втората част също е лесна.
     \begin{align*}
       \val{\tau_1\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & \df \texttt{eval}(\val{\tau_1}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})), \val{\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{\Def{eval}}\\
-                                                                   & = \texttt{eval}(\val{\tau_1\subst{x}{\rho}}_\Gamma(\ov{u}), \val{\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{И.П.}\\
+                                                                   & = \texttt{eval}(\val{\tau_1\subst{x}{\rho}}_\Gamma(\ov{u}), \val{\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{\IndHyp}\\
                                                                    & = \val{\tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho})}_\Gamma(\ov{u})\\
                                                                    & = \val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})
     \end{align*}
@@ -71,7 +71,7 @@
       \RightLabel{\scriptsize{(fix)}}
       \UnaryInfC{$\Gamma, \type{x}{a} \vdash \fix(\tau') : \vv{b}$}
     \end{prooftree}
-    Сега можем да приложим И.П. за терма $\tau'$. Получаваме, че
+    Сега можем да приложим \IndHyp за терма $\tau'$. Получаваме, че
     \begin{prooftree}
       \AxiomC{$\Gamma \vdash \rho: \vv{a}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau':\vv{b}\to\vv{b}$}
@@ -87,13 +87,13 @@
     Получаваме следното:
     \begin{align*}
       \val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) & = \lfp(\val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{от деф.}\\
-                                                       & = \lfp(\val{\tau}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от И.П. за }\tau\\
+                                                       & = \lfp(\val{\tau}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от \IndHyp за }\tau\\
                                                        & = \val{\fix(\tau)}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
     \end{align*}
     
     
   \item
-    \marginpar{Тук е важно, че $\val{\Delta} = \val{\Gamma} \times \val{\vv{a}_n}$}
+    \marginpar{Тук е важно, че \[\val{\Delta} = \val{\Gamma} \times \val{\vv{a}_n}.\]}
 
     Нека $\tau \equiv \lamb{y}{c}{\tau'}$, където $\vv{y} \not\in \vv{dom}(\Gamma) \cup \{\vv{x}\}$.
     Първо трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
@@ -106,13 +106,13 @@
       \RightLabel{\scriptsize{(lambda)}}
       \BinaryInfC{$\Gamma, \type{x}{a} \vdash \lamb{y}{c}{\tau'} : \vv{c}\to\vv{d}$}
     \end{prooftree}
-    Това означава, че можем да използваме И.П. за терма $\tau'$ и така получаваме, че
+    Това означава, че можем да използваме \IndHyp за терма $\tau'$ и така получаваме, че
     \begin{prooftree}
       \AxiomC{$\vv{y} \not\in \vv{dom}(\Gamma)$}
       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
       \UnaryInfC{$\Gamma,\type{y}{c} \vdash \rho : \vv{a}$}
       \AxiomC{$\Gamma, \type{y}{c}, \type{x}{a} \vdash \tau':\vv{d}$}
-      \RightLabel{\scriptsize{(И.П.)}}
+      \RightLabel{\scriptsize{\IndHyp}}
       \BinaryInfC{$\Gamma, \type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$}
       \RightLabel{\scriptsize{(lambda)}}
       \BinaryInfC{$\Gamma \vdash \lamb{y}{c}{\tau'\subst{x}{\rho}}:\vv{c}\to\vv{d}$}
@@ -123,10 +123,10 @@
 
     Нека $\Delta \df \Gamma,\type{y}{c}$.
     Понеже имаме, че $\Delta \vdash \tau'\subst{x}{\rho} : \vv{d}$,
-    то можем да приложим И.П. за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Delta}$,
+    то можем да приложим \IndHyp за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Delta}$,
     \begin{align*}
       \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})(v) & \df \val{\tau'\subst{x}{\rho}}_\Delta(\overline{u},v) & \comment\text{\Def{curry}}\\
-                                                                 & \stackrel{\text{И.П.}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta(\ov{u},v)) & \comment \Delta' \df \Gamma, \type{y}{c}, \type{x}{a}\\
+                                                                 & \stackrel{\text{\IndHyp}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta(\ov{u},v)) & \comment \Delta' \df \Gamma, \type{y}{c}, \type{x}{a}\\
                                                                  & = \val{\tau'}_{\Delta'}(\ov{u},v,\val{\rho}_\Gamma(\ov{u})) & \comment \fv(\rho) \subseteq \vv{dom}(\Gamma)\\
                                                                  & = \val{\tau'}_{\Delta''}(\ov{u},\val{\rho}_\Gamma(\ov{u}),v) & \comment \Delta'' \df \Gamma, \type{x}{a}, \type{y}{c}\\
                                                                  & = \curry(\val{\tau'}_{\Delta''})(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v) \\
