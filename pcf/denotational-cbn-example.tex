@@ -1,0 +1,55 @@
+\begin{example}
+  Нека $\vv{a} = \vv{nat} \to (\vv{nat} \to \vv{nat})$ и 
+  \[\tau \equiv \fix\vv{(}\underbrace{\lamb{f}{a}{\overbrace{\lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))} }}}}^{\tau'_0}}}_{\tau_0}\vv{)}.\]
+
+  Знаем, че $\val{\tau} \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, където
+  \[\val{\tau} \df \lfp(\val{\tau_0}).\]
+
+  Ясно е, че $\val{\tau_0} \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$ и
+  $\val{\tau_0} = \curry(\val{\tau'_0}_{\vv{f:a}}) = \val{\tau'_0}_{\vv{f:a}}$ и
+  сега пък ако положим
+  \begin{align*}
+    % & \tau_0 \equiv \lamb{f}{a}{\lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))} }}}},\\
+    % & \tau'_0 \equiv \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}}}},\\
+    & \tau''_0 \equiv \lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}}},\\
+    & \tau'''_0 \equiv \ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}}.
+  \end{align*}
+
+  то ще получим, че
+  \[\val{\tau'_0}_{\vv{f:a}} = \curry(\val{\tau''_0}_{\vv{f:a,x:nat}}),\]
+  и тогава
+  \[\val{\tau'_0}_{\vv{f:a}}(\varphi)(m) = \val{\tau''_0}_{\vv{f:a,x:nat}}(\varphi,m).\]
+  Сега вече получаваме, че
+  \[\val{\tau''_0}_{\vv{f:a,x:nat}} = \curry(\val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}),\]
+  т.е.
+  \[\val{\tau''_0}_{\vv{f:a,x:nat}}(\varphi,m)(n) = \val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}(\varphi,m,n).\]
+
+  Обединявайки всичко получаваме, че:
+  \begin{align*}
+    \val{\tau_0}(\varphi)(m)(n) & = \val{\tau'_0}_{\vv{f:a}}(\varphi)(m)(n) \\
+                                & = \val{\tau''_0}_{\vv{f:a,x:nat}}(\varphi,m)(n)\\
+                                & = \val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}(\varphi,m,n)\\
+                                & = \val{\ifelse{\vv{y==0}}{\vv{0}}{\vv{x + (f x (y-1))}}}(\varphi,m,n)\\
+                                & = \texttt{if}(\val{\vv{y==0}}(\varphi,m,n), \val{\vv{0}}(\varphi,m,n),\val{\vv{x + (f x (y-1))}}(\varphi,m,n)).
+                                % & = \texttt{if}(\eq(n,0),0,\plus(m, \texttt{eval}(\texttt{eval}(\varphi, m),n-1))).
+  \end{align*}
+
+  Накрая получаваме, че
+  \[\val{\tau_0}(\varphi)(m)(n) = \begin{cases}
+      0, & \text{ако }n = 0\\
+      \plus(m, \varphi(m)(n-1)), & \text{ако } n > 0\\
+      \bot, & \text{ако }n = \bot.
+    \end{cases}
+  \]
+  
+                                
+  Сега вече знаем как по теоремата на Клини да докажем, че
+  \[\lfp(\val{\tau_0})(m)(n) =
+    \begin{cases}
+      m*n,  & \text{ако }m,n\in\Nat\\
+      \bot, & \text{иначе}
+    \end{cases}
+\]
+                                
+  
+\end{example}

@@ -1,6 +1,6 @@
 \begin{framed}
 \begin{lemma}[Лема за замяната]\label{lem:pcf:substitution}
-  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, като $\vv{x} \not\in \texttt{dom}(\Gamma)$,
+  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, като $\vv{x} \not\in \Dom(\Gamma)$,
   \begin{align*}
     & \Gamma \vdash \rho : \vv{a}\\
     & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
@@ -11,8 +11,7 @@
     $\Gamma \vdash \tau\subst{x}{\rho} : \vv{b}$;
   \item
     за всяко $\overline{u} \in \val{\Gamma}$,
-    \[\val{\tau\subst{x}{\rho}}_\Gamma(\overline{u}) = \val{\tau}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma(\overline{u})),\]
-    където $\Gamma' = \Gamma, \type{x}{a}$.  
+    \[\val{\tau\subst{x}{\rho}}_\Gamma(\overline{u}) = \val{\tau}_{\Gamma,\type{x}{a}}(\overline{u},\val{\rho}_\Gamma(\overline{u})).\]
   \end{enumerate}
 \end{lemma}
 \end{framed}
@@ -27,17 +26,49 @@
   \item
     Нека $\tau \equiv \vv{n}$.
   \item
-    Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$.
-  \item
     Нека $\tau \equiv \tau_1 + \tau_2$.
+    За първата част, щом $\Gamma,\type{x}{a} \vdash \tau_1+\tau_2 : \vv{b}$, то
+    е ясно, че $\vv{b} = \vv{nat}$. Имаме, че
+    \begin{prooftree}
+      \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_1 : \vv{nat}$}
+      \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_2 : \vv{nat}$}
+      \BinaryInfC{$\Gamma, \type{x}{a} \vdash \tau_1 + \tau_2 : \vv{nat}$}
+    \end{prooftree}
+    Сега можем да приложим \IndHyp и получаваме следния извод:
+    \begin{prooftree}
+      \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
+      \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_1 : \vv{nat}$}
+      \LeftLabel{\IndHyp}
+      \BinaryInfC{$\Gamma \vdash \tau_1\subst{x}{\rho} : \vv{nat}$}
+      \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
+      \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_2 : \vv{nat}$}
+      \RightLabel{\IndHyp}
+      \BinaryInfC{$\Gamma \vdash \tau_2\subst{x}{\rho} : \vv{nat}$}
+      \BinaryInfC{$\Gamma \vdash \tau_1\subst{x}{\rho} + \tau_2 \subst{x}{\rho} : \vv{nat}$}
+    \end{prooftree}
+    Оттук заключаваме, че $\Gamma \vdash \tau\subst{x}{\rho} : \vv{nat}$.
+
+    За втората част,
+    \begin{align*}
+      \val{\tau_1+\tau_2}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & = \plus(\val{\tau_1}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})),\val{\tau_1}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})))\\
+                                                                                 & = \plus(\val{\tau_1\subst{x}{\rho}}_\Gamma(\ov{u}),\val{\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{\IndHyp}\\
+                                                                                 & = \val{\tau_1\subst{x}{\rho}+\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})\\
+      & = \val{\tau\subst{x}{\rho}}_\Gamma(\ov{u}).
+    \end{align*}
+    
+  \item
+    Нека $\tau \equiv \tau_1 - \tau_2$.
   \item
     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$.
+  \item
+    Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$.
   \item
     Нека $\tau \equiv \tau_1 \tau_2$.
     Тук първата част е лесна. Понеже имаме, че
     \begin{prooftree}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_1: \vv{c} \to \vv{b}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau_2: \vv{c}$}
+      \RightLabel{\scriptsize{(app)}}
       \BinaryInfC{$\Gamma, \type{x}{a} \vdash \tau_1 \tau_2 : \vv{b}$}
     \end{prooftree}
     то можем да приложим \IndHyp за да получим, че
@@ -57,7 +88,7 @@
     \end{prooftree}
     Втората част също е лесна.
     \begin{align*}
-      \val{\tau_1\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & \df \texttt{eval}(\val{\tau_1}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})), \val{\tau_2}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{\Def{eval}}\\
+      \val{\tau_1\tau_2}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})) & \df \texttt{eval}(\val{\tau_1}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})), \val{\tau_2}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{\Def{eval}}\\
                                                                    & = \texttt{eval}(\val{\tau_1\subst{x}{\rho}}_\Gamma(\ov{u}), \val{\tau_2\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{\IndHyp}\\
                                                                    & = \val{\tau_1\subst{x}{\rho}(\tau_2\subst{x}{\rho})}_\Gamma(\ov{u})\\
                                                                    & = \val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})
@@ -75,7 +106,7 @@
     \begin{prooftree}
       \AxiomC{$\Gamma \vdash \rho: \vv{a}$}
       \AxiomC{$\Gamma, \type{x}{a} \vdash \tau':\vv{b}\to\vv{b}$}
-      \RightLabel{\scriptsize{(И.П.)}}
+      \RightLabel{\scriptsize{\IndHyp}}
       \BinaryInfC{$\Gamma \vdash \tau'\subst{x}{\rho} : \vv{b} \to \vv{b}$}
       \RightLabel{\scriptsize{(fix)}}
       \UnaryInfC{$\Gamma \vdash \fix(\tau'\subst{x}{\rho}) : \vv{b}$}
@@ -83,35 +114,43 @@
     Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
     \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
     
-    Сега трябва да проверим защо $\val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) = \val{\fix(\tau)}_{\Gamma'})(\ov{u},\val{\rho}_\Gamma)$.
+    Сега трябва да проверим защо $\val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) = \val{\fix(\tau)}_{\Gamma,\type{x}{a}})(\ov{u},\val{\rho}_\Gamma)$.
     Получаваме следното:
     \begin{align*}
       \val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) & = \lfp(\val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{от деф.}\\
-                                                       & = \lfp(\val{\tau}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от \IndHyp за }\tau\\
-                                                       & = \val{\fix(\tau)}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
+                                                       & = \lfp(\val{\tau}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от \IndHyp за }\tau\\
+                                                       & = \val{\fix(\tau)}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
     \end{align*}
     
     
   \item
-    \marginpar{Тук е важно, че \[\val{\Delta} = \val{\Gamma} \times \val{\vv{a}_n}.\]}
+    \marginpar{Тук е важно, че \[\val{\Delta} = \val{\Gamma} \times \val{\vv{a}_n}.\]
+      % За да бъде всичко максимално изчистено от формална гледна точка, трябва да докажем и следното:
+      % \begin{prooftree}
+        
+      % \end{prooftree}
+      
+    }
 
-    Нека $\tau \equiv \lamb{y}{c}{\tau'}$, където $\vv{y} \not\in \vv{dom}(\Gamma) \cup \{\vv{x}\}$.
+    Нека $\tau \equiv \lamb{y}{c}{\tau'}$, където $\vv{y} \not\in \Dom(\Gamma) \cup \{\vv{x}\}$.
     Първо трябва да докажем, че $\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}$.
     
     От правилата за типизиране е ясно, че щом $\Gamma, \type{x}{a} \vdash \tau : \vv{b}$, то
     $\vv{b} = \vv{c} \to \vv{d}$ за някой тип $\vv{d}$ и
     \begin{prooftree}
-      \AxiomC{$\vv{y} \not\in\vv{dom}(\Gamma)\cup\{\vv{x}\}$}
+      \AxiomC{$\vv{y} \not\in\Dom(\Gamma)\cup\{\vv{x}\}$}
       \AxiomC{$\Gamma, \type{x}{a}, \type{y}{c} \vdash \tau':\vv{d}$}
       \RightLabel{\scriptsize{(lambda)}}
       \BinaryInfC{$\Gamma, \type{x}{a} \vdash \lamb{y}{c}{\tau'} : \vv{c}\to\vv{d}$}
     \end{prooftree}
     Това означава, че можем да използваме \IndHyp за терма $\tau'$ и така получаваме, че
     \begin{prooftree}
-      \AxiomC{$\vv{y} \not\in \vv{dom}(\Gamma)$}
+      \AxiomC{$\vv{y} \not\in \Dom(\Gamma)$}
+      \AxiomC{$\vv{y} \not\in \Dom(\Gamma)$}
       \AxiomC{$\Gamma \vdash \rho : \vv{a}$}
-      \UnaryInfC{$\Gamma,\type{y}{c} \vdash \rho : \vv{a}$}
-      \AxiomC{$\Gamma, \type{y}{c}, \type{x}{a} \vdash \tau':\vv{d}$}
+      \BinaryInfC{$\Gamma,\type{y}{c} \vdash \rho : \vv{a}$}
+      \AxiomC{$\Gamma, \type{x}{a}, \type{y}{c} \vdash \tau':\vv{d}$}
+      \UnaryInfC{$\Gamma, \type{y}{c}, \type{x}{a} \vdash \tau':\vv{d}$}
       \RightLabel{\scriptsize{\IndHyp}}
       \BinaryInfC{$\Gamma, \type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$}
       \RightLabel{\scriptsize{(lambda)}}
@@ -121,21 +160,20 @@
     заключаваме, че
     \[\Gamma \vdash \tau\subst{x}{\rho}:\vv{b}.\]
 
-    Нека $\Delta \df \Gamma,\type{y}{c}$.
-    Понеже имаме, че $\Delta \vdash \tau'\subst{x}{\rho} : \vv{d}$,
-    то можем да приложим \IndHyp за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Delta}$,
+    Понеже имаме, че $\Gamma,\type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$,
+    то можем да приложим \IndHyp за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Gamma,\type{y}{c}}$,
     \begin{align*}
-      \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})(v) & \df \val{\tau'\subst{x}{\rho}}_\Delta(\overline{u},v) & \comment\text{\Def{curry}}\\
-                                                                 & \stackrel{\text{\IndHyp}}{=} \val{\tau'}_{\Delta'}(\overline{u},v,\val{\rho}_\Delta(\ov{u},v)) & \comment \Delta' \df \Gamma, \type{y}{c}, \type{x}{a}\\
-                                                                 & = \val{\tau'}_{\Delta'}(\ov{u},v,\val{\rho}_\Gamma(\ov{u})) & \comment \fv(\rho) \subseteq \vv{dom}(\Gamma)\\
-                                                                 & = \val{\tau'}_{\Delta''}(\ov{u},\val{\rho}_\Gamma(\ov{u}),v) & \comment \Delta'' \df \Gamma, \type{x}{a}, \type{y}{c}\\
-                                                                 & = \curry(\val{\tau'}_{\Delta''})(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v) \\
-                                                                 & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v). & \comment \Gamma' \df \Gamma, \type{x}{a}
+      \curry(\val{\tau'\subst{x}{\rho}}_{\Gamma,\type{y}{c}})(\ov{u})(v) & \df \val{\tau'\subst{x}{\rho}}_{\Gamma,\type{y}{c}}(\overline{u},v) & \comment\text{\Def{curry}}\\
+                                                                 & \stackrel{\text{\IndHyp}}{=} \val{\tau'}_{\Gamma,\type{y}{c}, \type{x}{a}}(\overline{u},v,\val{\rho}_{\Gamma,\type{y}{c}}(\ov{u},v)) \\% & \comment \Delta' \df \Gamma, \type{y}{c}, \type{x}{a}\\
+                                                                 & = \val{\tau'}_{\Gamma,\type{y}{c}, \type{x}{a}}(\ov{u},v,\val{\rho}_\Gamma(\ov{u})) & \comment \fv(\rho) \subseteq \Dom(\Gamma)\\
+                                                                 & = \val{\tau'}_{\Gamma,\type{x}{a},\type{y}{c}}(\ov{u},\val{\rho}_\Gamma(\ov{u}),v) \\%& \comment \Delta'' \df \Gamma, \type{x}{a}, \type{y}{c}\\
+                                                                 & = \curry(\val{\tau'}_{\Gamma,\type{x}{a},\type{y}{c}})(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v) \\
+                                                                 & = \val{\lamb{y}{c}{\tau'}}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u}))(v). % & \comment \Gamma' \df \Gamma, \type{x}{a}
     \end{align*}    
     Така получихме, че
     \begin{align*}
-      \val{\lamb{y}{c}{\tau'\subst{x}{\rho}}}_\Gamma(\ov{u}) & \df \curry(\val{\tau'\subst{x}{\rho}}_\Delta)(\ov{u})\\
-                                                                   & = \val{\lamb{y}{c}{\tau'}}_{\Gamma'}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
+      \val{\lamb{y}{c}{\tau'\subst{x}{\rho}}}_\Gamma(\ov{u}) & \df \curry(\val{\tau'\subst{x}{\rho}}_{\Gamma,\type{y}{c}})(\ov{u})\\
+                                                                   & = \val{\lamb{y}{c}{\tau'}}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
     \end{align*}
     
   \end{itemize}

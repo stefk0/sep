@@ -1,10 +1,13 @@
 \begin{example}
   Нека $\vv{a} = \vv{nat} \to (\vv{nat} \to \vv{nat})$ и 
   \[\tau \equiv \fix\vv{(}\underbrace{\lamb{f}{a}{\overbrace{\lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))} }}}}^{\tau'_0}}}_{\tau_0}\vv{)}.\]
-  Лесно се вижда, че
+  Както се вижда от \Figure{operational-cbn-example:typing}, имаме 
   \[\emptyset \vdash \tau:\vv{nat} \to (\vv{nat} \to \vv{nat}).\]
 
-  Също така за всяко $n$ и $k$, ако $m = n * k$, то
+  По-долу ще видим, че
+  \[\tau\ \vv{2}\ \vv{3} \Downarrow_{\vv{nat}} \vv{6}.\]
+  
+  По-общо, би трябвало да е ясно, че можем да докажем, че за всеки две естествени числа $n$ и $k$, ако $m = n * k$, то
   \[\tau\ \vv{n}\ \vv{k} \Downarrow_{\vv{nat}} \vv{m}.\]
   Нека сега
   \[\rho \equiv \lamb{g}{a}{\fix(\lambda \vv{f} : \vv{nat}\to\vv{nat}\ .\ \lamb{x}{nat}{\ifelse{\vv{x == 0}}{\vv{1}}{\vv{g x f(x-1)}}}}).\]
@@ -12,16 +15,27 @@
   \[\emptyset \vdash \rho : \vv{a} \to (\vv{nat} \to \vv{nat}).\]
   Също така, за всяко $n$, ако $k = n!$, то
   \[ \rho\ \tau\ \vv{n} \opsem{}{nat} \vv{k}.\]
+  Можем да напишем директно горния пример и на хаскел:
+\begin{haskellcode}
+ghci> fix f = f (fix f)
+ghci> times = fix(\f x y -> if y == 0 then 0 else x + (f x (y-1)))
+ghci> times 2 3
+6
+ghci> fct = \g -> fix(\f x -> if x == 0 then 1 else g x (f (x-1)))
+ghci> fact = fct times
+ghci> fact 5
+120
+\end{haskellcode}
 \end{example}
+% Нека да положим
+% \[\Gamma \df \vv{f} : \vv{a}, \vv{x} : \vv{nat}, \vv{y} : \vv{nat}.\]
 
-Нека да положим
-\[\Gamma \df \vv{f} : \vv{a}, \vv{x} : \vv{nat}, \vv{y} : \vv{nat}.\]
-
+\def\extraVskip{4pt}
 
 \begin{landscape}
   \begin{framed}
-  \begin{figure}[H]
-    \centering
+    \begin{figure}[H]
+      \centering
     % \begin{subfigure}[b]{1\textwidth}
       \begin{prooftree}
         \AxiomC{$\Gamma(\vv{y}) = \vv{nat}$}
@@ -45,13 +59,14 @@
         \BinaryInfC{$\Gamma \vdash \vv{y-1} : \vv{nat}$}
         \BinaryInfC{$\Gamma \vdash \vv{f x (y-1)} : \vv{nat}$}
         \BinaryInfC{$\Gamma \vdash \vv{x + f x (y-1)} : \vv{nat}$}
-        \TrinaryInfC{$\vv{f} : \vv{a}, \vv{x} : \vv{nat}, \vv{y} : \vv{nat} \vdash \ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}} : \vv{nat}$}
+        \TrinaryInfC{$\underbrace{\vv{f} : \vv{a}, \vv{x} : \vv{nat}, \vv{y} : \vv{nat}}_{\Gamma} \vdash \ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}} : \vv{nat}$}
         \UnaryInfC{$\vv{f} : \vv{a}, \vv{x} : \vv{nat} \vdash \lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}}} : \vv{nat} \to \vv{nat}$}
         \UnaryInfC{$\vv{f} : \vv{a} \vdash \tau'_0 : \vv{a}$}
         \UnaryInfC{$\emptyset \vdash \tau_0 : \vv{a} \to \vv{a}$}
         \UnaryInfC{$\emptyset \vdash \fix(\tau_0):\vv{a}$}
       \end{prooftree}
       \caption{Формален извод според правилата на типизиращата релацията, който показва, че $\emptyset \vdash \tau : \vv{a}$.}
+      \label{fig:operational-cbn-example:typing}
     % \end{subfigure}
   \end{figure}
 \end{framed}
@@ -70,20 +85,27 @@ $\tau\ \vv{3}\ \vv{2} \opsem{}{nat} \vv{6}$.
   \begin{figure}[H]
     \begin{prooftree}
       \AxiomC{$\tau_0$ е стойност}
+      \LeftLabel{\scriptsize{(val)}}
       \UnaryInfC{$\tau_0 \opsemGen{0}{\vv{a}\to\vv{a}} \lamb{f}{a}{\tau'_0}$}
       \AxiomC{$\tau'_0\subst{f}{\fix(\tau_0)}$ е стойност}
+      \RightLabel{\scriptsize{(val)}}
       \UnaryInfC{$\tau'_0\subst{f}{\fix(\tau_0)} \opsem{0}{a}  \lamb{x}{nat}{\tau_2}$}
+      \LeftLabel{\scriptsize{(app)}}
       \BinaryInfC{$\tau_0\fix(\tau_0) \opsem{1}{a} \lamb{x}{nat}{\tau_2}$}
+      \LeftLabel{\scriptsize{(fix)}}
       \UnaryInfC{$\fix(\tau_0) \opsem{2}{a} \lamb{x}{nat}{\tau_2}$}
       \AxiomC{$\tau_2\substConst{x}{3}$ е стойност}
+      \LeftLabel{\scriptsize{(val)}}
       \UnaryInfC{$\tau_2\substConst{x}{3} \opsemGen{0}{\vv{nat}\to \vv{nat}} \lamb{y}{nat}{\tau_1}$}
+      \LeftLabel{\scriptsize{(app)}}
       \BinaryInfC{$\fix(\tau_0)\ \vv{3} \opsemGen{3}{\vv{nat}\to\vv{nat}} \lamb{y}{nat}{\tau_1}$}
-      \AxiomC{(продължава по-долу)}
-      \UnaryInfC{$\tau_1[\vv{y}/\vv{2}] \opsem{t}{nat} \vv{6}$}
-      \RightLabel{(app)}
-      \BinaryInfC{$\fix(\tau_0)\ \vv{3}\ \vv{2} \opsem{t+4}{nat} \vv{6}$}
+      \AxiomC{\Figure{operational-cbn-example:second-part}}
+      \UnaryInfC{$\tau_1[\vv{y}/\vv{2}] \opsem{16}{nat} \vv{6}$}
+      \LeftLabel{\scriptsize{(app)}}
+      \BinaryInfC{$\underbrace{\fix(\tau_0)}_{\tau}\ \vv{3}\ \vv{2} \opsem{20}{nat} \vv{6}$}
     \end{prooftree}
     \caption{Първа част от изчислението на $\tau\ \vv{3}\ \vv{2}$ според правилата на операционната семантика.}
+    \label{fig:operational-cbn-example:first-part}
   \end{figure}
 \end{framed}
 
@@ -99,102 +121,101 @@ $\tau\ \vv{3}\ \vv{2} \opsem{}{nat} \vv{6}$.
   & \tau_2 \substConst{x}{3} \equiv \lamb{y}{nat}{\tau_1}.
 \end{align*}
 
-
-
-% Оттук съобразяваме, че
-%   \[\tau_2 \equiv \lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{ x + (}\fix(\tau_0)\vv{ x (y-1))}}}.\]
-%   Това означава, че
-%   \[\tau_1 \equiv \ifelse{\vv{y == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (y-1))}}\]
-%   и
-%   \[\tau_1\substConst{y}{2} \equiv \ifelse{\vv{2 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1))}}\]
-  Сега продължаваме десния клон на изчислението:
+Сега във \Figure{operational-cbn-example:second-part} продължаваме десния клон на изчислението:
   \begin{framed}
     \begin{figure}[H]
       \begin{prooftree}
         \AxiomC{$\vv{2}$ е стойност}
+        \LeftLabel{\scriptsize{(val)}}
         \UnaryInfC{$\vv{2} \opsem{0}{nat} \vv{2}$}
         \AxiomC{$\vv{0}$ е стойност}
+        \RightLabel{\scriptsize{(val)}}
         \UnaryInfC{$\vv{0} \opsem{0}{nat} \vv{0}$}
+        \LeftLabel{\scriptsize{(eq)}}
         \BinaryInfC{$\vv{2 == 0} \opsem{1}{nat} \vv{0}$}
         \AxiomC{$\vv{3}$ е стойност}
         \UnaryInfC{$\vv{3} \opsem{0}{nat} \vv{3}$}
         \AxiomC{(Повтаря се както по-горе)}
         \UnaryInfC{$\fix(\tau_0)\ \vv{3} \opsemGen{3}{\vv{nat}\to\vv{nat}} \lamb{y}{nat}{\tau_1}$}
-        \AxiomC{(продължава по-долу)}
-        \UnaryInfC{$\tau_1\substConst{y}{2-1} \opsem{k}{nat} \vv{3}$}
-        \BinaryInfC{$\fix(\tau_0)\vv{ 3 (2-1) }\opsem{k+4}{nat} \vv{3}$}
-        \BinaryInfC{$\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1))} \opsem{k+5}{nat} \vv{6}$}
-        \BinaryInfC{$\underbrace{\ifelse{\vv{2 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1))}}}_{\tau_1\substConst{y}{2}} \opsem{k+6}{nat} \vv{6}$}
+        \AxiomC{\Figure{operational-cbn-example:third-part}}
+        \UnaryInfC{$\tau_1\substConst{y}{2-1} \opsem{10}{nat} \vv{3}$}
+        \RightLabel{\scriptsize{(app)}}
+        \BinaryInfC{$\fix(\tau_0)\vv{ 3 (2-1) }\opsem{14}{nat} \vv{3}$}
+        \RightLabel{\scriptsize{(plus)}}
+        \BinaryInfC{$\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1))} \opsem{15}{nat} \vv{6}$}
+        \LeftLabel{\scriptsize{(if$_0$)}}
+        \BinaryInfC{$\underbrace{\ifelse{\vv{2 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1))}}}_{\tau_1\substConst{y}{2}} \opsem{16}{nat} \vv{6}$}
       \end{prooftree}
-      \caption{Втора част от изчислението, която показва, че $\tau_1\substConst{y}{2} \opsem{k+6}{nat} \vv{6}$.}
+      \caption{Втора част от изчислението, която показва, че $\tau_1\substConst{y}{2} \opsem{16}{nat} \vv{6}$.}
+      \label{fig:operational-cbn-example:second-part}
     \end{figure}
   \end{framed}
-  Отново продължаваме с десния клон на изчислението, като тук вече имаме, че:
-  \[\tau_1\substConst{y}{2-1} \equiv \ifelse{\vv{2-1 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1))}}\]
 
+  Във \Figure{operational-cbn-example:third-part} продължаваме с десния клон на изчислението, като тук вече имаме, че:
+  \[\tau_1\substConst{y}{2-1} \equiv \ifelse{\vv{2-1 == 0}}{\vv{0}}{\vv{3 + (}\fix(\tau_0)\vv{ 3 (2-1-1))}}\]
+  Най-накрая, във \Figure{operational-cbn-example:last-part} завършваме изчислението като използваме, че
+  \[\tau_1\substConst{y}{2-1-1} \equiv \ifelse{\vv{2-1-1 == 0}}{\vv{0}}{\vv{3 + (}\fix(\tau_0)\vv{ 3 (2-1-1-1))}}.\]
+  
+  \def\defaultHypSeparation{\hskip 10pt}
+  \def\proofSkipAmount{\vskip 3pt}
   \begin{framed}
+%    {\footnotesize
     \begin{figure}[H]
       \begin{prooftree}
         \AxiomC{$\vv{2}$ е стойност}
         \UnaryInfC{$\vv{2} \opsem{0}{nat} \vv{2}$}
         \AxiomC{$\vv{1}$ е стойност}
         \UnaryInfC{$\vv{1} \opsem{0}{nat} \vv{1}$}
+        \LeftLabel{\scriptsize{(minus)}}
         \BinaryInfC{$\vv{2-1} \opsem{1}{nat} \vv{1}$}
         \AxiomC{$\vv{0}$ е стойност}
         \UnaryInfC{$\vv{0} \opsem{0}{nat} \vv{0}$}
+        \LeftLabel{\scriptsize{(eq)}}
         \BinaryInfC{$\vv{2-1 == 0} \opsem{2}{nat} \vv{0}$}
         \AxiomC{$\vv{3}$ е стойност}
         \UnaryInfC{$\vv{3} \opsem{0}{nat} \vv{3}$}
         \AxiomC{(Повтаря се както по-горе)}
         \UnaryInfC{$\fix(\tau_0)\ \vv{3} \opsemGen{3}{\vv{nat}\to\vv{nat}} \lamb{y}{nat}{\tau_1}$}
-        % \AxiomC{(продължава в (\ref{fig:operational-cbn-example:last-part}))}
-        \AxiomC{(продължава по-долу)}
-        \UnaryInfC{$\tau_1\substConst{y}{2-1-1} \opsem{\ell}{nat} \vv{0}$}
-        \BinaryInfC{$\fix(\tau_0)\vv{ 3 (2-1-1) }\opsem{\ell+4}{nat} \vv{0}$}
-        \BinaryInfC{$\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1))} \opsem{\ell+5}{nat} \vv{3}$}
-        \BinaryInfC{$\underbrace{\ifelse{\vv{2-1 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1))}}}_{\tau_1\substConst{y}{2-1}} \opsem{\ell+6}{nat} \vv{3}$}
+        \AxiomC{\Figure{operational-cbn-example:last-part}}
+        \UnaryInfC{$\tau_1\substConst{y}{2-1-1} \opsem{4}{nat} \vv{0}$}
+        \RightLabel{\scriptsize{(app)}}
+        \BinaryInfC{$\fix(\tau_0)\vv{ 3 (2-1-1) }\opsem{8}{nat} \vv{0}$}
+        \RightLabel{\scriptsize{(plus)}}
+        \BinaryInfC{$\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1))} \opsem{9}{nat} \vv{3}$}
+        \LeftLabel{\scriptsize{(if$_0$)}}
+        \BinaryInfC{$\underbrace{\ifelse{\vv{2-1 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1))}}}_{\tau_1\substConst{y}{2-1}} \opsem{10}{nat} \vv{3}$}
       \end{prooftree}
-      \caption{Трета част от изчислението, която показва, че $\tau_1\substConst{y}{2-1} \opsem{\ell+6}{nat} \vv{3}$ }
+      \caption{Трета част от изчислението, която показва, че $\tau_1\substConst{y}{2-1} \opsem{10}{nat} \vv{3}$ }
+      \label{fig:operational-cbn-example:third-part}
     \end{figure}
+ %   }
   \end{framed}
-  Сега вече имаме, че
-  \[\tau_1\substConst{y}{2-1-1} \equiv \ifelse{\vv{2-1-1 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1-1))}}.\]
 
-  Завършваме изчислението така:
   \begin{framed}
     \begin{figure}[H]
-      \label{fig:operational-cbn-example:last-part}
       \begin{prooftree}
         \AxiomC{$\vv{2}$ е стойност}
         \UnaryInfC{$\vv{2} \opsem{0}{nat} \vv{2}$}
         \AxiomC{$\vv{1}$ е стойност}
         \UnaryInfC{$\vv{1} \opsem{0}{nat} \vv{1}$}
+        \LeftLabel{\scriptsize{(minus)}}
         \BinaryInfC{$\vv{2-1} \opsem{1}{nat} \vv{1} $}
         \AxiomC{$\vv{1}$ е стойност}
         \UnaryInfC{$\vv{1} \opsem{0}{nat} \vv{1}$}
+        \LeftLabel{\scriptsize{(minus)}}
         \BinaryInfC{$\vv{2-1-1} \opsem{2}{nat} \vv{0}$}
         \AxiomC{$\vv{0}$ е стойност}
         \UnaryInfC{$\vv{0} \opsem{0}{nat} \vv{0}$}
+        \LeftLabel{\scriptsize(eq)}
         \BinaryInfC{$\vv{2-1-1 == 0} \opsem{3}{nat} \vv{1}$}
         \AxiomC{$\vv{0}$ е стойност}
         \UnaryInfC{$\vv{0} \opsem{0}{nat} \vv{0}$}
+        \LeftLabel{\scriptsize{(if$^+$)}}
         \BinaryInfC{$\underbrace{\ifelse{\vv{2-1-1 == 0}}{\vv{0}}{\vv{ 3 + (}\fix(\tau_0)\vv{ 3 (2-1-1-1))}}}_{\tau_1\substConst{y}{2-1-1}} \opsem{4}{nat} \vv{0}$}
       \end{prooftree}
       \caption{Последна част от изчислението, което показва, че $\tau_1\substConst{y}{2-1-1} \opsem{4}{nat} \vv{0}$.}
+      \label{fig:operational-cbn-example:last-part}
     \end{figure}
   \end{framed}  
 \end{landscape}
-
-
-Можем да напишем директно горния пример и на хаскел:
-\begin{haskellcode}
-ghci> fix f = f (fix f)
-ghci> times = fix(\f x y -> if y == 0 then 0 else x + (f x (y-1)))
-ghci> times 2 3
-6
-ghci> fct = \g -> fix(\f x -> if x == 0 then 1 else g x (f (x-1)))
-ghci> fact = fct times
-ghci> fact 5
-120
-\end{haskellcode}
 

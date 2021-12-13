@@ -58,7 +58,7 @@
     Тогава
     \begin{align*}
       \val{\tau_1 + \tau_2} & = \plus(\val{\tau_1}, \val{\tau_2}) & \comment\text{от деф.}\\
-                            & = n_1 + n_2 & \comment\text{от И.П.}\\
+                            & = n_1 + n_2 & \comment\text{\IndHyp}\\
                             & = n.
     \end{align*}
   \item
@@ -94,7 +94,7 @@
       \RightLabel{\scriptsize{(cbn)}}
       \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
     \end{prooftree}
-    Тогава от И.П. получаваме, че:    
+    Тогава от \IndHyp получаваме, че:    
     \begin{align*}
       & \val{\tau_1} = \val{\lamb{x}{a}{\tau'_1}} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
       & \val{\tau'_1\subst{x}{\tau_2}} = \val{\vv{v}} \in \val{\vv{b}}.
@@ -103,10 +103,10 @@
     \begin{align*}
       \val{\tau_1\tau_2} & = \texttt{eval}(\val{\tau_1},\val{\tau_2}) & \comment\text{от деф.}\\ 
                          & = \val{\tau_1}(\val{\tau_2}) & \comment \val{\tau_1} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
-                         & = \val{\lamb{x}{a}{\tau'_1}}(\val{\tau_2}) & \comment\text{от И.П.}\\
-                         & = \val{\tau'_1}_{\Gamma}(\val{\tau_2}) & \comment \Gamma \df \type{x}{a}\\
+                         & = \val{\lamb{x}{a}{\tau'_1}}(\val{\tau_2}) & \comment\text{\IndHyp}\\
+                         & = \val{\tau'_1}_{\type{x}{a}}(\val{\tau_2})\\
                          & = \val{\tau'_1\subst{x}{\tau_2}} & \comment\text{от \hyperref[lem:pcf:substitution]{Лема за замяната}}\\
-                         & = \val{\vv{v}} & \comment\text{от И.П.}
+                         & = \val{\vv{v}} & \comment\text{\IndHyp}
     \end{align*}
   \item
     Нека $\tau \equiv \fix(\tau')$. Тогава от правилата на операционната семантика имаме, че:
@@ -115,7 +115,7 @@
       \RightLabel{\scriptsize{(fix)}}
       \UnaryInfC{$\fix(\tau') \Downarrow_{\vv{a}} \vv{v} $}
     \end{prooftree}
-    Тогава от И.П. имаме, че:
+    Тогава от \IndHyp имаме, че:
     \[\val{\tau'\ \fix(\tau')} = \val{\vv{v}}.\]
     Тогава
     \begin{align*}
@@ -123,7 +123,7 @@
                  & = \val{\tau'}(\lfp(\val{\tau'}))\\
                  & = \val{\tau'}(\val{\fix(\tau')})\\
                  & = \val{\tau'\fix(\tau')}\\
-                 & = \val{\vv{v}}. & \comment\text{от И.П.}
+                 & = \val{\vv{v}}. & \comment\text{\IndHyp}
     \end{align*}
   \end{itemize}
 \end{proof}
@@ -143,26 +143,19 @@
 \marginpar{\todo Проверете, че $\tau : \nat\to\nat$.}
 Да разгледаме един пример. Нека 
 \[\tau \equiv \lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}.\]
-
-Тогава
+Тогава за произволен елемент $a \in \Nat_\bot$,
 \begin{align*}
-  \val{\tau} & = \val{\lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}}\\
-             & = \curry(\underbrace{\val{\fix(\lamb{x}{nat}{\vv{x}})}_\Gamma}_{f}) & \comment \Gamma = \vv{y}:\nat\\
-             & = f.
+  \val{\tau}(a) & = \val{\lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}}(a)\\
+                & = \curry(\val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}})(a)\\
+                & = \val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}}(a)\\
+                & = \lfp(\val{\lamb{x}{nat}{\vv{x}}}_{\type{y}{nat}}(a))\\
+                & = \lfp(\underbrace{\curry(\val{x}_{\type{y}{nat},\type{x}{nat}})(a)}_{\texttt{id}\text{ за }\Nat_\bot})\\
+                & = \bot^{\val{\nat}}
 \end{align*}
-Да видим сега вътрешната част. От дефиницията на денотационната семантика имаме, че:
-\begin{align*}
-  \val{\fix(\lamb{x}{nat}{\vv{x}})}_\Gamma(a) & = \lfp(\val{\lamb{x}{nat}{\vv{x}}}_\Gamma(a))\\
-                                              & = \lfp(\underbrace{\curry(\val{x}_{\Gamma'})(a)}_{g}) & \comment \Gamma' = \vv{y}:\nat,\vv{x}:\nat.
-\end{align*}
-
-Знаем, че $\val{x}_{\Gamma'}(a,b) = b$ за произволни $a,b \in \Nat_\bot$. Тогава за всяко $b \in \Nat_\bot$, $g(b) = \curry(\val{x}_{\Gamma'})(a)(b) = b$, т.е. $g = \texttt{id}$.
-Лесно се съобразява, че $\lfp(\texttt{id}) = \bot^{\val{\nat}}$.
-
-Така получаваме, че за всяко $a \in \Nat_\bot$, $f(a) = \lfp(g) = \bot^{\val{\nat}}$, т.е. 
+С други думи, получаваме, че
 \[\val{\tau} = \bot^{\val{\nat\to\nat}}.\]
-
-От друга страна, обаче, $\tau$ представлява стойност. Следователно, $\tau \Downarrow^0_{\nat\to\nat} \tau$.
+От друга страна, обаче, $\tau$ представлява стойност. Следователно,
+\[\tau \Downarrow^0_{\nat\to\nat} \tau.\]
 
 
 %%% Local Variables:
