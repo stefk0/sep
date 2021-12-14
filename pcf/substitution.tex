@@ -45,8 +45,9 @@
       \RightLabel{\IndHyp}
       \BinaryInfC{$\Gamma \vdash \tau_2\subst{x}{\rho} : \vv{nat}$}
       \BinaryInfC{$\Gamma \vdash \tau_1\subst{x}{\rho} + \tau_2 \subst{x}{\rho} : \vv{nat}$}
+      \RightLabel{\scriptsize{(правила за замяна)}}
+      \UnaryInfC{$\Gamma \vdash \tau\subst{x}{\rho} : \vv{nat}$}
     \end{prooftree}
-    Оттук заключаваме, че $\Gamma \vdash \tau\subst{x}{\rho} : \vv{nat}$.
 
     За втората част,
     \begin{align*}
@@ -110,16 +111,18 @@
       \BinaryInfC{$\Gamma \vdash \tau'\subst{x}{\rho} : \vv{b} \to \vv{b}$}
       \RightLabel{\scriptsize{(fix)}}
       \UnaryInfC{$\Gamma \vdash \fix(\tau'\subst{x}{\rho}) : \vv{b}$}
+      \RightLabel{\scriptsize{(правила за замяна)}}
+      \UnaryInfC{$\Gamma \vdash \tau\subst{x}{\rho} : \vv{b}$}
     \end{prooftree}
-    Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
-    \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
+    % Понеже $\fix(\tau'\subst{x}{\rho}) \equiv \fix(\tau')\subst{x}{\rho}$, то заключаваме, че
+    % \[\Gamma \vdash \tau[\vv{x}/\rho] : \vv{b}.\]
     
-    Сега трябва да проверим защо $\val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) = \val{\fix(\tau)}_{\Gamma,\type{x}{a}})(\ov{u},\val{\rho}_\Gamma)$.
+    Сега трябва да проверим защо $\val{\fix(\tau'\subst{x}{\rho})}_{\Gamma}(\ov{u}) = \val{\fix(\tau')}_{\Gamma,\type{x}{a}})(\ov{u},\val{\rho}_\Gamma)$.
     Получаваме следното:
     \begin{align*}
-      \val{\fix(\tau\subst{x}{\rho})}_{\Gamma}(\ov{u}) & = \lfp(\val{\tau\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{от деф.}\\
-                                                       & = \lfp(\val{\tau}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от \IndHyp за }\tau\\
-                                                       & = \val{\fix(\tau)}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
+      \val{\fix(\tau'\subst{x}{\rho})}_{\Gamma}(\ov{u}) & = \lfp(\val{\tau'\subst{x}{\rho}}_\Gamma(\ov{u})) & \comment\text{от деф.}\\
+                                                        & = \lfp(\val{\tau'}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u}))) & \comment\text{от \IndHyp за }\tau\\
+                                                        & = \val{\fix(\tau')}_{\Gamma,\type{x}{a}}(\ov{u},\val{\rho}_\Gamma(\ov{u})).
     \end{align*}
     
     
@@ -155,10 +158,12 @@
       \BinaryInfC{$\Gamma, \type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$}
       \RightLabel{\scriptsize{(lambda)}}
       \BinaryInfC{$\Gamma \vdash \lamb{y}{c}{\tau'\subst{x}{\rho}}:\vv{c}\to\vv{d}$}
+      \RightLabel{\scriptsize{(правила за замяна)}}
+      \UnaryInfC{$\Gamma \vdash \tau\subst{x}{\rho}:\vv{c}\to\vv{d}$}
     \end{prooftree}
-    Накрая, понеже $\tau\subst{x}{\rho} \equiv \lamb{y}{c}{\tau'\subst{x}{\rho}}$, то
-    заключаваме, че
-    \[\Gamma \vdash \tau\subst{x}{\rho}:\vv{b}.\]
+    % Накрая, понеже $\tau\subst{x}{\rho} \equiv \lamb{y}{c}{\tau'\subst{x}{\rho}}$, то
+    % заключаваме, че
+    % \[\Gamma \vdash \tau\subst{x}{\rho}:\vv{b}.\]
 
     Понеже имаме, че $\Gamma,\type{y}{c} \vdash \tau'\subst{x}{\rho} : \vv{d}$,
     то можем да приложим \IndHyp за $\tau'$ и така получаваме, че за всяко $\overline{u},v \in \val{\Gamma,\type{y}{c}}$,

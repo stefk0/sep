@@ -4,16 +4,16 @@
 Понеже вече имаме дефинирани операционна и денотационна семантика на термовете,
 следващата стъпка е да разгледаме каква е връзката между тях.
 В този раздел ще докажем едната (по-лесната) посока.
-
+\marginpar{На англ. {\em soundness}.}
 \begin{framed}
   \begin{theorem}[Теорема за коректност]\label{th:pcf:soundness}
-    За всеки затворен терм $\tau : \vv{b}$ и стойност $\vv{v}$, е изпълнена импликацията:
-    \[\tau \Downarrow_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+    За всеки затворен терм $\tau : \vv{b}$ и стойност $\type{v}{b}$, е изпълнена импликацията:
+    \[\tau \opsem{}{b} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
   \end{theorem}  
 \end{framed}
 \begin{proof}
-  Индукция по дължината $\ell$ на извода $\Downarrow^\ell_{\vv{b}}$ за всеки тип $\vv{b}$.
-  Нека $\ell = 0$. Имаме два случая.
+  Индукция по дължината $\ell$ на извода $\opsem{\ell}{b}$ за всеки тип $\vv{b}$.
+  Нека $\ell = 0$. Имаме два случая, защото имаме два вида стойности.
   \begin{itemize}
   \item
     Нека $\tau \equiv \vv{n}$.
@@ -21,7 +21,7 @@
     \begin{prooftree}
       \AxiomC{}
       \RightLabel{\scriptsize{(val)}}
-      \UnaryInfC{$\tau \Downarrow^0_{\vv{nat}} \vv{n}$}
+      \UnaryInfC{$\tau \opsem{0}{nat} \vv{n}$}
     \end{prooftree}
     От дефиницията на семантика на терм, директно получаваме, че
     $\val{\tau} = n = \val{\vv{n}}$.    
@@ -30,27 +30,27 @@
     \begin{prooftree}
       \AxiomC{}
       \RightLabel{\scriptsize{(val)}}
-      \UnaryInfC{$\tau \Downarrow^0_{\vv{a}\to\vv{c}} \tau$}
+      \UnaryInfC{$\tau \opsemGen{0}{\vv{a}\to\vv{c}} \tau$}
     \end{prooftree}
     Ясно е, че $\val{\tau} = \val{\tau} \in \val{b}$.
   \end{itemize}
   Така доказахме, че
-  \[\tau \Downarrow^{0}_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+  \[\tau \opsem{0}{b} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
   Нека сега $\ell > 0$ и да приемем, че имаме следното индукционно предположение:
-  \[\tau \Downarrow^{<\ell}_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+  \[\tau \opsem{<\ell}{b} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
   Ще докажем, че
-  \[\tau \Downarrow^{\ell}_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+  \[\tau \opsem{\ell}{b} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
   \begin{itemize}
   \item
     Нека $\tau \equiv \tau_1 + \tau_2$. Тогава от правилата на операционната семантика имаме, че:
     \begin{prooftree}
-      \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
-      \AxiomC{$\tau_2 \Downarrow_{\vv{nat}} \vv{n}_2$}
+      \AxiomC{$\tau_1 \opsem{\ell_1}{nat} \vv{n}_1$}
+      \AxiomC{$\tau_2 \opsem{\ell_2}{nat} \vv{n}_2$}
+      \LeftLabel{\scriptsize{($\ell=\ell_1+\ell_2+1$)}}
       \RightLabel{\scriptsize{(plus)}}
-      \BinaryInfC{$\tau_1 + \tau_2 \Downarrow_{\vv{nat}} \vv{n},$}
+      \BinaryInfC{$\tau_1 + \tau_2 \opsem{\ell_1+\ell_2+1}{nat} \vv{n},$}
     \end{prooftree}
-    където $n = n_1 + n_2$.
-    От \IndHyp получаваме, че
+    където $n = n_1 + n_2$. От \IndHyp получаваме, че
     \begin{align*}
       & \val{\tau_1} = \val{\vv{n}_1} = n_1\\
       & \val{\tau_2} = \val{\vv{n}_2} = n_2.
@@ -62,17 +62,18 @@
                             & = n.
     \end{align*}
   \item
-    Случаят $\tau \equiv \tau_1\ \vv{==}\ \tau_2$ е аналогичен. Оставяме го на читателя.
+    Случаите $\tau \equiv \tau_1 - \tau_2$ и $\tau \equiv \tau_1\ \vv{==}\ \tau_2$ са аналогични. Оставяме ги на читателя.
   \item
     Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Тогава от правилата на операционната семантика имаме, че:
     \begin{prooftree}
-      \AxiomC{$\tau_1 \Downarrow_{\vv{nat}} \vv{n}_1$}
-      \AxiomC{$\tau_2 \Downarrow_{\vv{a}} \vv{v}_2$}
+      \AxiomC{$\tau_1 \opsem{\ell_1}{nat} \vv{n}_1$}
+      \AxiomC{$\tau_2 \opsem{\ell_2}{a} \vv{v}_2$}
+      \AxiomC{$\vv{n}_1 \not\equiv \vv{0}$}
+      \LeftLabel{\scriptsize{($\ell=\ell_1+\ell_2+1$)}}
       \RightLabel{\scriptsize{(if$^+$)}}
-      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow_{\vv{a}} \vv{v}_2,$}
+      \TrinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \opsem{\ell_1+\ell_2+1}{a} \vv{v}_2,$}
     \end{prooftree}
-    където $n_1 > 0$.
-    Тогава от И.П. получаваме, че:
+    Тогава от \IndHyp получаваме, че:
     \begin{align*}
       & \val{\tau_1} = n_1\\
       & \val{\tau_2} = \val{\vv{v}_2}.
@@ -85,14 +86,15 @@
                                             & = \val{\vv{v}_2}. & \comment\text{от \IndHyp}
     \end{align*}
     
-    Случаят, когато $n_1 = 0$ е аналогичен.
+    Случаят, когато $\vv{n}_1 \equiv \vv{0}$ е аналогичен.
   \item
     Нека $\tau \equiv \tau_1 \tau_2$. Тогава от правилата на операционната семантика имаме, че:
     \begin{prooftree}
-      \AxiomC{$\tau_1 \Downarrow_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
-      \AxiomC{$\tau'_1[x/\tau_2] \Downarrow_{\vv{b}} \vv{v}$}
+      \AxiomC{$\tau_1 \opsemGen{\ell_1}{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
+      \AxiomC{$\tau'_1[x/\tau_2] \opsem{\ell_2}{b} \vv{v}$}
+      \LeftLabel{\scriptsize{($\ell=\ell_1+\ell_2+1$)}}
       \RightLabel{\scriptsize{(cbn)}}
-      \BinaryInfC{$\tau_1 \tau_2 \Downarrow_{\vv{b}} \vv{v} $}
+      \BinaryInfC{$\tau_1 \tau_2 \opsem{\ell_1+\ell_2+1}{b} \vv{v} $}
     \end{prooftree}
     Тогава от \IndHyp получаваме, че:    
     \begin{align*}
@@ -111,9 +113,9 @@
   \item
     Нека $\tau \equiv \fix(\tau')$. Тогава от правилата на операционната семантика имаме, че:
     \begin{prooftree}
-      \AxiomC{$\tau'\ \fix(\tau') \Downarrow_{\vv{a}} \vv{v}$}
+      \AxiomC{$\tau'\ \fix(\tau') \opsem{\ell-1}{a} \vv{v}$}
       \RightLabel{\scriptsize{(fix)}}
-      \UnaryInfC{$\fix(\tau') \Downarrow_{\vv{a}} \vv{v} $}
+      \UnaryInfC{$\fix(\tau') \opsem{\ell}{a} \vv{v} $}
     \end{prooftree}
     Тогава от \IndHyp имаме, че:
     \[\val{\tau'\ \fix(\tau')} = \val{\vv{v}}.\]
@@ -128,22 +130,23 @@
   \end{itemize}
 \end{proof}
 
-\hyperref[th:pcf:soundness]{Теоремата за коректност} частично потвърждава нашата интуиция, че за типа $\vv{nat}$
+\hyperref[th:pcf:soundness]{Теоремата за коректност}\ частично потвърждава нашата интуиция, че за типа $\vv{nat}$
 можем да си мислим за $\bot^{\val{\vv{nat}}}$ като за изчисление, което никога не завършва.
 
 \marginpar{Другата посока ще я получим след малко.}
 
 \begin{corollary}
   Нека $\tau$ е затворен терм от тип $\vv{nat}$. Тогава
-  \[\val{\tau} = \bot^{\val{\vv{nat}}}\ \implies\ \tau \not\Downarrow_{\nat}.\]
+  \[\val{\tau} = \bot^{\val{\vv{nat}}}\ \implies\ \tau \not\opsem{}{nat}.\]
 \end{corollary}
 
 За жалост, тази наша интуиция се ,,губи'', когато се интересуваме от термове от по-висок от $\nat$ тип.
+\marginpar{За дискусия по този въпрос вижте \cite[стр. 213]{models-of-computation}.}
 
-\marginpar{\todo Проверете, че $\tau : \nat\to\nat$.}
 Да разгледаме един пример. Нека 
 \[\tau \equiv \lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}.\]
-Тогава за произволен елемент $a \in \Nat_\bot$,
+Лесно се съобразява, че $\tau : \nat\to\nat$.
+За произволен елемент $a \in \Nat_\bot$ е изпъленено следното:
 \begin{align*}
   \val{\tau}(a) & = \val{\lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}}(a)\\
                 & = \curry(\val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}})(a)\\
@@ -155,7 +158,7 @@
 С други думи, получаваме, че
 \[\val{\tau} = \bot^{\val{\nat\to\nat}}.\]
 От друга страна, обаче, $\tau$ представлява стойност. Следователно,
-\[\tau \Downarrow^0_{\nat\to\nat} \tau.\]
+\[\tau \opsemGen{0}{\nat\to\nat} \tau.\]
 
 
 %%% Local Variables:
