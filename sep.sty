@@ -1,0 +1,47 @@
+\newcommand*{\IndHyp}{{\bf (И.П.) }}
+
+
+\newcommand*{\alphaEq}{\equiv_{\alpha}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Теоретични основи %%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\plus}{\texttt{(+)}}
+\newcommand{\eq}{\texttt{(==)}}
+\newcommand{\minus}{\texttt{(-)}}
+\newcommand{\compose}{\texttt{(.)}}
+
+
+%% Синтаксис   %%
+
+\newcommand{\vv}[1]{\texttt{#1}}
+\newcommand{\subst}[2]{[\vv{#1}/{#2}]}
+\newcommand{\substConst}[2]{[\vv{#1}/{\vv{#2}}]}
+\newcommand{\ifelse}[3]{\texttt{if}\ #1\ \texttt{then}\ #2\ \texttt{else}\ #3}
+\newcommand{\ifelseConst}[3]{\ifelse{\vv{#1}}{\vv{#2}}{\vv{#3}}}
+
+%%    Операционна семантика   %%
+\newcommand{\opsemGen}[2]{\Downarrow^{#1}_{#2}}
+\newcommand{\opsem}[2]{\opsemGen{#1}{\vv{#2}}}
+
+
+
+\newcommand{\opsemReg}[1]{\opsem{#1}{R}}
+\newcommand{\opsemCFG}[1]{\opsem{#1}{G}}
+\newcommand{\opsemFun}[1]{\opsem{#1}{P}}
+%% За по-високи типове
+
+
+\newenvironment{verticalAlign*}
+{% This is the begin code
+  \begin{equation*}
+    \setlength{\jot}{10pt}
+    \begin{split}
+}
+{% This is the end code
+    \end{split}
+  \end{equation*}
+  \hrulefill
+}

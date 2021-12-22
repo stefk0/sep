@@ -91,17 +91,21 @@
     Понеже знаем, че $\tau_i[\varsx/\ov{\mu}] \opsemFun{<\ell} \vv{a}$, то $\val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a$.
     \marginpar{Озн. $\ov{\gamma} = (\gamma_1,\dots,\gamma_n)$. Единствено в този случай се използва, че $\ov{\gamma}$ е решение на системата от оператори, като не е задължително да е най-малкото решение.}
     Лесно се съобразява, че:
+    
     \begin{align*}
       \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) & = \val{\tau_i}(\ov{\gamma})(\val{\mu_1}(\ov{\gamma}),\dots,\val{\mu_{m_i}}(\ov{\gamma})) & \comment{\text{\hyperref[lem:rec:substitution]{Лема за замяната}}}\\
                                                  & = \gamma_i(\val{\mu_1}(\ov{\gamma}),\dots, \val{\mu_{m_i}}(\ov{\gamma})) & \comment{\gamma_i = \val{\tau_i}(\ov{\gamma})}\\
-                                                 & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}). & \comment{\text{деф. на стойност на терм}}\\
+                                                 & = \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}). & \comment{\text{деф. на стойност на терм}}
     \end{align*}
+    
     Обединявайки всичко, което знаем, получаваме:
+    
     \begin{align*}
       \vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsemFun{\ell} \vv{a} & \implies \tau_i[\varsx/\ov{\mu}] \opsemFun{<\ell} \vv{a} & \comment{\text{правило (cbn)}}\\
-                                                & \implies \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a & \comment\text{\IndHyp}\\
-                                                & \implies  \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}) = a.
+                                                             & \implies \val{\tau_i[\varsx/\ov{\mu}]}(\ov{\gamma}) = a & \comment\text{\IndHyp}\\
+                                                             & \implies  \val{\vv{f}_i(\mu_1,\dots,\mu_{m_i})}(\ov{\gamma}) = a.
     \end{align*}
+    
   \end{itemize}
   С това доказателството на (\ref{eq:16}) е завършено.
 \end{proof}
@@ -229,19 +233,24 @@
     за произволни непрекъснати изображения $\ov{\varphi}$.
     
     Като обединим всичко от по-горе, получаваме следното:
-    \begin{align*}
-      \val{\tau}(\ov{\gamma}_r)(\ov{a}) & = \val{\vv{f}_i(\rho_1,\dots,\rho_{m_i})}(\ov{\gamma}_r)(\ov{a})\\
-                                        & = \gamma^i_r(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) & \comment\text{стойност на терма}\\
-                                        & = \gamma^i_r(b_1, \dots, b_{m_i})\\
-                                        & \sqsubseteq \gamma^i_r(c_1, \dots, c_{m_i}) & \comment{\gamma^i_r\text{ е непр. и следователно мон.}}\\
-                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \df \val{\tau_i}(\ov{\gamma}_{r-1})}\\
-                                        & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\eval{\rho'_1}}_{c_1},\dots,\underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}) & \comment{c_i \df \eval{\rho'_i}} \\
-                                        & \sqsubseteq \eval{\tau_i[\vv{x}_1/\rho'_1,\dots,\vv{x}_{m_i}/\rho'_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
-                                        & = \eval{\vv{f}_i(\rho'_1,\dots,\rho'_{m_i})} & \comment{\text{от правило (4)}}\\
-                                        & = \eval{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \df \rho[\varsx/\ov{\mu}]}\\
-                                        & = \eval{\vv{f}_i(\rho_1,\dots,\rho_{m_i})[\varsx/\ov{\mu}]} & \comment{\text{правила за замяна}}\\
-                                        & = \eval{\tau[\varsx/\ov{\mu}]}.
-    \end{align*}
+
+    % \begin{equation}
+    %   \setlength{\jot}{10pt}
+      \begin{align*}
+        \val{\tau}(\ov{\gamma}_r)(\ov{a}) & = \val{\vv{f}_i(\rho_1,\dots,\rho_{m_i})}(\ov{\gamma}_r)(\ov{a})\\
+                                          & = \gamma^i_r(\underbrace{\val{\rho_1}(\ov{\gamma}_r)(\ov{a})}_{b_1}, \dots, \underbrace{\val{\rho_{m_i}}(\ov{\gamma}_r)(\ov{a})}_{b_{m_i}}) & \comment\text{стойност на терма}\\
+                                          & = \gamma^i_r(b_1, \dots, b_{m_i})\\
+                                          & \sqsubseteq \gamma^i_r(c_1, \dots, c_{m_i}) & \comment{\gamma^i_r\text{ е непр. и следователно мон.}}\\
+                                          & = \val{\tau_i}(\ov{\gamma}_{r-1})(c_1,\dots,c_{m_i}) & \comment{\gamma^i_r \df \val{\tau_i}(\ov{\gamma}_{r-1})}\\
+                                          & = \val{\tau_i}(\ov{\gamma}_{r-1})(\underbrace{\eval{\rho'_1}}_{c_1},\dots,\underbrace{\eval{\rho'_{m_i}}}_{c_{m_i}}) & \comment{c_i \df \eval{\rho'_i}} \\
+                                          & \sqsubseteq \eval{\tau_i[\vv{x}_1/\rho'_1,\dots,\vv{x}_{m_i}/\rho'_{m_i}]} & \comment{\text{от }\texttt{Include}(r-1)}\\
+                                          & = \eval{\vv{f}_i(\rho'_1,\dots,\rho'_{m_i})} & \comment{\text{от правило (4)}}\\
+                                          & = \eval{\vv{f}_i(\rho_1[\varsx/\ov{\mu}],\dots,\rho_{m_i}[\varsx/\ov{\mu}])} & \comment{\rho'_j \df \rho[\varsx/\ov{\mu}]}\\
+                                          & = \eval{\vv{f}_i(\rho_1,\dots,\rho_{m_i})[\varsx/\ov{\mu}]} & \comment{\text{правила за замяна}}\\
+                                          & = \eval{\tau[\varsx/\ov{\mu}]}.
+      \end{align*}
+    % \end{equation}
+    
     Заключаваме, че
     \[\val{\tau}(\ov{\gamma}_r)(\underbrace{\eval{\mu_1}}_{a_1},\dots,\underbrace{\eval{\mu_n}}_{a_n}) \sqsubseteq  \eval{\tau[\varsx/\ov{\mu}]}.\]
     Така доказахме $\texttt{Include}(r)$.
@@ -292,6 +301,7 @@
                            & = \eval{\vv{f}_1(\vv{a}_1,\dots,\vv{a}_{m_1})} & \comment{\text{правило (cbn) на опер. сем.}}\\
                            & = \O\val{\vv{P}}(\ov{a}). & \comment\text{деф. на опер. сем.}
   \end{align*}
+                         
 \end{proof}
 
 

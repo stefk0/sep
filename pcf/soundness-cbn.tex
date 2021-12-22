@@ -101,7 +101,7 @@
       & \val{\tau_1} = \val{\lamb{x}{a}{\tau'_1}} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
       & \val{\tau'_1\subst{x}{\tau_2}} = \val{\vv{v}} \in \val{\vv{b}}.
     \end{align*}
-    Тогава
+    Обядиняваме всичко и получаваме равенствата:
     \begin{align*}
       \val{\tau_1\tau_2} & = \texttt{eval}(\val{\tau_1},\val{\tau_2}) & \comment\text{от деф.}\\ 
                          & = \val{\tau_1}(\val{\tau_2}) & \comment \val{\tau_1} \in \Cont{\val{\vv{a}}}{\val{\vv{b}}}\\
@@ -119,12 +119,18 @@
     \end{prooftree}
     Тогава от \IndHyp имаме, че:
     \[\val{\tau'\ \fix(\tau')} = \val{\vv{v}}.\]
-    Тогава
+    От правилата за типизиране знаем, че $\tau' : \vv{a}\to\vv{a}$.
+    Сега остава да съобразим, че щом $\val{\tau'} \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$,
+    то изображението $\val{\tau'}$ притежава най-малка неподвижна точка $\lfp(\val{\tau'})$.
+    Знаем, че според дефиницията на неподвижна точка, $\val{\tau'}(\lfp(\val{\tau'}) = \lfp(\val{\tau'})$.
+    Сега сме готови да завършим доказателството:
     \begin{align*}
-      \val{\tau} & = \lfp(\val{\tau'})\\
-                 & = \val{\tau'}(\lfp(\val{\tau'}))\\
-                 & = \val{\tau'}(\val{\fix(\tau')})\\
-                 & = \val{\tau'\fix(\tau')}\\
+      \val{\tau} & = \val{\fix(\tau')} \\
+                 & = \lfp(\val{\tau'})& \comment\text{от деф.}\\
+                 & = \val{\tau'}(\lfp(\val{\tau'})) & \comment\text{неподв. точка}\\
+                 & = \val{\tau'}(\val{\fix(\tau')}) & \comment\text{от деф.}\\
+                 & = \texttt{eval}(\val{\tau'}, \val{\fix(\tau')})\\
+                 & = \val{\tau'\fix(\tau')} & \comment\text{от деф.}\\
                  & = \val{\vv{v}}. & \comment\text{\IndHyp}
     \end{align*}
   \end{itemize}
@@ -135,30 +141,63 @@
 
 \marginpar{Другата посока ще я получим след малко.}
 
-\begin{corollary}
-  Нека $\tau$ е затворен терм от тип $\vv{nat}$. Тогава
-  \[\val{\tau} = \bot^{\val{\vv{nat}}}\ \implies\ \tau \not\opsem{}{nat}.\]
-\end{corollary}
+\begin{framed}
+  \begin{corollary}
+    \label{cor:pcf:soundness}
+    Нека $\tau$ е затворен терм от тип $\vv{nat}$. Тогава е изпълнена импликацията
+    \[\val{\tau} = \bot^{\val{\vv{nat}}}\ \implies\ \tau \not\opsem{}{nat}.\]
+  \end{corollary}
+\end{framed}
 
 За жалост, тази наша интуиция се ,,губи'', когато се интересуваме от термове от по-висок от $\nat$ тип.
 \marginpar{За дискусия по този въпрос вижте \cite[стр. 213]{models-of-computation}.}
+Нека просто да разгледаме терма $\Omega'_{\vv{a}}$ от тип $\vv{a}\to\vv{a}$.
+Имаме, че $\val{\Omega'_{\vv{a}}} = \bot^{\val{\vv{a}\to\vv{a}}}$, но
+$\Omega'_{\vv{a}}\opsemGen{}{\vv{a}\to\vv{a}} \Omega'_{\vv{a}}$.
 
-Да разгледаме един пример. Нека 
-\[\tau \equiv \lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}.\]
-Лесно се съобразява, че $\tau : \nat\to\nat$.
-За произволен елемент $a \in \Nat_\bot$ е изпъленено следното:
-\begin{align*}
-  \val{\tau}(a) & = \val{\lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}}(a)\\
-                & = \curry(\val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}})(a)\\
-                & = \val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}}(a)\\
-                & = \lfp(\val{\lamb{x}{nat}{\vv{x}}}_{\type{y}{nat}}(a))\\
-                & = \lfp(\underbrace{\curry(\val{x}_{\type{y}{nat},\type{x}{nat}})(a)}_{\texttt{id}\text{ за }\Nat_\bot})\\
-                & = \bot^{\val{\nat}}
-\end{align*}
-С други думи, получаваме, че
-\[\val{\tau} = \bot^{\val{\nat\to\nat}}.\]
-От друга страна, обаче, $\tau$ представлява стойност. Следователно,
-\[\tau \opsemGen{0}{\nat\to\nat} \tau.\]
+
+
+% Да разгледаме един пример. Нека 
+% \[\tau \equiv \lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}.\]
+% Лесно се съобразява, че $\tau : \nat\to\nat$.
+% За произволен елемент $a \in \Nat_\bot$ е изпъленено следното:
+% \begin{equation*}
+%   \setlength{\jot}{10pt}
+%   \begin{split}
+%     \val{\tau}(a) & = \val{\lamb{y}{nat}{\fix(\lamb{x}{nat}{\vv{x}})}}(a)\\
+%     & = \curry(\val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}})(a)\\
+%     & = \val{\fix(\lamb{x}{nat}{\vv{x}})}_{\type{y}{nat}}(a)\\
+%     & = \lfp(\val{\lamb{x}{nat}{\vv{x}}}_{\type{y}{nat}}(a))\\
+%     & = \lfp(\curry(\val{\vv{x}}_{\type{y}{nat},\type{x}{nat}})(a)).
+%   \end{split}
+% \end{equation*}
+% Сега, ясно е, че
+% \begin{align*}
+%   & \val{\vv{x}}_{\type{y}{nat},\type{x}{nat}} \in \Cont{\Nat_\bot\times\Nat_\bot}{\Nat_\bot},\\
+%   & \curry(\val{\vv{x}}_{\type{y}{nat},\type{x}{nat}}) \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}.
+% \end{align*}
+% За произволни елементи $a,b\in\Nat_\bot$, имаме следното:
+% \begin{align*}
+%   \curry(\val{\vv{x}}_{\type{y}{nat},\type{x}{nat}})(a)(b) & = \val{\vv{x}}_{\type{y}{nat},\type{x}{nat}}(a,b)\\
+%                                                            & = b.
+% \end{align*}
+% \marginpar{$\texttt{id}_{\val{\nat}}(b) = b$ за всяко $b \in \Nat_\bot$.}
+% Следователно, ако означим с $\texttt{id}_{\val{\nat}}$ функцията идентитет върху $\Nat_\bot$, то за всяко $a \in \Nat_\bot$,
+% \[\curry(\val{\vv{x}}_{\type{y}{nat},\type{x}{nat}})(a) = \texttt{id}_{\val{\nat}}.\]
+% Сега завършваме горната верига от равенства така:
+% \begin{equation*}
+%   \setlength{\jot}{10pt}
+%   \begin{split}
+%     \val{\tau}(a) & = \lfp(\curry(\val{\vv{x}}_{\type{y}{nat},\type{x}{nat}})(a))\\
+%     & = \lfp(\texttt{id}_{\val{\nat}})\\
+%     & = \bot^{\val{\nat}}.
+%   \end{split}
+% \end{equation*}
+\marginpar{Това означава, че ако искаме денотационната семантика да кореспондира по-точно с операционната семантика, ние трябва да въведем нов елемент за $\bot$ за области на Скот съответстващи на типове по-високи от $\nat$.}
+% С други думи, получаваме, че
+% \[\val{\tau} = \bot^{\val{\nat\to\nat}}.\]
+% От друга страна, обаче, $\tau$ представлява стойност. Следователно,
+% \[\tau \opsemGen{0}{\nat\to\nat} \tau.\]
 
 
 %%% Local Variables:

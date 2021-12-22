@@ -182,7 +182,7 @@
 
 Естсвено е да се запитаме дали можем да разширим (1) на \Prop{pcf:context:extensionality} за по-сложни от $\nat$ типове $\vv{a}$, т.е. възможно ли е
 \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \vv{v} : \vv{a})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]?\]
-Първо в \Prop{context:op-left-right} ще видим, че винаги имаме импликацията $(\Leftarrow)$, но по-късно в \Prop{context:op-right-left} ще видим, че дори за типа $\vv{a} = \nat~\to~\nat$ нямаме импликация $(\Rightarrow)$.
+Първо в \Prop{context:op-left-right} ще видим, че винаги имаме импликацията $(\Leftarrow)$, но по-късно в \Prop{context:op-right-left} ще видим, че дори за типа $\vv{a} = \nat\to\nat$ нямаме импликация $(\Rightarrow)$.
 
 \begin{proposition}\label{pr:context:op-left-right}
   Докажете, че за всеки два затворени терма $\tau_1, \tau_2 \in \text{PCF}_{\vv{a}}$,
@@ -228,64 +228,35 @@
 От \Prop{pcf:context:extensionality} и от \hyperref[th:pcf:soundness]{теоремата за коректност} имаме и обратните импликации за типа $\nat$.
 За съжаление, ще видим, че нямаме обратните импликации за по-високи типове от $\nat$.
 
-За произволен тип $\vv{a}$, да означим затворения терм
-\[\Omega_{\vv{a}} \df \fix(\lamb{x}{a}{\vv{x}}).\]
-
-\begin{problem}
-  Докажете, че:
-  \begin{enumerate}[(1)]
-  \item
-    $\emptyset \vdash \Omega_{\vv{a}} : \vv{a}$ и $\emptyset \vdash \lamb{x}{a}{\Omega_{\vv{a}}} : \vv{a} \to \vv{a}$;
-  \item
-    $\Omega_{\vv{a}} \not\Downarrow_{\vv{a}}$ и $\lamb{x}{a}{\Omega_{\vv{a}}} \Downarrow_{\vv{a}\to\vv{a}} \lamb{x}{a}{\Omega_{\vv{a}}}$;
-  \item
-    $\val{\Omega_{\vv{a}}} = \bot^{\val{\vv{a}}}$ и $\val{\lamb{x}{a}{\Omega_{\vv{a}}}} = \val{\Omega_{\vv{a}\to\vv{a}}} = \bot^{\val{\vv{a}\to\vv{a}}}$.    
-  \end{enumerate}
-\end{problem}
-\begin{hint}
-  За (2), да допуснем, че $\Omega_{\vv{a}} \Downarrow_{\vv{a}} \vv{v}$ и нека фиксираме $\ell$
-  да бъде най-малкия брой стъпки, за които $\Omega_{\vv{a}} \Downarrow^{\ell}_{\vv{a}} \vv{v}$.
-  Но тогава
-  \begin{prooftree}
-    \AxiomC{$\lamb{x}{a}{\vv{x}} \Downarrow^0_{\vv{a}\to\vv{a}} \lamb{x}{a}{\vv{x}}$}
-    \AxiomC{$\Omega_{\vv{a}} \Downarrow^{\ell-2}_{\vv{a}} \vv{v}$}
-    \UnaryInfC{$\vv{x}[\vv{x}/\fix(\lamb{x}{a}{\vv{x}})] \Downarrow^{\ell-2}_{\vv{a}} \vv{v}$}
-    \RightLabel{\scriptsize{(cbn)}}
-    \BinaryInfC{$(\lamb{x}{a}{\vv{x}})\fix(\lamb{x}{a}{\vv{x}}) \Downarrow^{\ell-1}_{\vv{a}} \vv{v}$}
-    \RightLabel{\scriptsize{(fix)}}
-    \UnaryInfC{$\Omega_{\vv{a}} \Downarrow^\ell_{\vv{a}} \vv{v}$}
-  \end{prooftree}
-  Получихме, че $\Omega_{\vv{a}} \Downarrow^{\ell-2}_{\vv{a}} \vv{v}$, което е противоречие с минималността на $\ell$.
-\end{hint}
-
-Нека сега разгледаме затворените термове
-\begin{align*}
-  & \tau_1 \df \lamb{x}{nat}{\Omega_{\nat}};\\
-  & \tau_2 \df \Omega_{\nat\to\nat}.
-\end{align*}
 
 \begin{proposition}\label{pr:context:op-right-left}
-  $\tau_1 \cong_{ctx} \tau_2 : \nat \to \nat$.
+  $\Omega'_{\nat} \cong_{ctx} \Omega_{\nat\to\nat} : \nat \to \nat$.
 \end{proposition}
-\begin{hint}
+\begin{proof}
   Ще използваме (2) на \Prop{pcf:context:extensionality}.
-  Първо да разгледаме посоката $(\Rightarrow)$. За произволно $\rho:\nat$, ще докажем, че $\tau_1\rho \leq_{ctx} \tau_2\rho : \nat$,
+  Първо да разгледаме посоката $(\Rightarrow)$. За произволно $\rho:\nat$, ще докажем, че $\Omega'_{\nat}\rho \leq_{ctx} \Omega_{\nat\to\nat}\rho : \nat$,
   което според (1) на \Prop{pcf:context:extensionality} означава да докажем, че
-  \[(\forall \vv{n})[\ \tau_1\rho \Downarrow_{\nat} \vv{n} \implies \tau_2 \rho \Downarrow_{\nat} \vv{n}\ ].\]
-  Да отбележим, че $\tau_1 \rho \equiv \Omega_{\nat}$.
-  Понеже $\Omega_{\nat} \not\Downarrow_{\nat}$,
-  то заключаваме, че за всяко такова $\rho$,
-  \[(\forall \vv{n})[\ \tau_1\rho \Downarrow_{\nat} \vv{n} \implies \tau_2 \rho \Downarrow_{\nat} \vv{n}\ ].\]
+  \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
+  Да отбележим, че $\Omega'_{\nat} \rho \not\opsem{}{nat}$, защото
+  \begin{prooftree}
+    \AxiomC{$\Omega'_{\nat}$ е стойност}
+    \UnaryInfC{$\Omega'_{\nat} \opsem{0}{nat} \Omega'_{\nat}$}
+    \AxiomC{$\Omega_{\nat} \not\opsem{}{nat}$}
+    \UnaryInfC{$\Omega_{\nat}\subst{x}{\rho} \not\opsem{}{nat}$}
+    \BinaryInfC{$\Omega'_{\nat} \rho \not\opsem{}{nat}$}
+  \end{prooftree}
+  Тогава заключаваме, че за всяко такова $\rho$,
+  \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \Downarrow_{\nat} \vv{n}\ ].\]
   Сега да разгледаме посоката $(\Leftarrow)$.
-  Тук правим сходни разсъждения, защото понеже $\tau_2 \not\Downarrow_{\nat\to\nat}$, то и $\tau_2 \rho \not\Downarrow_{\nat}$.
-\end{hint}
+  Тук правим сходни разсъждения, защото понеже $\Omega_{\nat\to\nat} \not\Downarrow_{\nat\to\nat}$, то и $\Omega_{\nat\to\nat} \rho \not\opsem{}{nat}$.
+\end{proof}
 
 
 % \begin{remark}
-Лесно се съобразява, че $\tau_1 \Downarrow_{\nat\to\nat} \tau_1$ и $\tau_2 \not\Downarrow_{\nat\to\nat}$.
-Това означава, че според горната задача термовете $\tau_1$ и $\tau_2$ ни дават пример кога нямаме обратната импликация в (1) на \Th{pcf:context:connection}.
-Обърнете внимание, че $\val{\tau_1} = \val{\tau_2}$.
-Това означава, че трябва да продължим да търсим термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$, за които $\val{\tau_1} \neq \val{\tau_2}$
+Знаем, че $\Omega_{\nat\to\nat} \not\opsemGen{}{\nat\to\nat}$, но $\Omega'_{\nat} \opsemGen{}{\nat\to\nat} \Omega'_{\nat}$.
+Това означава, че според горната задача термовете $\Omega_{\nat\to\nat}$ и $\Omega'_{\nat}$ ни дават пример кога нямаме обратната импликация в (1) на \Th{pcf:context:connection}.
+Обърнете внимание, че $\val{\Omega_{\nat\to\nat}} = \val{\Omega'_{\nat}}$.
+Следователно, трябва да продължим да търсим термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$, за които $\val{\tau_1} \neq \val{\tau_2}$
 и $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$.
 % \end{remark}
 

@@ -96,6 +96,20 @@
   \end{figure}
 \end{remark}
 
+\begin{remark}
+  Ако искахме да дефинираме операционна семантика с предаване на параметрите по стойност, то щяхме да заменим
+  правилото (cbn) със следното правило:
+  \begin{prooftree}
+    \AxiomC{$\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}] \opsemFun{\ell_0} \vv{a}$}
+    \AxiomC{$\mu_1 \opsemFun{\ell_1} \vv{b}_1$}
+    \AxiomC{$\cdots$}
+    \AxiomC{$\mu_{m_i} \opsemFun{\ell_{m_i}} \vv{b}_{m_i}$}
+    \LeftLabel{\scriptsize{($\ell = \sum_{k \leq m_i}\ell_k $)}}
+    \RightLabel{\scriptsize{(cbv)}}
+    \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsemFun{\ell+1} \vv{a}$}
+  \end{prooftree}
+\end{remark}
+
 Ще пишем $\mu \Downarrow_{\vv{P}} \vv{a}$, ако съществува $\ell$, за което $\mu \opsemFun{\ell} \vv{a}$.
 Също така, понякога ще пишем $\mu \opsemFun{<\ell} \vv{a}$, когато искаме да кажем, че
 $\mu$ се свежда до $\vv{a}$ след прилагане на по-малко от $\ell$ на брой правила от операционната семантика.

@@ -19,7 +19,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   \marginpar{Съобразете, че теоремата за адекватност на практика гласи, че $\val{\tau} \triangleleft_{\vv{nat}} \tau$.}
   Нека $\vv{a} = \vv{nat}$. Тогава 
   \marginpar{Обикновено $\triangleleft_{\vv{a}}$ се нарича \emph{логическа релация}.
-    В \cite[стр. 210]{models-of-computation} е обяснено защо имаме нужда от тези релации за да докажем теоремата за адекватност.}
+    В \cite[стр. 210]{models-of-computation} е обяснено защо имаме нужда от тези релации за да докажем теоремата за адекватност. В \cite[стр. 134]{gunter} е представен синтактичен подход към решаването на този проблем.}
   \[n \triangleleft_{\vv{nat}} \tau \dff ( n\neq\bot^{\val{\vv{nat}}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}).\]
 \item
   Нека $\vv{a} = \vv{b} \to \vv{c}$. Тогава 
@@ -28,6 +28,59 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   Нека $\Gamma = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_n:\vv{a}_n$. Тогава 
   \[(u_1,\dots,u_n) \triangleleft_\Gamma (\tau_1,\dots,\tau_n) \dff u_1 \triangleleft_{\vv{a}_1} \tau_1\ \&\ \cdots\ \&\ u_n \triangleleft_{\vv{a}_n} \tau_n.\]
 \end{itemize}
+
+\begin{example}
+  Да проверим внимателно защо е изпълнено, че:
+  \[\texttt{id}_{\val{\nat}} \triangleleft_{\vv{nat}\to\vv{nat}} \lamb{x}{nat}{\vv{x + 0}}.\]
+  Според дефиницията трябва да проверим импликацията
+  \[e \triangleleft_{\nat} \mu \implies \texttt{id}_{\val{\nat}}(e) \triangleleft_{\nat} \tau(\mu),\]
+  за произволен елемент $e \in \Nat_\bot$ и произволен затворен терм $\mu : \nat$.
+  \marginpar{Аналогично можем да видим, че $\texttt{id}_{\val{\nat}} \triangleleft_{\nat} \lamb{x}{nat}{x}$.}
+  \begin{itemize}
+  \item
+    Ако $e = \bot$, то от дефиницията на $\triangleleft_{\nat}$ ведната следва, че за произволен затворен терм $\mu : \nat$, то
+    $\bot \triangleleft_{\nat} \mu$. Понеже $\texttt{id}_{\val{\nat}}(\bot) = \bot$, то отново от дефиницията веднага следва, че
+    $\bot \triangleleft_{\nat} \tau(\mu)$, за произволен затворен терм $\mu : \nat$.
+  \item
+    Нека $e = n\in\Nat$ и да разгледаме затворен терм $\mu : \nat$, за който $n \triangleleft_{\nat} \mu$.
+    Според дефиницията на $\triangleleft_{\nat}$, това означава, че $\mu \opsem{}{nat} \vv{n}$.
+    Сега да видим защо $\texttt{id}_{\val{\nat}}(n) = n \triangleleft_{\nat} \tau(\mu)$ или с други думи,
+    трябва да проверим, че $\tau(\mu) \opsem{}{nat} \vv{n}$. Тук се позоваваме на правилата от операционната семантика:
+    \begin{prooftree}
+      \AxiomC{$\tau$ е стойност}
+      \LeftLabel{\scriptsize{(val)}}
+      \UnaryInfC{$\tau \opsemGen{}{\nat\to\nat} \lamb{x}{nat}{\vv{x + 0}}$}
+      \AxiomC{$n \triangleleft_{\nat} \mu$}
+      \UnaryInfC{$\mu \opsem{}{nat} \vv{n}$}
+      \AxiomC{$\vv{0}$ е стойност}
+      \RightLabel{\scriptsize{(val)}}
+      \UnaryInfC{$\vv{0} \opsem{}{nat} \vv{0}$}
+      \RightLabel{\scriptsize{(plus)}}
+      \BinaryInfC{$\vv{(x+0)}\subst{x}{\mu} \opsem{}{nat} \vv{n}$}
+      \RightLabel{\scriptsize{(app)}}
+      \BinaryInfC{$\tau(\mu) \opsem{}{nat} \vv{n}$}
+    \end{prooftree}
+  \end{itemize}
+
+\end{example}
+
+\begin{problem}
+  Нека положим $\tau \equiv \lamb{x}{nat}{\lamb{y}{nat}{x-y}}$.
+  Проверете, че $f \triangleleft_{\nat\to\nat\to\nat} \tau$, където:
+  \begin{itemize}
+  \item
+    $f = \curry(\minus)$;
+  \item
+    $f(a)(b) =
+    \begin{cases}
+      a-b, & \text{ако }a \geq b\\
+      \bot, & \text{иначе}
+    \end{cases}$;
+  \item
+    $f(a)(b) = \bot$ за произволни $a,b\in\Nat_\bot$.
+  \end{itemize}
+\end{problem}
+
 
 Нека първо да разгледаме някои основни свойства на релацията $\triangleleft_{\vv{a}}$.
 Тук доказателствата протичат с индукция по построението на типовете.
@@ -45,7 +98,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   за което $\bot^{\val{\vv{a}}}(e) =  \bot^{\val{\vv{c}}}$ за всеки елемент $e \in \val{\vv{b}}$.
   Нека $e \triangleleft_{\vv{b}} \mu$, където $\mu : \vv{b}$.
   Щом $\tau : \vv{b}\to\vv{c}$, от правилата за типизиране е ясно, че $\tau(\mu) : \vv{c}$.
-  Сега от {\bf И.П.} за типа $\vv{c}$ е ясно, че $\bot^{\val{\vv{a}}}(e) = \bot^{\val{\vv{c}}} \triangleleft_{\vv{c}} \tau(\mu)$.
+  Сега от \IndHyp за типа $\vv{c}$ е ясно, че $\bot^{\val{\vv{a}}}(e) = \bot^{\val{\vv{c}}} \triangleleft_{\vv{c}} \tau(\mu)$.
 \end{proof}
 
 
@@ -71,7 +124,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   $(\bigsqcup_if)(e) \triangleleft_{\vv{c}} \tau(\mu)$.
   Но ние знаем от \Lem{double-chain:lub}, че $(\bigsqcup_if)(e) = \bigsqcup_i\{f_i(e)\}$.
   Щом $f_i \triangleleft_{\vv{b}\to\vv{c}} \tau$, то за разглежданите $e$ и $\mu$ имаме, че $f_i(e) \triangleleft_{\vv{c}} \tau(\mu)$.
-  Ние знаем, че ${(f_i(e))}^\infty_{i=0}$ е верига и от {\bf И.П.} за типа $\vv{c}$ следва, че $\bigsqcup_i\{f_i(e)\} \triangleleft_{\vv{c}} \tau(\mu)$.
+  Ние знаем, че ${(f_i(e))}^\infty_{i=0}$ е верига и от \IndHyp за типа $\vv{c}$ следва, че $\bigsqcup_i\{f_i(e)\} \triangleleft_{\vv{c}} \tau(\mu)$.
 \end{proof}
 
 
@@ -127,7 +180,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
     \label{eq:pcf:adequacy:implication:final}
     (\forall \vv{v}')[\tau(\mu) \Downarrow_{\vv{c}} \vv{v}' \implies \rho(\mu) \Downarrow_{\vv{c}} \vv{v}'].
   \end{equation}
-  Сега от {\bf И.П.} за типа $\vv{c}$ директно следва, че щом $f(e) \triangleleft_{\vv{c}}\tau(\mu)$ и (\ref{eq:pcf:adequacy:implication:final}), то $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
+  Сега от \IndHyp за типа $\vv{c}$ директно следва, че щом $f(e) \triangleleft_{\vv{c}}\tau(\mu)$ и Свойство (\ref{eq:pcf:adequacy:implication:final}), то \[f(e) \triangleleft_{\vv{c}} \rho(\mu).\]
 \end{proof}
 
 
@@ -238,6 +291,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     Нека $\tau \equiv \vv{n}$. Тук директно от дефиницията на релацията $\triangleleft_{\vv{nat}}$ имаме, че
     \[n \triangleleft_{\vv{nat}} \vv{n}.\]
   \item
+    \marginpar{Понеже $\Gamma \vdash \tau : \vv{a}$, то няма как $\tau$ да е променлива, която да не е някоя измежду $\vv{x}_1,\dots,\vv{x}_n$.}
     Нека $\tau \equiv \vv{x}_i$. Този случай също е много лесен.
     Имаме, че $\tau[\ov{x}/\ov{\mu}] \equiv \mu_i$ и $\val{\tau}_\Gamma(\ov{u}) = u_i$.
     Тогава, понеже $(u_1,\dots,u_n) \triangleleft_\Gamma (\mu_1,\dots,\mu_n)$,
@@ -250,12 +304,14 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
       & \val{\tau}_\Gamma(\ov{u}) = \plus(\underbrace{\val{\tau_1}_\Gamma(\ov{u})}_{n_1},\underbrace{\val{\tau_2}_\Gamma(\ov{u})}_{n_2}) = n.
     \end{align*}
     Можем да приемем, че $n \neq \bot$, защото в противен случай този случай е тривиален заради дефиницията на $\triangleleft_{\vv{nat}}$.
-    От И.П. имаме, че $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_1[\ov{x}/\ov{\mu}]$
+    От \IndHyp имаме, че $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_1[\ov{x}/\ov{\mu}]$
     и $\val{\tau_2}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_2[\ov{x}/\ov{\mu}]$.
     Това означава, че $\tau_1[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}} \vv{n}_1$ и $\tau_2[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}}
     \vv{n}_2$.
     От правилата на операционната семантика е ясно, че $\tau[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}} \vv{n}$ и следователно
     \[\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{\vv{x}}/\ov{\mu}].\]
+  \item
+    Нека $\tau \equiv \tau_1\ \vv{-}\ \tau_2$. 
   \item
     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. 
   \item
@@ -269,7 +325,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     \end{prooftree}
     Да напомним, че
     \[\val{\tau_1\tau_2}_\Gamma(\ov{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u})).\]
-    От И.П. имаме следното:
+    От \IndHyp имаме следното:
     \begin{align*}
       & \val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{b}\to\vv{a}} \tau_1[\ov{x}/\ov{\mu}];\\
       & \val{\tau_2}_\Gamma(\ov{u}) \triangleleft_{\vv{b}} \tau_2[\ov{x}/\ov{\mu}].
@@ -281,7 +337,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     $\Gamma' \vdash \tau' : \vv{c}$, където $\Gamma' = \Gamma, \type{y}{b}$.
     Да напомним, че
     \[\val{\tau}_\Gamma(\ov{u}) \df \texttt{curry}(\val{\tau'}_{\Gamma'})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
-    Да положим $f \df \val{\tau}_\Gamma(\ov{u})$. Тогава $f(e) = \val{\tau'}(\ov{u},e)$.
+    Да положим $f \df \val{\tau}_\Gamma(\ov{u})$. Тогава $f(e) = \val{\tau'}_{\Gamma'}(\ov{u},e)$.
     
     Трябва да докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \tau[\ov{x}/\ov{\mu}]$.
     Това означава, че за произволни $e \in \val{\vv{b}}$ и $\rho : \vv{b}$, за които $e \triangleleft_{\vv{b}} \rho$,
@@ -290,7 +346,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     \begin{prooftree}
       \AxiomC{$\Gamma' \vdash \tau' : \vv{c}$}
       \AxiomC{$(u_1,\dots,u_n,e) \triangleleft_{\Gamma'} (\mu_1,\dots,\mu_n,\rho)$}
-      \RightLabel{\scriptsize{(И.П.)}}
+      \RightLabel{\scriptsize{\IndHyp}}
       \BinaryInfC{$\val{\tau'}(\ov{u},e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
       \UnaryInfC{$f(e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
     \end{prooftree}
@@ -304,9 +360,9 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     От \Prop{pcf:adequacy:implication} веднага заключаваме, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
   \item
     Нека $\tau \equiv \fix(\tau')$. Тогава от правилата за типизиране имаме, че $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
-    От И.П., приложено за $\tau'$, имаме, че
-    \[\val{\tau'}(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
-    Нека за улеснение да положим $f \df \val{\tau'}(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
+    От \IndHyp, приложено за $\tau'$, имаме, че
+    \[\val{\tau'}_\Gamma(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
+    Нека за улеснение да положим $f \df \val{\tau'}_\Gamma(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
     Да напомним, че
     \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\]
     От \Prop{pcf:adequacy:chain} знаем, че за всяка верига $\chain{d}{i}$ от елементи на
@@ -324,7 +380,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     %   \BinaryInfC{$\lfp(f) \in D$}
     % \end{prooftree}
     За $n = 0$, понеже от \Prop{pcf:adequacy:bottom} имаме, че $f^0(\bot^{\val{\vv{a}}}) = \bot^{\val{\vv{a}}} \in D$.
-    Нека $n > 0$ и от {\bf И.П.} имаме, че $f^{n-1}(\bot^{\val{\vv{a}}}) \in D$.
+    Нека $n > 0$ и от \IndHyp имаме, че $f^{n-1}(\bot^{\val{\vv{a}}}) \in D$.
     % нека вземем произволен елемент $d \in D$. Ще докажем, че $f(d) \in D$.
 
     Понеже $f \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}]$, то

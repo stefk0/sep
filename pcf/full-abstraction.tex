@@ -160,102 +160,13 @@ ghci> undefined || True
   \vspace{10pt}
   
   Докажете, че $f = \texttt{por}$.
+  Заключете, че $f$ не е определимо в \PCFPP.
   
 \end{problem}
 \begin{hint}
   Използвайте монотонността на $f$.
 \end{hint}
 
-
-% \begin{problem}\label{prob:pcf:full-abstraction:por}
-%   Да разгледаме $f \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$, за което имаме ограниченията:
-
-%   \begin{tabular}{|c|c|c|c|}
-%     \hline
-%     $f$ & $\bot$ & $0$ & $y>0$\\
-%     \hline
-%     $\bot$ & $?$ & $?$ & $1$\\
-%     \hline
-%     $0$ & $?$ & $0$ & $?$\\
-%     \hline
-%     $x>0$ & $1$ & $?$ & $?$\\
-%     \hline
-%   \end{tabular}
-
-%   Докажете, че $f = \texttt{por}$.
-  
-% \end{problem}
-% \begin{hint}
-%   Използвайте монотонността на $f$.
-% \end{hint}
-
-\begin{problem}\label{prob:pcf:full-abstraction:not-definable}
-  Да разгледаме изображението $f \in \Cont{\Bool}{\Cont{\Bool}{\Bool}}$, за което
-  \[f(false)(false) = false\text{ и } f(true)(\bot) = f(\bot)(true) = true.\]
-  Докажете, че $f$ не е определимо в \PCFPP.
-\end{problem}
-\begin{hint}
-  Директно от предишната задача.
-\end{hint}
-% \begin{hint}
-%   Да допуснем, че $f$ е определима в PCF.
-%   Тогава $f = \val{\tau}$, за някой затворен терм $\tau : \nat \to \nat \to \nat$.
-
-%   За произволна променлива $\vv{z}$, да положим
-%   \[\rho_{\vv{z}} \df \ifelse{\vv{z == 0}}{\vv{0}}{\vv{1}}.\]
-%   Нека също положим
-%   \begin{align*}
-%     \tau' & \df \tau\rho_{\vv{x}};\\
-%     \tau'' & \df \tau'\rho_{\vv{y}}.
-%   \end{align*}
-%   Нека също така $\Gamma \df \type{x}{nat}$ и $\Delta = \type{y}{nat}$.
-%   Ясно, че $\val{\tau'}_\Gamma \in \Cont{\Nat_\bot}{\Cont{\Nat_\bot}{\Nat_\bot}}$ и
-%   \begin{align*} 
-%     \val{\tau'}_\Gamma(u)  & = \val{\tau\rho_{\vv{x}}}_\Gamma(u)\\
-%                        & = \texttt{eval}(\val{\tau}, \val{\rho_{\vv{x}}}_\Gamma(u))\\
-%                        & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))
-%   \end{align*}
-%   Нека $f' = \val{\tau'}_\Gamma$. Получаваме следното за $f'$.
-%   \[f'(u) = f(\val{\rho_{\vv{x}}}_\Gamma(u)) =
-%     \begin{cases}
-%       f(u), & \text{ако } u = \bot \text{ или } u = 0\\
-%       f(1), & \text{ако } u > 0.
-%     \end{cases}\]
-%   Аналогично, ясно е, че $\val{\tau''}_{\Gamma,\Delta} \in \Cont{\Nat_\bot\times\Nat_\bot}{\Nat_\bot}$ и
-%   \begin{align*} 
-%     \val{\tau''}_{\Gamma,\Delta}(u,v)  & = \val{\tau'\rho_{\vv{y}}}_{\Gamma,\Delta}(u,v)\\
-%                                   & = \texttt{eval}(\val{\tau'}_\Gamma(u), \val{\rho_{\vv{y}}}_\Delta(v))\\
-%                                   & = \val{\tau'}_\Gamma(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
-%                                   & = \val{\tau}(\val{\rho_{\vv{x}}}_\Gamma(u))(\val{\rho_{\vv{y}}}_\Delta(v)).
-%   \end{align*}
-%   Нека сега $f'' = \val{\tau''}_{\Gamma,\Delta}$. Тогава
-%   \begin{align*}
-%     f''(u,v) & = f'(u)(\val{\rho_{\vv{y}}}_\Delta(v))\\
-%              & = \begin{cases}
-%                f'(u)(v), & \text{ако } v = \bot\text{ или } v = 0\\
-%                f'(u)(1), & \text{ако } v > 0
-%              \end{cases}
-%   \end{align*}
-%   Така получаваме следната характеризация на $f''$:
-
-%   \begin{tabular}{|c|c|c|c|}
-%     \hline
-%     $f''$ & $\bot$ & $0$ & $y>0$ \\
-%     \hline
-%     $\bot$ & $?$ & $?$ & $1$ \\
-%     \hline
-%     $0$ & $?$ & $0$ & $?$ \\
-%     \hline
-%     $x>0$ & $1$ & $?$ & $?$\\
-%     \hline
-%   \end{tabular}
-
-%   Нека сега $\rho \df \lamb{x}{nat}{\lamb{y}{nat}{\tau''}}$.
-%   Тогава за $g = \val{\rho}$ имаме, че
-%   \[g(x)(y) = f''(x,y).\]
-%   От \Problem{pcf:full-abstraction:por} получаваме, че $g = por$.
-%   Достигаме до противоречие, защото $por$ не е определимо изображение.
-% \end{hint}
 
 В следващите твърдения ще използваме типовете
 \begin{align*}
@@ -264,7 +175,7 @@ ghci> undefined || True
 \end{align*}
 За $n = 0,1$, нека дефинираме затворените термове
 
-\marginpar{$\Omega_{\vv{a}} \df \fix(\lamb{x}{a}{\vv{x}})$}
+\marginpar{Да напомним, че \[\Omega_{\vv{a}} \df \fix(\lamb{x}{a}{\vv{x}}).\]}
 
 \begin{lstlisting}
   $\tau_n \equiv \lambda \vv{f:a}$.if (f true $\Omega_\bool$) then
@@ -320,8 +231,8 @@ ghci> undefined || True
   \item
     $\val{\rho}(false)(false) = false$.
   \end{itemize}
-  Но тогава $\val{\rho} = por$, което е противоречие с \Problem{pcf:full-abstraction:not-definable}.
-  Заключаваме, че не съществува затворен терм $\rho$ на езика \PCFPP, за който $\tau_i\rho\Downarrow_\bool$.
+  Но тогава $\val{\rho} = por$, което е противоречие с \Problem{pcf:full-abstraction:por}.
+  Заключаваме, че не съществува затворен терм $\rho$ на езика \PCFPP, за който $\tau_i\rho\Downarrow_\bool$ за $i = 0,1$. Това означава, че $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$.
 \end{proof}
 
 Доказателството на следващата теорема излиза извън обхата на този курс.

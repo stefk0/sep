@@ -1,0 +1,94 @@
+Добре е още тук да разгледаме термове, които ще ни бъдат полезни по-нататък, когато искаме да изучим свойствата на операционната и денотационната семантики на \PCF.
+
+\begin{framed}
+  \begin{definition}
+    За произволен тип $\vv{a}$, да означим затворените термове
+    \begin{align*}
+      & \Omega_{\vv{a}} \df \fix(\lamb{x}{a}{\vv{x}})\\
+      & \Omega'_{\vv{a}} \df \lamb{x}{a}{\fix(\lamb{x}{a}{\vv{x}})}.
+    \end{align*}
+  \end{definition}
+\end{framed}
+
+\begin{problem}
+  \label{prob:pcf:context:omega}
+  \marginpar{\todo Студентите би трябвало да могат да докажат твърденията в \Problem{pcf:context:omega} сами!}
+  Докажете, че за всеки тип $\vv{a}$ са изпълнени следните свойства:
+  \begin{enumerate}[(1)]
+  \item
+    \label{pcf:omega:type}
+    $\emptyset \vdash \Omega_{\vv{a}} : \vv{a}$ и $\emptyset \vdash \Omega'_{\vv{a}} : \vv{a} \to \vv{a}$;
+  \item
+    \label{pcf:omega:operational}
+    $\Omega_{\vv{a}} \not\Downarrow_{\vv{a}}$ и $\Omega'_{\vv{a}} \Downarrow^0_{\vv{a}\to\vv{a}} \Omega'_{\vv{a}}$;
+  \item
+    \label{pcf:omega:denotational}
+    $\val{\Omega_{\vv{a}}} = \bot^{\val{\vv{a}}}$ и $\val{\Omega'_{\vv{a}}} = \val{\Omega_{\vv{a}\to\vv{a}}} = \bot^{\val{\vv{a}\to\vv{a}}}$.    
+  \end{enumerate}
+\end{problem}
+\begin{hint}
+  Доказателството на Свойство~\ref{pcf:omega:type} представлява едно просто упражнение, което за пълнота на изложението ще направим.
+
+  \begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
+      \begin{prooftree}
+        \AxiomC{$\type{x}{a} \vdash \type{x}{a}$}
+        \UnaryInfC{$\emptyset \vdash \lamb{x}{a}{\vv{x}} : \vv{a}\to\vv{a}$}
+        \UnaryInfC{$\emptyset \vdash \underbrace{\fix(\lamb{x}{a}{\vv{x}})}_{\Omega_{\vv{a}}} : \vv{a}$}
+      \end{prooftree}
+      % \caption{}
+      % \label{fig:pcf:context:omega}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+      \begin{prooftree}
+        % \AxiomC{от (\ref{fig:pcf:context:omega})}
+        \AxiomC{вече доказано}
+        \UnaryInfC{$\emptyset \vdash \Omega_{\vv{a}} : \vv{a}$}
+        \UnaryInfC{$\type{x}{a} \vdash \Omega_{\vv{a}} : \vv{a}$}
+        \UnaryInfC{$\underbrace{\emptyset \vdash \lamb{x}{a}{\Omega_{\vv{a}}}}_{\Omega'_{\vv{a}}} : \vv{a} \to \vv{a}$}
+      \end{prooftree}
+      % \caption{}
+    \end{subfigure}
+  \end{figure}
+  
+  \marginpar{Втората част на Свойство~\ref{pcf:omega:operational} не заслужава внимание, защото $\Omega'_{\vv{a}}$ е стойност и следователно по дефиниция $\Omega'_{\vv{a}} \opsemGen{0}{\vv{a}\to\vv{a}} \Omega'_{\vv{a}}$.}
+  За първата част на Свойство~\ref{pcf:omega:operational}, да допуснем, че $\Omega_{\vv{a}} \Downarrow_{\vv{a}} \vv{v}$, за някоя стойност $\type{v}{a}$, и нека фиксираме $\ell$
+  да бъде {\em най-малкият} брой стъпки, за които $\Omega_{\vv{a}} \Downarrow^{\ell}_{\vv{a}} \vv{v}$.
+  Но тогава
+  \begin{prooftree}
+    \AxiomC{$\lamb{x}{a}{\vv{x}}$ е стойност}
+    \UnaryInfC{$\lamb{x}{a}{\vv{x}} \Downarrow^0_{\vv{a}\to\vv{a}} \lamb{x}{a}{\vv{x}}$}
+    \AxiomC{$\Omega_{\vv{a}} \Downarrow^{\ell-2}_{\vv{a}} \vv{v}$}
+    \UnaryInfC{$\vv{x}\subst{x}{\fix(\lamb{x}{a}{\vv{x}})} \Downarrow^{\ell-2}_{\vv{a}} \vv{v}$}
+    \RightLabel{\scriptsize{(cbn)}}
+    \BinaryInfC{$(\lamb{x}{a}{\vv{x}})\fix(\lamb{x}{a}{\vv{x}}) \Downarrow^{\ell-1}_{\vv{a}} \vv{v}$}
+    \RightLabel{\scriptsize{(fix)}}
+    \UnaryInfC{$\underbrace{\fix(\lamb{x}{a}{\vv{x}})}_{\Omega_{\vv{a}}} \Downarrow^\ell_{\vv{a}} \vv{v}$}
+  \end{prooftree}
+  Получихме, че $\Omega_{\vv{a}} \Downarrow^{\ell-2}_{\vv{a}} \vv{v}$, което е противоречие с минималността на $\ell$.
+
+  Сега да разгледаме първата част на Свойство~\ref{pcf:omega:denotational}. За произволен тип $\vv{a}$, да означим с $\texttt{id}_{\val{\vv{a}}}$ функцията идентитет за областта на Скот $\val{\vv{a}}$, т.е.
+  $\texttt{id}_{\val{\vv{a}}}(x) = x$ за всяко $x \in \val{\vv{a}}$. Имаме, че:
+  \marginpar{Да напомним, че $f^0 \df id$ и $f^{n+1} \df f \circ f^n$.
+    В нашия случай, $f = id$ и следователно $id^n = id$ за всяко $n$.}
+  \begin{align*}
+    \val{\Omega_{\vv{a}}} & = \val{\fix(\lamb{x}{a}{\vv{x}})}\\
+                          & = \lfp(\val{\lamb{x}{a}{\vv{x}}})\\
+                          & = \lfp(\texttt{id}_{\val{\vv{a}}}) & \comment\val{\lamb{x}{a}{\vv{x}}} = \texttt{id}_{\val{\vv{a}}}\\
+                          & = \bigsqcup_n\texttt{id}^n_{\val{\vv{a}}}(\bot^{\val{\vv{a}}}) & \comment\text{\hyperref[th:knaster-tarski]{Теоремата на Клини}}\\
+                          & = \bigsqcup_n \bot^{\val{\vv{a}}} & \comment \texttt{id}^n(\bot^{\val{\vv{a}}}) = \bot^{\val{\vv{a}}}\\
+                          & = \bot^{\val{\vv{a}}}.
+  \end{align*}
+  Сега преминаваме към втората част на Свойство~\ref{pcf:omega:denotational}. За произволен елемент $u \in \val{\vv{a}}$,
+  \marginpar{Да напомним, че за всяко $u$, $\bot^{\val{\vv{a}\to\vv{a}}}(u) \df \bot^{\val{\vv{a}}}$.}
+  \begin{align*}
+    \val{\Omega'_a}(u) & = \val{\lamb{x}{a}{\Omega_{\vv{a}}}}(u)\\
+                       & = \curry(\val{\Omega_{\vv{a}}}_{\type{x}{a}})(u)\\
+                       & = \val{\Omega_{\vv{a}}}_{\type{x}{a}}(u)\\
+                       & = \val{\Omega_{\vv{a}}}\\
+                       & = \bot^{\val{\vv{a}}}.
+  \end{align*}
+
+  Заключаваме, че $\val{\Omega'_a} = \bot^{\val{\vv{a}\to\vv{a}}}$.
+\end{hint}

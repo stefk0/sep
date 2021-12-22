@@ -23,15 +23,13 @@
   \[\val{\tau''_0}_{\vv{f:a,x:nat}} = \curry(\val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}),\]
   т.е.
   \[\val{\tau''_0}_{\vv{f:a,x:nat}}(\varphi,m)(n) = \val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}(\varphi,m,n).\]
-
   Обединявайки всичко получаваме, че:
   \begin{align*}
-    \val{\tau_0}(\varphi)(m)(n) & = \val{\tau'_0}_{\vv{f:a}}(\varphi)(m)(n) \\
-                                & = \val{\tau''_0}_{\vv{f:a,x:nat}}(\varphi,m)(n)\\
-                                & = \val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}(\varphi,m,n)\\
-                                & = \val{\ifelse{\vv{y==0}}{\vv{0}}{\vv{x + (f x (y-1))}}}(\varphi,m,n)\\
-                                & = \texttt{if}(\val{\vv{y==0}}(\varphi,m,n), \val{\vv{0}}(\varphi,m,n),\val{\vv{x + (f x (y-1))}}(\varphi,m,n)).
-                                % & = \texttt{if}(\eq(n,0),0,\plus(m, \texttt{eval}(\texttt{eval}(\varphi, m),n-1))).
+      \val{\tau_0}(\varphi)(m)(n) & = \val{\tau'_0}_{\vv{f:a}}(\varphi)(m)(n) \\
+                                  & = \val{\tau''_0}_{\vv{f:a,x:nat}}(\varphi,m)(n)\\
+                                  & = \val{\tau'''_0}_{\vv{f:a,x:nat,y:nat}}(\varphi,m,n)\\
+                                  & = \val{\ifelse{\vv{y==0}}{\vv{0}}{\vv{x + (f x (y-1))}}}(\varphi,m,n)\\
+                                  & = \texttt{if}(\val{\vv{y==0}}(\varphi,m,n), \val{\vv{0}}(\varphi,m,n),\val{\vv{x + (f x (y-1))}}(\varphi,m,n)).
   \end{align*}
 
   Накрая получаваме, че
