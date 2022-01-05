@@ -298,24 +298,56 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     то директно получаваме, че
     \[\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{x}/\ov{\mu}].\]
   \item
-    Нека $\tau \equiv \tau_1 + \tau_2$. Тогава $\vv{a} = \vv{nat}$. Имаме също, че
+    Нека $\tau \equiv \tau_1 + \tau_2$. Тогава от правилата за типизиране имаме, че $\vv{a} = \vv{nat}$. Имаме също, че
     \begin{align*}
       & \tau[\ov{x}/\ov{\mu}] \equiv \tau_1[\ov{x}/\ov{\mu}] + \tau_2[\ov{x}/\ov{\mu}];\\
       & \val{\tau}_\Gamma(\ov{u}) = \plus(\underbrace{\val{\tau_1}_\Gamma(\ov{u})}_{n_1},\underbrace{\val{\tau_2}_\Gamma(\ov{u})}_{n_2}) = n.
     \end{align*}
-    Можем да приемем, че $n \neq \bot$, защото в противен случай този случай е тривиален заради дефиницията на $\triangleleft_{\vv{nat}}$.
+    Можем да приемем, че $n \neq \bot$, защото иначе този случай е тривиален заради дефиницията на $\triangleleft_{\vv{nat}}$.
     От \IndHyp имаме, че $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_1[\ov{x}/\ov{\mu}]$
     и $\val{\tau_2}_\Gamma(\ov{u}) \triangleleft_{\vv{nat}} \tau_2[\ov{x}/\ov{\mu}]$.
     Това означава, че $\tau_1[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}} \vv{n}_1$ и $\tau_2[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}}
     \vv{n}_2$.
     От правилата на операционната семантика е ясно, че $\tau[\ov{x}/\ov{\mu}] \Downarrow_{\vv{nat}} \vv{n}$ и следователно
-    \[\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{\vv{x}}/\ov{\mu}].\]
+    \[\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\nat} \tau[\ov{\vv{x}}/\ov{\mu}].\]
   \item
     Нека $\tau \equiv \tau_1\ \vv{-}\ \tau_2$. 
   \item
     Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. 
   \item
     Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$.
+    От правилата за типизиране имаме, че $\Gamma \vdash \tau_1 : \nat$ и
+    $\Gamma \vdash \tau_2 : \vv{a}$ и $\Gamma \vdash \tau_3 : \vv{a}$.
+    Знаем също, че
+    \begin{align*}
+      & \tau[\ov{x}/\ov{\mu}] \equiv \ifelse{\tau_1[\ov{x}/\ov{\mu}]}{\tau_2[\ov{x}/\ov{\mu}]}{\tau_3[\ov{x}/\ov{\mu}]}\\
+      & \val{\tau}_\Gamma(\ov{u}) = \texttt{if}(\val{\tau_1}_\Gamma(\ov{u}),\val{\tau_2}_\Gamma(\ov{u}),\val{\tau_3}_\Gamma(\ov{u})).
+    \end{align*}
+
+    Случаят, когато $\val{\tau_1}_\Gamma(\ov{u}) = \bot^{\val{\nat}}$ е очевиден и ще го пропуснем.
+    \marginpar{Случаят, когато $\val{\tau_1}_\Gamma(\ov{u}) > 0$ е сходен и ще го оставим за трудолюбивия читател.}
+    Нека да разгледаме случая, когато $\val{\tau_1}_\Gamma(\ov{u}) = 0$.
+    Тогава $\val{\tau}_\Gamma(\ov{u}) = \val{\tau_3}_\Gamma(\ov{u})$.
+    От \IndHyp за $\tau_1$ получаваме, че
+    \[\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\nat} \tau_1[\ov{x}/\ov{\mu}].\]
+    От дефиницията на $\triangleleft_{\nat}$ следва, че щом $\val{\tau_1}_\Gamma(\ov{u}) = 0$, то $\tau_1[\ov{x}/\ov{\mu}] \Downarrow_{\nat} \vv{0}$.
+    От \IndHyp за $\tau_3$ получаваме, че
+    \[\underbrace{\val{\tau_3}_\Gamma(\ov{u})}_{\val{\tau}_\Gamma(\ov{u})} \triangleleft_{\vv{a}} \tau_3[\ov{x}/\ov{\mu}].\]
+    Сега от правилата на операционната семантика имаме, че
+    \begin{prooftree}
+      \AxiomC{$\tau_1[\ov{x}/\ov{\mu}] \opsem{}{nat} \vv{0}$}
+      \AxiomC{$\tau_3[\ov{x}/\ov{\mu}] \opsem{}{a} \vv{v}$}
+      \RightLabel{\scriptsize{(if$_0$})}
+      \BinaryInfC{$\underbrace{\ifelse{\tau_1[\ov{x}/\ov{\mu}]}{\tau_2[\ov{x}/\ov{\mu}]}{\tau_3[\ov{x}/\ov{\mu}]}}_{\tau[\ov{x}/\ov{\mu}]} \opsem{}{a} \vv{v}$}
+    \end{prooftree}
+    Да напишем на чисто важните неща, които имаме до момента.
+    \begin{itemize}
+    \item
+      $\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau_3[\ov{x}/\ov{\mu}]$;
+    \item
+      $(\forall \vv{v})[\tau_3[\ov{x}/\ov{\mu}] \opsem{}{a} \vv{v} \implies \tau[\ov{x}/\ov{\mu}] \opsem{}{a} \vv{v}]$.
+    \end{itemize}
+    Сега директно прилагаме \Prop{pcf:adequacy:implication} и получаваме, че $\val{\tau}_\Gamma(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{x}/\ov{\mu}]$.
   \item
     Нека $\tau \equiv \tau_1\tau_2$. От правилата за типизиране имаме, че
     \begin{prooftree}
@@ -325,68 +357,76 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     \end{prooftree}
     Да напомним, че
     \[\val{\tau_1\tau_2}_\Gamma(\ov{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u})).\]
-    От \IndHyp имаме следното:
+    Понеже $\tau$ е съставен от $\tau_1$ и $\tau_2$, от \IndHyp имаме следното:
     \begin{align*}
       & \val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{b}\to\vv{a}} \tau_1[\ov{x}/\ov{\mu}];\\
       & \val{\tau_2}_\Gamma(\ov{u}) \triangleleft_{\vv{b}} \tau_2[\ov{x}/\ov{\mu}].
     \end{align*}
-    Тогава директно следва, че
-    \[\texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u})) \triangleleft_{\vv{a}} \tau_1[\ov{x}/\ov{\mu}](\tau_2[\ov{x}/\ov{\mu}])\]
+    Щом $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{b}\to\vv{a}} \tau_1[\ov{x}/\ov{\mu}]$, то
+    от дефиницията на релацията $\triangleleft_{\vv{b}\to\vv{a}}$ следва, че за произволни $e \triangleleft_{\vv{b}} \rho$ имаме, че
+    $\texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}),e) \triangleleft_{\vv{a}} \tau_1[\ov{x}/\ov{\mu}](\rho)$. Нека сега да вземем $e \df \val{\tau_2}_\Gamma(\ov{u})$ и $\rho \df  \tau_2[\ov{x}/\ov{\mu}]$.
+    Така получаваме  
+    \[\underbrace{\texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u}))}_{\val{\tau}_\Gamma(\ov{u})} \triangleleft_{\vv{a}} \underbrace{\tau_1[\ov{x}/\ov{\mu}](\tau_2[\ov{x}/\ov{\mu}])}_{\tau[\ov{x}/\ov{\mu}]}.\]
   \item
-    Нека $\tau = \lamb{y}{b}{\tau'}$. Тогава от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$ и
-    $\Gamma' \vdash \tau' : \vv{c}$, където $\Gamma' = \Gamma, \type{y}{b}$.
+    Нека $\tau = \lamb{y}{b}{\tau'}$. Тогава от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$, за някои типове $\vv{b}$ и $\vv{c}$, и
+    $\Gamma,\type{y}{b} \vdash \tau' : \vv{c}$.
     Да напомним, че
-    \[\val{\tau}_\Gamma(\ov{u}) \df \texttt{curry}(\val{\tau'}_{\Gamma'})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
-    Да положим $f \df \val{\tau}_\Gamma(\ov{u})$. Тогава $f(e) = \val{\tau'}_{\Gamma'}(\ov{u},e)$.
-    
+    \[\val{\tau}_\Gamma(\ov{u}) \df \texttt{curry}(\val{\tau'}_{\Gamma,\type{y}{b}})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
+    Да положим $f \df \val{\tau}_\Gamma(\ov{u})$. Тогава лесно се съобразява, че:
+    \begin{align*}
+      f(e) & = \val{\tau}_\Gamma(\ov{u})(e) \\
+           & = \texttt{curry}(\val{\tau'}_{\Gamma,\type{y}{b}})(\ov{u})(e)\\
+           & = \val{\tau'}_{\Gamma,\type{y}{b}}(\ov{u},e).
+    \end{align*}
     Трябва да докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \tau[\ov{x}/\ov{\mu}]$.
     Това означава, че за произволни $e \in \val{\vv{b}}$ и $\rho : \vv{b}$, за които $e \triangleleft_{\vv{b}} \rho$,
     трябва да докажем, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
+
     Имаме, че
     \begin{prooftree}
-      \AxiomC{$\Gamma' \vdash \tau' : \vv{c}$}
-      \AxiomC{$(u_1,\dots,u_n,e) \triangleleft_{\Gamma'} (\mu_1,\dots,\mu_n,\rho)$}
+      \AxiomC{$\Gamma,\type{y}{b} \vdash \tau' : \vv{c}$}
+      \AxiomC{$(u_1,\dots,u_n,e) \triangleleft_{\Gamma,\type{y}{b}} (\mu_1,\dots,\mu_n,\rho)$}
       \RightLabel{\scriptsize{\IndHyp}}
-      \BinaryInfC{$\val{\tau'}(\ov{u},e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
-      \UnaryInfC{$f(e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
+      \BinaryInfC{$\underbrace{\val{\tau'}_{\Gamma,\type{y}{b}}(\ov{u},e)}_{f(e)} \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$}
     \end{prooftree}
     От правилата на операционната семантика имаме следното:
     \begin{prooftree}
-      \AxiomC{$\emptyset \vdash \rho : \vv{b}$}
+      \AxiomC{$\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]}$ е стойност}
+      \UnaryInfC{$\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]} \Downarrow_{\vv{b}\to\vv{c}} \lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]} $}
       \AxiomC{$\tau'[\ov{x}/\ov{\mu}][y/\rho] \Downarrow_{\vv{c}} \vv{v}$}
-      \BinaryInfC{$(\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]})(\rho) \Downarrow_{\vv{c}} \vv{v}$}
-      \UnaryInfC{$\tau[\ov{x}/\ov{\mu}](\rho) \Downarrow_{\vv{c}} \vv{v}$}
+      \RightLabel{\scriptsize{(cbn)}}
+      \BinaryInfC{$(\underbrace{\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]}}_{\tau[\ov{x}/\ov{\mu}]})(\rho) \Downarrow_{\vv{c}} \vv{v}$}
     \end{prooftree}
-    От \Prop{pcf:adequacy:implication} веднага заключаваме, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
+    Да обобщим какво имаме до момента:
+    \begin{itemize}
+    \item
+      $f(e) \triangleleft_{\vv{c}} \tau'[\ov{x}/\ov{\mu}][y/\rho]$;
+    \item
+      $(\forall \vv{v})[\ \tau'[\ov{x}/\ov{\mu}][y/\rho] \opsem{}{c} \vv{v} \implies \tau[\ov{x}/\ov{\mu}] \opsem{}{c} \vv{v}\ ]$.
+    \end{itemize}
+    От \Prop{pcf:adequacy:implication} веднага заключаваме, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$, което трябваше да докажем.
   \item
-    Нека $\tau \equiv \fix(\tau')$. Тогава от правилата за типизиране имаме, че $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
+    Нека $\tau \equiv \fix(\tau')$.
+    Тук трябва да докажем, че $\val{\fix(\tau')}(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{x}/\ov{\mu}]$.
+    От правилата за типизиране имаме, че $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
     От \IndHyp, приложено за $\tau'$, имаме, че
     \[\val{\tau'}_\Gamma(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
     Нека за улеснение да положим $f \df \val{\tau'}_\Gamma(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
     Да напомним, че
-    \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f)\]
+    \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f).\]
     От \Prop{pcf:adequacy:chain} знаем, че за всяка верига $\chain{d}{i}$ от елементи на
     \[D \df \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \fix(\tau'[\ov{x}/\ov{\mu}])\}\]
     е изпълнено, че $\bigsqcup_i d_i \in D$. Целта ни е да докажем, че
     $\lfp(f) \in D$. Да напомним, че $\lfp(f) = \bigsqcup_n f^n(\bot^{\val{\vv{a}}})$.
     С индукция по $n$ ще докажем, че за всяко $n$, $f^n(\bot^{\val{\vv{a}}}) \in D$.
 
+    За $n = 0$ е ясно, понеже от \Prop{pcf:adequacy:bottom} имаме, че $f^0(\bot^{\val{\vv{a}}}) = \bot^{\val{\vv{a}}} \in D$.
 
-    % Ще направим това като приложим правилото на Скот.
-    % Да напомним, че
-    % \begin{prooftree}
-    %   \AxiomC{$\bot^{\val{\vv{a}}} \in D$}
-    %   \AxiomC{$d \in D \implies f(d) \in D$}
-    %   \BinaryInfC{$\lfp(f) \in D$}
-    % \end{prooftree}
-    За $n = 0$, понеже от \Prop{pcf:adequacy:bottom} имаме, че $f^0(\bot^{\val{\vv{a}}}) = \bot^{\val{\vv{a}}} \in D$.
-    Нека $n > 0$ и от \IndHyp имаме, че $f^{n-1}(\bot^{\val{\vv{a}}}) \in D$.
-    % нека вземем произволен елемент $d \in D$. Ще докажем, че $f(d) \in D$.
-
+    Нека сега $n > 0$. Ще използваме, че от \IndHyp имаме, че $f^{n-1}(\bot^{\val{\vv{a}}}) \in D$.
     Понеже $f \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}]$, то
     за произволно $e \triangleleft_{\vv{a}} \rho$ е изпълнено, че
     $f(e) \triangleleft_{\vv{a}} \tau'[\ov{x}/\ov{\mu}](\rho)$.
-    Нека изберем $\rho = \fix(\tau'[\ov{x}/\ov{\mu}])$ и $e = f^{n-1}(\bot^{\val{\vv{a}}})$.
+    Нека изберем $\rho \df \fix(\tau'[\ov{x}/\ov{\mu}])$ и $e \df f^{n-1}(\bot^{\val{\vv{a}}})$.
     Щом $f^{n-1}(\bot^{\val{\vv{a}}}) \in D$, то $f^{n-1}(\bot^{\val{\vv{a}}}) \triangleleft_{\vv{a}} \rho$ и следователно
     \[f(f^{n-1}(\bot^{\val{\vv{a}}})) \triangleleft_{\vv{a}} \tau'[\ov{x}/\ov{\mu}](\underbrace{\fix(\tau'[\ov{x}/\ov{\mu}])}_{\rho}).\]
     От правилата на операционната семантика имаме, че:
@@ -413,7 +453,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
 \begin{framed}
   \begin{theorem}[Теорема за адекватност]\label{th:pcf:adequacy}
     За всеки затворен терм $\tau : \vv{nat}$, 
-    \[\val{\tau} = n \neq \bot \implies \tau \Downarrow_{\vv{nat}} \vv{n}.\]
+    \[\val{\tau} = n \neq \bot^{\val{\nat}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}.\]
   \end{theorem}
 \end{framed}
 \begin{proof}
@@ -422,6 +462,18 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   От \Cor{pcf:fundamental} имаме, че $\val{\tau} \triangleleft_{\vv{nat}} \tau$.
   Тогава от дефиницията на $\triangleleft_{\vv{nat}}$ получаваме, че $\tau \Downarrow_{\vv{nat}} \vv{n}$.
 \end{proof}
+
+\begin{framed}
+  \begin{corollary}
+    За всеки затворен терм $\tau : \vv{nat}$, 
+    \[\val{\tau} = n \neq \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \Downarrow_{\vv{nat}} \vv{n}.\]
+  \end{corollary}
+\end{framed}
+\begin{proof}
+  Посоката $(\Rightarrow)$ е \hyperref[th:pcf:adequacy]{теоремата за адекватност}.
+  Посоката $(\Leftarrow)$ е \hyperref[th:pcf:soundness]{теоремата за коректност}.
+\end{proof}
+
 
 Да разгледаме термовете
 \begin{align*}
@@ -435,21 +487,28 @@ $\tau \not\Downarrow_{\vv{nat}\to\vv{nat}} \rho$.
 Оттук веднага е ясно, че няма как да имаме теорема за адекватност за по-високи типове от $\vv{nat}$.
 
 
-\begin{corollary}
-  За всеки $\tau \in \text{PCF}_{\nat}$ е изпълнена импликацията:
-  \[\tau \not\Downarrow_{\nat}\ \implies\ \val{\tau} = \bot^{\val{\nat}}.\]  
-\end{corollary}
-\begin{proof}
-  Да допуснем, че $\tau \not\Downarrow_{\nat}$, но $\val{\tau} = n \neq \bot$.
-  Но тогава от \hyperref[th:pcf:adequacy]{теоремата за адекватност} следва, че $\tau \Downarrow_{\nat} \vv{n}$, което е противоречие.
-\end{proof}
+% \begin{corollary}
+%   За всеки $\tau \in \text{PCF}_{\nat}$ е изпълнена импликацията:
+%   \[\tau \not\Downarrow_{\nat}\ \implies\ \val{\tau} = \bot^{\val{\nat}}.\]  
+% \end{corollary}
+% \begin{proof}
+
+% \end{proof}
+
+Следващото следствие ни казва, че за типа $\nat$, $\bot$ означава изчисление, което никога не завършва.
 
 \begin{framed}
   \begin{corollary}
     Нека $\tau$ е затворен терм от тип $\nat$. Тогава 
-    \[\val{\tau} = \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \not\Downarrow_{\nat}.\]
+    \[\val{\tau} = \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \not\opsem{}{nat}.\]
   \end{corollary}
 \end{framed}
+% \begin{proof}
+%   Първо, да допуснем, че $\val{\tau} = \bot^{\val{\nat}}$, но $\tau \opsem{}{nat} \vv{n}$, за някоя константа $\vv{n}$. Тогава от \hyperref[th:pcf:soundness]{теоремата за коректност} получаваме, че $\val{\tau} = n \neq \bot^{\val{\nat}}$, което е противоречие.
+  
+%   Второ, да допуснем, че $\tau \not\Downarrow_{\nat}$, но $\val{\tau} = n \neq \bot$.
+%   Но тогава от \hyperref[th:pcf:adequacy]{теоремата за адекватност} следва, че $\tau \Downarrow_{\nat} \vv{n}$, което е противоречие.
+% \end{proof}
 
 %%% Local Variables:
 %%% mode: latex

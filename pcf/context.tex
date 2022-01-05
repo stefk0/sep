@@ -186,8 +186,8 @@
 
 \begin{proposition}\label{pr:context:op-left-right}
   Докажете, че за всеки два затворени терма $\tau_1, \tau_2 \in \text{PCF}_{\vv{a}}$,
-  \marginpar{$(\forall \vv{v}:\vv{a})$ означава за всяка стойност $\vv{v}$ от тип $\vv{a}$.}
-  \[(\forall \vv{v}:\vv{a})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v} ] \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
+  % \marginpar{$(\forall \vv{v}:\vv{a})$ означава за всяка стойност $\vv{v}$ от тип $\vv{a}$.}
+  \[(\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v} ] \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
 \end{proposition}
 \begin{hint}
   Според \Prop{pcf:context:relation-characterization}, достатъчно е да докажем, че $\val{\tau_1} \triangleleft_{\vv{a}} \tau_2$.
