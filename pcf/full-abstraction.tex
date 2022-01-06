@@ -42,6 +42,8 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 \end{problem}
 \begin{hint}
   Разгледайте затворения терм
+  
+  
   \[\tau \df \lamb{x}{bool}{\lamb{y}{bool}{\ifelse{\vv{x}}{\tru}{{\ifelse{\vv{y}}{\tru}{\fls}}}}}\]
   Докажете, че $\val{\tau} = sor$.
 \end{hint}
@@ -188,7 +190,9 @@ ghci> undefined || True
 
 Тук $\vv{b}_0 = \tru$, $\vv{b}_1 = \fls$.
 
-Лесно се съобразява, че $\emptyset \vdash \tau_0:\vv{b}$ и $\emptyset \vdash \tau_1:\vv{b}$.
+\begin{problem}
+  Докажете, че $\emptyset \vdash \tau_0:\vv{b}$ и $\emptyset \vdash \tau_1:\vv{b}$.
+\end{problem}
 
 % \begin{problem}
 %   Докажете, че 
@@ -211,7 +215,7 @@ ghci> undefined || True
   
   Второ, понеже $\vv{b} = \vv{a} \to \bool$, от \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
   за всеки затворен терм $\rho:\vv{a}$ е изпълнено, че
-  \[\tau_1\rho \Downarrow_{\bool} \vv{n} \iff \tau_2\rho \Downarrow_{\bool} \vv{n}.\]
+  \[(\forall \vv{v})[\tau_1\rho \Downarrow_{\bool} \vv{v} \iff \tau_2\rho \Downarrow_{\bool} \vv{v}].\]
   Да видим какво означава $\tau_i \rho \Downarrow_{\bool}$ за $i = 0,1$.
   Това означава, че трябва да са изпълнени и трите свойства:
   \begin{itemize}
@@ -232,7 +236,7 @@ ghci> undefined || True
     $\val{\rho}(false)(false) = false$.
   \end{itemize}
   Но тогава $\val{\rho} = por$, което е противоречие с \Problem{pcf:full-abstraction:por}.
-  Заключаваме, че не съществува затворен терм $\rho$ на езика \PCFPP, за който $\tau_i\rho\Downarrow_\bool$ за $i = 0,1$. Това означава, че $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$.
+  Заключаваме, че не съществува затворен терм $\rho$ на езика \PCFPP, за който $\tau_i\rho\Downarrow_\bool$ за $i = 0,1$. Това означава, че $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$ по тривиални причини.
 \end{proof}
 
 Доказателството на следващата теорема излиза извън обхата на този курс.

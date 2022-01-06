@@ -11,31 +11,37 @@
 % не се интересуваме дали някоя свободна променлива на $\tau$ няма да попадне под обхвата на свързана променлива в $\C$.
 % Например, ако $\C = \lamb{x}{a}{-}$, то $\C\rename{-}{\vv{x}} =
 % \lamb{x}{a}{\vv{x}}$.
-За краткост, вместо $\C\{-/\tau\}$ ще пишем $\C[\tau]$.
+За краткост, вместо $\C[-/\tau]$ ще пишем $\C[\tau]$.
 
-\begin{proposition}
-  % \marginpar{Да напомним, че с $\equiv$ означаваме релацията $\alpha$-еквивалентност.}
-  Ако $\tau \equiv_\alpha \tau'$, то $\C[\tau] \equiv_\alpha \C[\tau']$.
-\end{proposition}
-\begin{hint}
-  Индукция по построението на контекстите.
-\end{hint}
+% \begin{proposition}
+%   % \marginpar{Да напомним, че с $\equiv$ означаваме релацията $\alpha$-еквивалентност.}
+%   Ако $\tau \equiv_\alpha \tau'$, то $\C[\tau] \equiv_\alpha \C[\tau']$.
+% \end{proposition}
+% \begin{hint}
+%   Индукция по построението на контекстите.
+% \end{hint}
+
+Ще казваме, че {\bf завършена програма} е затворен терм от тип $\nat$.
+
 
 \marginpar{Някои наричат тази релация observational equivalence. Тук наричаме релацията contextual equivalence.}
-\begin{definition}\label{df:context:equivalence}
-  За затворени термове $\tau_1$ и $\tau_2$, дефинираме
-  $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$, ако
-  \begin{enumerate}[1)]
-  \item
-    $\emptyset \vdash \tau_1 : \vv{a}$ и $\emptyset \vdash \tau_2 : \vv{a}$
-  \item
-    За \emph{всички} контексти $C[-]$, за които $\emptyset \vdash C[\tau_1] : \nat$ и $\emptyset \vdash C[\tau_2] : \nat$, то
-    \[C[\tau_1] \Downarrow_{\nat} \vv{n} \implies C[\tau_2] \Downarrow_{\nat} \vv{n}.\]
-  \end{enumerate}
-  Ще пишем $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$, ако
-  $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$ и $\tau_2 \leq_{ctx} \tau_1 : \vv{a}$.
-\end{definition}
+\begin{framed}
+  \begin{definition}\label{df:context:equivalence}
+    За затворени термове $\tau_1$ и $\tau_2$, дефинираме
+    $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$, ако
+    \begin{enumerate}[1)]
+    \item
+      $\emptyset \vdash \tau_1 : \vv{a}$ и $\emptyset \vdash \tau_2 : \vv{a}$
+    \item
+      За \emph{всички} контексти $\C[-]$, за които $\emptyset \vdash \C[\tau_1] : \nat$ и $\emptyset \vdash \C[\tau_2] : \nat$, то
+      \[(\forall \vv{n})[\ \C[\tau_1] \Downarrow_{\nat} \vv{n} \implies \C[\tau_2] \Downarrow_{\nat} \vv{n}\ ].\]
+    \end{enumerate}
+    Ще пишем $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$, ако
+    $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$ и $\tau_2 \leq_{ctx} \tau_1 : \vv{a}$.
+  \end{definition}
+\end{framed}
 
+Възможно е по-общо да се дефинира релацията $\leq_{ctx}$ не само за затворени, но и за произволни добре типизирани термове. За нашите цели е достатъчно да се ограничим само до затворени термове.
 
 % \begin{itemize}
 % \item 
@@ -47,13 +53,14 @@
 
 \marginpar{Two phrases of a programming language are contextually equivalent if any occurrences of the first phrase in a complete
   program can be replaced by the second phrase without affecting the observable results of executing the program.
-  This kind of program equivalence is also known as operational, or observational equivalence.}
+  This kind of program equivalence is also known as operational, or observational equivalence \cite[стр. 44]{cambridge-den-sem}.}
 
 \begin{framed}
-  Денотационната семантика $\val{.}$ се нарича {\bf напълно абстрактна}, ако денотационната и операционната наредба съвпадат, т.е. $\val{\tau_1} \sqsubseteq \val{\tau_2}$ точно тогава, когато
-  $\tau_1 \leq_{ctx} \tau_2$.  Един от основните ранни резултати в изучаването на семантиката на езици за програмиране е, че нашата денотационна семантика не е напълно абстрактна.
+  Денотационната семантика $\val{.}$ се нарича {\bf напълно абстрактна}, ако денотационната и операционната наредба съвпадат, т.е. за всеки два затворени терма $\tau_1$ и $\tau_2$ от тип $\vv{a}$ е изпълнено, че:
+  \[\val{\tau_1} \sqsubseteq \val{\tau_2}\text{ точно тогава, когато }\tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
 \end{framed}
 
+Един от основните ранни резултати в изучаването на семантиката на езици за програмиране е, че нашата денотационна семантика не е напълно абстрактна.
 Практически, ако имаме два терма, които са контекстно еквивалентни, то можем да заменим единия с другия в произволна програма,
 без да има видими разлики на ниво изпълнение на програмата.
 % Това представлява опит да се формализира математически практиката за тестване на програми.
@@ -61,11 +68,13 @@
 за всеобщност относно всички контексти (програмни фрагменти).
 
 \begin{proposition}\label{pr:pcf:context:simple}
-  За произволни затворени термове $\tau_1$ и $\tau_2$ е изпълнено, че:
+  За произволни добре типизирани затворени термове $\tau_1$ и $\tau_2$ е изпълнено, че:
   \begin{enumerate}[(1)]
   \item
+    \label{pr:pcf:context:simple:base}
     $\tau_1 \leq_{ctx} \tau_2 : \nat \implies (\forall \vv{n})[\tau_1\Downarrow_{\nat}\vv{n} \implies \tau_2 \Downarrow_{\nat} \vv{n}]$.
   \item
+    \label{pr:pcf:context:simple:step}
     $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c} \implies (\forall \rho\in\text{PCF}_{\vv{b}})[\tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{c}]$.
   \end{enumerate}
 \end{proposition}
@@ -77,72 +86,96 @@
     Да фиксираме произволен терм $\rho\in\text{PCF}_{\vv{b}}$.
     Да разгледаме произволен контекст $\C[-]$, за който $\C[\tau_1\rho]$ и $\C[\tau_2\rho]$
     са затворени термове от тип $\nat$.
-    Разглеждаме контекста $\C' \df \C\rename{-}{(-\rho)}$,
-    т.е. заменяме $-$ с $-\rho$ в контекста.
+    Разглеждаме контекста $\C' \df \C[-\rho]$,
+    т.е. заменяме $-$ с $-\rho$ в контекста $\C$.
     Лесно се съобразява, че \[\C'[\tau_i] \equiv \C[\tau_i\rho].\]
     Понеже $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c}$,
-    то за контекста $\C'$ имаме, че
-    \[\C'[\tau_1] \Downarrow_{\nat} \vv{n} \implies \C'[\tau_2] \Downarrow_{\nat} \vv{n}.\]
-    Оттук веднага следва, че 
-    \[\C[\tau_1\rho] \Downarrow_{\nat} \vv{n} \implies \C[\tau_2\rho] \Downarrow_{\nat} \vv{n}.\]
+    то за специалния контекст $\C'$ имаме, че
+    \[(\forall \vv{n})[\ \C'[\tau_1] \Downarrow_{\nat} \vv{n} \implies \C'[\tau_2] \Downarrow_{\nat} \vv{n}\ ].\]
+    Оттук веднага следва, че за първоначалния контекст $\C$ имаме, че
+    \[(\forall \vv{n})[\ \C[\tau_1\rho] \Downarrow_{\nat} \vv{n} \implies \C[\tau_2\rho] \Downarrow_{\nat} \vv{n}\ ].\]
   \end{enumerate}
 \end{hint}
 
 \begin{proposition}\label{pr:pcf:context:terms}
   За произволни затворени термове $\tau_1$ и $\tau_2$ е изпълнено, че:
-  \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \rho \in \text{PCF}_{\vv{a}\to\nat})[\ \rho\tau_1 \Downarrow_{\nat} \vv{n} \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}\ ].\]
+  \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \rho \in \text{PCF}_{\vv{a}\to\nat})(\forall \vv{n})[\ \rho\tau_1 \Downarrow_{\nat} \vv{n} \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}\ ].\]
 \end{proposition}
-\begin{hint}
-  За $(\Rightarrow)$, при даден терм $\rho \in \text{PCF}_{\vv{a}\to\nat}$, просто вземете контекст $\C~=~\rho~-$.
-  За $(\Leftarrow)$, нека имаме контекст $\C[-]$.
+\begin{proof}
+  За $(\Rightarrow)$, при даден терм $\rho \in \text{PCF}_{\vv{a}\to\nat}$, просто вземете контекстът $\C$ просто да бъде $\C\df\rho~-$. Тогава е ясно, че $\C[\tau_1]$ и $\C[\tau_2]$ са завършени програми и следователно, щом $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$, то е изпълнено, че:
+  \[(\forall \vv{n})[\ \underbrace{\C[\tau_1]}_{\rho\tau_1} \Downarrow_{\nat} \vv{n} \implies \underbrace{\C[\tau_2]}_{\rho\tau_2} \Downarrow_{\nat} \vv{n}\ ].\]
+  За $(\Leftarrow)$, нека разгледаме произволен контекст $\C[-]$,
+  за който $\C[\tau_1] \opsem{}{nat} \vv{n}$. Трябва да докажем, че
+  $\C[\tau_2] \opsem{}{nat} \vv{n}$.
+
   Нека $\vv{z}$ е променлива, която не се среща в $\C[-]$.
-  Разгледайте $\rho \df \lamb{z}{a}{\C\rename{-}{\vv{z}}}$.
+  Разгледайте затворения терм $\rho \df \lamb{z}{a}{\C[-/\vv{z}]}$ от тип $\vv{a} \to \nat$.
   Тогава, понеже $\tau_i$ са затворени термове, то
-  $\C\rename{-}{\tau_i} \equiv \rho\tau_i$.
-\end{hint}
+  $\C[\tau_i] \equiv \C\subst{z}{\tau_i}$.
+  
+  Да напомним, че от правилата на операционната семантика имаме, че
+  \begin{prooftree}
+    \AxiomC{$\rho$ е стойност}
+    \UnaryInfC{$\rho \opsemGen{}{\vv{a}\to\nat} \rho$}
+    \AxiomC{$\C\subst{z}{\tau_1} \opsem{}{nat} \vv{n}$}
+    \RightLabel{(cbn)}
+    \BinaryInfC{$\rho\tau_1 \opsem{}{nat} \vv{n}$}
+  \end{prooftree}
+  Това означава, че имаме и $\rho \tau_2 \opsem{}{nat} \vv{n}$.
+  Тогава пак според правилата на операционната семантика е ясно, че със сигурност имаме и
+  $\C\subst{z}{\tau_2} \opsem{}{nat} \vv{n}$.
+  Така доказахме, че $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
+\end{proof}
+
+Сега започва да става интересно, защото ще свържем логическата релация $\triangleleft_{\vv{a}}$ с релацията $\leq_{ctx}$.
 
 \begin{proposition}\label{pr:pcf:context:relation}
-  За произволни затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$,
+  Нека $\tau_1$ и $\tau_2$ са произволни затворени термове от тип $\vv{a}$ и $d$ е елемент на областта на Скот $\val{\vv{a}}$. Тогава
   \[(d \triangleleft_{\vv{a}} \tau_1\ \&\ \tau_1 \leq_{ctx} \tau_2 : \vv{a}) \implies d \triangleleft_{\vv{a}} \tau_2.\]
 \end{proposition}
 \begin{proof}
-  Индукция по построението на типовете $\vv{a}$.
+  Доказателството следва дефиницията на логическата релация $\triangleleft_{\vv{a}}$, което означава, че
+  ще направим индукция по построението на типовете $\vv{a}$.
+
   Нека $\vv{a} = \nat$.
-  Нека $d \neq \bot$, защото е ясно, че $\bot \triangleleft_{\nat} \tau_2$.
-  Понеже $d \triangleleft_{\nat} \tau_1$, то $\tau_1 \Downarrow_{\nat} \vv{d}$.
-  Понеже $\tau_1 \leq_{ctx} \tau_2 : \nat$, то $\tau_2 \Downarrow_{\nat} \vv{d}$.
-  Заключаваме, че $d \triangleleft_{\nat} \tau_2$.
+  Да приемем, че $d \neq \bot$, защото е ясно, че $\bot \triangleleft_{\nat} \tau_2$.
+  Понеже $d \triangleleft_{\nat} \tau_1$, то от дефиницията на $\triangleleft_{\nat}$ веднага следва, че $\tau_1 \opsem{}{nat} \vv{d}$.
+  Понеже $\tau_1 \leq_{ctx} \tau_2 : \nat$, то според \ref{pr:pcf:context:simple:base} на \Prop{pcf:context:simple} имаме, че $\tau_2 \Downarrow_{\nat} \vv{d}$. Заключаваме, че $d \triangleleft_{\nat} \tau_2$.
   
-  Нека $\vv{a} = \vv{b} \to \vv{c}$.
-  Нека $d \triangleleft_{\vv{b} \to \vv{c}} \tau_1$ и $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c}$.
-  Трябва да докажем, че $d \triangleleft_{\vv{b}\to\vv{c}} \tau_2$.
-  Нека $u \in \val{\vv{b}}$ и $\rho \in \text{PCF}_{\vv{b}}$,
-  за които $u \triangleleft_{\vv{b}} \rho$. Трябва да докажем, че $d(u) \triangleleft_{\vv{c}} \tau_2\rho$.
+  Нека $\vv{a} = \vv{b} \to \vv{c}$ и да приемем, че имаме $d \triangleleft_{\vv{b} \to \vv{c}} \tau_1$ и $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c}$.
+  Трябва да докажем, че $d \triangleleft_{\vv{b}\to\vv{c}} \tau_2$, което според дефиницията на логическата релация $\triangleleft_{\vv{b}\to\vv{c}}$ означава,
+  че за произволни $u \in \val{\vv{b}}$ и $\rho \in \text{PCF}_{\vv{b}}$, за които $u \triangleleft_{\vv{b}} \rho$, трябва да докажем, че $d(u) \triangleleft_{\vv{c}} \tau_2\rho$.
+  Да разгледаме произволен такъв елемент $u$ и терм $\rho$. 
   От $d \triangleleft_{\vv{b} \to \vv{c}} \tau_1$ имаме, че $d(u) \triangleleft_{\vv{c}} \tau_1 \rho$.
-  От (2) на \Prop{pcf:context:simple} имаме, че $\tau_1 \rho \leq_{ctx} \tau_2 \rho : \vv{c}$.
-  От И.П. заключаваме, че $d(u) \triangleleft_{\vv{c}} \tau_2 \rho$.
+  От \ref{pr:pcf:context:simple:step} на \Prop{pcf:context:simple} имаме, че щом $\tau_1 \leq_{ctx} \tau_2 : \vv{b} \to \vv{c}$, то $\tau_1 \rho \leq_{ctx} \tau_2 \rho : \vv{c}$.
+  Сега от \IndHyp заключаваме, че $d(u) \triangleleft_{\vv{c}} \tau_2 \rho$.
 \end{proof}
 
 \begin{proposition}\label{pr:pcf:context:relation-characterization}
-  За произволни затворени термове $\tau_1$ и $\tau_2$,
+  За произволни затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$,
   \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff \val{\tau_1} \triangleleft_{\vv{a}} \tau_2.\]
-\end{proposition}
+\end{proposition}  
 \begin{proof}
   $(\Rightarrow)$ Нека $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
   От \Prop{pcf:adequacy:implication} имаме, че
   \[\val{\tau_1} \triangleleft_{\vv{a}} \tau_1.\]
-  Тогава от предишното твърдение директно следва, че $\val{\tau_1} \leq_{\vv{a}} \tau_2$.
+  Тогава от \Prop{pcf:context:relation} директно следва, че $\val{\tau_1} \triangleleft_{\vv{a}} \tau_2$.
 
   $(\Leftarrow)$ Нека сега $\val{\tau_1} \triangleleft_{\vv{a}} \tau_2$.
-  Тук ще използваме характеризацията на $\leq_{ctx}$ от \Prop{pcf:context:terms}.
+  Тук на помощ ни идва характеризацията на $\leq_{ctx}$ от \Prop{pcf:context:terms}.
   Да разгледаме произволен терм $\rho \in \text{PCF}_{\vv{a} \to \nat}$.
-  Отново \Prop{pcf:adequacy:implication} имаме, че $\val{\rho} \triangleleft_{\vv{a} \to \nat} \rho$.
-  Тогава от дефиницията на релацията $\triangleleft_{\vv{a}\to\nat}$ следва, че:
-  \[\val{\rho\tau_1} = \val{\rho}(\val{\tau_1}) \triangleleft_{\nat} \rho\tau_2.\]
-  Тогава:
+  Трябва да докажем, че:
+  \[(\forall \vv{n})[\ \rho\tau_1 \opsem{}{nat} \vv{n} \implies \rho\tau_2 \opsem{}{nat} \vv{n}\ ].\]
+  Според \Prop{pcf:adequacy:implication} имаме, че $\val{\rho} \triangleleft_{\vv{a} \to \nat} \rho$.
+  Тогава от дефиницията на релацията $\triangleleft_{\vv{a}\to\nat}$ следва, че
+  за произволен елемент $e$ от областта на Скот $\val{\vv{a}}$ и произволен затворен терм $\mu:\vv{a}$,
+  ако $e \triangleleft_{\vv{a}} \mu$, то $\val{\rho}(e) \triangleleft_{\nat} \rho\mu$.
+  Нека да положим $e \df \val{\tau_1}$ и $\mu \df \tau_2$. Тогава получаваме, че:
+  \[\underbrace{\val{\rho\tau_1}}_{\val{\rho}(\val{\tau_1})} \triangleleft_{\nat} \rho\tau_2.\]
+  Сега за произволна стойност $\vv{n}$ имаме, че:
   \begin{align*}
     \rho\tau_1 \Downarrow_{\nat} \vv{n} & \implies \val{\rho\tau_1} = n & \comment\text{\hyperref[th:pcf:soundness]{Теорема за коректност}}\\
-                                            & \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}. & \comment\val{\rho\tau_1} \triangleleft_{\nat} \rho\tau_2
+                                            & \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}. & \comment\text{от }\val{\rho\tau_1} \triangleleft_{\nat} \rho\tau_2
   \end{align*}
   Заключаваме, че $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
 \end{proof}
@@ -151,114 +184,171 @@
   За произволни затворени термове $\tau_1$ и $\tau_2$ е изпълнено, че:
   \begin{enumerate}[(1)]
   \item
+    \label{pr:pcf:context:extensionality:base}
     $\tau_1 \leq_{ctx} \tau_2 : \nat \iff (\forall \vv{n})[\tau_1 \Downarrow_{\nat} \vv{n} \implies \tau_2 \Downarrow_{\nat} \vv{n}]$;
   \item
+    \label{pr:pcf:context:extensionality:step}
     $\tau_1 \leq_{ctx} \tau_2 : \vv{a}\to\vv{b} \iff (\forall \rho \in \text{PCF}_{\vv{a}})[\ \tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{b}\ ]$.
   \end{enumerate}
 \end{proposition}
 \begin{proof}
   \begin{enumerate}[(1)]
   \item
-    Посоката $(\Rightarrow)$ следва директно от \Prop{pcf:context:simple}.
+    Посоката $(\Rightarrow)$ следва директно от \ref{pr:pcf:context:simple:base} на \Prop{pcf:context:simple}.
     За посоката $(\Leftarrow)$, понеже
     \begin{align*}
       \val{\tau_1} = \val{\vv{n}} & \implies \tau_1 \Downarrow_{\nat} \vv{n} & \comment\text{\hyperref[th:pcf:adequacy]{Теорема за адекватност}}\\
                                   & \implies \tau_2 \Downarrow_{\nat} \vv{n}, & \comment\text{от условието}
     \end{align*}
     то получаваме, че $\val{\tau_1} \triangleleft_{\nat} \tau_2$.
-    Тогава от предишното твърдение директно имаме, че $\tau_1 \leq_{ctx} \tau_2 : \nat$.
+    Тогава от \Prop{pcf:context:relation-characterization} получаваме, че $\tau_1 \leq_{ctx} \tau_2 : \nat$.
   \item
-    Посоката $(\Rightarrow)$ следва директно от дефиницията на $\leq_{ctx}$.
-    За посоката $(\Leftarrow)$, според предишното твърдение,
+    Посоката $(\Rightarrow)$ е на практика \ref{pr:pcf:context:simple:step} на \Prop{pcf:context:simple}.
+    За посоката $(\Leftarrow)$, според \Prop{pcf:context:relation-characterization},
     достатъчно е да докажем, че $\val{\tau_1} \triangleleft_{\vv{a}\to\vv{b}} \tau_2$.
-    Нека $u \in \val{\vv{a}}$ и $\rho \in \text{PCF}_{\vv{a}}$, за които $u \triangleleft_{\vv{a}} \rho$.
-    Ще докажем, че $\val{\tau_1}(u) \triangleleft_{\vv{b}} \tau_2\rho$.
-    Понеже $\val{\tau_1} \triangleleft_{\vv{a}\to\vv{b}} \tau_1$, то
+    Според дефиницията на логическата релация $\triangleleft_{\vv{a}\to\vv{b}}$, това означава да
+    докажем че за произволни $u \in \val{\vv{a}}$ и $\rho \in \text{PCF}_{\vv{a}}$, за които $u \triangleleft_{\vv{a}} \rho$, то е изпълнено, че $\val{\tau_1}(u) \triangleleft_{\vv{b}} \tau_2\rho$.
+    Да разгледаме произволни такъв елемент $u$ и терм $\rho$.
+    Тъй като от \Cor{pcf:fundamental} знаем, че $\val{\tau_1} \triangleleft_{\vv{a}\to\vv{b}} \tau_1$, то
     $\val{\tau_1}(u) \triangleleft_{\vv{b}} \tau_1\rho$.
     Но понеже $\tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{b}$, то от \Prop{pcf:context:relation} следва, че
     $\val{\tau_1}(u) \triangleleft_{\vv{b}} \tau_2 \rho$.
   \end{enumerate}
 \end{proof}
 
-Естсвено е да се запитаме дали можем да разширим (1) на \Prop{pcf:context:extensionality} за по-сложни от $\nat$ типове $\vv{a}$, т.е. възможно ли е
+Естествено е да се запитаме дали можем да разширим \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} за по-сложни от $\nat$ типове $\vv{a}$, т.е. възможно ли е
 \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \vv{v} : \vv{a})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]?\]
+Би било странно, ако можем, защото това би обезсмилило разглеждането на релацията $\leq_{ctx}$.
 Първо в \Prop{context:op-left-right} ще видим, че винаги имаме импликацията $(\Leftarrow)$, но по-късно в \Prop{context:op-right-left} ще видим, че дори за типа $\vv{a} = \nat\to\nat$ нямаме импликация $(\Rightarrow)$.
 
 \begin{proposition}\label{pr:context:op-left-right}
-  Докажете, че за всеки два затворени терма $\tau_1, \tau_2 \in \text{PCF}_{\vv{a}}$,
-  % \marginpar{$(\forall \vv{v}:\vv{a})$ означава за всяка стойност $\vv{v}$ от тип $\vv{a}$.}
+  Докажете, че за всеки два затворени терма $\tau_1, \tau_2$ от тип $\vv{a}$,
   \[(\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v} ] \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
 \end{proposition}
-\begin{hint}
-  Според \Prop{pcf:context:relation-characterization}, достатъчно е да докажем, че $\val{\tau_1} \triangleleft_{\vv{a}} \tau_2$.
-  Но това е лесно.
-  От условието имаме, че $(\forall \vv{v}:\vv{a})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]$.
-  Знаем, че $\val{\tau_1} \triangleleft_{\vv{a}} \tau_1$.
-  Тогава \Prop{pcf:adequacy:implication} следва, че $\val{\tau_1} \triangleleft_{\vv{a}} \tau_2$.
-\end{hint}
+\begin{proof}
+  Имаме всичко необходимо за да докажем това твърдение:
+  \begin{prooftree}
+    \AxiomC{от условието}
+    \UnaryInfC{$(\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]$.}
+    \AxiomC{\Cor{pcf:fundamental}}
+    \UnaryInfC{$\val{\tau_1} \triangleleft_{\vv{a}} \tau_1$}
+    \RightLabel{\footnotesize{(\Prop{pcf:adequacy:implication})}}
+    \BinaryInfC{$\val{\tau_1} \triangleleft_{\vv{a}} \tau_2$}
+    \RightLabel{\footnotesize{(\Prop{pcf:context:relation-characterization})}}
+    \UnaryInfC{$\tau_1 \leq_{ctx} \tau_2 : \vv{a}$}
+  \end{prooftree}
+\end{proof}
 
 \begin{proposition}\label{pr:context:den-left-right}
   За произволни затворени термове $\tau_1, \tau_2$ от тип $\vv{a}$,
   \[\val{\tau_1} \sqsubseteq \val{\tau_2} \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
 \end{proposition}  
 \begin{proof}
-  Според \Prop{pcf:context:terms}, достатъчно е да докажем, че за произволен терм $\rho \in \text{PCF}_{\vv{a}\to\nat}$,
-  $\rho\tau_1 \Downarrow_{\nat} \vv{n} \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}$.
+  Според \Prop{pcf:context:terms}, достатъчно е да докажем, че за произволен терм $\rho \in \text{PCF}_{\vv{a}\to\nat}$ имаме импликацията:
+  \[(\forall \vv{n})[\ \rho\tau_1 \Downarrow_{\nat} \vv{n} \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}\ ].\]
+  Но понеже $\val{\tau_1} \sqsubseteq \val{\tau_2}$, това е лесно:
   \begin{align*}
     \rho\tau_1 \Downarrow_{\nat} \vv{n} & \implies \val{\rho\tau_1} = \val{\vv{n}} & \comment\text{\hyperref[th:pcf:soundness]{Теорема за коректност}}\\
-                                            & \implies \val{\rho}(\val{\tau_1}) = \val{\vv{n}} & \comment\text{\hyperref[lem:pcf:substitution]{Лема за замяната}}\\
+                                            & \implies \val{\rho}(\val{\tau_1}) = \val{\vv{n}} \\% & \comment\text{\hyperref[lem:pcf:substitution]{Лема за замяната}}\\
                                             & \implies \val{\rho}(\val{\tau_2}) = \val{\vv{n}} & \comment\text{монотонност на }\val{\rho}\\
-                                            & \implies \val{\rho\tau_2} = \val{\vv{n}} & \comment\text{\hyperref[lem:pcf:substitution]{Лема за замяната}}\\
+                                            & \implies \val{\rho\tau_2} = \val{\vv{n}}\\ % & \comment\text{\hyperref[lem:pcf:substitution]{Лема за замяната}}\\
                                             & \implies \rho\tau_2 \Downarrow_{\nat} \vv{n}. & \comment\text{\hyperref[th:pcf:adequacy]{Теорема за адекватност}}
   \end{align*}
 \end{proof}
+
+Можем да обобщим всичко, което сме направили до момента като формулираме следната теорема.
 
 \begin{framed}
   \begin{theorem}\label{th:pcf:context:connection}
     За всички затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$ е изпълнено, че:
     \begin{enumerate}[(1)]
     \item 
-      $(\forall \vv{v}:\vv{a})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \iff \tau_2 \Downarrow_{\vv{a}} \vv{v} ] \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}$;
+      $(\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \iff \tau_2 \Downarrow_{\vv{a}} \vv{v} ] \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}$;
     \item
       $\val{\tau_1} = \val{\tau_2} \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}$.
     \end{enumerate}
   \end{theorem}
 \end{framed}
 
-От \Prop{pcf:context:extensionality} и от \hyperref[th:pcf:soundness]{теоремата за коректност} имаме и обратните импликации за типа $\nat$.
-За съжаление, ще видим, че нямаме обратните импликации за по-високи типове от $\nat$.
+В частния случай на $\vv{a} = \nat$ имаме и обратните импликации на \Th{pcf:context:connection}.
 
+\begin{framed}
+    \begin{corollary}\label{cr:pcf:context:connection}
+    За всички затворени термове $\tau_1$ и $\tau_2$ от тип $\nat$ е изпълнено, че:
+    \begin{enumerate}[(1)]
+    \item 
+      $(\forall \vv{n})[\tau_1 \opsem{}{nat} \vv{n} \iff \tau_2 \opsem{}{nat} \vv{n} ] \iff \tau_1 \cong_{ctx} \tau_2 : \nat$;
+    \item
+      $\val{\tau_1} = \val{\tau_2} \iff \tau_1 \cong_{ctx} \tau_2 : \nat$.
+    \end{enumerate}
+  \end{corollary}
+\end{framed}
+\begin{proof}
+  (1) представлява точно \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality}.
+  За обратната посока на (2), нека $\tau_1 \leq_{ctx} \tau_2 : \nat$. Трябва да докажем, че $\val{\tau_1} \sqsubseteq \val{\tau_2}$.
+  Нека $\val{\tau_1} = n \neq \bot$, защото ако $\val{\tau_1} = \bot$, то е ясно, че $\val{\tau_1} \sqsubseteq \val{\tau_2}$.
+  Имаме импликациите:
+  \begin{align*}
+    \val{\tau_1} = n & \implies \tau_1 \opsem{}{nat} \vv{n} & \comment\text{\hyperref[th:pcf:adequacy]{Теорема за адекватност}}\\
+                     & \implies \tau_2 \opsem{}{nat} \vv{n} & \comment\text{\ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality}}\\
+                     & \implies \val{\tau_2} = n. & \comment\text{\hyperref[th:pcf:soundness]{Теорема за коректност}}
+  \end{align*} 
+\end{proof}
+
+Нека сега да видим, че нямаме обратните импликации за по-високи типове от $\nat$ като разгледаме термовете $\Omega_{\vv{a}}$ и $\Omega'_{\vv{a}}$, които сме срещали и преди
+и сме разглеждали техните свойства в \Problem{pcf:context:omega}.
 
 \begin{proposition}\label{pr:context:op-right-left}
   $\Omega'_{\nat} \cong_{ctx} \Omega_{\nat\to\nat} : \nat \to \nat$.
 \end{proposition}
+\marginpar{Да напомним, че
+  \begin{align*}
+    \Omega_{\vv{a}} &  \df \fix(\lamb{x}{a}{\vv{x}})\\
+    \Omega'_{\vv{a}} & \df \lamb{x}{a}{\Omega_{\vv{a}}}.
+  \end{align*}}
 \begin{proof}
-  Ще използваме (2) на \Prop{pcf:context:extensionality}.
-  Първо да разгледаме посоката $(\Rightarrow)$. За произволно $\rho:\nat$, ще докажем, че $\Omega'_{\nat}\rho \leq_{ctx} \Omega_{\nat\to\nat}\rho : \nat$,
-  което според (1) на \Prop{pcf:context:extensionality} означава да докажем, че
+  Първо да видим защо $\Omega'_{\nat} \leq_{ctx} \Omega_{\nat\to\nat} : \nat \to \nat$.
+  Според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality}, трябва да докажем, че за
+  произволен затворен терм $\rho$ от тип $\nat$ е изпълнено, че
+  \[\Omega'_{\nat}\rho \leq_{ctx} \Omega_{\nat\to\nat}\rho : \nat,\]
+  което според \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} означава да докажем, че
   \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
-  Да отбележим, че $\Omega'_{\nat} \rho \not\opsem{}{nat}$, защото
+  Да отбележим, че $\Omega'_{\nat} \rho \not\opsem{}{nat}$, защото $\Omega_{\nat}$ е затворен терм и $\Omega_{\nat}\subst{x}{\rho} \equiv \Omega_{\nat}$ и според правилата на операционната семантика имаме следното изчисление:
   \begin{prooftree}
     \AxiomC{$\Omega'_{\nat}$ е стойност}
+    \LeftLabel{\footnotesize{(val)}}
     \UnaryInfC{$\Omega'_{\nat} \opsem{0}{nat} \Omega'_{\nat}$}
-    \AxiomC{$\Omega_{\nat} \not\opsem{}{nat}$}
+    \AxiomC{\ref{pcf:omega:operational} на \Problem{pcf:context:omega}}
+    \UnaryInfC{$\Omega_{\nat} \not\opsem{}{nat}$}
     \UnaryInfC{$\Omega_{\nat}\subst{x}{\rho} \not\opsem{}{nat}$}
+    \RightLabel{\footnotesize{(cbn)}}    
     \BinaryInfC{$\Omega'_{\nat} \rho \not\opsem{}{nat}$}
   \end{prooftree}
-  Тогава заключаваме, че за всяко такова $\rho$,
-  \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \Downarrow_{\nat} \vv{n}\ ].\]
-  Сега да разгледаме посоката $(\Leftarrow)$.
-  Тук правим сходни разсъждения, защото понеже $\Omega_{\nat\to\nat} \not\Downarrow_{\nat\to\nat}$, то и $\Omega_{\nat\to\nat} \rho \not\opsem{}{nat}$.
+  Тогава заключаваме, че за всеки затворен терм $\rho$ от тип $\nat$, е изпълнено
+  \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \Downarrow_{\nat} \vv{n}\ ],\]
+  защото лявата част на импликацията никога не е вярна.
+
+  Нека сега да видим защо $\Omega_{\nat\to\nat} \leq_{ctx} \Omega'_{\nat} : \nat \to \nat$. Разсъждаваме по сходен начин.
+  Ще докажем, че за произволен затворен терм $\rho$ от тип $\nat$ е изпълнено, че:
+  \[(\forall \vv{n})[\ \Omega_{\nat\to\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega'_{\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
+  Според правилата на операционната семантиката получаваме следното:
+  \begin{prooftree}
+    \AxiomC{\ref{pcf:omega:operational} на \Problem{pcf:context:omega}}
+    \UnaryInfC{$\Omega_{\nat\to\nat} \not\opsemGen{}{\nat\to\nat}$}
+    \AxiomC{$...$}
+    \RightLabel{\footnotesize{(cbn)}}
+    \BinaryInfC{$\Omega_{\nat\to\nat}\rho \not\opsemGen{}{\nat\to\nat}$}
+  \end{prooftree}
+  Отново заключаваме, че за всеки затворен терм $\rho$ от тип $\nat$, е изпълнено
+  \[(\forall \vv{n})[\ \Omega_{\nat\to\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega'_{\nat} \rho \Downarrow_{\nat} \vv{n}\ ],\]
+  защото лявата част на импликацията никога не е вярна.
 \end{proof}
 
-
-% \begin{remark}
 Знаем, че $\Omega_{\nat\to\nat} \not\opsemGen{}{\nat\to\nat}$, но $\Omega'_{\nat} \opsemGen{}{\nat\to\nat} \Omega'_{\nat}$.
-Това означава, че според горната задача термовете $\Omega_{\nat\to\nat}$ и $\Omega'_{\nat}$ ни дават пример кога нямаме обратната импликация в (1) на \Th{pcf:context:connection}.
+Това означава, че според \Prop{context:op-right-left}, термовете $\Omega_{\nat\to\nat}$ и $\Omega'_{\nat}$ ни дават пример кога нямаме обратната импликация в (1) на \Th{pcf:context:connection}.
 Обърнете внимание, че $\val{\Omega_{\nat\to\nat}} = \val{\Omega'_{\nat}}$.
 Следователно, трябва да продължим да търсим термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$, за които $\val{\tau_1} \neq \val{\tau_2}$
 и $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$.
-% \end{remark}
 
 
 %%% Local Variables:

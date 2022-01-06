@@ -18,7 +18,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
 \item
   \marginpar{Съобразете, че теоремата за адекватност на практика гласи, че $\val{\tau} \triangleleft_{\vv{nat}} \tau$.}
   Нека $\vv{a} = \vv{nat}$. Тогава 
-  \marginpar{Обикновено $\triangleleft_{\vv{a}}$ се нарича \emph{логическа релация}.
+  \marginpar{Обикновено $\triangleleft_{\vv{a}}$ се нарича \emph{логическа релация} или formal approximation relation \cite[стр. 57]{cambridge-den-sem}.
     В \cite[стр. 210]{models-of-computation} е обяснено защо имаме нужда от тези релации за да докажем теоремата за адекватност. В \cite[стр. 134]{gunter} е представен синтактичен подход към решаването на този проблем.}
   \[n \triangleleft_{\vv{nat}} \tau \dff ( n\neq\bot^{\val{\vv{nat}}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}).\]
 \item
@@ -465,7 +465,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
 
 \begin{framed}
   \begin{corollary}
-    За всеки затворен терм $\tau : \vv{nat}$, 
+    За всеки затворен терм $\tau : \vv{nat}$ е изпълнено, че:
     \[\val{\tau} = n \neq \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \Downarrow_{\vv{nat}} \vv{n}.\]
   \end{corollary}
 \end{framed}
@@ -481,25 +481,15 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   & \rho \equiv \lamb{x}{nat}{\vv{x}}.
 \end{align*}
 
-
 Ясно е, че $\val{\tau} = \val{\rho}$, но според правилата на операционната семантика, понеже $\tau$ е стойност, то
 $\tau \not\Downarrow_{\vv{nat}\to\vv{nat}} \rho$.
 Оттук веднага е ясно, че няма как да имаме теорема за адекватност за по-високи типове от $\vv{nat}$.
-
-
-% \begin{corollary}
-%   За всеки $\tau \in \text{PCF}_{\nat}$ е изпълнена импликацията:
-%   \[\tau \not\Downarrow_{\nat}\ \implies\ \val{\tau} = \bot^{\val{\nat}}.\]  
-% \end{corollary}
-% \begin{proof}
-
-% \end{proof}
 
 Следващото следствие ни казва, че за типа $\nat$, $\bot$ означава изчисление, което никога не завършва.
 
 \begin{framed}
   \begin{corollary}
-    Нека $\tau$ е затворен терм от тип $\nat$. Тогава 
+    За всеки затворен терм $\tau : \nat$ е изпълнено, че:
     \[\val{\tau} = \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \not\opsem{}{nat}.\]
   \end{corollary}
 \end{framed}
