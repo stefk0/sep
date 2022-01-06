@@ -4,7 +4,7 @@
 \marginpar{\cite[Глава 6.1]{gunter}}
 \marginpar{\cite[Глава 48]{practical-foundations}}
 \marginpar{Интуитивно, контекстите са програмни фрагменти. Не са пълни програми, защото имат празни места означени с $-$.}
-\[\C ::= -\ |\ \vv{n}\ |\ \vv{x}\ |\ \C + \C\ |\ \C\ \vv{==}\ \C\ |\ \ifelse{\C}{\C}{\C}\ |\ \C\C\ |\ \lamb{x}{a}{\C}\ |\ \fix(\C).\]
+\[\C ::= -\ |\ \vv{n}\ |\ \vv{x}\ |\ \C - \C\ |\ \C + \C\ |\ \C\ \vv{==}\ \C\ |\ \ifelse{\C}{\C}{\C}\ |\ \C\C\ |\ \lamb{x}{a}{\C}\ |\ \fix(\C).\]
 Контекстите са на практика изрази, като позволяваме да имат специална свободна променлива, която означаваме с $-$.
 % За произволен израз $\tau$, с $\C\{\tau\}$ означаваме израза $\C\rename{-}{\tau}$, където считаме $-$ като свободна променлива на $\C$.
 % Това означава, че заместваме всички срещания на $-$ с $\tau$ като правим заместването директно, т.е.
@@ -109,21 +109,23 @@
   $\C[\tau_2] \opsem{}{nat} \vv{n}$.
 
   Нека $\vv{z}$ е променлива, която не се среща в $\C[-]$.
-  Разгледайте затворения терм $\rho \df \lamb{z}{a}{\C[-/\vv{z}]}$ от тип $\vv{a} \to \nat$.
+  Да разгледаме терма $\rho' \df \C[-/\vv{z}]$, т.е. в контекста $\C$ заменяме $-$ с нова променлива $\vv{z}$. Ясно е, че $\type{z}{a} \vdash \rho' : \nat$.
+  Разгледайте затворения терм $\rho \df \lamb{z}{a}{\rho'}$ от тип $\vv{a} \to \nat$.
   Тогава, понеже $\tau_i$ са затворени термове, то
-  $\C[\tau_i] \equiv \C\subst{z}{\tau_i}$.
+  $\C[\tau_i] \equiv \rho'\subst{z}{\tau_i}$.
   
   Да напомним, че от правилата на операционната семантика имаме, че
   \begin{prooftree}
     \AxiomC{$\rho$ е стойност}
+    \LeftLabel{\footnotesize{(val)}}
     \UnaryInfC{$\rho \opsemGen{}{\vv{a}\to\nat} \rho$}
-    \AxiomC{$\C\subst{z}{\tau_1} \opsem{}{nat} \vv{n}$}
-    \RightLabel{(cbn)}
+    \AxiomC{$\rho'\subst{z}{\tau_1} \opsem{}{nat} \vv{n}$}
+    \RightLabel{\footnotesize{(cbn)}}
     \BinaryInfC{$\rho\tau_1 \opsem{}{nat} \vv{n}$}
   \end{prooftree}
   Това означава, че имаме и $\rho \tau_2 \opsem{}{nat} \vv{n}$.
   Тогава пак според правилата на операционната семантика е ясно, че със сигурност имаме и
-  $\C\subst{z}{\tau_2} \opsem{}{nat} \vv{n}$.
+  $\rho'\subst{z}{\tau_2} \opsem{}{nat} \vv{n}$.
   Така доказахме, че $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
 \end{proof}
 
