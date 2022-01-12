@@ -1,16 +1,16 @@
-\section{Пълна абстракция}\label{pcf:sect:full-abstraction}
-\marginpar{Full abstraction на англ., \cite{milner-fully-abstract}.}
+\section{Проблемът за пълна абстракция}\label{pcf:sect:full-abstraction}
+\marginpar{На англ. \emph{full abstraction}, \cite{milner-fully-abstract}.}
 \begin{definition}
   \marginpar{\cite[стр. 179]{gunter}}
   Денотационната семантика $\val{.}$ се нарича {\bf напълно абстрактна}, ако
-  контекстната (операционната) и денотационната наредба съвпадат, т.е.
-  за произволни термове $\tau_1,\tau_2$ от тип $\vv{a}$ е изпълнено, че
+  контекстната и денотационната наредба съвпадат, т.е.
+  за произволни термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$ е изпълнено, че
   \[\val{\tau_1} \sqsubseteq \val{\tau_2} \iff \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
 \end{definition}
 
 \begin{framed}
   \begin{theorem}[Гордън Плоткин 1977]
-    Денотационната семантика $\val{.}$ за \PCF++ {\bf не е} напълно абстрактна.
+    Денотационната семантика $\val{.}$ за \PCFBOOL {\bf не е} напълно абстрактна.
   \end{theorem}
 \end{framed}
 Да напомним, че от \Th{pcf:context:connection} винаги имаме следното:
@@ -38,41 +38,20 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
 
   \vspace{10pt}
   
-  Докажете, че $\texttt{sor}$ е определима в \PCFPP.
+  Докажете, че $\texttt{sor}$ е определима в \PCFBOOL.
 \end{problem}
 \begin{hint}
   Разгледайте затворения терм
-  
-  
-  \[\tau \df \lamb{x}{bool}{\lamb{y}{bool}{\ifelse{\vv{x}}{\tru}{{\ifelse{\vv{y}}{\tru}{\fls}}}}}\]
+  \begin{lstlisting}
+    $\tau \equiv \lambda$x:bool.$\lambda$y:bool.if x then true else y
+  \end{lstlisting}
+  % \begin{lstlisting}
+  %   $\tau \equiv \lambda$x:bool.$\lambda$y:bool.if x then true
+  %                        else if y then true
+  %                          else false
+  % \end{lstlisting}
   Докажете, че $\val{\tau} = sor$.
 \end{hint}
-
-
-
-% \begin{problem}
-%   Да дефинираме функцията $sor:\Nat_\bot \to (\Nat_\bot \to \Nat_\bot)$ по следния начин:
-%   \marginpar{$sor$ идва от sequential or.}
-  
-%   \begin{tabular}{|c|c|c|c|}
-%     \hline
-%     $sor$ & $\bot$ & $0$ & $y>0$ \\
-%     \hline
-%     $\bot$ & $\bot$ & $\bot$ & $\bot$\\
-%     \hline
-%     $0$ & $\bot$ & $0$ & $1$\\
-%     \hline
-%     $x>0$ & $1$ & $1$ & $1$\\
-%     \hline
-%   \end{tabular}
-  
-%   Докажете, че $\texttt{sor}$ е определима в PCF.
-% \end{problem}
-% \begin{hint}
-%   Разгледайте затворения терм
-%   \[\tau \df \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{x}}{\vv{1}}{\ifelse{\vv{y}}{\vv{1}}{\vv{0}}}}}\]
-%   Докажете, че $\val{\tau} = sor$.
-% \end{hint}
 
 \begin{problem}
   Да дефинираме изображението $por:\Bool \to (\Bool \to \Bool)$ по следния начин:
@@ -100,34 +79,9 @@ $\val{\tau_1} \neq \val{\tau_2}$ и $\tau_1 \cong \tau_2 : \vv{a}$.
   Достатъчно е да се съобрази, че $por$ е монотонно изображение.
 \end{hint}
 
-
-
-% \begin{problem}
-
-% Да дефинираме изображението $por:\Nat_\bot\to(\Nat_\bot \to \Nat_\bot)$ по следния начин:
-
-% \begin{tabular}{|c|c|c|c|}
-%   \hline
-%   $por$ & $\bot$ & $0$ & $y>0$\\
-%   \hline
-%   $\bot$ & $\bot$ & $\bot$ & $1$\\
-%   \hline
-%   $0$ & $\bot$ & $0$ & $1$\\
-%   \hline
-%   $x>0$ & $1$ & $1$ & $1$\\
-%   \hline
-% \end{tabular}
-% \marginpar{$por$ идва от parallel or.}
-
-%   Докажете, че $por$ е непрекъснато изображение.
-% \end{problem}
-% \begin{hint}
-%   Достатъчно е да се съобрази, че $por$ е монотонно изображение.
-% \end{hint}
-
 \begin{framed}
   \begin{lemma}[Гордън Плоткин 1977]
-    Изображението $por$ не е определимо в \PCFPP, т.е. не съществува затворен терм $\tau$ на езика \PCFPP,
+    Изображението $por$ не е определимо в \PCFBOOL, т.е. не съществува затворен терм $\tau$ на езика \PCFBOOL,
     за който $\val{\tau} = por$.
   \end{lemma}
 \end{framed}
@@ -161,8 +115,8 @@ ghci> undefined || True
 
   \vspace{10pt}
   
-  Докажете, че $f = \texttt{por}$.
-  Заключете, че $f$ не е определимо в \PCFPP.
+  Докажете, че $f = por$.
+  Заключете, че $f$ не е определимо в \PCFBOOL.
   
 \end{problem}
 \begin{hint}
@@ -173,7 +127,7 @@ ghci> undefined || True
 В следващите твърдения ще използваме типовете
 \begin{align*}
   & \vv{a} \df \bool \to (\bool \to \bool)\\
-  & \vv{b} \df (\bool \to (\bool \to \bool))\to\bool.
+  & \vv{c} \df (\bool \to (\bool \to \bool))\to\bool.
 \end{align*}
 За $n = 0,1$, нека дефинираме затворените термове
 
@@ -188,45 +142,32 @@ ghci> undefined || True
               else $\Omega_\bool$
 \end{lstlisting}
 
-Тук $\vv{b}_0 = \tru$, $\vv{b}_1 = \fls$.
+Тук сме положили $\vv{b}_0 \df \tru$, $\vv{b}_1 \df \fls$.
 
 \begin{problem}
-  Докажете, че $\emptyset \vdash \tau_0:\vv{b}$ и $\emptyset \vdash \tau_1:\vv{b}$.
+  Докажете, че $\emptyset \vdash \tau_0:\vv{c}$ и $\emptyset \vdash \tau_1:\vv{c}$.
 \end{problem}
 
-% \begin{problem}
-%   Докажете, че 
-%   \[\val{\tau_0} \neq \val{\tau_1}.\]
-% \end{problem}
-% \begin{hint}
-  % Докажете, че за $n = 0,1$ е изпълнено, че
-  % \[\val{\tau_n}(por) = b_n.\]  
-% \end{hint}
-
-Следващото твърдение показва защо денотационната семантика $\val{.}$ на езика \PCFPP не е напълно абстрактна.
+Следващото твърдение показва защо денотационната семантика на езика \PCFBOOL не е напълно абстрактна.
 \begin{framed}
-\begin{proposition}
-  $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$, но $\val{\tau_0} \neq \val{\tau_1}$.
+  \begin{proposition}
+    \label{pr:full-abstraction:counter-example}
+    $\tau_0 \cong_{ctx} \tau_1 : \vv{c}$, но $\val{\tau_0} \neq \val{\tau_1}$.
 \end{proposition}  
 \end{framed}
 \begin{proof}
-  Първо докажете, че за $n = 0,1$ е изпълнено, че
-  \[\val{\tau_n}(por) = b_n.\]  
+  Първо, докажете, че $\val{\tau_0}(por) = \tru \neq \fls = \val{\tau_1}(por)$, откъдето е ясно, че $\val{\tau_0} \neq \val{\tau_1}$.
   
-  Второ, понеже $\vv{b} = \vv{a} \to \bool$, от \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
-  за всеки затворен терм $\rho:\vv{a}$ е изпълнено, че
-  \[(\forall \vv{v})[\tau_1\rho \Downarrow_{\bool} \vv{v} \iff \tau_2\rho \Downarrow_{\bool} \vv{v}].\]
-  Да видим какво означава $\tau_i \rho \Downarrow_{\bool}$ за $i = 0,1$.
-  Това означава, че трябва да са изпълнени и трите свойства:
-  \begin{itemize}
-  \item
-    $\rho\ \tru\ \Omega_{\bool} \Downarrow_{\bool} \tru$;% , за някое $\vv{k} \not\equiv \vv{0}$;
-  \item
-    $\rho\ \Omega_{\bool}\ \tru \Downarrow_{\bool} \tru$;% , за някое $\vv{m} \not\equiv \vv{0}$;
-  \item
-    $\rho\ \fls\ \fls \Downarrow_{\bool} \fls$.
-  \end{itemize}
-  Понеже $\val{\Omega_{\bool}} = \bot$, от \hyperref[th:pcf:soundness]{теоремата за коректност} получаваме, че трябва да са изпълнени следните три свойства:
+  Второ, понеже $\vv{c} = \vv{a} \to \bool$, от \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} следва, че е достатъчно да докажем, че
+  \[(\forall \rho \in \PCF_{\vv{a}})[\ \tau_0\rho \eqCtx \tau_1\rho : \bool\ ].\]
+  Оттук, според \ref{cr:pcf:context:connection:denotational} на \Cor{pcf:context:connection},
+  трябва да докажем, че
+  \[(\forall \rho \in \PCF_{\vv{a}})[\ \val{\tau_0\rho} = \val{\tau_1\rho}\ ],\]
+  което е еквивалентно на
+  \[(\forall \rho \in \PCF_{\vv{a}})[\ \val{\tau_0}(\val{\rho}) = \val{\tau_1}(\val{\rho})\ ].\]
+  Лесно се съобразява, че понеже $\val{\Omega_{\bool}} = \bot$,
+  за да бъде $\val{\tau_i}(\val{\rho}) \neq \bot$, за $i = 0,1$, то 
+  трябва да са изпълнени следните три свойства:
   \begin{itemize}
   \item
     $\val{\rho}(true)(\bot) = true$;
@@ -235,22 +176,80 @@ ghci> undefined || True
   \item
     $\val{\rho}(false)(false) = false$.
   \end{itemize}
-  Но тогава $\val{\rho} = por$, което е противоречие с \Problem{pcf:full-abstraction:por}.
-  Заключаваме, че не съществува затворен терм $\rho$ на езика \PCFPP, за който $\tau_i\rho\Downarrow_\bool$ за $i = 0,1$. Това означава, че $\tau_1 \cong_{ctx} \tau_2 : \vv{b}$ по тривиални причини.
+  Но тогава според \Problem{pcf:full-abstraction:por} следва, че $\val{\rho} = por$, което е противоречие, защото знаем, че $por$ не е определима в езика $\PCFBOOL$.
+  Заключаваме, че 
+  \[(\forall \rho \in \PCF_{\vv{a}})[\ \val{\tau_0}(\val{\rho}) = \bot = \val{\tau_1}(\val{\rho})\ ].\]
+  Това означава, че $\tau_1 \cong_{ctx} \tau_2 : \vv{c}$.
 \end{proof}
 
-Доказателството на следващата теорема излиза извън обхата на този курс.
+\begin{problem}
+  \marginpar{Задача от Кеймбридж 2021 г. \cite{cambridge-website}}
+  Нека разгледаме произволен затворен терм $\tau$ на езика \PCFBOOL от тип $\vv{a}$. 
+  Докажете или опровергайте импликациите:
+  \begin{enumerate}[(1)]
+  \item
+    $\val{\tau} = \bot^{\val{\vv{a}}} \implies \tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a}$;
+  \item
+    $\tau = \bot^{\val{\vv{a}}} \implies \val{\tau} \not\opsem{}{a}$;
+  \item
+    $\tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a} \implies \tau \not\opsem{}{a}$;
+  \item
+    $\tau \not\opsem{}{a} \implies \tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a}$;
+  \item
+    $\tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a} \implies \val{\tau} = \bot^{\val{\vv{a}}}$.
+  \end{enumerate}
+\end{problem}
+\begin{hint}
+  \begin{enumerate}[(1)]
+  \item
+    Да, защото $\val{\tau} = \val{\Omega_{\vv{a}}}$ и оттук $\tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a}$
+    според \ref{pcf:context:connection:denotational} на \Th{pcf:context:connection}.
+  \item
+    Тази импликация е вярна за $\vv{a} = \nat$ както знаем от \Cor{pcf:adequacy:bottom}.
+    За по-високи типове импликацията не е вярна, защото можем да вземем $\tau \equiv \Omega'_{\nat}$.
+    Тогава $\val{\tau} = \bot^{\val{\nat\to\nat}}$, но $\tau \opsemGen{}{\nat\to\nat} \tau$.
+  \item
+    Не, защото отново можем да вземем $\tau \equiv \Omega'_{\nat}$.
+    Тогава $\tau \cong_{ctx} \Omega_{\nat\to\nat} : \nat\to\nat$ според \Prop{full-abstraction:counter-example}, но $\tau \opsemGen{}{\nat\to\nat} \tau$.
+    Тази импликация е вярна само за $\vv{a} = \nat$.
+  \item
+    Да, защото, щом $\tau \not\opsem{}{a}$, то имаме, че
+    $(\forall \vv{v})[\tau \opsem{}{a} \vv{v} \iff \Omega_{\vv{a}} \opsem{}{a} \vv{v}]$
+    и според \ref{pcf:context:connection:denotational} на \Th{pcf:context:connection}
+    получаваме, че $\tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a}$.
+  \item
+    Накратко, не. По-подробно, очевидно е, че импликацията е изпълнена за $\vv{a} = \nat$ или $\vv{a} = \bool$.
+    Според \Problem{context:chain:implication}, то тази импликация е изпълнена и за
+    типове $\vv{a} = \vv{a}_1 \to \vv{a}_2 \cdots \to \vv{a}_n$, където $\vv{a}_i = \nat$ или $\vv{a}_i = \bool$.
+    
+    Но нека да вземем $\vv{a} = \vv{c} = (\bool \to (\bool \to \bool))\to\bool$ както по-горе и за $\tau_i$ имаме, че $\tau_i \cong_{ctx} \Omega_{\vv{c}} : \vv{c}$.
+    Ако допуснем, че $\val{\tau_i} = \bot^{\val{\vv{c}}}$, то ще следва, че $\val{\tau_0} = \val{\tau_1}$,
+    което е противоречие с \Prop{full-abstraction:counter-example}.    
+  \end{enumerate}
+\end{hint}
+
+Така видяхме, че ако вземем всички възможни непрекъснати изображения между две области на Скот, то
+по този начин губим възможността да изучим точно функциите описващи последователни изчисления.
+Както видяхме с функцията $por$, тя е непрекъсната, но е очевидно, че за да можем да я дефинираме на нашия език, т.е. да съществува терм, чиято семантика е $por$, то трябва да имаме начин за описание на паралелни изчисления в нашия език. Оттук нататък можем да подходим по два начина.
+
+\begin{itemize}
+\item
+  Можем да се опитаме да разгледаме по-фини версии на понятията непрекъснатост между области на Скот, така че да изключим функции от вида на $por$.
+\item
+  Можем да обогатим езика с нови конструкции, които да позволят функции като $por$ да бъдат дефинирани.
+  Такъв пример е езикът \PCFPOR.
+\end{itemize}
 
 
 \subsection{Езикът \PCFPOR}
 
-Дефинираме езика \PCFPOR като разширение на \PCFPP по следния начин:
+Дефинираме езика \PCFPOR като разширение на \PCFBOOL по следния начин:
 
 \begin{itemize}
 \item
-  Типовете на \PCFPOR са типовете на \PCFPP
+  Типовете на \PCFPOR са типовете на \PCFBOOL.
 \item
-  Термовете на \PCFPOR са термовете на \PCFPP с едно ново правило:
+  Термовете на \PCFPOR са термовете на \PCFBOOL с едно ново правило:
   \[\tau ::= \dots\ |\ \por(\tau_1,\tau_2).\]
 \item
   Имаме следните нови правила в операционната семантика:
@@ -258,23 +257,23 @@ ghci> undefined || True
   \begin{figure}[H]
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_1 \Downarrow_\bool \tru$}
-        \UnaryInfC{$\por(\tau_1,\tau_2) \Downarrow_\bool \tru$}
+        \AxiomC{$\tau_1 \opsem{}{bool} \tru$}
+        \UnaryInfC{$\por(\tau_1,\tau_2) \opsem{}{bool} \tru$}
       \end{prooftree}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_2 \Downarrow_\bool \tru$}
-        \UnaryInfC{$\por(\tau_1,\tau_2) \Downarrow_\bool \tru$}
+        \AxiomC{$\tau_2 \opsem{}{bool} \tru$}
+        \UnaryInfC{$\por(\tau_1,\tau_2) \opsem{}{bool} \tru$}
       \end{prooftree}
     \end{subfigure}
   \end{figure}
 
   \begin{prooftree}
-    \AxiomC{$\tau_1 \Downarrow_\bool \fls$}
-    \AxiomC{$\tau_2 \Downarrow_\bool \fls$}
-    \BinaryInfC{$\por(\tau_1,\tau_2) \Downarrow_\bool \fls$}
+    \AxiomC{$\tau_1 \opsem{}{bool} \fls$}
+    \AxiomC{$\tau_2 \opsem{}{bool} \fls$}
+    \BinaryInfC{$\por(\tau_1,\tau_2) \opsem{}{bool} \fls$}
   \end{prooftree}
   
 \item
@@ -282,17 +281,10 @@ ghci> undefined || True
   \[\val{\por(\tau_1,\tau_2)}_\Gamma(\ov{u}) \df por(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}(\ov{u})).\]
 \end{itemize}
 
-
-\begin{problem}
-  Нека $\tau$ е затворен терм на езика \PCFPOR. Докажете, че ако
-  $\tau \Downarrow \vv{v}$ и $\tau \Downarrow \vv{v}'$, то $\vv{v} \equiv_\alpha \vv{v}'$.
-\end{problem}
-
-
 \index{Плоткин}
 \begin{framed}
   \begin{theorem}[Плоткин 1977]
-    Денотационната семантика $\val{.}$ за \PCFPP(\texttt{por}) е напълно абстрактна.
+    Денотационната семантика $\val{.}$ за езика \PCFPOR е напълно абстрактна.
   \end{theorem}
 \end{framed}
 \marginpar{\cite[стр. 188]{gunter}}

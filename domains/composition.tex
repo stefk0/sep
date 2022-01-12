@@ -34,6 +34,22 @@ ghci> :t (.)
 (.) :: (b -> c) -> (a -> b) -> a -> c  
 \end{haskellcode}
 
+
+\begin{problem}
+  \marginpar{\cite[стр. 131]{nikolova-soskova}}
+  Нека $f \in \Cont{\A}{\B}$ и $g \in \Cont{\B}{\A}$.
+  Докажете, че 
+  \begin{itemize}
+  \item 
+    $\lfp(g \circ f) \sqsubseteq g(\lfp(f \circ g))$;
+  \item
+    $f(\lfp(g \circ f)) \sqsubseteq \lfp(f \circ g)$.
+  \end{itemize}
+  Оттук заключете, че 
+  \[\lfp(g \circ f) = g(\lfp(f \circ g)) \text{ и }f(\lfp(g \circ f)) = \lfp(f \circ g).\]
+\end{problem}
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../sep"

@@ -1,4 +1,4 @@
-\section{Контексти}\label{pcf:sect:context}
+\section{Контекстна еквивалентност}\label{pcf:sect:context}
 
 \index{контекст}
 \marginpar{\cite[Глава 6.1]{gunter}}
@@ -75,7 +75,7 @@
     $\tau_1 \leq_{ctx} \tau_2 : \nat \implies (\forall \vv{n})[\tau_1\Downarrow_{\nat}\vv{n} \implies \tau_2 \Downarrow_{\nat} \vv{n}]$.
   \item
     \label{pr:pcf:context:simple:step}
-    $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c} \implies (\forall \rho\in\text{PCF}_{\vv{b}})[\tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{c}]$.
+    $\tau_1 \leq_{ctx} \tau_2 : \arr{b}{c} \implies (\forall \rho\in\text{PCF}_{\vv{b}})[\tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{c}]$.
   \end{enumerate}
 \end{proposition}
 \begin{hint}
@@ -144,7 +144,7 @@
   Понеже $d \triangleleft_{\nat} \tau_1$, то от дефиницията на $\triangleleft_{\nat}$ веднага следва, че $\tau_1 \opsem{}{nat} \vv{d}$.
   Понеже $\tau_1 \leq_{ctx} \tau_2 : \nat$, то според \ref{pr:pcf:context:simple:base} на \Prop{pcf:context:simple} имаме, че $\tau_2 \Downarrow_{\nat} \vv{d}$. Заключаваме, че $d \triangleleft_{\nat} \tau_2$.
   
-  Нека $\vv{a} = \vv{b} \to \vv{c}$ и да приемем, че имаме $d \triangleleft_{\vv{b} \to \vv{c}} \tau_1$ и $\tau_1 \leq_{ctx} \tau_2 : \vv{b}\to\vv{c}$.
+  Нека $\vv{a} = \arr{b}{c}$ и да приемем, че имаме $d \triangleleft_{\arr{b}{c}} \tau_1$ и $\tau_1 \leq_{ctx} \tau_2 : \arr{b}{c}$.
   Трябва да докажем, че $d \triangleleft_{\vv{b}\to\vv{c}} \tau_2$, което според дефиницията на логическата релация $\triangleleft_{\vv{b}\to\vv{c}}$ означава,
   че за произволни $u \in \val{\vv{b}}$ и $\rho \in \text{PCF}_{\vv{b}}$, за които $u \triangleleft_{\vv{b}} \rho$, трябва да докажем, че $d(u) \triangleleft_{\vv{c}} \tau_2\rho$.
   Да разгледаме произволен такъв елемент $u$ и терм $\rho$. 
@@ -168,8 +168,8 @@
   Да разгледаме произволен терм $\rho \in \text{PCF}_{\vv{a} \to \nat}$.
   Трябва да докажем, че:
   \[(\forall \vv{n})[\ \rho\tau_1 \opsem{}{nat} \vv{n} \implies \rho\tau_2 \opsem{}{nat} \vv{n}\ ].\]
-  Според \Prop{pcf:adequacy:implication} имаме, че $\val{\rho} \triangleleft_{\vv{a} \to \nat} \rho$.
-  Тогава от дефиницията на релацията $\triangleleft_{\vv{a}\to\nat}$ следва, че
+  Според \Prop{pcf:adequacy:implication} имаме, че $\val{\rho} \triangleleft_{\arr{a}{nat}} \rho$.
+  Тогава от дефиницията на релацията $\triangleleft_{\arr{a}{nat}}$ следва, че
   за произволен елемент $e$ от областта на Скот $\val{\vv{a}}$ и произволен затворен терм $\mu:\vv{a}$,
   ако $e \triangleleft_{\vv{a}} \mu$, то $\val{\rho}(e) \triangleleft_{\nat} \rho\mu$.
   Нека да положим $e \df \val{\tau_1}$ и $\mu \df \tau_2$. Тогава получаваме, че:
@@ -182,17 +182,19 @@
   Заключаваме, че $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
 \end{proof}
 
-\begin{proposition}\label{pr:pcf:context:extensionality}
-  За произволни затворени термове $\tau_1$ и $\tau_2$ е изпълнено, че:
-  \begin{enumerate}[(1)]
-  \item
-    \label{pr:pcf:context:extensionality:base}
-    $\tau_1 \leq_{ctx} \tau_2 : \nat \iff (\forall \vv{n})[\tau_1 \Downarrow_{\nat} \vv{n} \implies \tau_2 \Downarrow_{\nat} \vv{n}]$;
-  \item
-    \label{pr:pcf:context:extensionality:step}
-    $\tau_1 \leq_{ctx} \tau_2 : \vv{a}\to\vv{b} \iff (\forall \rho \in \text{PCF}_{\vv{a}})[\ \tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{b}\ ]$.
-  \end{enumerate}
-\end{proposition}
+\begin{framed}
+  \begin{proposition}\label{pr:pcf:context:extensionality}
+    За произволни затворени термове $\tau_1$ и $\tau_2$ е изпълнено, че:
+    \begin{enumerate}[(1)]
+    \item
+      \label{pr:pcf:context:extensionality:base}
+      $\tau_1 \leq_{ctx} \tau_2 : \nat \iff (\forall \vv{n})[\tau_1 \Downarrow_{\nat} \vv{n} \implies \tau_2 \Downarrow_{\nat} \vv{n}]$;
+    \item
+      \label{pr:pcf:context:extensionality:step}
+      $\tau_1 \leq_{ctx} \tau_2 : \arr{a}{b} \iff (\forall \rho \in \text{PCF}_{\vv{a}})[\ \tau_1\rho \leq_{ctx} \tau_2 \rho : \vv{b}\ ]$.
+    \end{enumerate}
+  \end{proposition}  
+\end{framed}
 \begin{proof}
   \begin{enumerate}[(1)]
   \item
@@ -219,7 +221,7 @@
 \end{proof}
 
 Естествено е да се запитаме дали можем да разширим \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} за по-сложни от $\nat$ типове $\vv{a}$, т.е. възможно ли е
-\[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \vv{v} : \vv{a})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]?\]
+\[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]?\]
 Би било странно, ако можем, защото това би обезсмилило разглеждането на релацията $\leq_{ctx}$.
 Първо в \Prop{context:op-left-right} ще видим, че винаги имаме импликацията $(\Leftarrow)$, но по-късно в \Prop{context:op-right-left} ще видим, че дори за типа $\vv{a} = \nat\to\nat$ нямаме импликация $(\Rightarrow)$.
 
@@ -242,7 +244,7 @@
 \end{proof}
 
 \begin{proposition}\label{pr:context:den-left-right}
-  За произволни затворени термове $\tau_1, \tau_2$ от тип $\vv{a}$,
+  За произволни затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$,
   \[\val{\tau_1} \sqsubseteq \val{\tau_2} \implies \tau_1 \leq_{ctx} \tau_2 : \vv{a}.\]
 \end{proposition}  
 \begin{proof}
@@ -264,9 +266,11 @@
   \begin{theorem}\label{th:pcf:context:connection}
     За всички затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$ е изпълнено, че:
     \begin{enumerate}[(1)]
-    \item 
+    \item
+      \label{pcf:context:connection:operational}
       $(\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \iff \tau_2 \Downarrow_{\vv{a}} \vv{v} ] \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}$;
     \item
+      \label{pcf:context:connection:denotational}
       $\val{\tau_1} = \val{\tau_2} \implies \tau_1 \cong_{ctx} \tau_2 : \vv{a}$.
     \end{enumerate}
   \end{theorem}
@@ -278,9 +282,11 @@
     \begin{corollary}\label{cr:pcf:context:connection}
     За всички затворени термове $\tau_1$ и $\tau_2$ от тип $\nat$ е изпълнено, че:
     \begin{enumerate}[(1)]
-    \item 
+    \item
+      \label{cr:pcf:context:connection:operational}
       $(\forall \vv{n})[\tau_1 \opsem{}{nat} \vv{n} \iff \tau_2 \opsem{}{nat} \vv{n} ] \iff \tau_1 \cong_{ctx} \tau_2 : \nat$;
     \item
+      \label{cr:pcf:context:connection:denotational}
       $\val{\tau_1} = \val{\tau_2} \iff \tau_1 \cong_{ctx} \tau_2 : \nat$.
     \end{enumerate}
   \end{corollary}
@@ -297,60 +303,181 @@
   \end{align*} 
 \end{proof}
 
-Нека сега да видим, че нямаме обратните импликации за по-високи типове от $\nat$ като разгледаме термовете $\Omega_{\vv{a}}$ и $\Omega'_{\vv{a}}$, които сме срещали и преди
+Нека сега да видим, че нямаме обратните импликации на \Cor{pcf:context:connection} за по-високи типове от $\nat$ като разгледаме термовете $\Omega_{\vv{a}}$ и $\Omega'_{\vv{a}}$, които сме срещали и преди
 и сме разглеждали техните свойства в \Problem{pcf:context:omega}.
 
+\begin{framed}
 \begin{proposition}\label{pr:context:op-right-left}
-  $\Omega'_{\nat} \cong_{ctx} \Omega_{\nat\to\nat} : \nat \to \nat$.
-\end{proposition}
+  $\Omega'_{\nat} \cong_{ctx} \Omega_{\nat\to\nat} : \arr{nat}{nat}$.
+\end{proposition}  
+\end{framed}
 \marginpar{Да напомним, че
   \begin{align*}
     \Omega_{\vv{a}} &  \df \fix(\lamb{x}{a}{\vv{x}})\\
     \Omega'_{\vv{a}} & \df \lamb{x}{a}{\Omega_{\vv{a}}}.
   \end{align*}}
 \begin{proof}
-  Първо да видим защо $\Omega'_{\nat} \leq_{ctx} \Omega_{\nat\to\nat} : \nat \to \nat$.
-  Според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality}, трябва да докажем, че за
-  произволен затворен терм $\rho$ от тип $\nat$ е изпълнено, че
-  \[\Omega'_{\nat}\rho \leq_{ctx} \Omega_{\nat\to\nat}\rho : \nat,\]
-  което според \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} означава да докажем, че
-  \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
-  Да отбележим, че $\Omega'_{\nat} \rho \not\opsem{}{nat}$, защото $\Omega_{\nat}$ е затворен терм и $\Omega_{\nat}\subst{x}{\rho} \equiv \Omega_{\nat}$ и според правилата на операционната семантика имаме следното изчисление:
-  \begin{prooftree}
-    \AxiomC{$\Omega'_{\nat}$ е стойност}
-    \LeftLabel{\footnotesize{(val)}}
-    \UnaryInfC{$\Omega'_{\nat} \opsem{0}{nat} \Omega'_{\nat}$}
-    \AxiomC{\ref{pcf:omega:operational} на \Problem{pcf:context:omega}}
-    \UnaryInfC{$\Omega_{\nat} \not\opsem{}{nat}$}
-    \UnaryInfC{$\Omega_{\nat}\subst{x}{\rho} \not\opsem{}{nat}$}
-    \RightLabel{\footnotesize{(cbn)}}    
-    \BinaryInfC{$\Omega'_{\nat} \rho \not\opsem{}{nat}$}
-  \end{prooftree}
-  Тогава заключаваме, че за всеки затворен терм $\rho$ от тип $\nat$, е изпълнено
-  \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \Downarrow_{\nat} \vv{n}\ ],\]
-  защото лявата част на импликацията никога не е вярна.
+  % Първо да видим защо $\Omega'_{\nat} \leq_{ctx} \Omega_{\nat\to\nat} : \arr{nat}{nat}$.
+  % Според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality}, трябва да докажем, че за
+  % произволен затворен терм $\rho$ от тип $\nat$ е изпълнено, че
+  % \[\Omega'_{\nat}\rho \leq_{ctx} \Omega_{\nat\to\nat}\rho : \nat,\]
+  % което според \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} означава да докажем, че
+  % \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
+  % Да отбележим, че $\Omega'_{\nat} \rho \not\opsem{}{nat}$, защото $\Omega_{\nat}$ е затворен терм и $\Omega_{\nat}\subst{x}{\rho} \equiv \Omega_{\nat}$ и според правилата на операционната семантика имаме следното изчисление:
+  % \begin{prooftree}
+  %   \AxiomC{$\Omega'_{\nat}$ е стойност}
+  %   \LeftLabel{\footnotesize{(val)}}
+  %   \UnaryInfC{$\Omega'_{\nat} \opsem{0}{nat} \Omega'_{\nat}$}
+  %   \AxiomC{\ref{pcf:omega:operational} на \Problem{pcf:context:omega}}
+  %   \UnaryInfC{$\Omega_{\nat} \not\opsem{}{nat}$}
+  %   \UnaryInfC{$\Omega_{\nat}\subst{x}{\rho} \not\opsem{}{nat}$}
+  %   \RightLabel{\footnotesize{(cbn)}}    
+  %   \BinaryInfC{$\Omega'_{\nat} \rho \not\opsem{}{nat}$}
+  % \end{prooftree}
+  % Тогава заключаваме, че за всеки затворен терм $\rho$ от тип $\nat$, е изпълнено
+  % \[(\forall \vv{n})[\ \Omega'_{\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega_{\nat\to\nat} \rho \Downarrow_{\nat} \vv{n}\ ],\]
+  % защото лявата част на импликацията никога не е вярна.
 
-  Нека сега да видим защо $\Omega_{\nat\to\nat} \leq_{ctx} \Omega'_{\nat} : \nat \to \nat$. Разсъждаваме по сходен начин.
-  Ще докажем, че за произволен затворен терм $\rho$ от тип $\nat$ е изпълнено, че:
-  \[(\forall \vv{n})[\ \Omega_{\nat\to\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega'_{\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
-  Според правилата на операционната семантиката получаваме следното:
-  \begin{prooftree}
-    \AxiomC{\ref{pcf:omega:operational} на \Problem{pcf:context:omega}}
-    \UnaryInfC{$\Omega_{\nat\to\nat} \not\opsemGen{}{\nat\to\nat}$}
-    \AxiomC{$...$}
-    \RightLabel{\footnotesize{(cbn)}}
-    \BinaryInfC{$\Omega_{\nat\to\nat}\rho \not\opsemGen{}{\nat\to\nat}$}
-  \end{prooftree}
-  Отново заключаваме, че за всеки затворен терм $\rho$ от тип $\nat$, е изпълнено
-  \[(\forall \vv{n})[\ \Omega_{\nat\to\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega'_{\nat} \rho \Downarrow_{\nat} \vv{n}\ ],\]
-  защото лявата част на импликацията никога не е вярна.
+  % Нека сега да видим защо $\Omega_{\nat\to\nat} \leq_{ctx} \Omega'_{\nat} : \nat \to \nat$. Разсъждаваме по сходен начин.
+  % Ще докажем, че за произволен затворен терм $\rho$ от тип $\nat$ е изпълнено, че:
+  % \[(\forall \vv{n})[\ \Omega_{\nat\to\nat}\rho \opsem{}{nat} \vv{n} \implies \Omega'_{\nat} \rho \opsem{}{nat} \vv{n}\ ].\]
+  % Според правилата на операционната семантиката получаваме следното:
+  % \begin{prooftree}
+  %   \AxiomC{\ref{pcf:omega:operational} на \Problem{pcf:context:omega}}
+  %   \UnaryInfC{$\Omega_{\nat\to\nat} \not\opsemGen{}{\nat\to\nat}$}
+  %   \AxiomC{$...$}
+  %   \RightLabel{\footnotesize{(cbn)}}
+  %   \BinaryInfC{$\Omega_{\nat\to\nat}\rho \not\opsemGen{}{\nat\to\nat}$}
+  % \end{prooftree}
+  % Отново заключаваме, че за всеки затворен терм $\rho$ от тип $\nat$, е изпълнено
+  % \[(\forall \vv{n})[\ \Omega_{\nat\to\nat}\rho \Downarrow_{\nat} \vv{n} \implies \Omega'_{\nat} \rho \Downarrow_{\nat} \vv{n}\ ],\]
+  % защото лявата част на импликацията никога не е вярна.
+  Понеже ние вече знаем, че $\val{\Omega'_{\nat}} = \val{\Omega_{\arr{nat}{nat}}}$, то
+  според \ref{pcf:context:connection:denotational} на \Th{pcf:context:connection} следва, че
+  $\Omega'_\nat \eqCtx \Omega_{\arr{nat}{nat}}$.
 \end{proof}
 
 Знаем, че $\Omega_{\nat\to\nat} \not\opsemGen{}{\nat\to\nat}$, но $\Omega'_{\nat} \opsemGen{}{\nat\to\nat} \Omega'_{\nat}$.
 Това означава, че според \Prop{context:op-right-left}, термовете $\Omega_{\nat\to\nat}$ и $\Omega'_{\nat}$ ни дават пример кога нямаме обратната импликация в (1) на \Th{pcf:context:connection}.
-Обърнете внимание, че $\val{\Omega_{\nat\to\nat}} = \val{\Omega'_{\nat}}$.
-Следователно, трябва да продължим да търсим термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$, за които $\val{\tau_1} \neq \val{\tau_2}$
+% Обърнете внимание, че $\val{\Omega_{\nat\to\nat}} = \val{\Omega'_{\nat}}$.
+Следователно, трябва да продължим да търсим термове $\tau_1$ и $\tau_2$ от някакъв тип $\vv{a}$, за които $\val{\tau_1} \neq \val{\tau_2}$
 и $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$.
+
+\newpage
+
+\begin{problem}
+  Докажете, че е изпълнена импликацията:
+  \[\tau_1 \cong_{ctx} \tau_2 : \nat\to\nat \implies \val{\tau_1} = \val{\tau_2}.\]  
+\end{problem}
+\begin{proof}
+  За да проверим това е достатъчно да проверим, че ако $\tau_1 \leq_{ctx} \tau_2 : \nat\to\nat$, то $\val{\tau_1} \sqsubseteq \val{\tau_2}$.
+  И така, да приемем, че имаме $\tau_1 \leq_{ctx} \tau_2 : \nat\to\nat$. Според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality}, това означава, че имаме
+  за всеки затворен терм $\rho$ от тип $\nat$, $\tau_1 \rho \leq_{ctx} \tau_2 \rho : \nat$.
+  Сега тук използваме \ref{pcf:context:connection:operational}, откъдето следва, че
+  \begin{equation}
+    \label{eq:context:1}
+    \val{\tau_1\rho} \sqsubseteq \val{\tau_2\rho}.
+  \end{equation}
+  % Тук сега използваме \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} откъде получаваме, че
+  % \begin{equation}
+  %   \label{eq:context:1}
+  %   (\forall \vv{k})[\tau_1 \rho \opsem{}{nat} \vv{k} \implies \tau_2 \rho \opsem{}{nat} \vv{k}].
+  % \end{equation}
+  \marginpar{Тук важното е това, че всеки елемент на $\Nat_\bot$ е определим с терм в езика \PCF.}
+  Нека разгледаме произволен елемент $n \in \Nat_\bot$. 
+  \begin{itemize}
+  \item
+    Ако $n \neq \bot$, то нека положим $\rho \df \vv{n}$. 
+  \item
+    Ако $n = \bot$, то нека положим $\rho \df \Omega_{\nat}$.
+  \end{itemize}
+  Ясно е, че сме избрали затворения терм $\rho$ от тип $\nat$ така, че $\val{\rho} = n$.
+  Достатъчно е да проследим следните импликации
+  \begin{align*}
+    \val{\tau_1}(n) & = \val{\tau_1}(\val{\rho})\\
+                    & = \val{\tau_1\rho}\\
+                    & \sqsubseteq \val{\tau_2\rho} & \comment\text{от (\ref{eq:context:1})}\\
+                    & = \val{\tau_2}(\val{\rho})\\
+                    & = \val{\tau_2}(n).
+  \end{align*}
+  % \begin{align*}
+  %   \val{\tau_1}(n) = k & \implies \val{\tau_1}(\val{\rho}) = k & \comment\val{\rho} = n\\
+  %                       & \implies \val{\tau_1 \rho} = k \\
+  %                       & \implies \tau_1 \rho \opsem{}{nat} \vv{k} & \comment\text{\hyperref[th:pcf:adequacy]{Теорема за адекватност}}\\
+  %                       & \implies\tau_2 \rho \opsem{}{nat} \vv{k} & \comment\text{от (\ref{eq:context:1})}\\
+  %                       & \implies \val{\tau_2 \rho} = k & \comment\text{\hyperref[th:pcf:soundness]{Теорема за коректност}}\\
+  %                       & \implies \val{\tau_2}(\val{\rho}) = k\\
+  %                       & \implies \val{\tau_2}(n) = k, & \comment\val{\rho} = n
+  % \end{align*}
+  за да се убедим, че $\val{\tau_1} \sqsubseteq \val{\tau_2}$.
+\end{proof}
+
+\begin{problem}
+  \label{prob:context:chain:implication}
+  Нека $\vv{a} = \nat \to \nat \to \cdots \to \nat$.
+  Докажете, че 
+  \[\tau_1 \cong_{ctx} \tau_2 : \vv{a} \implies \val{\tau_1} = \val{\tau_2}.\]  
+\end{problem}
+
+Това означава, че ако искаме да намерим затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$, за които $\val{\tau_1} \neq \val{\tau_2}$, то $\tau_1 \cong_{ctx} \tau_2 : \vv{a}$, то трябва да разгледаме по-сложни типове $\vv{a}$.
+
+\begin{problem}
+  Докажете или опровергайте твърденията:
+  \begin{enumerate}[(1)]
+  \item
+    $\lamb{x}{nat}{\vv{x}} \cong_{ctx} \lamb{x}{nat}{\vv{x + 0}} : \arr{nat}{nat}$;
+  \item
+    $\lamb{x}{nat}{\vv{x}} \cong_{ctx} \lamb{x}{nat}{\vv{(x - 1) + 1}} : \arr{nat}{nat}$;
+  \end{enumerate}
+
+\end{problem}
+
+\begin{problem}
+  \marginpar{Задача в Кеймбридж 2020 г. \cite{cambridge-website}}
+  Докажете или опровергайте твърдението, че за всеки два типа $\vv{a}$ и $\vv{b}$
+  и всеки два затворени терма $\tau_1$ от тип $\arr{a}{b}$ и $\tau_2$ от тип $\arr{b}{a}$
+  е изпълнено следното:  
+  \[\texttt{fix}(\lamb{y}{b}{\tau_1(\tau_2(\vv{y}))}) \cong_{ctx} \tau_1(\texttt{fix}(\lamb{x}{a}{\tau_2(\tau_1(\vv{x}))})) : \vv{b}.\]  
+\end{problem}
+\begin{hint}
+  Използвайте \Problem{domains:lfp:compositon}.
+\end{hint}
+
+% \begin{problem}
+%   \marginpar{Задача в Кеймбридж 2015 г. \cite{cambridge-website}}
+%   Нека $\tau_1$ и $\tau_2$ са затворени термове от тип $\arr{a}{b}$ и
+%   нека $\mu_1$ и $\mu_2$ са затворени термове от тип $\arr{b}{c}$, за които:
+%   \begin{align*}
+%     & \tau_1 \eqCtx \tau_2 : \arr{a}{b}\\
+%     & \mu_1 \eqCtx \mu_2 : \arr{b}{c}.
+%   \end{align*}
+%   Докажете или опровергайте, че тогава имаме еквивалентността:
+%   \begin{equation}
+%     \label{eq:pcf:context:2}
+%     \lamb{x}{a}{\mu_1(\tau_1 \vv{x})} \eqCtx \lamb{x}{a}{\mu_2(\tau_2 \vv{x})} : \arr{a}{c}.
+%   \end{equation}
+% \end{problem}
+% \begin{hint}
+%   За да докажем, че еквивалентността (\ref{eq:pcf:context:2}) е изпълнена, според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} е достатъчно да докажем, че за произволен затворен терм $\rho$ от тип $\vv{a}$ е изпълнено, че:
+%   \[\lamb{x}{a}{\mu_1(\tau_1 \vv{x})}\rho \eqCtx \lamb{x}{a}{\mu_2(\tau_2 \vv{x})}\rho : \vv{c}.\]
+%   Сега, ще използваме равенствата за $i = 1,2$:
+%   \begin{align*}
+%     \val{(\lamb{x}{a}{\mu_i(\tau_i \vv{x})})\rho} & = \val{\mu_i}(\val{\tau_i}(\val{\rho}))\\
+%                                                   & = \val{\mu_i(\tau_i \rho)}.
+%   \end{align*}
+%   Тогава според \Th{pcf:context:connection} е достатъчно да докажем, че
+%   \[\mu_1(\tau_1 \rho) \eqCtx \mu_2(\tau_2 \rho) : \vv{c}.\]
+
+%   Но това е лесно да се види, защото, щом $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$,
+%   то според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} имаме, че
+%   $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$,
+  
+%   % Първо, ще използваме, че щом $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$, то за произволен затворен терм $\rho$
+%   % от тип $\vv{a}$ е изпъленено, че $\tau_1 \rho \eqCtx \tau_2 \rho : \vv{b}$.
+
+%   % Второ, ще използваме, че щом $\mu_1 \eqCtx \mu_2 : \arr{a}{b}$, то за произволен затворен терм $\rho$
+%   % от тип $\vv{a}$ е изпъленено, че $\mu_1 \rho \eqCtx \mu_2 \rho : \vv{b}$.
+% \end{hint}
 
 
 %%% Local Variables:

@@ -20,10 +20,10 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   Нека $\vv{a} = \vv{nat}$. Тогава 
   \marginpar{Обикновено $\triangleleft_{\vv{a}}$ се нарича \emph{логическа релация} или formal approximation relation \cite[стр. 57]{cambridge-den-sem}.
     В \cite[стр. 210]{models-of-computation} е обяснено защо имаме нужда от тези релации за да докажем теоремата за адекватност. В \cite[стр. 134]{gunter} е представен синтактичен подход към решаването на този проблем.}
-  \[n \triangleleft_{\vv{nat}} \tau \dff ( n\neq\bot^{\val{\vv{nat}}} \implies \tau \Downarrow_{\vv{nat}} \vv{n}).\]
+  \[n \triangleleft_{\nat} \tau \dff ( n\neq\bot^{\val{\nat}} \implies \tau \Downarrow_{\nat} \vv{n}).\]
 \item
-  Нека $\vv{a} = \vv{b} \to \vv{c}$. Тогава 
-  \[f \triangleleft_{\vv{b}\to\vv{c}} \tau \dff (\forall e\in \val{\vv{b}})(\forall \mu \in \vv{PCF}_{\vv{b}})[\ e \triangleleft_{\vv{b}} \mu \implies f(e) \triangleleft_{\vv{c}} \tau(\mu)\ ].\]
+  Нека $\vv{a} = \arr{b}{c}$. Тогава 
+  \[f \triangleleft_{\arr{b}{c}} \tau \dff (\forall e\in \val{\vv{b}})(\forall \mu \in \vv{PCF}_{\vv{b}})[\ e \triangleleft_{\vv{b}} \mu \implies f(e) \triangleleft_{\vv{c}} \tau(\mu)\ ].\]
 \item
   Нека $\Gamma = \vv{x}_1:\vv{a}_1, \dots, \vv{x}_n:\vv{a}_n$. Тогава 
   \[(u_1,\dots,u_n) \triangleleft_\Gamma (\tau_1,\dots,\tau_n) \dff u_1 \triangleleft_{\vv{a}_1} \tau_1\ \&\ \cdots\ \&\ u_n \triangleleft_{\vv{a}_n} \tau_n.\]
@@ -31,7 +31,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
 
 \begin{example}
   Да проверим внимателно защо е изпълнено, че:
-  \[\texttt{id}_{\val{\nat}} \triangleleft_{\vv{nat}\to\vv{nat}} \lamb{x}{nat}{\vv{x + 0}}.\]
+  \[\texttt{id}_{\val{\nat}} \triangleleft_{\arr{nat}{nat}} \lamb{x}{nat}{\vv{x + 0}}.\]
   Според дефиницията трябва да проверим импликацията
   \[e \triangleleft_{\nat} \mu \implies \texttt{id}_{\val{\nat}}(e) \triangleleft_{\nat} \tau(\mu),\]
   за произволен елемент $e \in \Nat_\bot$ и произволен затворен терм $\mu : \nat$.
@@ -49,7 +49,7 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
     \begin{prooftree}
       \AxiomC{$\tau$ е стойност}
       \LeftLabel{\scriptsize{(val)}}
-      \UnaryInfC{$\tau \opsemGen{}{\nat\to\nat} \lamb{x}{nat}{\vv{x + 0}}$}
+      \UnaryInfC{$\tau \opsemGen{}{\arr{nat}{nat}} \lamb{x}{nat}{\vv{x + 0}}$}
       \AxiomC{$n \triangleleft_{\nat} \mu$}
       \UnaryInfC{$\mu \opsem{}{nat} \vv{n}$}
       \AxiomC{$\vv{0}$ е стойност}
@@ -93,11 +93,11 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   Индукция по построението на типовете $\vv{a}$.
   Първо, нека $\vv{a} = \vv{nat}$. По тривиални съображения имаме, че за произволен терм $\tau:\vv{a}$ е изпълнено, че $\bot^{\val{\vv{nat}}} \triangleleft_{\vv{nat}} \tau$.
   
-  Второ, нека $\vv{a} = \vv{b} \to \vv{c}$ и да фиксираме произволен терм $\tau : \vv{b} \to \vv{c}$.
+  Второ, нека $\vv{a} = \arr{b}{c}$ и да фиксираме произволен терм $\tau : \arr{b}{c}$.
   Тук имаме, че $\bot^{\val{\vv{a}}} \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}$ е изображение,
   за което $\bot^{\val{\vv{a}}}(e) =  \bot^{\val{\vv{c}}}$ за всеки елемент $e \in \val{\vv{b}}$.
   Нека $e \triangleleft_{\vv{b}} \mu$, където $\mu : \vv{b}$.
-  Щом $\tau : \vv{b}\to\vv{c}$, от правилата за типизиране е ясно, че $\tau(\mu) : \vv{c}$.
+  Щом $\tau : \arr{b}{c}$, от правилата за типизиране е ясно, че $\tau(\mu) : \vv{c}$.
   Сега от \IndHyp за типа $\vv{c}$ е ясно, че $\bot^{\val{\vv{a}}}(e) = \bot^{\val{\vv{c}}} \triangleleft_{\vv{c}} \tau(\mu)$.
 \end{proof}
 
@@ -117,13 +117,13 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   Оттук следва, че $\bigsqcup_i d_i = n = d_{i_0}$.
   Понеже $d_{i_0} \triangleleft_{\vv{nat}} \tau$, то директно следва, че $\bigsqcup_i d_i \triangleleft_{\vv{nat}} \tau$.
 
-  Второ, нека $\vv{a} = \vv{b} \to \vv{c}$ и да фиксираме произволен терм $\tau : \vv{b} \to \vv{c}$.
+  Второ, нека $\vv{a} = \arr{b}{c}$ и да фиксираме произволен терм $\tau : \arr{b}{c}$.
   Нека $\chain{f}{i}$ е верига от елементи на $\Cont{\val{\vv{b}}}{\val{\vv{c}}}$,
   за които е изпълнено, че $f_i \triangleleft_{\vv{a}} \tau$. Трябва да докажем, че $\bigsqcup_i f_i \triangleleft_{\vv{a}} \tau$,
   т.е. за произволен елемент $e \in \val{\vv{b}}$ и произволен затворен терм $\mu : \vv{b}$, за който $e \triangleleft_{\vv{b}} \mu$, то
   $(\bigsqcup_if)(e) \triangleleft_{\vv{c}} \tau(\mu)$.
   Но ние знаем от \Lem{double-chain:lub}, че $(\bigsqcup_if)(e) = \bigsqcup_i\{f_i(e)\}$.
-  Щом $f_i \triangleleft_{\vv{b}\to\vv{c}} \tau$, то за разглежданите $e$ и $\mu$ имаме, че $f_i(e) \triangleleft_{\vv{c}} \tau(\mu)$.
+  Щом $f_i \triangleleft_{\arr{b}{c}} \tau$, то за разглежданите $e$ и $\mu$ имаме, че $f_i(e) \triangleleft_{\vv{c}} \tau(\mu)$.
   Ние знаем, че ${(f_i(e))}^\infty_{i=0}$ е верига и от \IndHyp за типа $\vv{c}$ следва, че $\bigsqcup_i\{f_i(e)\} \triangleleft_{\vv{c}} \tau(\mu)$.
 \end{proof}
 
@@ -148,29 +148,28 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   Понеже $d \triangleleft_{\vv{nat}} \tau$, то $\tau \Downarrow_{\vv{nat}} \vv{d}$.
   Оттук следва, че $\rho \Downarrow_{\vv{nat}} \vv{d}$. Заключаваме, че $d \triangleleft_{\vv{nat}} \rho$.
 
-  Второ, нека $\vv{a} = \vv{b} \to \vv{c}$ и да фиксираме произволен терм $\tau : \vv{b} \to \vv{c}$.
+  Второ, нека $\vv{a} = \arr{b}{c}$ и да фиксираме произволен терм $\tau : \arr{b}{c}$.
   Нека
   \begin{align}
-    & f \triangleleft_{\vv{b}\to\vv{c}} \tau \label{eq:pcf:adequacy:implication:f-tau}\\
-    & (\forall \vv{v})[\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho \Downarrow_{\vv{b}\to\vv{c}} \vv{v}] \label{eq:pcf:adequacy:implication:value}
+    & f \triangleleft_{\arr{b}{c}} \tau \label{eq:pcf:adequacy:implication:f-tau}\\
+    & (\forall \vv{v})[\tau \Downarrow_{\arr{b}{c}} \vv{v} \implies \rho \Downarrow_{\arr{b}{c}} \vv{v}] \label{eq:pcf:adequacy:implication:value}
   \end{align}
-  % $f \triangleleft_{\vv{b}\to\vv{c}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho \Downarrow_{\vv{b}\to\vv{c}} \vv{v}]$.
-  Ще докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \rho$.
+  Ще докажем, че $f \triangleleft_{\arr{b}{c}} \rho$.
   За целта, да разгледаме произволен елемент $e \in \val{\vv{b}}$ и произволен затворен терм $\mu : \vv{b}$, за който $e \triangleleft_{\vv{b}} \mu$.
   Достатъчно е да докажем, че $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
   За момента от Свойство~(\ref{eq:pcf:adequacy:implication:f-tau}) знаем само, че $f(e) \triangleleft_{\vv{c}} \tau(\mu)$.
   Понеже имаме следното правило в операционната семантика:
   \marginpar{Имаме от (\ref{eq:pcf:adequacy:implication:value}), че 
-    \[\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho \Downarrow_{\vv{b}\to\vv{c}} \vv{v},\] а тук $\vv{v} \equiv \lamb{x}{b}{\tau'}$.}
+    \[\tau \Downarrow_{\arr{b}{c}} \vv{v} \implies \rho \Downarrow_{\arr{b}{c}} \vv{v},\] а тук $\vv{v} \equiv \lamb{x}{b}{\tau'}$.}
   \begin{prooftree}
-    \AxiomC{$\tau \Downarrow_{\vv{b}\to\vv{c}} \overbrace{\lamb{x}{b}{\tau'}}^{\vv{v}}$}
+    \AxiomC{$\tau \Downarrow_{\arr{b}{c}} \overbrace{\lamb{x}{b}{\tau'}}^{\vv{v}}$}
     \AxiomC{$\tau'\subst{x}{\mu} \Downarrow_{\vv{c}} \vv{v}'$}
     \RightLabel{\scriptsize{(app)}}
     \BinaryInfC{$\tau(\mu) \Downarrow_{\vv{c}} \vv{v}'$}
   \end{prooftree}
   то от Свойство~(\ref{eq:pcf:adequacy:implication:value}) получаваме, че
   \begin{prooftree}
-    \AxiomC{$\rho \Downarrow_{\vv{b}\to\vv{c}} \overbrace{\lamb{x}{b}{\tau'}}^{\vv{v}}$}
+    \AxiomC{$\rho \Downarrow_{\arr{b}{c}} \overbrace{\lamb{x}{b}{\tau'}}^{\vv{v}}$}
     \AxiomC{$\tau'\subst{x}{\mu} \Downarrow_{\vv{c}} \vv{v}'$}
     \RightLabel{\scriptsize{(app)}}
     \BinaryInfC{$\rho(\mu) \Downarrow_{\vv{c}} \vv{v}'$}
@@ -182,92 +181,6 @@ $\triangleleft_{\vv{a}} \subseteq \val{\vv{a}} \times \vv{PCF}_{\vv{a}}$
   \end{equation}
   Сега от \IndHyp за типа $\vv{c}$ директно следва, че щом $f(e) \triangleleft_{\vv{c}}\tau(\mu)$ и Свойство (\ref{eq:pcf:adequacy:implication:final}), то \[f(e) \triangleleft_{\vv{c}} \rho(\mu).\]
 \end{proof}
-
-
-
-
-% \begin{lemma}\label{lem:pcf:relation}
-%   Нека $\tau : \vv{a}$. Тогава:
-%   \begin{enumerate}[1)]
-%   \item
-%     $\bot^{\val{\vv{a}}} \triangleleft_{\vv{a}} \tau$;
-%   \item
-%     $D = \{d \in \val{\vv{a}} \mid d \triangleleft_{\vv{a}} \tau\}$ е непрекъснато свойство в областта на Скот $\val{\vv{a}}$, т.е.
-%     за всяка верига $\chain{d}{i}$ от елементи на $D$ е изпълнено, че $\bigsqcup_i d_i \in D$.
-%   \item
-%     \marginpar{Не ми трябва $u \sqsubseteq d$.}
-%     Ако $d \triangleleft_{\vv{a}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{a}} \vv{v} \implies \rho
-%     \Downarrow_{\vv{a}} \vv{v}]$, то $d \triangleleft_{\vv{a}} \rho$.
-%   \end{enumerate}
-% \end{lemma}
-% \begin{proof}
-%   Индукция по построението на типовете $\vv{a}$.
-%   Първо, нека $\vv{a} = \vv{nat}$ и да фиксираме произволен терм $\tau : \vv{nat}$.
-%   \marginpar{Да напомним, че $\val{\vv{nat}} \df \Nat_\bot$.}
-%   \begin{enumerate}[1)]
-%   \item
-%     По тривиални съображения имаме, че
-%     \[\bot^{\val{\vv{nat}}} \triangleleft_{\vv{nat}} \tau.\]
-%   \item
-%     Нека $\chain{d}{i}$ е верига от елементи на $\Nat_\bot$ и за всяко $i$, $d_i \triangleleft_{\vv{nat}} \tau$.
-%     Ако за всяко $i$, $d_i = \bot$, то $\bigsqcup_i d_i = \bot^{\val{\vv{nat}}}$ и следователно $\bigsqcup_i d_i
-%     \triangleleft_{\vv{nat}} \tau$.
-%     Ако съществува $i_0$, за което $d_{i_0} = n \neq \bot$, то е ясно, че за всяко $i > i_0$, $d_i = n$.
-%     Оттук следва, че $\bigsqcup_i d_i = n = d_{i_0}$.
-%     Понеже $d_{i_0} \triangleleft_{\vv{nat}} \tau$, то директно следва, че $\bigsqcup_i d_i \triangleleft_{\vv{nat}} \tau$.
-%   \item
-%     Нека $d \triangleleft_{\vv{nat}} \tau$ и $(\forall \vv{v})[\tau \Downarrow_{\vv{nat}} \vv{v} \implies \rho
-%     \Downarrow_{\vv{nat}} \vv{v}]$. Понеже $\sqsubseteq$ е плоската наредба в $\Nat_\bot$, то имаме два случая.
-%     Ако $d = \bot^{\val{\vv{nat}}}$, то е ясно от 1), че $d \triangleleft_{\vv{nat}} \rho$.
-%     Нека сега $d \neq \bot^{\val{\vv{nat}}}$. 
-%     Понеже $d \triangleleft_{\vv{nat}} \tau$, то $\tau \Downarrow_{\vv{nat}} \vv{d}$.
-%     Оттук следва, че $\rho \Downarrow_{\vv{nat}} \vv{d}$. Заключаваме, че $d \triangleleft_{\vv{nat}} \rho$.    
-%   \end{enumerate}
-  
-%   Второ, нека $\vv{a} = \vv{b} \to \vv{c}$ и да фиксираме произволен терм $\tau : \vv{b} \to \vv{c}$.
-%   \marginpar{Да напомним, че \[\val{\vv{b} \to \vv{c}} \df \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]}
-%   \begin{enumerate}[1)]
-%   \item
-%     Тук имаме, че $\bot^{\val{\vv{a}}} \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}$ е изображение,
-%     за което $\bot^{\val{\vv{a}}}(e) =  \bot^{\val{\vv{c}}}$ за всеки елемент $e \in \val{\vv{b}}$.
-%     Нека $e \triangleleft_{\vv{b}} \mu$, където $\mu : \vv{b}$.
-%     От правилата за типизиране е ясно, че $\tau(\mu) : \vv{c}$.
-%     Сега от И.П. е ясно, че $\bot^{\val{\vv{a}}}(e) = \bot^{\val{\vv{c}}} \triangleleft_{\vv{c}} \tau(\mu)$.
-%   \item
-%     Нека $\chain{f}{i}$ е верига от елементи на $\Cont{\val{\vv{b}}}{\val{\vv{c}}}$,
-%     за които е изпълнено, че $f_i \triangleleft_{\vv{a}} \tau$. Трябва да докажем, че $\bigsqcup_i f_i \triangleleft_{\vv{a}} \tau$,
-%     т.е. за произволни $e \in \val{\vv{b}}$ и произволни $\mu : \vv{b}$, за които $e \triangleleft_{\vv{b}} \mu$, то
-%     $(\bigsqcup_if)(e) \triangleleft_{\vv{c}} \tau(\mu)$.
-%     Но ние знаем, че $(\bigsqcup_if)(e) = \bigsqcup_i\{f_i(e)\}$.
-%     Щом $f_i \triangleleft_{\vv{b}\to\vv{c}} \tau$, то за разглежданите $e$ и $\mu$ имаме, че $f_i(e) \triangleleft_{\vv{c}} \tau(\mu)$.
-%     Ние знаем, че ${(f_i(e))}^\infty_{i=0}$ е верига и от И.П. следва, че $\bigsqcup_i\{f_i(e)\} \triangleleft_{\vv{c}} \tau(\mu)$.
-%   \item
-%     Нека $f \triangleleft_{\vv{b}\to\vv{c}} \tau$ и $\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho
-%     \Downarrow_{\vv{b}\to\vv{c}} \vv{v}$. Ще докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \rho$.
-%     За целта, нека $e \in \val{\vv{b}}$, $\mu : \vv{b}$ и $e \triangleleft_{\vv{b}} \mu$.
-%     Ще докажем, че $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
-%     За момента знаем само, че $f(e) \triangleleft_{\vv{c}} \tau(\mu)$.
-%     Понеже имаме следното правило в операционната семантика:
-%     \marginpar{Имаме по условие, че 
-%       \[\tau \Downarrow_{\vv{b}\to\vv{c}} \vv{v} \implies \rho \Downarrow_{\vv{b}\to\vv{c}} \vv{v},\] а тук $\vv{v} \equiv \lamb{x}{b}{\tau'}$.}
-%     \begin{prooftree}
-%       \AxiomC{$\tau \Downarrow_{\vv{b}\to\vv{c}} \lamb{x}{b}{\tau'}$}
-%       \AxiomC{$\tau'\subst{x}{\mu} \Downarrow_{\vv{c}} \vv{v}'$}
-%       \RightLabel{\scriptsize{(app)}}
-%       \BinaryInfC{$\tau(\mu) \Downarrow_{\vv{c}} \vv{v}'$}
-%     \end{prooftree}
-%     то получаваме, че
-%     \begin{prooftree}
-%       \AxiomC{$\rho \Downarrow_{\vv{b}\to\vv{c}} \lamb{x}{b}{\tau'}$}
-%       \AxiomC{$\tau'\subst{x}{\mu} \Downarrow_{\vv{c}} \vv{v}'$}
-%       \RightLabel{\scriptsize{(app)}}
-%       \BinaryInfC{$\rho(\mu) \Downarrow_{\vv{c}} \vv{v}'$}
-%     \end{prooftree}
-%     Оттук следва, че
-%     \[(\forall \vv{v}')[\tau(\mu) \Downarrow_{\vv{c}} \vv{v}' \implies \rho(\mu) \Downarrow_{\vv{c}} \vv{v}'].\]
-%     Сега от И.П. директно следва, че $f(e) \triangleleft_{\vv{c}} \rho(\mu)$.
-%   \end{enumerate}
-% \end{proof}
 
 За да докажем, че $\val{\tau} \triangleleft_{\vv{nat}} \tau$, то трябва да докажем, че за всеки тип $\vv{a}$ и всеки затворен терм $\tau$ от тип $\vv{a}$, че е изпълнено
 $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построението на термовете.
@@ -351,7 +264,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   \item
     Нека $\tau \equiv \tau_1\tau_2$. От правилата за типизиране имаме, че
     \begin{prooftree}
-      \AxiomC{$\Gamma \vdash \tau_1 : \vv{b} \to \vv{a}$}
+      \AxiomC{$\Gamma \vdash \tau_1 : \arr{b}{a}$}
       \AxiomC{$\Gamma \vdash \tau_2 : \vv{b}$}
       \BinaryInfC{$\Gamma \vdash \tau_1\tau_2 : \vv{a}$}
     \end{prooftree}
@@ -359,16 +272,16 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     \[\val{\tau_1\tau_2}_\Gamma(\ov{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u})).\]
     Понеже $\tau$ е съставен от $\tau_1$ и $\tau_2$, от \IndHyp имаме следното:
     \begin{align*}
-      & \val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{b}\to\vv{a}} \tau_1[\ov{x}/\ov{\mu}];\\
+      & \val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\arr{b}{a}} \tau_1[\ov{x}/\ov{\mu}];\\
       & \val{\tau_2}_\Gamma(\ov{u}) \triangleleft_{\vv{b}} \tau_2[\ov{x}/\ov{\mu}].
     \end{align*}
-    Щом $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\vv{b}\to\vv{a}} \tau_1[\ov{x}/\ov{\mu}]$, то
-    от дефиницията на релацията $\triangleleft_{\vv{b}\to\vv{a}}$ следва, че за произволни $e \triangleleft_{\vv{b}} \rho$ имаме, че
+    Щом $\val{\tau_1}_\Gamma(\ov{u}) \triangleleft_{\arr{b}{a}} \tau_1[\ov{x}/\ov{\mu}]$, то
+    от дефиницията на релацията $\triangleleft_{\arr{b}{a}}$ следва, че за произволни $e \triangleleft_{\vv{b}} \rho$ имаме, че
     $\texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}),e) \triangleleft_{\vv{a}} \tau_1[\ov{x}/\ov{\mu}](\rho)$. Нека сега да вземем $e \df \val{\tau_2}_\Gamma(\ov{u})$ и $\rho \df  \tau_2[\ov{x}/\ov{\mu}]$.
     Така получаваме  
     \[\underbrace{\texttt{eval}(\val{\tau_1}_\Gamma(\ov{u}), \val{\tau_2}_\Gamma(\ov{u}))}_{\val{\tau}_\Gamma(\ov{u})} \triangleleft_{\vv{a}} \underbrace{\tau_1[\ov{x}/\ov{\mu}](\tau_2[\ov{x}/\ov{\mu}])}_{\tau[\ov{x}/\ov{\mu}]}.\]
   \item
-    Нека $\tau = \lamb{y}{b}{\tau'}$. Тогава от правилата за типизиране следва, че $\vv{a} = \vv{b} \to \vv{c}$, за някои типове $\vv{b}$ и $\vv{c}$, и
+    Нека $\tau = \lamb{y}{b}{\tau'}$. Тогава от правилата за типизиране следва, че $\vv{a} = \arr{b}{c}$, за някои типове $\vv{b}$ и $\vv{c}$, и
     $\Gamma,\type{y}{b} \vdash \tau' : \vv{c}$.
     Да напомним, че
     \[\val{\tau}_\Gamma(\ov{u}) \df \texttt{curry}(\val{\tau'}_{\Gamma,\type{y}{b}})(\ov{u}) \in \Cont{\val{\vv{b}}}{\val{\vv{c}}}.\]
@@ -378,7 +291,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
            & = \texttt{curry}(\val{\tau'}_{\Gamma,\type{y}{b}})(\ov{u})(e)\\
            & = \val{\tau'}_{\Gamma,\type{y}{b}}(\ov{u},e).
     \end{align*}
-    Трябва да докажем, че $f \triangleleft_{\vv{b} \to \vv{c}} \tau[\ov{x}/\ov{\mu}]$.
+    Трябва да докажем, че $f \triangleleft_{\arr{b}{c}} \tau[\ov{x}/\ov{\mu}]$.
     Това означава, че за произволни $e \in \val{\vv{b}}$ и $\rho : \vv{b}$, за които $e \triangleleft_{\vv{b}} \rho$,
     трябва да докажем, че $f(e) \triangleleft_{\vv{c}} \tau[\ov{x}/\ov{\mu}](\rho)$.
 
@@ -392,7 +305,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     От правилата на операционната семантика имаме следното:
     \begin{prooftree}
       \AxiomC{$\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]}$ е стойност}
-      \UnaryInfC{$\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]} \Downarrow_{\vv{b}\to\vv{c}} \lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]} $}
+      \UnaryInfC{$\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]} \Downarrow_{\arr{b}{c}} \lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]} $}
       \AxiomC{$\tau'[\ov{x}/\ov{\mu}][y/\rho] \Downarrow_{\vv{c}} \vv{v}$}
       \RightLabel{\scriptsize{(cbn)}}
       \BinaryInfC{$(\underbrace{\lamb{y}{b}{\tau'[\ov{x}/\ov{\mu}]}}_{\tau[\ov{x}/\ov{\mu}]})(\rho) \Downarrow_{\vv{c}} \vv{v}$}
@@ -408,9 +321,9 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
   \item
     Нека $\tau \equiv \fix(\tau')$.
     Тук трябва да докажем, че $\val{\fix(\tau')}(\ov{u}) \triangleleft_{\vv{a}} \tau[\ov{x}/\ov{\mu}]$.
-    От правилата за типизиране имаме, че $\Gamma \vdash \tau' : \vv{a} \to \vv{a}$.
+    От правилата за типизиране имаме, че $\Gamma \vdash \tau' : \arr{a}{a}$.
     От \IndHyp, приложено за $\tau'$, имаме, че
-    \[\val{\tau'}_\Gamma(\ov{u}) \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}].\]
+    \[\val{\tau'}_\Gamma(\ov{u}) \triangleleft_{\arr{a}{a}} \tau'[\ov{x}/\ov{\mu}].\]
     Нека за улеснение да положим $f \df \val{\tau'}_\Gamma(\ov{u}) \in \Cont{\val{\vv{a}}}{\val{\vv{a}}}$.
     Да напомним, че
     \[\val{\fix(\tau')}_\Gamma(\ov{u}) = \lfp(f).\]
@@ -423,7 +336,7 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
     За $n = 0$ е ясно, понеже от \Prop{pcf:adequacy:bottom} имаме, че $f^0(\bot^{\val{\vv{a}}}) = \bot^{\val{\vv{a}}} \in D$.
 
     Нека сега $n > 0$. Ще използваме, че от \IndHyp имаме, че $f^{n-1}(\bot^{\val{\vv{a}}}) \in D$.
-    Понеже $f \triangleleft_{\vv{a}\to\vv{a}} \tau'[\ov{x}/\ov{\mu}]$, то
+    Понеже $f \triangleleft_{\arr{a}{a}} \tau'[\ov{x}/\ov{\mu}]$, то
     за произволно $e \triangleleft_{\vv{a}} \rho$ е изпълнено, че
     $f(e) \triangleleft_{\vv{a}} \tau'[\ov{x}/\ov{\mu}](\rho)$.
     Нека изберем $\rho \df \fix(\tau'[\ov{x}/\ov{\mu}])$ и $e \df f^{n-1}(\bot^{\val{\vv{a}}})$.
@@ -482,13 +395,14 @@ $\val{\tau} \triangleleft_{\vv{a}} \tau$ с индукция по построе
 \end{align*}
 
 Ясно е, че $\val{\tau} = \val{\rho}$, но според правилата на операционната семантика, понеже $\tau$ е стойност, то
-$\tau \not\Downarrow_{\vv{nat}\to\vv{nat}} \rho$.
+$\tau \not\Downarrow_{\arr{nat}{nat}} \rho$.
 Оттук веднага е ясно, че няма как да имаме теорема за адекватност за по-високи типове от $\vv{nat}$.
 
 Следващото следствие ни казва, че за типа $\nat$, $\bot$ означава изчисление, което никога не завършва.
 
 \begin{framed}
   \begin{corollary}
+    \label{cr:pcf:adequacy:bottom}
     За всеки затворен терм $\tau : \nat$ е изпълнено, че:
     \[\val{\tau} = \bot^{\val{\nat}} \text{ точно тогава, когато } \tau \not\opsem{}{nat}.\]
   \end{corollary}

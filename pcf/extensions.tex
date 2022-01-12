@@ -1,4 +1,4 @@
-\section{Езикът \texttt{PCF++}}
+\section{Езикът \texttt{PCF(bool)}}
 
 \marginpar{Всъщност в \cite[Глава 4.1]{gunter} това е ,,истинската'' дефиниция на езика \PCF.}
 
@@ -7,95 +7,45 @@
   Типове
   \[\vv{a} ::= \bool\ |\ \nat\ |\ \vv{a}\to\vv{a}\]
 \item
-  Термове
+  Изрази
   \begin{align*}
-    \tau ::=\ & \vv{0}\ |\ \tru\ |\ \fls\ |\ \vv{x}\ |\\
-             & \scc(\tau_1)\ |\ \prd(\tau_1)\ |\ \texttt{iszero}(\tau)\ |\ \ifelse{\tau_1}{\tau_2}{\tau_3}\ |\\
-             &\tau_1\tau_2\ |\ \lamb{x}{a}{\tau_1}\ |\ \fix(\tau_1).
+    \tau ::=\ & \tru\ |\ \fls\ |\ \vv{n}\ |\ \vv{x}\ |\ \tau_1 + \tau_2\ |\ \tau_1 - \tau_2\ |\  \tau_1\ \vv{==}\ \tau_2\ |\\
+              & \ifelse{\tau_1}{\tau_2}{\tau_3}\ |\ \tau_1\tau_2\ |\ \lamb{x}{a}{\tau_1}\ |\ \fix(\tau_1).
   \end{align*}
+  % Термове
+  % \begin{align*}
+  %   \tau ::=\ & \vv{0}\ |\ \tru\ |\ \fls\ |\ \vv{x}\ |\\
+  %            & \scc(\tau_1)\ |\ \prd(\tau_1)\ |\ \texttt{iszero}(\tau)\ |\ \ifelse{\tau_1}{\tau_2}{\tau_3}\ |\\
+  %            &\tau_1\tau_2\ |\ \lamb{x}{a}{\tau_1}\ |\ \fix(\tau_1).
+  % \end{align*}
 \item
   Стойностите са затворени термове от следния вид:
-  \[\vv{v} ::= \vv{0}\ |\ \tru\ |\ \fls\ |\ \scc(\vv{v})\ |\ \lamb{x}{a}{\tau}\]
+  \[\vv{v} ::= \tru\ |\ \fls\ |\ \vv{n}\ |\ \lamb{x}{a}{\mu}\]
 \end{itemize}
 
-\subsection{Добре типизирани термове}
+\subsection{Типизираща релация}
+
+Релацията $\Gamma \vdash \tau : \vv{a}$ за езика $\texttt{PCF(bool)}$ е почти същата
+както за езика $\texttt{PCF}$. Имаме две нови правила:
 
 \begin{figure}[H]
   \begin{subfigure}[b]{0.5\textwidth}
     \begin{prooftree}
       \AxiomC{}
-      \RightLabel{\scriptsize{(zero)}}
-      \UnaryInfC{$\Gamma \vdash \vv{0} : \vv{nat}$}
+      \RightLabel{\scriptsize{(true)}}
+      \UnaryInfC{$\Gamma \vdash \tru : \vv{bool}$}
     \end{prooftree}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{0.5\textwidth}
-  \begin{prooftree}
-    \AxiomC{}
-    \RightLabel{\scriptsize{(true)}}
-    \UnaryInfC{$\Gamma \vdash \tru : \vv{bool}$}
-  \end{prooftree}
-\end{subfigure}
-
-\vspace{10pt}
-
-\begin{subfigure}[b]{0.5\textwidth}
-  \begin{prooftree}
-  \AxiomC{}
-  \RightLabel{\scriptsize{(false)}}
-  \UnaryInfC{$\Gamma \vdash \fls : \vv{bool}$}
-\end{prooftree}
-\end{subfigure}
-~
-\begin{subfigure}[b]{0.5\textwidth}
-  \begin{prooftree}
-    \AxiomC{$\vv{x} \in \texttt{dom}(\Gamma)$}
-    \AxiomC{$\Gamma(\vv{x}) = \vv{a}$}
-    \RightLabel{\scriptsize{(var)}}
-    \BinaryInfC{$\Gamma \vdash \vv{x} : \vv{a}$}
-  \end{prooftree}
-\end{subfigure}
-
-\vspace{10pt}
-
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau:\vv{nat}$}
-  \RightLabel{\scriptsize{(succ)}}
-  \UnaryInfC{$\Gamma \vdash \scc(\tau) : \vv{nat}$}
-\end{prooftree}
-\end{subfigure}
-~
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau:\vv{nat}$}
-  \RightLabel{\scriptsize{(pred)}}
-  \UnaryInfC{$\Gamma \vdash \prd(\tau) : \vv{nat}$}
-\end{prooftree}
-\end{subfigure}
-
-\vspace{10pt}
-
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau:\vv{nat}$}
-  \RightLabel{\scriptsize{(iszero)}}
-  \UnaryInfC{$\Gamma \vdash \iszero(\tau) : \vv{bool}$}
-\end{prooftree}
-\end{subfigure}
-~
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau_1:\vv{a}\to\vv{b}$}
-  \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
-  \RightLabel{\scriptsize{(app)}}
-  \BinaryInfC{$\Gamma \vdash \tau_1\tau_2 : \vv{b}$}
-\end{prooftree}
-\end{subfigure}
-
-\vspace{10pt}
-
-\begin{subfigure}[b]{0.5\textwidth}
+    \begin{prooftree}
+      \AxiomC{}
+      \RightLabel{\scriptsize{(false)}}
+      \UnaryInfC{$\Gamma \vdash \fls : \vv{bool}$}
+    \end{prooftree}
+  \end{subfigure}
+\end{figure}
+Имаме и едно променено правило:
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash \tau_1:\vv{bool}$}
   \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
@@ -103,95 +53,98 @@
   \RightLabel{\scriptsize{(if)}}
   \TrinaryInfC{$\Gamma \vdash \ifelse{\tau_1}{\tau_2}{\tau_3} : \vv{a}$}
 \end{prooftree}
-\end{subfigure}
-~
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau:\vv{a}\to\vv{a}$}
-  \RightLabel{\scriptsize{(fix)}}
-  \UnaryInfC{$\Gamma \vdash \fix(\tau) : \vv{a}$}
-\end{prooftree}
-\end{subfigure}
+Всички останали правила са същите.
 
-\vspace{10pt}
+% \end{subfigure}
+% ~
+% \begin{subfigure}[b]{0.5\textwidth}
+% \begin{prooftree}
+%   \AxiomC{$\Gamma \vdash \tau:\vv{a}\to\vv{a}$}
+%   \RightLabel{\scriptsize{(fix)}}
+%   \UnaryInfC{$\Gamma \vdash \fix(\tau) : \vv{a}$}
+% \end{prooftree}
+% \end{subfigure}
 
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau_1:\vv{a}\to\vv{b}$}
-  \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
-  \RightLabel{\scriptsize{(app)}}
-  \BinaryInfC{$\Gamma \vdash \tau_1\tau_2 : \vv{b}$}
-\end{prooftree}
-\end{subfigure}
-~
-\begin{subfigure}[b]{0.5\textwidth}
-\begin{prooftree}
-  \AxiomC{$\vv{x} \not\in\vv{dom}(\Gamma)$}
-  \AxiomC{$\Gamma, \type{x}{a} \vdash \tau:\vv{b}$}
-  \RightLabel{\scriptsize{(lambda)}}
-  \BinaryInfC{$\Gamma \vdash \lambda \type{x}{a}\ .\ \tau : \vv{a} \to \vv{b}$}
-\end{prooftree}
-\end{subfigure}
+% \vspace{10pt}
 
-\caption{Релация за типизиране на термовете от езика \texttt{PCF++}}
-\label{fig:pcf:extensions:relation}
-\end{figure}
+% \begin{subfigure}[b]{0.5\textwidth}
+% \begin{prooftree}
+%   \AxiomC{$\Gamma \vdash \tau_1:\vv{a}\to\vv{b}$}
+%   \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
+%   \RightLabel{\scriptsize{(app)}}
+%   \BinaryInfC{$\Gamma \vdash \tau_1\tau_2 : \vv{b}$}
+% \end{prooftree}
+% \end{subfigure}
+% ~
+% \begin{subfigure}[b]{0.5\textwidth}
+% \begin{prooftree}
+%   \AxiomC{$\vv{x} \not\in\vv{dom}(\Gamma)$}
+%   \AxiomC{$\Gamma, \type{x}{a} \vdash \tau:\vv{b}$}
+%   \RightLabel{\scriptsize{(lambda)}}
+%   \BinaryInfC{$\Gamma \vdash \lambda \type{x}{a}\ .\ \tau : \vv{a} \to \vv{b}$}
+% \end{prooftree}
+% \end{subfigure}
+
+% \caption{Релация за типизиране на термовете от езика \texttt{PCF++}}
+% \label{fig:pcf:extensions:relation}
+% \end{figure}
 
 
 \subsection{Операционна семантика}
 
-\marginpar{\cite[стр. 109]{gunter}}
+% \marginpar{\cite[стр. 109]{gunter}}
+
+Тук отново всичко е почти същото както преди със следната разлика:
 
 \begin{figure}[H]
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\type{v}{a}$}
-      \RightLabel{\scriptsize{(val)}}
-      \UnaryInfC{$\vv{v} \Downarrow^0_{\vv{a}} \vv{v}$}
-    \end{prooftree}    
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{0}$}
-      \UnaryInfC{$\prd(\tau) \Downarrow^{\ell+1}_{\nat} \vv{0}$}
-    \end{prooftree}
-  \end{subfigure}
+  % \begin{subfigure}[b]{0.5\textwidth}
+  %   \begin{prooftree}
+  %     \AxiomC{$\type{v}{a}$}
+  %     \RightLabel{\scriptsize{(val)}}
+  %     \UnaryInfC{$\vv{v} \Downarrow^0_{\vv{a}} \vv{v}$}
+  %   \end{prooftree}    
+  % \end{subfigure}
+  % ~
+  % \begin{subfigure}[b]{0.5\textwidth}
+  %   \begin{prooftree}
+  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{0}$}
+  %     \UnaryInfC{$\prd(\tau) \Downarrow^{\ell+1}_{\nat} \vv{0}$}
+  %   \end{prooftree}
+  % \end{subfigure}
 
-  \vspace{10pt}
+  % \vspace{10pt}
 
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\tau \Downarrow^\ell_{\nat} \scc(\vv{v})$}
-      \UnaryInfC{$\prd(\tau) \Downarrow^{\ell+1}_{\nat} \vv{v}$}
-    \end{prooftree}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{v}$}
-      \UnaryInfC{$\scc(\tau) \Downarrow^{\ell+1}_{\nat} \scc(\vv{v})$}
-    \end{prooftree}
-  \end{subfigure}
+  % \begin{subfigure}[b]{0.5\textwidth}
+  %   \begin{prooftree}
+  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \scc(\vv{v})$}
+  %     \UnaryInfC{$\prd(\tau) \Downarrow^{\ell+1}_{\nat} \vv{v}$}
+  %   \end{prooftree}
+  % \end{subfigure}
+  % ~
+  % \begin{subfigure}[b]{0.5\textwidth}
+  %   \begin{prooftree}
+  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{v}$}
+  %     \UnaryInfC{$\scc(\tau) \Downarrow^{\ell+1}_{\nat} \scc(\vv{v})$}
+  %   \end{prooftree}
+  % \end{subfigure}
 
-  \vspace{10pt}
+  % \vspace{10pt}
 
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{0}$}
-      \UnaryInfC{$\iszero(\tau) \Downarrow^{\ell+1}_{\bool} \tru$}
-    \end{prooftree}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\tau \Downarrow^\ell_{\nat} \scc(\vv{v})$}
-      \UnaryInfC{$\iszero(\tau) \Downarrow^{\ell+1}_{\bool} \fls$}
-    \end{prooftree}
-  \end{subfigure}
+  % \begin{subfigure}[b]{0.5\textwidth}
+  %   \begin{prooftree}
+  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{0}$}
+  %     \UnaryInfC{$\iszero(\tau) \Downarrow^{\ell+1}_{\bool} \tru$}
+  %   \end{prooftree}
+  % \end{subfigure}
+  % ~
+  % \begin{subfigure}[b]{0.5\textwidth}
+  %   \begin{prooftree}
+  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \scc(\vv{v})$}
+  %     \UnaryInfC{$\iszero(\tau) \Downarrow^{\ell+1}_{\bool} \fls$}
+  %   \end{prooftree}
+  % \end{subfigure}
 
-  \vspace{10pt}
-
+  % \vspace{10pt}
   \begin{subfigure}[b]{0.5\textwidth}
     \begin{prooftree}
       \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\bool} \fls$}
@@ -210,35 +163,35 @@
     \end{prooftree}
   \end{subfigure}
 
-  \vspace{10pt}
+%   \vspace{10pt}
 
-  \begin{subfigure}[b]{0.5\textwidth}
-    \begin{prooftree}
-      \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
-      \AxiomC{$\tau'_1[x/\tau_2] \Downarrow^{\ell_2}_{\vv{b}} \vv{v}$}
-      % \RightLabel{\scriptsize{(cbn)}}
-      \BinaryInfC{$\tau_1 \tau_2 \Downarrow^{\ell_1+\ell_2+1}_{\vv{b}} \vv{v} $}
-    \end{prooftree}
-  \end{subfigure}
-  ~
-  \begin{subfigure}[b]{0.5\textwidth}
-  \begin{prooftree}
-    \AxiomC{$\tau\ \fix(\tau) \Downarrow^{\ell}_{\vv{a}} \vv{v}$}
-    \RightLabel{\scriptsize{(fix)}}
-    \UnaryInfC{$\fix(\tau) \Downarrow^{\ell+1}_{\vv{a}} \vv{v} $}
-  \end{prooftree}
-\end{subfigure}
-\caption{Правила на операционната семантика за езика \PCFPP}
+%   \begin{subfigure}[b]{0.5\textwidth}
+%     \begin{prooftree}
+%       \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
+%       \AxiomC{$\tau'_1[x/\tau_2] \Downarrow^{\ell_2}_{\vv{b}} \vv{v}$}
+%       % \RightLabel{\scriptsize{(cbn)}}
+%       \BinaryInfC{$\tau_1 \tau_2 \Downarrow^{\ell_1+\ell_2+1}_{\vv{b}} \vv{v} $}
+%     \end{prooftree}
+%   \end{subfigure}
+%   ~
+%   \begin{subfigure}[b]{0.5\textwidth}
+%   \begin{prooftree}
+%     \AxiomC{$\tau\ \fix(\tau) \Downarrow^{\ell}_{\vv{a}} \vv{v}$}
+%     \RightLabel{\scriptsize{(fix)}}
+%     \UnaryInfC{$\fix(\tau) \Downarrow^{\ell+1}_{\vv{a}} \vv{v} $}
+%   \end{prooftree}
+% \end{subfigure}
+% \caption{Правила на операционната семантика за езика \PCFPP}
 \end{figure}
 
 
 
 
-\begin{lemma}
-  Нека $\tau$ е затворен терм от тип $\vv{a}$.
-  Тогава ако $\tau \Downarrow_{\vv{a}} \vv{v}$ и $\tau \Downarrow_{\vv{a}} \vv{u}$, то
-  $\vv{v} \equiv_\alpha \vv{u}$.
-\end{lemma}
+% \begin{lemma}
+%   Нека $\tau$ е затворен терм от тип $\vv{a}$.
+%   Тогава ако $\tau \Downarrow_{\vv{a}} \vv{v}$ и $\tau \Downarrow_{\vv{a}} \vv{u}$, то
+%   $\vv{v} \equiv_\alpha \vv{u}$.
+% \end{lemma}
 
 
 \subsection{Денотационна семантика}
@@ -246,50 +199,50 @@
 \marginpar{В \cite[Глава 4.3]{gunter} се нарича \emph{standard fixed-point semantics} of PCF.}
 
 Семантиката на всеки тип ще бъде област на Скот както следва:
-\begin{align*}
-  & \val{\bool} \df \Bool = \{true, false\}_\bot \\
-  & \val{\nat} \df \Nat_\bot\\
-  & \val{\vv{a} \to \vv{b}} \df \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
-\end{align*}
+% \begin{align*}
+\[\val{\bool} \df \Bool = \{true, false\}_\bot.\]
+%   & \val{\nat} \df \Nat_\bot\\
+%   & \val{\vv{a} \to \vv{b}} \df \Cont{\val{\vv{a}}}{\val{\vv{b}}}.
+% \end{align*}
 
 \begin{itemize}
-\item
-  Нека $\tau \equiv \vv{0}$. Тогава
-  \[\val{\vv{0}}_\Gamma(\overline{u}) \df 0.\]
+% \item
+%   Нека $\tau \equiv \vv{0}$. Тогава
+%   \[\val{\vv{0}}_\Gamma(\overline{u}) \df 0.\]
 \item
   Нека $\tau \equiv \tru$. Тогава
   \[\val{\tru}_\Gamma(\overline{u}) \df true.\]
 \item
   Нека $\tau \equiv \fls$. Тогава
   \[\val{\fls}_\Gamma(\overline{u}) \df false.\]
-\item
-  Нека $\tau \equiv \vv{x}_i$. Тогава
-  \[\val{\vv{x}_i}_\Gamma(\overline{u}) \df u_i.\]
-\item
-  Нека $\tau \equiv \scc(\tau_1)$. Тогава
-  \[\val{\scc(\tau_1)}_\Gamma(\ov{u}) \df
-  \begin{cases}
-    \val{\tau_1}_\Gamma(\ov{u}) + 1, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq \bot\\
-    \bot, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \bot.
-  \end{cases}\]
+% \item
+%   Нека $\tau \equiv \vv{x}_i$. Тогава
+%   \[\val{\vv{x}_i}_\Gamma(\overline{u}) \df u_i.\]
+% \item
+%   Нека $\tau \equiv \scc(\tau_1)$. Тогава
+%   \[\val{\scc(\tau_1)}_\Gamma(\ov{u}) \df
+%   \begin{cases}
+%     \val{\tau_1}_\Gamma(\ov{u}) + 1, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq \bot\\
+%     \bot, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \bot.
+%   \end{cases}\]
 
-\item
-  Нека $\tau \equiv \prd(\tau_1)$. Тогава
-  \[\val{\prd(\tau_1)}_\Gamma(\ov{u}) \df
-  \begin{cases}
-    0, & \text{ ако }\val{\tau_1}(\ov{u}) = 0\\
-    \val{\tau_1}_\Gamma(\ov{u}) - 1, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq 0, \bot\\
-    \bot, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \bot.
-  \end{cases}\]
+% \item
+%   Нека $\tau \equiv \prd(\tau_1)$. Тогава
+%   \[\val{\prd(\tau_1)}_\Gamma(\ov{u}) \df
+%   \begin{cases}
+%     0, & \text{ ако }\val{\tau_1}(\ov{u}) = 0\\
+%     \val{\tau_1}_\Gamma(\ov{u}) - 1, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq 0, \bot\\
+%     \bot, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \bot.
+%   \end{cases}\]
 
-\item
-  Нека $\tau \equiv \iszero(\tau_1)$. Тогава
-  \[\val{\iszero(\tau_1)}_\Gamma(\ov{u}) \df
-  \begin{cases}
-    true, &  \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = 0\\
-    false, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq 0,\bot\\
-    \bot, &  \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \bot.
-  \end{cases}\]
+% \item
+%   Нека $\tau \equiv \iszero(\tau_1)$. Тогава
+%   \[\val{\iszero(\tau_1)}_\Gamma(\ov{u}) \df
+%   \begin{cases}
+%     true, &  \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = 0\\
+%     false, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq 0,\bot\\
+%     \bot, &  \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \bot.
+%   \end{cases}\]
 
 
 % \item
@@ -305,48 +258,54 @@
       \val{\tau_3}_\Gamma(\ov{u}), & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = false\\
       \bot, & \text{ ако } \val{\tau_1}_\Gamma(\ov{u}) = \bot.
     \end{cases}\]
-\item
-  \marginpar{За $\texttt{eval}$ вижте \Def{eval}.}
-  Нека $\tau \equiv \tau_1 \tau_2$. Тогава
-  \[\val{\tau_1 \tau_2}_\Gamma(\overline{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
-\item
-  \marginpar{За $\lfp$ вижте Раздел~\ref{sect:lfp}.}
-  Нека $\tau \equiv \fix(\tau')$. Тогава 
-  \[\val{\fix(\tau')}_\Gamma(\overline{u}) \df \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
-\item
-  \marginpar{За $\curry$ вижте \Def{curry}.}
-  Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
-  Нека $\Gamma' \df \Gamma, \type{y}{b}$. Тогава
-  \[\val{\lamb{y}{b}{\tau'}}_\Gamma(\overline{u}) \df \curry(\val{\tau'}_{\Gamma'})(\overline{u}).\]
+% \item
+%   \marginpar{За $\texttt{eval}$ вижте \Def{eval}.}
+%   Нека $\tau \equiv \tau_1 \tau_2$. Тогава
+%   \[\val{\tau_1 \tau_2}_\Gamma(\overline{u}) \df \texttt{eval}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
+% \item
+%   \marginpar{За $\lfp$ вижте Раздел~\ref{sect:lfp}.}
+%   Нека $\tau \equiv \fix(\tau')$. Тогава 
+%   \[\val{\fix(\tau')}_\Gamma(\overline{u}) \df \lfp(\val{\tau'}_\Gamma(\overline{u})).\]
+% \item
+%   \marginpar{За $\curry$ вижте \Def{curry}.}
+%   Нека $\tau \equiv \lamb{y}{b}{\tau'}$, като $\vv{y} \not \in \texttt{dom}(\Gamma)$.
+%   Нека $\Gamma' \df \Gamma, \type{y}{b}$. Тогава
+%   \[\val{\lamb{y}{b}{\tau'}}_\Gamma(\overline{u}) \df \curry(\val{\tau'}_{\Gamma'})(\overline{u}).\]
 \end{itemize}
 
-\begin{problem}
-  \marginpar{Аналог на \cite[Лема 4.19]{gunter}.}
-  Докажете, че ако $\Gamma \vdash \tau : \vv{a}$, то $\val{\tau}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{a}}}$.
-\end{problem}
+% \begin{problem}
+%   \marginpar{Аналог на \cite[Лема 4.19]{gunter}.}
+%   Докажете, че ако $\Gamma \vdash \tau : \vv{a}$, то $\val{\tau}_\Gamma \in \Cont{\val{\Gamma}}{\val{\vv{a}}}$.
+% \end{problem}
 
-\begin{problem}
-  Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, $\vv{x} \not\in \texttt{dom}(\Gamma)$,
-  \begin{align*}
-    & \Gamma \vdash \rho : \vv{a}\\
-    & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
-  \end{align*}
-  Докажете, че тогава:
-  \begin{enumerate}[1)]
-  \item
-    $\Gamma \vdash \tau\subst{x}{\rho} : \vv{b}$;
-  \item
-    за всяко $\overline{u} \in \val{\Gamma}$,
-    \[\val{\tau\subst{x}{\rho}}_\Gamma(\overline{u}) = \val{\tau}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma(\overline{u})),\]
-    където $\Gamma' = \Gamma, \type{x}{a}$.  
-  \end{enumerate}
-\end{problem}
+% \begin{problem}
+%   Нека $\Gamma$ е типов контекст, $\tau$ и $\rho$ са термове, $\vv{x} \not\in \texttt{dom}(\Gamma)$,
+%   \begin{align*}
+%     & \Gamma \vdash \rho : \vv{a}\\
+%     & \Gamma, \type{x}{a} \vdash \tau : \vv{b}.
+%   \end{align*}
+%   Докажете, че тогава:
+%   \begin{enumerate}[1)]
+%   \item
+%     $\Gamma \vdash \tau\subst{x}{\rho} : \vv{b}$;
+%   \item
+%     за всяко $\overline{u} \in \val{\Gamma}$,
+%     \[\val{\tau\subst{x}{\rho}}_\Gamma(\overline{u}) = \val{\tau}_{\Gamma'}(\overline{u},\val{\rho}_\Gamma(\overline{u})),\]
+%     където $\Gamma' = \Gamma, \type{x}{a}$.  
+%   \end{enumerate}
+% \end{problem}
 
-\begin{problem}(Теорема за коректност)
-  \marginpar{Аналог на \cite[Твърдение 4.23]{gunter}.}
-  Докажете, че за всеки затворен терм $\tau : \vv{b}$ и стойност $\vv{v}$, е изпълнена импликацията:
-  \[\tau \Downarrow_{\vv{b}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
-\end{problem}
+\begin{theorem}[Теорема за коректност за езика $\texttt{PCF(bool)}$]
+  % \marginpar{Аналог на \cite[Твърдение 4.23]{gunter}.}
+  Докажете, че за всеки затворен терм $\tau$ от тип $\vv{a}$ и стойност $\vv{v}$, е изпълнена импликацията:
+  \[\tau \Downarrow_{\vv{a}} \vv{v}\ \implies\ \val{\tau} = \val{\vv{v}} \in \val{\vv{b}}.\]
+\end{theorem}
+
+\begin{theorem}[Теорема за адекватност за езика $\texttt{PCF(bool)}$]
+  Нека разгледаме тип $\vv{a} = \nat$ или $\vv{a} = \bool$.
+  За всеки затворен терм $\tau$ от тип $\vv{a}$ е изпълнена импликацията
+  \[\val{\tau} = v \neq \bot^{\val{\vv{a}}} \implies \tau \Downarrow_{\vv{a}} \vv{v}.\]
+\end{theorem}
 
 
 %%% Local Variables:

@@ -151,6 +151,139 @@
 %   \end{align*}
 % \end{hint}
 
+
+\begin{problem}
+  \marginpar{\cite[стр. 124]{reynolds}}
+  Нека $f \in \Mon{\A}{\B}$ и $g \in \Mon{\B}{\A}$ имат свойствата:
+  \begin{itemize}
+  \item 
+    $f\circ g = id_\B$;
+  \item
+    $g \circ f = id_\A$.
+  \end{itemize}
+  Докажете, че $f$ и $g$ са непрекъснати.
+\end{problem}
+
+
+% \begin{problem}
+%   Нека $f_0 \sqsubseteq f_1 \sqsubseteq f_2 \sqsubseteq \cdots$
+%   е верига от елементи на $\Cont{\A}{\A}$.
+%   Да положим $h = \bigsqcup_n f_n$.
+%   Вярно ли е, че 
+%   \[h \circ h = \bigsqcup_n (f_n \circ f_n)?\]
+%   Обосновете се!
+% \end{problem}
+
+
+\marginpar{Много от задачите са от \cite[стр. 31]{abramsky94}}
+
+\begin{problem}
+  Да разгледаме непрекъснатите изображения
+  \[\Gamma,\Delta \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}}.\]
+  \marginpar{Знаем, че изображението $\Gamma \circ \Delta$ е непрекъснато, където
+    \[(\Gamma\circ\Delta)(f) \df \Gamma(\Delta(f)).\]}
+  Винаги ли е вярно, че 
+  \[\lfp(\Gamma \circ \Delta) \sqsubseteq \lfp(\Gamma) \circ \lfp(\Delta)?\]
+  Обосновете се!
+\end{problem}
+% \ifhints
+\begin{hint}
+  Ще дадем контрапример.
+  Нека $\A = \Nat_\bot$.
+  Нека например да разгледаме
+  \begin{align*}
+    & \Delta(f)(x) \df f(x+1)\\
+    & \Gamma(f)(x) \df
+      \begin{cases}
+        0, & x \neq \bot\\
+        \bot, & x = \bot.
+      \end{cases}
+  \end{align*}
+  Да положим $f_\Gamma \df \lfp(\Gamma)$ и $f_\Delta \df \lfp(\Delta)$.
+  Ясно е, че 
+  \begin{align*}
+    & f_\Delta(x) = \bot\\
+    & f_\Gamma(x) =
+    \begin{cases}
+      0, & x \neq \bot\\
+      \bot, & x = \bot.
+    \end{cases}  
+  \end{align*}
+  Тогава за произволно $x \in \Nat_\bot$,
+  \[(f_\Gamma\circ f_\Delta)(x) = f_\Gamma(f_\Delta(x)) = f_\Gamma(\bot)  = \bot.\]
+  От друга страна, понеже $(\Gamma \circ \Delta)(f) = \Gamma(\Delta(f))$, то 
+  \begin{align*}
+    & (\Gamma \circ \Delta)(f)(x) = \Gamma(\Delta(f))(x) = 
+      \begin{cases}
+        0, & x \neq \bot\\
+        \bot, & x = \bot.
+      \end{cases}
+  \end{align*}
+  Лесно се съобразява, че 
+  \[\lfp(\Gamma \circ \Delta)(x) =
+  \begin{cases}
+    0, & x \neq \bot\\
+    \bot, & x = \bot.
+  \end{cases}\]
+  Заключаваме, че 
+  \[\lfp(\Gamma \circ \Delta) \sqsupset \lfp(\Gamma) \circ \lfp(\Delta).\]
+\end{hint}
+% \fi
+
+
+\begin{problem}
+  Да разгледаме операторите \[\Gamma,\Delta \in \Cont{\Cont{\A}{\A}}{\Cont{\A}{\A}}.\]
+  Знаем, че операторът $\Gamma \circ \Delta$ е непрекъснат, където
+  \[(\Gamma\circ\Delta)(f) \df \Gamma(\Delta(f)).\]
+  Винаги ли е вярно, че:
+  \[\lfp(\Gamma \circ \Delta) \sqsupseteq \lfp(\Gamma) \circ \lfp(\Delta)?\]
+  Обосновете се!
+\end{problem}
+% \ifhints
+\begin{hint}
+  Ще дадем контрапример.
+  Нека $\A = \Nat_\bot$.
+  Нека например да разгледаме
+  \begin{align*}
+    & \Delta(f)(x) \df 0\\
+    & \Gamma(f)(x) \df
+      \begin{cases}
+        0, & x = 0\\
+        \bot, & \text{ иначе}.
+      \end{cases}
+  \end{align*}
+  Да положим $f_\Gamma \df \lfp(\Gamma)$ и $f_\Delta \df \lfp(\Delta)$.
+  Ясно е, че 
+  \begin{align*}
+    & f_\Delta(x) = 0\\
+    & f_\Gamma(x) =
+    \begin{cases}
+      0, & x = 0\\
+      \bot, & \text{ иначе}.
+    \end{cases}  
+  \end{align*}
+  Тогава за произволно $x \in \Nat_\bot$,
+  \[(f_\Gamma\circ f_\Delta)(x) = f_\Gamma(f_\Delta(x)) = f_\Gamma(0)  = 0.\]
+  От друга страна, понеже $(\Gamma \circ \Delta)(f) = \Gamma(\Delta(f))$, то 
+  \begin{align*}
+    & (\Gamma \circ \Delta)(f)(x) = \Gamma(\Delta(f))(x) = 
+      \begin{cases}
+        0, & x = 0\\
+        \bot, & \text{ иначе}.
+      \end{cases}
+  \end{align*}
+  Лесно се съобразява, че 
+  \[\lfp(\Gamma \circ \Delta)(x) =
+  \begin{cases}
+    0, & x = 0\\
+    \bot, & \text{ иначе}.
+  \end{cases}\]
+  Заключаваме, че 
+  \[\lfp(\Gamma \circ \Delta) \sqsubset \lfp(\Gamma) \circ \lfp(\Delta).\]
+\end{hint}
+% \fi
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../sep"
