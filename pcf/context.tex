@@ -153,10 +153,12 @@
   Сега от \IndHyp заключаваме, че $d(u) \triangleleft_{\vv{c}} \tau_2 \rho$.
 \end{proof}
 
-\begin{proposition}\label{pr:pcf:context:relation-characterization}
-  За произволни затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$,
-  \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff \val{\tau_1} \triangleleft_{\vv{a}} \tau_2.\]
-\end{proposition}  
+\begin{important}
+  \begin{proposition}\label{pr:pcf:context:relation-characterization}
+    За произволни затворени термове $\tau_1$ и $\tau_2$ от тип $\vv{a}$,
+    \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff \val{\tau_1} \triangleleft_{\vv{a}} \tau_2.\]
+  \end{proposition}    
+\end{important}
 \begin{proof}
   $(\Rightarrow)$ Нека $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
   От \Prop{pcf:adequacy:implication} имаме, че
@@ -181,6 +183,7 @@
   \end{align*}
   Заключаваме, че $\tau_1 \leq_{ctx} \tau_2 : \vv{a}$.
 \end{proof}
+
 
 \begin{framed}
   \begin{proposition}\label{pr:pcf:context:extensionality}
@@ -219,6 +222,26 @@
     $\val{\tau_1}(u) \triangleleft_{\vv{b}} \tau_2 \rho$.
   \end{enumerate}
 \end{proof}
+
+\begin{problem}
+  \label{prob:pcf:context:application}
+  Докажете, че винаги можем да направим следния извод:
+  \begin{prooftree}
+    \AxiomC{$\tau_1 \leq_{ctx} \tau_2 : \arr{a}{b}$}
+    \AxiomC{$\rho_1 \leq_{ctx} \rho_2 : \vv{a}$}
+    \BinaryInfC{$\tau_1\rho_1 \leq_{ctx} \tau_2\rho_2 : \vv{b}$}
+  \end{prooftree}
+\end{problem}
+\begin{hint}
+  От $\tau_1 \leq_{ctx} \tau_2 : \arr{a}{b}$ имаме, че $\val{\tau_1} \triangleleft_{\arr{a}{b}} \tau_2$.
+  Тогава за произволен елемент $u \in \val{\vv{a}}$ и произволен $\mu \in \PCF_{\vv{a}}$,
+  за които $u \triangleleft_{\vv{a}} \mu$ е изпълнено, че $\val{\tau_1}(u) \triangleleft_{\vv{b}} \tau_2\mu$.
+  
+  От $\rho_1 \leq_{ctx} \rho_2 : \vv{a}$ имаме, че $\val{\rho_1} \triangleleft_{\vv{b}} \rho_2$.
+  Нека положим $u \df \val{\rho_1}$ и $\mu \df \rho_2$.
+  Тогава получаваме, че $\val{\tau_1}(\val{\rho_1}) \triangleleft_{\vv{b}} \tau_2 \rho_2$.
+  Сега заключаваме, че $\tau_1\rho_1 \leq_{ctx} \tau_2\rho_2 : \vv{b}$.
+\end{hint}
 
 Естествено е да се запитаме дали можем да разширим \ref{pr:pcf:context:extensionality:base} на \Prop{pcf:context:extensionality} за по-сложни от $\nat$ типове $\vv{a}$, т.е. възможно ли е
 \[\tau_1 \leq_{ctx} \tau_2 : \vv{a} \iff (\forall \vv{v})[\tau_1 \Downarrow_{\vv{a}} \vv{v} \implies \tau_2 \Downarrow_{\vv{a}} \vv{v}]?\]
@@ -366,6 +389,7 @@
 \newpage
 
 \begin{problem}
+  \marginpar{Кеймбридж 2010 г.}
   Докажете, че е изпълнена импликацията:
   \[\tau_1 \cong_{ctx} \tau_2 : \nat\to\nat \implies \val{\tau_1} = \val{\tau_2}.\]  
 \end{problem}
@@ -443,41 +467,45 @@
   Използвайте \Problem{domains:lfp:compositon}.
 \end{hint}
 
-% \begin{problem}
-%   \marginpar{Задача в Кеймбридж 2015 г. \cite{cambridge-website}}
-%   Нека $\tau_1$ и $\tau_2$ са затворени термове от тип $\arr{a}{b}$ и
-%   нека $\mu_1$ и $\mu_2$ са затворени термове от тип $\arr{b}{c}$, за които:
-%   \begin{align*}
-%     & \tau_1 \eqCtx \tau_2 : \arr{a}{b}\\
-%     & \mu_1 \eqCtx \mu_2 : \arr{b}{c}.
-%   \end{align*}
-%   Докажете или опровергайте, че тогава имаме еквивалентността:
-%   \begin{equation}
-%     \label{eq:pcf:context:2}
-%     \lamb{x}{a}{\mu_1(\tau_1 \vv{x})} \eqCtx \lamb{x}{a}{\mu_2(\tau_2 \vv{x})} : \arr{a}{c}.
-%   \end{equation}
-% \end{problem}
-% \begin{hint}
-%   За да докажем, че еквивалентността (\ref{eq:pcf:context:2}) е изпълнена, според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} е достатъчно да докажем, че за произволен затворен терм $\rho$ от тип $\vv{a}$ е изпълнено, че:
-%   \[\lamb{x}{a}{\mu_1(\tau_1 \vv{x})}\rho \eqCtx \lamb{x}{a}{\mu_2(\tau_2 \vv{x})}\rho : \vv{c}.\]
-%   Сега, ще използваме равенствата за $i = 1,2$:
-%   \begin{align*}
-%     \val{(\lamb{x}{a}{\mu_i(\tau_i \vv{x})})\rho} & = \val{\mu_i}(\val{\tau_i}(\val{\rho}))\\
-%                                                   & = \val{\mu_i(\tau_i \rho)}.
-%   \end{align*}
-%   Тогава според \Th{pcf:context:connection} е достатъчно да докажем, че
-%   \[\mu_1(\tau_1 \rho) \eqCtx \mu_2(\tau_2 \rho) : \vv{c}.\]
+\begin{problem}
+  \marginpar{Задача в Кеймбридж 2015 г. \cite{cambridge-website}}
+  % Докажете или опровергайте, че винаги можем да направим следния извод:
+  % \begin{prooftree}
+  %   \AxiomC{$\tau_1 \eqCtx \tau_2 : \arr{a}{b}$}
+  %   \AxiomC{$\mu_1 \eqCtx \mu_2 : \arr{b}{c}$}
+  %   \BinaryInfC{$\lamb{x}{a}{\mu_1(\tau_1 \vv{x})} \eqCtx \lamb{x}{a}{\mu_2(\tau_2 \vv{x})} : \arr{a}{c}$}
+  % \end{prooftree}
 
-%   Но това е лесно да се види, защото, щом $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$,
-%   то според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} имаме, че
-%   $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$,
   
-%   % Първо, ще използваме, че щом $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$, то за произволен затворен терм $\rho$
-%   % от тип $\vv{a}$ е изпъленено, че $\tau_1 \rho \eqCtx \tau_2 \rho : \vv{b}$.
-
-%   % Второ, ще използваме, че щом $\mu_1 \eqCtx \mu_2 : \arr{a}{b}$, то за произволен затворен терм $\rho$
-%   % от тип $\vv{a}$ е изпъленено, че $\mu_1 \rho \eqCtx \mu_2 \rho : \vv{b}$.
-% \end{hint}
+  Нека $\tau_1$ и $\tau_2$ са затворени термове от тип $\arr{a}{b}$ и
+  нека $\mu_1$ и $\mu_2$ са затворени термове от тип $\arr{b}{c}$, за които:
+  \begin{align*}
+    & \tau_1 \eqCtx \tau_2 : \arr{a}{b}\\
+    & \mu_1 \eqCtx \mu_2 : \arr{b}{c}.
+  \end{align*}
+  Докажете или опровергайте, че тогава имаме еквивалентността:
+  \begin{equation}
+    \label{eq:pcf:context:2}
+    \lamb{x}{a}{\mu_1(\tau_1 \vv{x})} \eqCtx \lamb{x}{a}{\mu_2(\tau_2 \vv{x})} : \arr{a}{c}.
+  \end{equation}
+\end{problem}
+\begin{hint}
+  За да докажем, че еквивалентността (\ref{eq:pcf:context:2}) е изпълнена, според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} е достатъчно да докажем, че за произволен затворен терм $\rho$ от тип $\vv{a}$ е изпълнено, че:
+  \[(\lamb{x}{a}{\mu_1(\tau_1 \vv{x})})\rho \eqCtx (\lamb{x}{a}{\mu_2(\tau_2 \vv{x})})\rho : \vv{c}.\]
+  Сега, ще използваме равенствата за $i = 1,2$:
+  \[\val{(\lamb{x}{a}{\mu_i(\tau_i \vv{x})})\rho}= \val{\mu_i}(\val{\tau_i}(\val{\rho})) = \val{\mu_i(\tau_i \rho)},\]
+  откъдето според \ref{pcf:context:connection:denotational} на \Th{pcf:context:connection} следва, че
+  \[(\lamb{x}{a}{\mu_i(\tau_i \vv{x})})\rho \eqCtx \mu_i(\tau_i \rho).\]
+  Оттук следва, че е достатъчно да докажем, че
+  \begin{equation}
+    \label{eq:pcf:context:3}
+    \mu_1(\tau_1 \rho) \eqCtx \mu_2(\tau_2 \rho) : \vv{c}.
+  \end{equation}
+  Но това е лесно да се види, защото, щом $\tau_1 \eqCtx \tau_2 : \arr{a}{b}$,
+  то според \ref{pr:pcf:context:extensionality:step} на \Prop{pcf:context:extensionality} имаме, че
+  $\tau_1\rho \eqCtx \tau_2\rho : \arr{a}{b}$,
+  Сега прилагаме \Problem{pcf:context:application} и оттам веднага получаваме (\ref{eq:pcf:context:3}).
+\end{hint}
 
 
 %%% Local Variables:

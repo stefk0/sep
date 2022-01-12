@@ -296,6 +296,25 @@ ghci> undefined || True
 % \end{theorem}
 
 
+\begin{problem}
+  \marginpar{Кеймбридж 2015 г.}
+  Да разгледаме терма
+  \begin{lstlisting}
+    $\tau \equiv \lambda$f:(nat->bool)->bool.
+         $\lambda$p:nat->bool.
+           por(p(0), f($\lambda$n:nat.p(n+1))).
+  \end{lstlisting}
+  Намерете $\val{\fix(\tau)}$.  
+\end{problem}
+\begin{hint}
+  Покажете, че
+  $\val{\fix(\tau)}(p) =
+  \begin{cases}
+    true, & (\exists n \in \Nat)[p(n) = true]\\
+    \bot, & \text{иначе}.
+  \end{cases}$
+\end{hint}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../sep"

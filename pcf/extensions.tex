@@ -25,15 +25,15 @@
 
 \subsection{Типизираща релация}
 
-Релацията $\Gamma \vdash \tau : \vv{a}$ за езика $\texttt{PCF(bool)}$ е почти същата
-както за езика $\texttt{PCF}$. Имаме две нови правила:
+Релацията $\Gamma \vdash \tau : \vv{a}$ за езика \PCFBOOL е почти същата
+както за езика \PCF. Имаме две нови правила:
 
 \begin{figure}[H]
   \begin{subfigure}[b]{0.5\textwidth}
     \begin{prooftree}
       \AxiomC{}
       \RightLabel{\scriptsize{(true)}}
-      \UnaryInfC{$\Gamma \vdash \tru : \vv{bool}$}
+      \UnaryInfC{$\Gamma \vdash \tru : \bool$}
     \end{prooftree}
   \end{subfigure}
   ~
@@ -41,13 +41,19 @@
     \begin{prooftree}
       \AxiomC{}
       \RightLabel{\scriptsize{(false)}}
-      \UnaryInfC{$\Gamma \vdash \fls : \vv{bool}$}
+      \UnaryInfC{$\Gamma \vdash \fls : \bool$}
     \end{prooftree}
   \end{subfigure}
 \end{figure}
-Имаме и едно променено правило:
+Имаме и две променени правила:
 \begin{prooftree}
-  \AxiomC{$\Gamma \vdash \tau_1:\vv{bool}$}
+  \AxiomC{$\Gamma \vdash \tau_1:\nat$}
+  \AxiomC{$\Gamma \vdash \tau_2:\nat$}
+  \RightLabel{\scriptsize{(eq)}}
+  \BinaryInfC{$\Gamma \vdash \tau_1\ \vv{==}\ \tau_2 : \bool$}
+\end{prooftree}
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \tau_1:\bool$}
   \AxiomC{$\Gamma \vdash \tau_2:\vv{a}$}
   \AxiomC{$\Gamma \vdash \tau_3:\vv{a}$}
   \RightLabel{\scriptsize{(if)}}
@@ -94,7 +100,7 @@
 
 % \marginpar{\cite[стр. 109]{gunter}}
 
-Тук отново всичко е почти същото както преди със следната разлика:
+Тук отново всичко е почти същото както преди със следните разлики:
 
 \begin{figure}[H]
   % \begin{subfigure}[b]{0.5\textwidth}
@@ -145,21 +151,44 @@
   % \end{subfigure}
 
   % \vspace{10pt}
+  
   \begin{subfigure}[b]{0.5\textwidth}
     \begin{prooftree}
-      \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\bool} \fls$}
-      \AxiomC{$\tau_3 \Downarrow^{\ell_2}_{\vv{a}} \vv{v}$}
+      \AxiomC{$\tau_1 \opsem{\ell_1}{nat} \vv{v}_1$}
+      \AxiomC{$\tau_3 \opsem{\ell_2}{a} \vv{v}_2$}
+      \AxiomC{$\vv{v}_1 \equiv \vv{v}_2$}
       % \RightLabel{\scriptsize{(if$_\fls$)}}
-      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow^{\ell_1+\ell_2+1}_{\vv{a}} \vv{v}$}
+      \TrinaryInfC{$\tau_1\ \vv{==}\ \tau_2 \opsem{\ell_1+\ell_2+1}{bool} \tru$}
     \end{prooftree}
   \end{subfigure}
   ~
   \begin{subfigure}[b]{0.5\textwidth}
     \begin{prooftree}
-      \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\bool} \tru$}
-      \AxiomC{$\tau_2 \Downarrow^{\ell_2}_{\vv{a}} \vv{v}$}
+      \AxiomC{$\tau_1 \opsem{\ell_1}{nat} \vv{v}_1$}
+      \AxiomC{$\tau_3 \opsem{\ell_2}{a} \vv{v}_2$}
+      \AxiomC{$\vv{v}_1 \not\equiv \vv{v}_2$}
+      % \RightLabel{\scriptsize{(if$_\fls$)}}
+      \TrinaryInfC{$\tau_1\ \vv{==}\ \tau_2 \opsem{\ell_1+\ell_2+1}{bool} \fls$}
+    \end{prooftree}
+  \end{subfigure}
+
+  \vspace{10pt}
+  
+  \begin{subfigure}[b]{0.5\textwidth}
+    \begin{prooftree}
+      \AxiomC{$\tau_1 \opsem{\ell_1}{bool} \fls$}
+      \AxiomC{$\tau_3 \opsem{\ell_2}{a} \vv{v}$}
+      % \RightLabel{\scriptsize{(if$_\fls$)}}
+      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \opsem{\ell_1+\ell_2+1}{a} \vv{v}$}
+    \end{prooftree}
+  \end{subfigure}
+  ~
+  \begin{subfigure}[b]{0.5\textwidth}
+    \begin{prooftree}
+      \AxiomC{$\tau_1 \opsem{\ell_1}{bool} \tru$}
+      \AxiomC{$\tau_2 \opsem{\ell_2}{a} \vv{v}$}
       % \RightLabel{\scriptsize{(if$_\tru$)}}
-      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \Downarrow^{\ell_1+\ell_2+1}_{\vv{a}} \vv{v}$}
+      \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \opsem{\ell_1+\ell_2+1}{a} \vv{v}$}
     \end{prooftree}
   \end{subfigure}
 
@@ -249,6 +278,15 @@
 %   \marginpar{За $\texttt{eq}$ вижте Раздел~\ref{subsect:rec:term-value}.}
 %   Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Тогава
 %   \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \df \texttt{eq}(\val{\tau_1}_\Gamma(\overline{u}), \val{\tau_2}_\Gamma(\overline{u})).\]
+
+\item
+  Нека $\tau \equiv \tau_1\ \vv{==}\ \tau_2$. Тогава
+  \[\val{\tau_1\ \vv{==}\ \tau_2}_\Gamma(\overline{u}) \df
+    \begin{cases}
+      true, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) = \val{\tau_1}_\Gamma(\ov{u}) \in \Nat\\
+      false, & \text{ ако }\val{\tau_1}_\Gamma(\ov{u}) \neq \val{\tau_1}_\Gamma(\ov{u}) \in \Nat\\
+      \bot, & \text{ ако } \val{\tau_1}_\Gamma(\ov{u}) = \bot \text{ или } \val{\tau_1}_\Gamma(\ov{u}) = \bot.
+    \end{cases}\]
 \item
   % \marginpar{За $\texttt{if}$ вижте \Def{if}.}
   Нека $\tau \equiv \ifelse{\tau_1}{\tau_2}{\tau_3}$. Тогава
