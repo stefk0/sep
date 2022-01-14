@@ -283,13 +283,19 @@
   Докажете, че $\lfp(f) = \lfp(f\circ f)$.
 \end{problem}
 
-
 \begin{problem}
   \label{prob:domains:lfp:compositon}
-  \marginpar{Задача в Кеймбридж 2020 г. \cite{cambridge-website}}
-  Нека $\A$ и $\B$ са области на Скот и нека $f \in \Cont{\A}{\B}$ и $g \in \Cont{\B}{\A}$.
-  Докажете, че е изпълнено равенството:
-  \[\lfp(f \circ g) = f(\lfp(g \circ f)).\]
+  \marginpar{\cite[стр. 131]{nikolova-soskova} и задача в Кеймбридж 2020 г. \cite{cambridge-website}}
+  Нека $f \in \Cont{\A}{\B}$ и $g \in \Cont{\B}{\A}$.
+  Докажете, че 
+  \begin{itemize}
+  \item 
+    $\lfp(g \circ f) \sqsubseteq g(\lfp(f \circ g))$;
+  \item
+    $f(\lfp(g \circ f)) \sqsubseteq \lfp(f \circ g)$.
+  \end{itemize}
+  Оттук заключете, че 
+  \[\lfp(g \circ f) = g(\lfp(f \circ g)) \text{ и }f(\lfp(g \circ f)) = \lfp(f \circ g).\]
 \end{problem}
 
 \begin{problem}

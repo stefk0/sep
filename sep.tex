@@ -109,6 +109,8 @@
 \newcommand{\NN}{\mathbf{Num}}
 \newcommand{\BB}{\mathbf{Bool}}
 
+
+
 \usepackage{mysymbols}
 \usepackage{mybgdef}
 \usepackage{sep}
@@ -216,6 +218,12 @@
 \author{Стефан Вътев\footnote{\href{mailto:stefanv@fmi.uni-sofia.bg}{stefanv@fmi.uni-sofia.bg}}}
 \title{Семантика на езиците за програмиране - записки}
 
+
+
+
+\usepackage[style=numeric,backend=biber]{biblatex}
+\addbibresource{sep.bib}
+
 \begin{document}
 
 
@@ -241,13 +249,20 @@
 % \include{basic}
 % \include{imp}
 % \include{Operators}
-\include{imp}
+% c\include{imp}
 \include{domains/domains}
+
 \include{reg/reg}
-% \include{domains-extra/domains-extra} 
+
+% \include{domains-extra/domains-extra}
+
 \include{fun/fun}
+
 % \include{domains-extra/problems}
+
+
 \include{pcf/pcf}
+
 % \include{lambda-calculus/lambda-calculus}
 % \include{proofs/proofs}
 %\include{cat/ccc}
@@ -264,9 +279,10 @@
 % \include{tail}
 %\backmatter
 
-\bibliographystyle{plain}
-\bibliography{sep}
+% \bibliographystyle{plain}       
+%\bibliography{sep}
 
+\printbibliography
 \printindex
 
 \end{document}

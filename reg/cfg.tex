@@ -12,7 +12,7 @@
 
 \subsubsection*{Операционна семантика}
 
-С индукция по $\ell$, дефинираме релацията $\tau \opsemCFG{\ell} \alpha$,
+С индукция по $\ell$, дефинираме релацията $\tau \opsem{\ell}{G} \alpha$,
 където $\tau$ е терм на езика \CFG със свободни променливи измежду $X_1,\dots, X_n$.
 
 \begin{framed}
@@ -21,7 +21,7 @@
       \begin{prooftree}
         \AxiomC{}
         \LeftLabel{\scriptsize{(eps)}}
-        \UnaryInfC{$\varepsilon \opsemCFG{0} \varepsilon$}
+        \UnaryInfC{$\varepsilon \opsem{0}{G} \varepsilon$}
       \end{prooftree}
     \end{subfigure}
     ~
@@ -29,7 +29,7 @@
       \begin{prooftree}
         \AxiomC{}
         \RightLabel{\scriptsize{(letter)}}
-        \UnaryInfC{$a \opsemCFG{1} a$}
+        \UnaryInfC{$a \opsem{1}{G} a$}
       \end{prooftree}
     \end{subfigure}
 
@@ -37,17 +37,17 @@
 
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_1 \opsemCFG{\ell} \alpha$}
+        \AxiomC{$\tau_1 \opsem{\ell}{G} \alpha$}
         \LeftLabel{\scriptsize{(left-or)}}
-        \UnaryInfC{$\tau_1 + \tau_2 \opsemCFG{\ell+1} \alpha$}
+        \UnaryInfC{$\tau_1 + \tau_2 \opsem{\ell+1}{G} \alpha$}
       \end{prooftree}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_2 \opsemCFG{\ell} \alpha$}
+        \AxiomC{$\tau_2 \opsem{\ell}{G} \alpha$}
         \RightLabel{\scriptsize{(right-or)}}
-        \UnaryInfC{$\tau_1 + \tau_2 \opsemCFG{\ell+1} \alpha$}
+        \UnaryInfC{$\tau_1 + \tau_2 \opsem{\ell+1}{G} \alpha$}
       \end{prooftree}
     \end{subfigure}
 
@@ -55,24 +55,24 @@
     
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_i \opsemCFG{\ell} \alpha$}
+        \AxiomC{$\tau_i \opsem{\ell}{G} \alpha$}
         \LeftLabel{\scriptsize{(rec)}}
-        \UnaryInfC{$X_i \opsemCFG{\ell+1} \alpha$}
+        \UnaryInfC{$X_i \opsem{\ell+1}{G} \alpha$}
       \end{prooftree}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_1 \opsemCFG{\ell_1} \alpha_1$}
-        \AxiomC{$\tau_2 \opsemCFG{\ell_2} \alpha_2$}
+        \AxiomC{$\tau_1 \opsem{\ell_1}{G} \alpha_1$}
+        \AxiomC{$\tau_2 \opsem{\ell_2}{G} \alpha_2$}
         \RightLabel{\scriptsize{(concat)}}
-        \BinaryInfC{$\tau_1 \cdot \tau_2 \opsemCFG{\ell_1+\ell_2+1} \alpha_1\cdot\alpha_2$}
+        \BinaryInfC{$\tau_1 \cdot \tau_2 \opsem{\ell_1+\ell_2+1}{G} \alpha_1\cdot\alpha_2$}
       \end{prooftree}
     \end{subfigure}
     \caption{Правила на операционната семантика на езика \CFG.}
   \end{figure}
 \end{framed}
-Ще пишем $\tau \Downarrow_{\vv{P}} \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \opsemCFG{\ell} \alpha$.
+Ще пишем $\tau \opsem{}{G} \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \opsem{\ell}{G} \alpha$.
 
 
 \subsubsection*{Денотационна семантика}
@@ -163,19 +163,19 @@
 
 \begin{problem}
   Докажете, че за всеки индекс $r$ и всеки терм $\tau$ на езика \CFG с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow_{\vv{P}} \alpha\}.\]
+  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{G} \alpha\}.\]
   Заключете, че ако $L_1,\dots,L_n$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times\cdots\times\val{\tau_n}$, то
   за произволен терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\val{\tau}(L_1,\dots,L_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow_{\vv{P}} \alpha\}.\]
+  \[\val{\tau}(L_1,\dots,L_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{G} \alpha\}.\]
 \end{problem}
 
 \begin{problem}
   Нека $L_1,\dots,L_n$ е неподвижна точка на $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$.
   Докажете, че за всеки терм $\tau$ на езика \CFG с променливи измежду $X_1,\dots,X_n$ е  изпълнено, че:
-  \[\{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n).\]
+  \[\{\alpha \in \Sigma^\star \mid \tau \opsem{}{G} \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n).\]
 
   Заключете, че ако $L_1,\dots,L_n$ е най-малката неподвижна точка на $\Gamma$, то за всеки индекс $i$ измежду $1,\dots,n$ е изпълнено, че:
-  \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow_{\vv{P}} \alpha\}.\]
+  \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \opsem{}{G} \alpha\}.\]
 \end{problem}
 
 %%% Local Variables:

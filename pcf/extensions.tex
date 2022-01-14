@@ -100,58 +100,10 @@
 
 % \marginpar{\cite[стр. 109]{gunter}}
 
-Тук отново всичко е почти същото както преди със следните разлики:
+Тук отново всичко е почти същото както преди със следните разлики 
 
+\begin{framed}
 \begin{figure}[H]
-  % \begin{subfigure}[b]{0.5\textwidth}
-  %   \begin{prooftree}
-  %     \AxiomC{$\type{v}{a}$}
-  %     \RightLabel{\scriptsize{(val)}}
-  %     \UnaryInfC{$\vv{v} \Downarrow^0_{\vv{a}} \vv{v}$}
-  %   \end{prooftree}    
-  % \end{subfigure}
-  % ~
-  % \begin{subfigure}[b]{0.5\textwidth}
-  %   \begin{prooftree}
-  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{0}$}
-  %     \UnaryInfC{$\prd(\tau) \Downarrow^{\ell+1}_{\nat} \vv{0}$}
-  %   \end{prooftree}
-  % \end{subfigure}
-
-  % \vspace{10pt}
-
-  % \begin{subfigure}[b]{0.5\textwidth}
-  %   \begin{prooftree}
-  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \scc(\vv{v})$}
-  %     \UnaryInfC{$\prd(\tau) \Downarrow^{\ell+1}_{\nat} \vv{v}$}
-  %   \end{prooftree}
-  % \end{subfigure}
-  % ~
-  % \begin{subfigure}[b]{0.5\textwidth}
-  %   \begin{prooftree}
-  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{v}$}
-  %     \UnaryInfC{$\scc(\tau) \Downarrow^{\ell+1}_{\nat} \scc(\vv{v})$}
-  %   \end{prooftree}
-  % \end{subfigure}
-
-  % \vspace{10pt}
-
-  % \begin{subfigure}[b]{0.5\textwidth}
-  %   \begin{prooftree}
-  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \vv{0}$}
-  %     \UnaryInfC{$\iszero(\tau) \Downarrow^{\ell+1}_{\bool} \tru$}
-  %   \end{prooftree}
-  % \end{subfigure}
-  % ~
-  % \begin{subfigure}[b]{0.5\textwidth}
-  %   \begin{prooftree}
-  %     \AxiomC{$\tau \Downarrow^\ell_{\nat} \scc(\vv{v})$}
-  %     \UnaryInfC{$\iszero(\tau) \Downarrow^{\ell+1}_{\bool} \fls$}
-  %   \end{prooftree}
-  % \end{subfigure}
-
-  % \vspace{10pt}
-  
   \begin{subfigure}[b]{0.5\textwidth}
     \begin{prooftree}
       \AxiomC{$\tau_1 \opsem{\ell_1}{nat} \vv{v}_1$}
@@ -191,28 +143,9 @@
       \BinaryInfC{$\ifelse{\tau_1}{\tau_2}{\tau_3} \opsem{\ell_1+\ell_2+1}{a} \vv{v}$}
     \end{prooftree}
   \end{subfigure}
-
-%   \vspace{10pt}
-
-%   \begin{subfigure}[b]{0.5\textwidth}
-%     \begin{prooftree}
-%       \AxiomC{$\tau_1 \Downarrow^{\ell_1}_{\vv{a}\to\vv{b}} \lamb{x}{a}{\tau'_1}$}
-%       \AxiomC{$\tau'_1[x/\tau_2] \Downarrow^{\ell_2}_{\vv{b}} \vv{v}$}
-%       % \RightLabel{\scriptsize{(cbn)}}
-%       \BinaryInfC{$\tau_1 \tau_2 \Downarrow^{\ell_1+\ell_2+1}_{\vv{b}} \vv{v} $}
-%     \end{prooftree}
-%   \end{subfigure}
-%   ~
-%   \begin{subfigure}[b]{0.5\textwidth}
-%   \begin{prooftree}
-%     \AxiomC{$\tau\ \fix(\tau) \Downarrow^{\ell}_{\vv{a}} \vv{v}$}
-%     \RightLabel{\scriptsize{(fix)}}
-%     \UnaryInfC{$\fix(\tau) \Downarrow^{\ell+1}_{\vv{a}} \vv{v} $}
-%   \end{prooftree}
-% \end{subfigure}
-% \caption{Правила на операционната семантика за езика \PCFPP}
+  \caption{Променени в правилата на операционната семантика за \PCFBOOL}
 \end{figure}
-
+\end{framed}
 
 
 

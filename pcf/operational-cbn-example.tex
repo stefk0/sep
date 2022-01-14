@@ -63,7 +63,7 @@ ghci> fact 5
         \UnaryInfC{$\vv{f} : \vv{a}, \vv{x} : \vv{nat} \vdash \lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (f x (y-1))}}} : \vv{nat} \to \vv{nat}$}
         \UnaryInfC{$\vv{f} : \vv{a} \vdash \tau'_0 : \vv{a}$}
         \UnaryInfC{$\emptyset \vdash \tau_0 : \vv{a} \to \vv{a}$}
-        \UnaryInfC{$\emptyset \vdash \fix(\tau_0):\vv{a}$}
+        \UnaryInfC{$\emptyset \vdash \underbrace{\fix(\tau_0)}_{\tau}:\vv{a}$}
       \end{prooftree}
       \caption{Формален извод според правилата на типизиращата релацията, който показва, че $\emptyset \vdash \tau : \vv{a}$.}
       \label{fig:operational-cbn-example:typing}
@@ -76,10 +76,9 @@ ghci> fact 5
 $\tau\ \vv{3}\ \vv{2} \opsem{}{nat} \vv{6}$.
 
 Първо да обърнем внимание, че $\tau_0$ е стойност, т.е. $\tau_0 \opsemGen{0}{\vv{a}\to\vv{a}} \tau_0$.
-Макар и $\tau'_0$ да има свободна променлива $\vv{f}$, понеже термът $\fix(\tau_0)$ е затворен с тип $\vv{a}$, то термът
-\[\tau'_0\subst{f}{\fix(\tau_0)} \equiv \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{ x + (}\fix(\tau_0)\vv{ x (y-1))}}}}\]
-е стойност и следователно,
-\[\tau'_0\subst{f}{\fix(\tau_0)} \opsem{0}{a} \tau'_0\subst{f}{\fix(\tau_0)}.\]
+Макар и $\tau'_0$ да има свободна променлива $\vv{f}$, понеже термът $\fix(\tau_0)$ е затворен с тип $\vv{a}$, то затвореният терм
+\[\tau'_0\subst{f}{\fix(\tau_0)} \equiv \lamb{x}{nat}{\lamb{y}{nat}{\ifelse{\vv{y == 0}}{\vv{0}}{\vv{x + (}\fix(\tau_0)\vv{ x (y-1))}}}}\]
+е стойност и следователно, $\tau'_0\subst{f}{\fix(\tau_0)} \opsem{0}{a} \tau'_0\subst{f}{\fix(\tau_0)}$.
 
 \begin{framed}
   \begin{figure}[H]

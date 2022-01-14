@@ -7,6 +7,8 @@
 
   Обърнете внимание, че заради случите (fix) и (cbn) не можем да доказваме свойства на операционната семантика с индукция по построението на термовете. Можем да направим това с индукция по броя на стъпки в изчислението.}
 
+
+\begin{important}
 \begin{figure}[H]
   \centering
   
@@ -35,7 +37,7 @@
 \begin{prooftree}
   \AxiomC{$\tau_1 \opsem{\ell_1}{nat} \vv{n}_1$}
   \AxiomC{$\tau_2 \opsem{\ell_2}{nat} \vv{n}_2$}
-  \AxiomC{$n = \minus(n_1,n_2)$}
+ \AxiomC{$n = \minus(n_1,n_2)$}
   \RightLabel{\scriptsize{(minus)}}
   \TrinaryInfC{$\tau_1\ \vv{-}\ \tau_2 \opsem{\ell_1+\ell_2+1}{nat} \vv{n}$}
 \end{prooftree}
@@ -69,6 +71,8 @@
 \end{prooftree}
 \caption{Правила на операционната семантика за езика \PCF}
 \end{figure}
+  
+\end{important}
 
 
 

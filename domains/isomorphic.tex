@@ -239,8 +239,8 @@
 На практика тези две задачи ни казват, че няма значение дали използваме {\em curried}
 или {\em uncurried} версията на една функция. На \texttt{хаскел} е по-удобно да използваме {\em curried}
 версията, защото като фиксираме първия аргумент на една функция получаваме нова функция наготово.
-\marginpar{Това се нарича \emph{partial application}. Вижте \url{https://wiki.haskell.org/Partial_application}.}
 Например, 
+
 \begin{haskellcode}
   ghci> let plus x y = x + y
   ghci> :t plus
@@ -249,6 +249,8 @@
   ghci> :t plus1
   plus1 :: Num a => a -> a
 \end{haskellcode}
+
+\marginpar{Това се нарича \emph{partial application}. Вижте \url{https://wiki.haskell.org/Partial_application}.}
 
 Нека да дефинираме
 \[\emptyset_\bot = (\{\bot\}, \sqsubseteq, \bot).\]

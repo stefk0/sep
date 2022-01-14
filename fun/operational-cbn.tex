@@ -11,87 +11,93 @@
 % Формално дефиницията е следната:
 
 
-Дефинираме релация $\opsemFun{\ell}$, която ни казва как един функционален терм $\mu$
+Дефинираме релация $\opsem{\ell}{P}$, която ни казва как един функционален терм $\mu$
 се свежда до константата $\vv{a}$ след $\ell$ на брой стъпки следвайки следните правила:
 
-\begin{description}
-\item
-  % За всяко $a \in \Nat$,
-  \begin{figure}[h!]
+\begin{framed}
+% \begin{description}
+% \item
+%   За всяко $a \in \Nat$,
+  \begin{figure}[H]
+    \centering
     \begin{prooftree}
       \AxiomC{}
       \RightLabel{\scriptsize{(const)}}
-      \UnaryInfC{$\vv{a} \opsemFun{0} \vv{a}$}
+      \UnaryInfC{$\vv{a} \opsem{0}{P} \vv{a}$}
     \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
+%   \end{figure}
+% \item
+%   \begin{figure}[H]
     \begin{prooftree}
-      \AxiomC{$\mu_1\opsemFun{\ell_1} \vv{a}_1$}
-      \AxiomC{$\mu_2\opsemFun{\ell_2} \vv{a}_2$}
+      \AxiomC{$\mu_1\opsem{\ell_1}{P} \vv{a}_1$}
+      \AxiomC{$\mu_2\opsem{\ell_2}{P} \vv{a}_2$}
       \AxiomC{$a = \plus(a_1, a_2)$}
       \RightLabel{\scriptsize{(plus)}}
-      \TrinaryInfC{$\mu_1 + \mu_2 \opsemFun{\ell_1+\ell_2+1} \vv{a}$}
+      \TrinaryInfC{$\mu_1 + \mu_2 \opsem{\ell_1+\ell_2+1}{P} \vv{a}$}
     \end{prooftree}
-  \end{figure}
-  \begin{figure}[h!]
+  % \end{figure}
+  % \begin{figure}[H]
     \begin{prooftree}
-      \AxiomC{$\mu_1\opsemFun{\ell_1} \vv{a}_1$}
-      \AxiomC{$\mu_2\opsemFun{\ell_2} \vv{a}_2$}
+      \AxiomC{$\mu_1\opsem{\ell_1}{P} \vv{a}_1$}
+      \AxiomC{$\mu_2\opsem{\ell_2}{P} \vv{a}_2$}
       \AxiomC{$a = \minus(a_1, a_2)$}
       \RightLabel{\scriptsize{(minus)}}
-      \TrinaryInfC{$\mu_1 - \mu_2 \opsemFun{\ell_1+\ell_2+1} \vv{a}$}
+      \TrinaryInfC{$\mu_1 - \mu_2 \opsem{\ell_1+\ell_2+1}{P} \vv{a}$}
     \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
+%   \end{figure}
+% \item
+%   \begin{figure}[H]
     \begin{prooftree}
-      \AxiomC{$\mu_1\opsemFun{\ell_1} \vv{a}_1$}
-      \AxiomC{$\mu_2\opsemFun{\ell_2} \vv{a}_2$}
+      \AxiomC{$\mu_1\opsem{\ell_1}{P} \vv{a}_1$}
+      \AxiomC{$\mu_2\opsem{\ell_2}{P} \vv{a}_2$}
       \AxiomC{$a = \eq(a_1, a_2)$}
       \RightLabel{\scriptsize{(eq)}}
-      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \opsemFun{\ell_1+\ell_2+1} \vv{a}$}
+      \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \opsem{\ell_1+\ell_2+1}{P} \vv{a}$}
     \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
+%   \end{figure}
+% \item
+%   \begin{figure}[H]
     \begin{prooftree}
-      \AxiomC{$\mu_0\opsemFun{\ell_0} \vv{a}_0$}
-      \AxiomC{$\mu_1 \opsemFun{\ell_1} \vv{a}_1$}
+      \AxiomC{$\mu_0\opsem{\ell_0}{P} \vv{a}_0$}
+      \AxiomC{$\mu_1 \opsem{\ell_1}{P} \vv{a}_1$}
       \AxiomC{$\vv{a}_0 \not\equiv \vv{0}$}
       \RightLabel{\scriptsize{(if$^+$)}}
-      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \opsemFun{\ell_0+\ell_1+1} \vv{a}_1$}
+      \TrinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \opsem{\ell_0+\ell_1+1}{P} \vv{a}_1$}
     \end{prooftree}
-  \end{figure}  
-\item
-  \begin{figure}[h!]
+%   \end{figure}  
+% \item
+%   \begin{figure}[H]
     \begin{prooftree}
-      \AxiomC{$\mu_0\opsemFun{\ell_0} \vv{0}$}
-      \AxiomC{$\mu_2 \opsemFun{\ell_2} \vv{a}_2$}
+      \AxiomC{$\mu_0\opsem{\ell_0}{P} \vv{0}$}
+      \AxiomC{$\mu_2 \opsem{\ell_2}{P} \vv{a}_2$}
       \RightLabel{\scriptsize{(if$_0$)}}
-      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \opsemFun{\ell_0+\ell_2+1} \vv{a}_2$}
+      \BinaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \opsem{\ell_0+\ell_2+1}{P} \vv{a}_2$}
     \end{prooftree}
-  \end{figure}
-\item
-  \begin{figure}[h!]
+%   \end{figure}
+% \item
+%   \begin{figure}[H]
     \begin{prooftree}
-      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \opsemFun{\ell} \vv{a}$}
+      \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \opsem{\ell}{P} \vv{a}$}
       \RightLabel{\scriptsize{(cbn)}}
-      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsemFun{\ell+1} \vv{a}$}
+      \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsem{\ell+1}{P} \vv{a}$}
     \end{prooftree}
-  \end{figure}
-\end{description}
+    \caption{Правила на операционната семантика на \FUN}
+    \end{figure}
+% \end{description}
+\end{framed}
+
+
 
 \begin{remark}
   Защо нямаме следното правило?
   \begin{figure}[h!]
     \begin{prooftree}
-      \AxiomC{$\mu_0\Downarrow^{\ell_0}_P \vv{a}_0$}
-      \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-      \AxiomC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
+      \AxiomC{$\mu_0\opsem{\ell_0}{P} \vv{a}_0$}
+      \AxiomC{$\mu_1\opsem{\ell_1}{P} \vv{a}_1$}
+      \AxiomC{$\mu_2 \opsem{\ell_2}{P} \vv{a}_2$}
       \AxiomC{$a = \texttt{if}(a_0,a_1,a_2)$}
       % \RightLabel{\scriptsize{(if$_0$)}}
-      \QuaternaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \Downarrow^{\ell_0+\ell_1+\ell_2+1}_P \vv{a}$}
+      \QuaternaryInfC{$\ifelse{\mu_0}{\mu_1}{\mu_2} \opsem{\ell_0+\ell_1+\ell_2+1}{P} \vv{a}$}
     \end{prooftree}
   \end{figure}
 \end{remark}
@@ -100,24 +106,24 @@
   Ако искахме да дефинираме операционна семантика с предаване на параметрите по стойност, то щяхме да заменим
   правилото (cbn) със следното правило:
   \begin{prooftree}
-    \AxiomC{$\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}] \opsemFun{\ell_0} \vv{a}$}
-    \AxiomC{$\mu_1 \opsemFun{\ell_1} \vv{b}_1$}
+    \AxiomC{$\tau_i[\vv{x}_1/\vv{b}_1,\dots,\vv{x}_{m_i}/\vv{b}_{m_i}] \opsem{\ell_0}{P} \vv{a}$}
+    \AxiomC{$\mu_1 \opsem{\ell_1}{P} \vv{b}_1$}
     \AxiomC{$\cdots$}
-    \AxiomC{$\mu_{m_i} \opsemFun{\ell_{m_i}} \vv{b}_{m_i}$}
+    \AxiomC{$\mu_{m_i} \opsem{\ell_{m_i}}{P} \vv{b}_{m_i}$}
     \LeftLabel{\scriptsize{($\ell = \sum_{k \leq m_i}\ell_k $)}}
     \RightLabel{\scriptsize{(cbv)}}
-    \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsemFun{\ell+1} \vv{a}$}
+    \QuaternaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \opsem{\ell+1}{P} \vv{a}$}
   \end{prooftree}
 \end{remark}
 
-Ще пишем $\mu \Downarrow_{\vv{P}} \vv{a}$, ако съществува $\ell$, за което $\mu \opsemFun{\ell} \vv{a}$.
-Също така, понякога ще пишем $\mu \opsemFun{<\ell} \vv{a}$, когато искаме да кажем, че
+Ще пишем $\mu \opsem{}{P} \vv{a}$, ако съществува $\ell$, за което $\mu \opsem{\ell}{P} \vv{a}$.
+Също така, понякога ще пишем $\mu \opsem{<\ell}{P} \vv{a}$, когато искаме да кажем, че
 $\mu$ се свежда до $\vv{a}$ след прилагане на по-малко от $\ell$ на брой правила от операционната семантика.
 
 \begin{lemma}
   \marginpar{Защо не можем да направим индукция по построението на термовете?}
   Докажете, че за всеки затворен терм $\mu$,
-  ако $\mu \Downarrow_{\vv{P}} \vv{a}$ и $\mu \Downarrow_{\vv{P}} \vv{a}'$, то $\vv{a} \equiv \vv{a}'$.
+  ако $\mu \opsem{}{P} \vv{a}$ и $\mu \opsem{}{P} \vv{a}'$, то $\vv{a} \equiv \vv{a}'$.
 \end{lemma}
 \begin{hint}
   Индукция по дължината на изчислението.
@@ -126,7 +132,7 @@ $\mu$ се свежда до $\vv{a}$ след прилагане на по-ма
 За фиксирана програма $\vv{P}$, нека за всеки {\em функционален} терм $\mu$ да дефинираме
 \[\eval{\mu}\df
   \begin{cases}
-    b, & \text{ ако }\mu \Downarrow_{\vv{P}} \vv{b}\\
+    b, & \text{ ако }\mu \opsem{}{P} \vv{b}\\
     \bot, & \text{ ако }\mu \text{ няма извод до константа}.
 \end{cases}\]
 
@@ -149,68 +155,6 @@ $\mu$ се свежда до $\vv{a}$ след прилагане на по-ма
   $\O\val{\vv{P}} = \D\val{\vv{P}}$ и оттам ще получим непрекъснатостта на $\O\val{\vv{P}}$,
   защото от дефиницията на $\D\val{\vv{P}}$ е ясно, че то е непрекъснато изображение.
 \end{remark}
-
-
-% \begin{description}
-% \item
-%   % За всяко $a \in \Nat$,
-%   \begin{figure}[h!]
-%     \begin{prooftree}
-%       \AxiomC{}
-%       \RightLabel{\scriptsize{(const)}}
-%       \UnaryInfC{$\vv{a} \Downarrow^0_P \vv{a}$}
-%     \end{prooftree}
-%   \end{figure}
-% \item
-%   \begin{figure}[h!]
-%     \begin{prooftree}
-%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-%       \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
-%       \AxiomC{$a = a_1 + a_2$}
-%       \RightLabel{\scriptsize{(plus)}}
-%       \TrinaryInfC{$\mu_1 + \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
-%     \end{prooftree}
-%   \end{figure}
-% \item
-%   \begin{figure}[h!]
-%     \begin{prooftree}
-%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-%       \AxiomC{$\mu_2\Downarrow^{\ell_2}_P \vv{a}_2$}
-%       \AxiomC{$a = \texttt{eq}(a_1, a_2)$}
-%       \RightLabel{\scriptsize{$(eq)$}}
-%       \TrinaryInfC{$\mu_1\ \vv{==}\ \mu_2 \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}$}
-%     \end{prooftree}
-%   \end{figure}
-% \item
-%   \begin{figure}[h!]
-%     \begin{prooftree}
-%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{a}_1$}
-%       \AxiomC{$\mu_2 \Downarrow^{\ell_2}_P \vv{a}_2$}
-%       \AxiomC{$\vv{a}_1 \not\equiv \vv{0}$}
-%       \RightLabel{\scriptsize{(if$_\true$)}}
-%       \TrinaryInfC{$\ifelse{\mu_1}{\mu_2}{\mu_3} \Downarrow^{\ell_1+\ell_2+1}_P \vv{a}_2$}
-%     \end{prooftree}
-%   \end{figure}  
-% \item
-%   \begin{figure}[h!]
-%     \begin{prooftree}
-%       \AxiomC{$\mu_1\Downarrow^{\ell_1}_P \vv{0}$}
-%       \AxiomC{$\mu_3 \Downarrow^{\ell_3}_P \vv{a}_3$}
-%       \RightLabel{\scriptsize{(if$_\false$)}}
-%       \BinaryInfC{$\ifelse{\mu_1}{\mu_2}{\mu_3} \Downarrow^{\ell_1+\ell_3+1}_P \vv{a}_3$}
-%     \end{prooftree}
-%   \end{figure}
-% \item
-%   \begin{figure}[h!]
-%     \begin{prooftree}
-%       \AxiomC{$\tau_i[\vv{x}_1/\mu_1,\dots,\vv{x}_{m_i}/\mu_{m_i}] \Downarrow^{\ell}_P \vv{a}$}
-%       \RightLabel{\scriptsize{(cbn)}}
-%       \UnaryInfC{$\vv{f}_i(\mu_1,\dots,\mu_{m_i}) \Downarrow^{\ell+1}_P \vv{a}$}
-%     \end{prooftree}
-%   \end{figure}
-% \end{description}
-
-% \newpage
 
 \begin{example}
   Нека за програмата \vv{P}:

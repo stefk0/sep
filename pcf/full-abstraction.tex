@@ -190,7 +190,7 @@ ghci> undefined || True
   \item
     $\val{\tau} = \bot^{\val{\vv{a}}} \implies \tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a}$;
   \item
-    $\tau = \bot^{\val{\vv{a}}} \implies \val{\tau} \not\opsem{}{a}$;
+    $\val{\tau} = \bot^{\val{\vv{a}}} \implies \tau \not\opsem{}{a}$;
   \item
     $\tau \cong_{ctx} \Omega_{\vv{a}} : \vv{a} \implies \tau \not\opsem{}{a}$;
   \item
@@ -297,7 +297,6 @@ ghci> undefined || True
 
 
 \begin{problem}
-  \marginpar{Кеймбридж 2015 г.}
   Да разгледаме терма
   \begin{lstlisting}
     $\tau \equiv \lambda$f:(nat->bool)->bool.
@@ -306,6 +305,7 @@ ghci> undefined || True
   \end{lstlisting}
   Намерете $\val{\fix(\tau)}$.  
 \end{problem}
+\marginpar{Кеймбридж 2015 г.}
 \begin{hint}
   Покажете, че
   $\val{\fix(\tau)}(p) =

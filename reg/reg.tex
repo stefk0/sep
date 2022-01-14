@@ -9,7 +9,7 @@
 описва термовете на езика \REG, където $a$ означава буква, която принадлежи на някаква предварително зададена азбука $\Sigma$,
 а $X$ означава променлива. Нека имаме и безкраен набор от променливи $X_0,X_1,\dots$.
 \marginpar{Ще използваме малките гръцки букви $\tau,\rho,\mu$, евентуално с индекси, за да означаваме термовете. Думите над азбуката $\Sigma$ ще означаваме с малките гръцки букви $\alpha$, $\beta$, $\gamma$.}
-Програмите на езика $\texttt{REG}$ имат следния вид:
+Програмите на езика \REG имат следния вид:
 \begin{SystemEq}
   X_1 & = & \tau_1[X_1,\dots,X_n]\\
   & \vdots & \\
@@ -21,6 +21,9 @@
   & X_2 = \underbrace{b \cdot X_1 + \varepsilon}_{\tau_2[X_1,X_2]}.
 \end{align*}
 
+В тази глава ще видим, че регулярните изрази могат да се опишат като програми на езика \REG.
+Ще разгледаме два начина как точно една програма може да породи регулярен език.
+
 \section{Операционна семантика}
 \index{операционна семантика}
 \label{reg:sect:operational-semantics}
@@ -30,8 +33,9 @@
 
 \marginpar{
   Тук е важно да се отбележи, че дефиницията на операционната семантика не можем да я дадем с индукция по построението на изрази.
-  Също така, няма как да дефинираме релация $\tau \Downarrow_{\vv{P}} L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.
-}
+  Проблемът е в случая (rec).
+  
+  Също така, няма как да дефинираме релация $\tau \opsem{}{R} L$, където $L$ е език, защото все пак искаме всяко изчисление да трае краен брой стъпки, а това няма как да стане, когато $L$ е безкраен език.}
 
 Да фиксираме една програма $\vv{R}$ на езика \REG:
 \begin{SystemEq}
@@ -40,7 +44,7 @@
   X_n & = & \tau_n[X_1,\dots,X_n].  
 \end{SystemEq}
 
-Щом сме фиксирали програмата $\vv{P}$, с която искаме да работим, това означава, че вече знаем и буквите, които се срещат в програмата,
+Щом сме фиксирали програмата $\vv{R}$, с която искаме да работим, това означава, че вече знаем и буквите, които се срещат в програмата,
 а също и променливите, които са $X_1,\dots,X_n$.
 С индукция по $\ell$, дефинираме релацията $\tau \opsemReg{\ell} \alpha$,
 където $\tau$ е терм на езика \REG със свободни променливи измежду $X_1,\dots, X_n$.
@@ -52,16 +56,16 @@
       \begin{prooftree}
         \AxiomC{}
         \LeftLabel{\scriptsize{(eps)}}
-        \UnaryInfC{$\varepsilon \opsemReg{0} \varepsilon$}
+        \UnaryInfC{$\varepsilon \opsem{0}{R} \varepsilon$}
       \end{prooftree}
     \end{subfigure}
     ~
     \begin{subfigure}[b]{0.5\textwidth}
       \begin{prooftree}
-        \AxiomC{$\tau_i \opsemReg{\ell} \beta$}
+        \AxiomC{$\tau_i \opsem{\ell}{R} \beta$}
         \AxiomC{$\alpha = a\cdot \beta$}
         \RightLabel{\scriptsize{(rec)}}
-        \BinaryInfC{$a \cdot X_i \opsemReg{\ell+1} \alpha$}
+        \BinaryInfC{$a \cdot X_i \opsem{\ell+1}{R} \alpha$}
       \end{prooftree}
     \end{subfigure}
 
@@ -85,17 +89,16 @@
     \caption{Правила на операционната семантика на езика \REG.}
   \end{figure}
 \end{framed}
-Ще пишем $\tau \Downarrow_{\vv{P}} \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \opsemReg{\ell} \alpha$.
-% Също така, когато се подразбира за коя програма говорим, можем да пишем направо и $\tau \Downarrow \alpha$  и $\tau \Downarrow^\ell \alpha$.
+Ще пишем $\tau \opsem{}{R} \alpha$ точно тогава, когато съществува $\ell$, за което $\tau \opsem{\ell}{R} \alpha$.
 
 \begin{example}
-  \marginpar{На всяка променлива от програмата $R$ съответства състояние на автомата.}
-  Нека $\Sigma = \{a,b\}$. Да разгледаме програмата $R$, където:
+  \marginpar{На всяка променлива от програмата $\vv{R}$ съответства състояние на автомата.}
+  Нека $\Sigma = \{a,b\}$. Да разгледаме програмата $\vv{R}$, където:
   \begin{align*}
     & X_1 = \overbrace{a \cdot X_1 + b \cdot X_2 + \varepsilon}^{\tau_1[X_1,X_2]}\\
     & X_2 = \underbrace{b \cdot X_2 + \varepsilon}_{\tau_2[X_1,X_2]}.    
   \end{align*}
-  Съобразете, че за всеки две естествени числа $n$ и $k$ е изпълнено, че $\tau_1~\Downarrow~a^k b^n$ и $\tau_2~\Downarrow~b^n$.
+  Съобразете, че за всеки две естествени числа $n$ и $k$ е изпълнено, че $\tau_1~\opsem{}{R}~a^k b^n$ и $\tau_2~\opsem{}{R}~b^n$.
   \begin{figure}[H]
       \centering
       \begin{tikzpicture}[->,>=stealth,thick,node distance=65pt]
@@ -160,7 +163,7 @@
   \end{align*}
   От \Th{sep:min-solution-system} знаем, че тази система има най-малко решение. Нека да го намерим.
   За тази цел, да дефинираме непрекъснатото изображение $\Gamma:\mathcal{P}(\Sigma^\star)^2 \to \mathcal{P}(\Sigma^\star)^2$ като
-  \marginpar{От \Prop{cartesian-continuous} знаем, че $\Gamma$ е непрекъснато изображение.}
+  \marginpar{От \Problem{cartesian-product:continuous} знаем, че $\Gamma$ е непрекъснато изображение.}
   \[\Gamma \df \val{\tau_1} \times \val{\tau_2},\]
   т.е. за произволни езици $L$ и $M$ над азбуката $\Sigma$ е изпълнено, че:
   \[\Gamma(L,M) = (\val{\tau_1}(L,M), \val{\tau_2}(L,M)).\]
@@ -236,15 +239,16 @@
   \end{align*}
 \end{example}
 
+\marginpar{\Example{reg:least-solution} ни подсказва защо се интересуваме от най-малкото решение на една система, а не просто от някое решение на систамата.
+
+\todo Какъв краен автомат съответства на системата от \Example{reg:least-solution}?}
+
 \begin{example}
+  \label{ex:reg:least-solution}
   Да разгледаме следната система съставена само от едно уравнение:
-  \[L = \{a\}^\star \cdot L.\]
-  \marginpar{Този пример ни подсказва защо се интересуваме от най-малкото решение на една система, а не просто от някое решение на систамата.}
+  \[L = L + \{a\} \cdot L.\]
   Най-малкото решение на тази система е езикът $\emptyset$,
-  но тази система има за решение и езикът $\{a^n \mid n \geq 0\}$.
-  % Да разгледаме сега програмата на езика \REG
-  % \[X = \underbrace{a \cdot X}_{\tau[X]}.\]
-  % Лесно се съобразява, че $\emptyset = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}$.
+  но тази система има за решение и езикът $\{a^n \mid n \geq 0\} = \{a\}^\star$.
 \end{example}
 
   
@@ -262,18 +266,14 @@
 \end{problem}
 
 \begin{problem}[Теорема за характеризация]
-  \marginpar{Да се даде упътване}
+  % \marginpar{Да се даде упътване}
   Да разгледаме системата от непрекъснати оператори
   \begin{SystemEq}
     L_1 & = & \val{\tau_1}(L_1,\dots,L_n)\\
     & \vdots & \\
     L_n & = & \val{\tau_n}(L_1,\dots,L_n).
   \end{SystemEq}
-  % \begin{align*}
-  %   & \val{\tau_1}(L_1,\dots,L_n) = L_1\\
-  %   & \ \ \vdots\\
-  %   & \val{\tau_n}(L_1,\dots,L_n) = L_n.
-  % \end{align*}
+
   Знаем, че тя притежава най-малко решение $(\hat{L}_1,\dots,\hat{L}_n)$.
   Докажете, че всеки от езиците $\hat{L}_i$ е регулярен.
 
@@ -283,14 +283,14 @@
 
 \section{Теорема за еквивалентност}
 
-Нека оттук нататък да фиксираме една програма $R$ на езика \REG:
+Нека оттук нататък да фиксираме една програма $\vv{R}$ на езика \REG:
 \begin{SystemEq}
   X_1 & = & \tau_1[X_1,\dots,X_n]\\
   & \vdots & \\
   X_n & = & \tau_n[X_1,\dots,X_n].  
 \end{SystemEq}
 Нека също $(L_1,\dots,L_n)$ да бъде най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$. Целта ни е да докажем, че за всяко $i = 1,\dots,n$ е изпълнено, че:
-\[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow \alpha\}.\]
+\[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \opsem{}{R} \alpha\}.\]
 Този резултат ще наречем теорема за еквивалентност. Това ще направим на две стъпки.
 
 \marginpar{Да напомним, че $L_i = \bigcup_k L^k_i$, където:
@@ -301,12 +301,12 @@
 
 \begin{lemma}
   За всеки индекс $r$ и всеки терм $\tau$ на езика \REG с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
+  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.\]
 \end{lemma}
 \begin{proof}
   Нека да кръстим $\textbf{Include}(r)$ твърдението
   ,,за всеки терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}".\]
+  \[\val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}".\]
   Целта ни е да докажем, че $(\forall r\in\Nat)\textbf{Include}(r)$. Това ще направим с индукция по $r$.
   
   Нека $r = 0$. Знаем, че $L^0_i = \emptyset$ за всеки индекс $i$ измежду $1,\dots,n$.
@@ -314,52 +314,52 @@
   За да докажем, че $\textbf{Include}(0)$ е изпълнено, ще направим индукция по построението на термовете $\tau$ за да докажем, че:
   \begin{equation}
     \label{eq:17}
-    \val{\tau}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}
+    \val{\tau}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}
   \end{equation}
   \begin{itemize}
   % \item
     % Нека $\tau \equiv \emptyset$. Понеже $\val{\tau}(L^0_1,\dots,L^0_n) = \emptyset$, то е ясно, че Свойство~\ref{eq:17} е изпълнено.
   \item
     Нека $\tau \equiv \varepsilon$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \{\varepsilon\}$.
-    От правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
+    От правилата на операционната семантика имаме, че $\varepsilon \opsem{}{R} \varepsilon$.
     Заключаваме, че Свойство~(\ref{eq:17}) е изпълнено.
   \item
     Нека $\tau \equiv a \cdot X_j$, за някой индекс $j$ измежду $1,\dots,n$. Тогава
     \[\val{\tau}(L^0_1,\dots,L^0_n) = \{a\}\cdot L^0_j = \{a\} \cdot \emptyset = \emptyset\]
     и оттук е очевидно, че Свойство~(\ref{eq:17}) е в сила.
   \item
-    Нека $\tau \equiv \rho + \mu$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \val{\rho}(L^0_1,\dots,L^0_n) \cup \val{\mu}(L^0_1,\dots,L^0_n)$. Сега от И.П. за Свойство~(\ref{eq:17}) получаваме, че
+    Нека $\tau \equiv \rho + \mu$. Тогава $\val{\tau}(L^0_1,\dots,L^0_n) = \val{\rho}(L^0_1,\dots,L^0_n) \cup \val{\mu}(L^0_1,\dots,L^0_n)$. Сега от \IndHyp за Свойство~(\ref{eq:17}) получаваме, че
     \begin{align*}
-      & \val{\rho}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\}\\
-      & \val{\mu}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}.
+      & \val{\rho}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \opsem{}{R} \alpha\}\\
+      & \val{\mu}(L^0_1,\dots,L^0_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \opsem{}{R} \alpha\}.
     \end{align*}
     От правилата на операционната семантика имаме, че
     \begin{figure}[H]
       \begin{subfigure}[b]{0.5\textwidth}
         \begin{prooftree}
-          \AxiomC{$\rho \Downarrow \alpha$}
+          \AxiomC{$\rho \opsem{}{R} \alpha$}
           \LeftLabel{\scriptsize{(left-or)}}
-          \UnaryInfC{$\rho + \mu \Downarrow \alpha$}
+          \UnaryInfC{$\rho + \mu \opsem{}{R} \alpha$}
         \end{prooftree}
         \vspace*{2mm}
       \end{subfigure}
       ~
       \begin{subfigure}[b]{0.5\textwidth}
         \begin{prooftree}
-          \AxiomC{$\mu \Downarrow \alpha$}
+          \AxiomC{$\mu \opsem{}{R} \alpha$}
           \RightLabel{\scriptsize{(right-or)}}
-          \UnaryInfC{$\rho + \mu \Downarrow \alpha$}
+          \UnaryInfC{$\rho + \mu \opsem{}{R} \alpha$}
         \end{prooftree}
         \vspace*{2mm}
       \end{subfigure}
     \end{figure}
     Оттук веднага получаваме, че:
-    \[\{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\} = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
+    \[\{\alpha \in \Sigma^\star \mid \rho \opsem{}{R} \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \opsem{}{R} \alpha\} = \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.\]
     Заключаваме, че:
     \begin{align*}
       \val{\tau}(L^0_1,\dots,L^0_n) & = \val{\rho}(L^0_1,\dots,L^0_n) \cup \val{\mu}(L^0_1,\dots,L^0_n)\\
-                                    & \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}\\
-                                    & = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
+                                    & \subseteq \{\alpha \in \Sigma^\star \mid \rho \opsem{}{R} \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \opsem{}{R} \alpha\}\\
+                                    & = \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.
     \end{align*}
     Свойство~\ref{eq:17} е изпълнено за всеки терм $\tau$.
   \end{itemize}
@@ -369,54 +369,54 @@
   Ще направим индукция по построението на термовете $\tau$ за да докажем, че:
   \begin{equation}
     \label{eq:18}
-    \val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
+    \val{\tau}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.
   \end{equation}
   \begin{itemize}
   \item
     Нека $\tau \equiv \emptyset$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \emptyset$, то е ясно, че Свойство~(\ref{eq:18}) е изпълнено.
   \item
     Нека $\tau \equiv \varepsilon$. Отново, понеже $\val{\tau}(L^r_1,\dots,L^r_n) = \{\varepsilon\}$,
-    то от правилата на операционната семантика имаме, че $\varepsilon \Downarrow \varepsilon$.
+    то от правилата на операционната семантика имаме, че $\varepsilon \opsem{}{R} \varepsilon$.
     Заключаваме, че Свойство~(\ref{eq:18}) е изпълнено.
   \item
     Нека $\tau \equiv a \cdot X_j$ за някой индекс $j$ измежду $1,\dots,n$. Тогава
     \[\val{\tau}(L^r_1,\dots,L^r_n) = \{a\}\cdot L^r_j.\]
     Понеже сме приели, че $\textbf{Include}(r-1)$ е изпълено, то имаме автоматично, че:
-    \[L^r_j = \val{\tau_j}(L^{r-1}_1,\dots,L^{r-1}_n) \subseteq \{\beta \in \Sigma^\star \mid \tau_j \Downarrow \beta\}.\]
+    \[L^r_j = \val{\tau_j}(L^{r-1}_1,\dots,L^{r-1}_n) \subseteq \{\beta \in \Sigma^\star \mid \tau_j \opsem{}{R} \beta\}.\]
     От правилата на операционната семантика имаме, че:
     \begin{prooftree}
-      \AxiomC{$\tau_j \Downarrow \beta$}
+      \AxiomC{$\tau_j \opsem{}{R} \beta$}
       \RightLabel{\scriptsize{(rec)}}
-      \UnaryInfC{$a \cdot X_j \Downarrow a \cdot \beta$}
+      \UnaryInfC{$a \cdot X_j \opsem{}{R} a \cdot \beta$}
     \end{prooftree}
     Понеже $\tau \equiv a \cdot X_j$, получаваме следното:
     \begin{equation}
       \label{eq:21}
-      \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow \beta\} = \{ \alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
+      \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \opsem{}{R} \beta\} = \{ \alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.
     \end{equation}
     Заключаваме, че:
     \begin{align*}
       \val{\tau}(L^r_1,\dots,L^r_n) & = \{a\} \cdot L^r_j \\
                                     & = \{a\} \cdot \val{\tau_j}(L^{r-1}_1,\dots,L^{r-1}_n)\\
-                                    & \subseteq \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow \beta\} & \comment\text{от }\textbf{Include}(r-1)\\
-      & = \{ \alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}. & \comment\text{от Свойство~(\ref{eq:21})}
+                                    & \subseteq \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \opsem{}{R} \beta\} & \comment\text{от }\textbf{Include}(r-1)\\
+      & = \{ \alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}. & \comment\text{от Свойство~(\ref{eq:21})}
     \end{align*}
   \item
     Нека $\tau \equiv \rho + \mu$. Тук имаме, че
     \[\val{\tau}(L^r_1,\dots,L^r_n) = \val{\rho}(L^r_1,\dots,L^r_n) \cup \val{\mu}(L^r_1,\dots,L^r_n).\]
     Понеже $\tau$ е построен с помощта на $\rho$ и $\mu$, можем да използваме (вътрешното) индукционно предположение за $\rho$ и $\mu$, откъдето имаме, че:
     \begin{align*}
-      & \val{\rho}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\}\\
-      & \val{\mu}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\}.
+      & \val{\rho}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \rho \opsem{}{R} \alpha\}\\
+      & \val{\mu}(L^r_1,\dots,L^r_n) \subseteq \{\alpha \in \Sigma^\star \mid \mu \opsem{}{R} \alpha\}.
     \end{align*}
     От правилата на операционната семантика имаме, че
-    \[\{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\} = \{\alpha \in \Sigma^\star \mid \rho + \mu \Downarrow \alpha\}.\]
+    \[\{\alpha \in \Sigma^\star \mid \rho \opsem{}{R} \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \opsem{}{R} \alpha\} = \{\alpha \in \Sigma^\star \mid \rho + \mu \opsem{}{R} \alpha\}.\]
     Заключаваме, че:
     \begin{align*}
       \val{\tau}(L^r_1,\dots,L^r_n) & = \val{\rho}(L^r_1,\dots,L^r_n) \cup \val{\mu}(L^r_1,\dots,L^r_n)\\
-                                    & \subseteq \{\alpha \in \Sigma^\star \mid \rho \Downarrow \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \Downarrow \alpha\} \\
-                                    & = \{\alpha \in \Sigma^\star \mid \mu+\rho \Downarrow \alpha\}\\
-      & = \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
+                                    & \subseteq \{\alpha \in \Sigma^\star \mid \rho \opsem{}{R} \alpha\} \cup \{\alpha \in \Sigma^\star \mid \mu \opsem{}{R} \alpha\} \\
+                                    & = \{\alpha \in \Sigma^\star \mid \mu+\rho \opsem{}{R} \alpha\}\\
+      & = \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.
     \end{align*}
     Свойство~(\ref{eq:18}) е изпълнено за всеки терм $\tau$.
   \end{itemize}
@@ -424,46 +424,46 @@
 
 \begin{corollary}
   Нека $L_1,\dots,L_n$ е най-малкото решение на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times\cdots\times\val{\tau_n}$. Тогава за произволен терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\val{\tau}(L_1,\dots,L_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.\]
+  \[\val{\tau}(L_1,\dots,L_n) \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.\]
 \end{corollary}
 \begin{proof}
   Използваме, че $\val{\tau}$ е непрекъснато изображение. Тогава
   \begin{align*}
     \val{\tau}(L_1,\dots,L_n) & = \val{\tau}(\bigcup_r L^r_1,\dots,\bigcup_rL^r_n)\\
                               & = \bigcup_r\val{\tau}(L^r_1,\dots,L^r_n)\\
-                              & \subseteq \{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\}.
+                              & \subseteq \{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\}.
   \end{align*}
 \end{proof}
 
 \begin{lemma}
   Нека $L_1,\dots,L_n$ е някоя неподвижна точка на непрекъснатото изображение $\Gamma \df \val{\tau_1}\times \cdots \times \val{\tau_n}$.
   За всеки терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е  изпълнено, че:
-  \[\{\alpha \in \Sigma^\star \mid \tau \Downarrow \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n).\]
+  \[\{\alpha \in \Sigma^\star \mid \tau \opsem{}{R} \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n).\]
 \end{lemma}
 \begin{proof}
   Да означим с $\textbf{Include}(\ell)$ твърдението ,,за всеки терм $\tau$ с променливи измежду $X_1,\dots,X_n$ е изпълнено, че:
-  \[\{\alpha \in \Sigma^\star \mid \tau \opsemReg{\ell} \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n)".\]
+  \[\{\alpha \in \Sigma^\star \mid \tau \opsem{\ell}{R} \alpha\} \subseteq \val{\tau}(L_1,\dots,L_n)".\]
   Ще докажем, че $(\forall \ell\in\Nat)\textbf{Include}(\ell)$.
 
-  Нека $\ell = 0$. Според правилата на операционната семантика, единственият случай за $\tau \opsemReg{0} \alpha$ е когато $\tau \equiv \varepsilon$.
+  Нека $\ell = 0$. Според правилата на операционната семантика, единственият случай за $\tau \opsem{0}{R} \alpha$ е когато $\tau \equiv \varepsilon$.
   Тогава е ясно, че имаме $\textbf{Include}(0)$, защото
-  \[\{\alpha \in \Sigma^\star \mid \varepsilon \Downarrow^0 \alpha\} = \{\varepsilon\} = \val{\varepsilon}(L_1,\dots,L_n).\]
+  \[\{\alpha \in \Sigma^\star \mid \varepsilon \opsem{0}{R} \alpha\} = \{\varepsilon\} = \val{\varepsilon}(L_1,\dots,L_n).\]
 
   Нека $\ell > 0$ и да приемем, че е изпълнено $\textbf{Include}(\ell-1)$, което ще ни служи като индукционно предположение.
-  Да разгледаме дума $\alpha$ и терм $\tau$, за които $\tau \opsemReg{\ell} \alpha$. 
+  Да разгледаме дума $\alpha$ и терм $\tau$, за които $\tau \opsem{\ell}{R} \alpha$. 
   Според правилата на операционната семантика, имаме три случая в зависимост от това какво е последното правило, което сме приложили.
   \begin{itemize}
   \item
     Първият случай е когато имаме, че $\tau \equiv a \cdot X_j$ и
     \begin{prooftree}
-      \AxiomC{$\tau_j \opsemReg{\ell-1} \beta$}
+      \AxiomC{$\tau_j \opsem{\ell-1}{R} \beta$}
       \RightLabel{\scriptsize{(rec)}}
-      \UnaryInfC{$a \cdot X_j \opsemReg{\ell} a \cdot \beta$}
+      \UnaryInfC{$a \cdot X_j \opsem{\ell}{R} a \cdot \beta$}
     \end{prooftree}
     Според правилата на операционната семантика имаме, че:
     \begin{equation}
       \label{eq:22}
-      \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \opsemReg{\ell-1} \beta\} = \{\alpha \in \Sigma^\star \mid \tau \opsemReg{\ell} \alpha\}
+      \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \opsem{\ell-1}{R} \beta\} = \{\alpha \in \Sigma^\star \mid \tau \opsem{\ell}{R} \alpha\}
     \end{equation}
     От дефиницията на денотационната семантика знаем, че:
     \begin{align*}
@@ -475,11 +475,11 @@
     От $\textbf{Include}(\ell-1)$ имаме следното:
     \begin{equation}
       \label{eq:11}
-      \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} \subseteq \val{\tau_j}(L_1,\dots,L_n).
+      \{\beta \in \Sigma^\star \mid \tau_j \opsem{\ell-1}{R} \beta\} \subseteq \val{\tau_j}(L_1,\dots,L_n).
     \end{equation}
     Заключаваме, че:
     \begin{align*}
-      \{\alpha \in \Sigma^\star \mid \tau \Downarrow^\ell \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \Downarrow^{\ell-1} \beta\} & \comment\text{от Свойство~(\ref{eq:22})}\\
+      \{\alpha \in \Sigma^\star \mid \tau \opsem{\ell}{R} \alpha\} & = \{a\} \cdot \{\beta \in \Sigma^\star \mid \tau_j \opsem{\ell-1}{R} \beta\} & \comment\text{от Свойство~(\ref{eq:22})}\\
                                                                    & \subseteq \{a\} \cdot \val{\tau_j}(L_1,\dots,L_n) & \comment\text{от Свойство~(\ref{eq:11})}\\
                                                                    & = \{a\} \cdot L_j & \comment L_j = \val{\tau_j}(L_1,\dots,L_n)\\
       & = \val{\tau}(L_1,\dots,L_n) & \comment\text{деф. на денот. сем.}
@@ -487,24 +487,24 @@
   \item
     Сега нека $\tau \equiv \rho + \mu$ и последното правило, което сме приложили е следното:
     \begin{prooftree}
-      \AxiomC{$\rho \opsemReg{\ell-1} \alpha$}
+      \AxiomC{$\rho \opsem{\ell-1}{R} \alpha$}
       \RightLabel{\scriptsize{(left-or)}}
-      \UnaryInfC{$\rho + \mu \opsemReg{\ell} \alpha$}
+      \UnaryInfC{$\rho + \mu \opsem{\ell}{R} \alpha$}
     \end{prooftree}
 
     Знаем, че $\val{\tau}(L_1,\dots,L_n) = \val{\rho}(L_1,\dots,L_n) \cup \val{\mu}(L_1,\dots,L_n)$.
     Понеже сме приели, че $\textbf{Include}(\ell-1)$ е изпълнено, получаваме:
     \begin{align*}
-      \{\alpha \in \Sigma^\star \mid \rho \opsemReg{\ell-1} \alpha\} & \subseteq \val{\rho}(L_1,\dots,L_n)\\
-                                                                       & \subseteq \val{\tau}(L_1,\dots,L_n).
+      \{\alpha \in \Sigma^\star \mid \rho \opsem{\ell-1}{R} \alpha\} & \subseteq \val{\rho}(L_1,\dots,L_n)\\
+                                                                     & \subseteq \val{\tau}(L_1,\dots,L_n).
     \end{align*}
     
   \item
     Сега нека $\tau \equiv \rho + \mu$ и последното правило, което сме приложили е следното:
     \begin{prooftree}
-      \AxiomC{$\mu \opsemReg{\ell-1} \alpha$}
+      \AxiomC{$\mu \opsem{\ell-1}{R} \alpha$}
       \RightLabel{\scriptsize{(right-or)}}
-      \UnaryInfC{$\rho + \mu \opsemReg{\ell} \alpha$}
+      \UnaryInfC{$\rho + \mu \opsem{\ell}{R} \alpha$}
     \end{prooftree}
     Този случай е аналогичен на предния.
   \end{itemize}
@@ -515,7 +515,7 @@
 \begin{framed}
   \begin{theorem}[Теорема за еквивалентност]
     Нека $L_1,\dots,L_n$ е най-малката неподвижна точка на $\Gamma$. Тогава за всеки индекс $i$ измежду $1,\dots,n$ е изпълнено, че:
-    \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \Downarrow_{\vv{P}} \alpha\}.\]  
+    \[L_i = \{\alpha \in \Sigma^\star \mid \tau_i \opsem{}{R} \alpha\}.\]  
   \end{theorem}
 \end{framed}
 
